@@ -137,16 +137,17 @@ DDD.getPoints = function(obj){
 }
 
 DDD.translatePoint2D = function(point2){
-	var coords = geo.projection([ point2[0], point2[1] ]);
-	var coords2 = geo.projection2([ point2[0], point2[1] ]);
-
-	var coords3 = [coords[0] - (geo.terrainSize / 2), (geo.terrainSize / 2) - coords[1]];
-	// return new THREE.Vector2(coords3[0],coords3[1]);
+	var coords = geo.projection([ +point2[1], +point2[0] ]);
+	var center = geo.centerProjection;
 
 	var point = [];
 	var mp = 100000;
-	point[0] = (point2[0] * mp) - (geo.center[1]*mp);
-	point[1] = (point2[1] * mp) - (geo.center[0]*mp);
+	// point[0] = (point2[0] * mp) - (geo.center[1]*mp);
+	// point[1] = (point2[1] * mp) - (geo.center[0]*mp);
+	point[0] = coords[0] - center[0];
+	point[1] = coords[1] - center[1];
+
+	// console.log(point);
 
 	return new THREE.Vector2(point[0],point[1]);
 }

@@ -8,6 +8,7 @@ window.geo = {
 	//get field settings
 	terrainSize: 5, //km
 	center: [51.68836,5.30507],
+	zoom: 23
 };
 
 geo.init = function(){
@@ -88,21 +89,16 @@ geo.getHeight = function(pos){
 	console.log(tile);
 }
 
+//make projection
 geo.projection = d3.geo.mercator()
 	.translate([1000 / 2, 10000 / 2])
 	// .translate([geo.terrainSize / 2, geo.terrainSize / 2])
-	.clipAngle(0.00000001)  
-    // .scale(10000)
-    // .scale(window.innerWidth)
+    .scale(Math.pow(2,geo.zoom))
     // .rotate([-9, 0, 0])
     .center(geo.center);
 
-geo.projection2 = d3.geo.mercator()
-	.translate([geo.terrainSize / 2, geo.terrainSize / 2])
-    .scale(1000000000)
-    // .scale(window.innerWidth)
-    //.rotate([-9, 0, 0])
-    .center(geo.center);
+//get center in projection
+geo.centerProjection = geo.projection(geo.center);
 
 //get tiles
 geo.tile = {};
