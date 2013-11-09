@@ -9,7 +9,7 @@ window.DDD = {
 DDD.init = function(){
 
 	//camera
-	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 1000 );
+	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 5000 );
     DDD.camera.position.z = 500;
 
     //make scene
@@ -26,16 +26,9 @@ DDD.init = function(){
     	//wireframe: true,
     	color: 0x95a5a6,
     	shading: THREE.FlatShading,
-    	// wireframe: true
     });
 
-
-    var test = new THREE.IcosahedronGeometry(50, 1);
-    testing = new THREE.Mesh(test, DDD.material.building);
-    // DDD.scene.add(testing);
-    //testing.position.set(0,0,0);
-
-    var planeGeo = new THREE.PlaneGeometry(1000, 1000, 50, 50);
+    var planeGeo = new THREE.PlaneGeometry(5000, 5000, 50, 50);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
     var plane = new THREE.Mesh(planeGeo, planeMat);
     //plane.rotation.x = -Math.PI/2;
@@ -44,8 +37,6 @@ DDD.init = function(){
     //light
     var hemisphere = new THREE.HemisphereLight(0xffffff, 0x999999, 1);
  	DDD.scene.add(hemisphere);
-
- 	//DDD.camera.lookAt(DDD.buildings[0]);
 
     //camera
     DDD.setCameraControls();
