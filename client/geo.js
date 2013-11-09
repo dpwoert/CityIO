@@ -6,9 +6,9 @@ window.geo = {
 	calls: 0,
 
 	//get field settings
-	terrainSize: 5, //km
+	terrainSize: 10, //km
 	center: [51.68836,5.30507],
-	zoom: 23
+	zoom: 22
 };
 
 geo.init = function(){
@@ -47,7 +47,8 @@ geo.getPages = function(obj, page, save, finished, finishedAll){
 		data[save] = [];
 	}
 
-	console.log('call to citySDK')
+	console.log('call to citySDK for page ' + page);
+	console.log(obj);
 
 	//get json by ajax
 	Meteor.http.get(geo.APIurl, call, function(error, result){
@@ -59,13 +60,11 @@ geo.getPages = function(obj, page, save, finished, finishedAll){
 		//check if finished/more pages
 		if(result.data.results.length < obj.per_page){
 			console.log('finished');
-			//console.log(data.BAG);
 		} else if(geo.calls <= geo.maxCalls) {
-			finished(result.data.results);
-			geo.getPages(obj, result.next_page, save, finished);
+			finished(result.data.results); //add to threejs
+			geo.getPages(obj, page+1, save, finished);
 		} else {
 			console.log('aborted by maxcalls');
-			//geo.finished();
 		}
 	});
 };
