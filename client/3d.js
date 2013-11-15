@@ -42,6 +42,7 @@ DDD.init = function(){
     DDD.setCameraControls();
 
     //action
+    DDD.clock = new THREE.Clock();
     DDD.animate();
 
     DDD.enabled = true;
@@ -53,7 +54,6 @@ DDD.setCameraControls = function(){
 	//DDD.controls = new THREE.OrbitControls( DDD.camera );
 
 	DDD.controls.movementSpeed = 50;
-	DDD.controls.domElement = DDD.renderer.domElement;
 	DDD.controls.rollSpeed = Math.PI / 8;
 	DDD.controls.autoForward = false;
 	DDD.controls.dragToLook = false;
@@ -67,7 +67,7 @@ DDD.animate = function(){
     //shedule next frame
     requestAnimationFrame( DDD.animate );
 
-    DDD.controls.update(0.1);
+    DDD.controls.update( DDD.clock.getDelta() );
 
     //render
     DDD.renderer.render( DDD.scene, DDD.camera );
@@ -88,6 +88,8 @@ DDD.addBAG = function(obj){
 
 	//loop through polygones
 	$.each(obj, function(key,val){
+
+		//tile.getHeight(val[0]);
 
 		//get points
 		var points = DDD.getPoints(val);
