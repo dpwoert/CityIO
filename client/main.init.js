@@ -8,4 +8,7 @@ Meteor.startup(function(){
 	//make 3d
 	DDD.init();
 	
+	window.rebuildCity = function(){
+		Meteor.call('buildCity');
+	}
 });

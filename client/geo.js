@@ -14,58 +14,20 @@ window.geo = {
 geo.init = function(){
 
 	//get the data for den bosch
-	geo.getBAG(geo.center);
-
-	tile.getHeight(geo.center);
+	geo.get();
 	
 };
 
-geo.getBAG = function(pos){
+geo.get = function(){
 
-	var options = {
-		lat: pos[0],
-		lon: pos[1],
-		radius: 100*geo.terrainSize,
-		layer: 'bag.panden',
-		geom: true,
-		per_page: 1000,
-		page: 1
-	};
+	//add buildings
+	geo.buildingsDB = new Meteor.Collection('buildings');
+	geo.buildings = geo.buildingsDB.find();
 
-	geo.getPages(options, 1, 'BAG', DDD.loadData);
-};
-
-geo.getPages = function(obj, page, save, finished, finishedAll){
-
-	//get call settings
-	obj.page = page;
-	var call = { params: obj };
-	geo.calls ++;
-
-	//check if save variable exist
-	if(data[save] == undefined){
-		data[save] = [];
-	}
-
-	//get json by ajax
-	Meteor.http.get(geo.APIurl, call, function(error, result){
-		data[save] = data[save].concat(result.data.results);
-
-		//check if finished/more pages
-		if(result.data.results.length < obj.per_page){
-		} else if(geo.calls <= geo.maxCalls) {
-			finished(result.data.results); //add to threejs
-			geo.getPages(obj, page+1, save, finished);
-		} else {
-			//console.log('aborted by maxcalls');
-		}
+	geo.buildings.forEach(function(building){
+		console.log('add ' + building.id);
+		DDD.addBAG(building);
 	});
-};
-
-geo.getHeight = function(pos){
-
-	//get url params
-	tile.getHeight(pos);
 
 }
 
