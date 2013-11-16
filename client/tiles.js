@@ -84,7 +84,7 @@ tile.getHeight = function(pos){
 
 	//var cache = tile.checkCache(obj.x,obj.y);
 
-	Meteor.call('getHeight', pos, zoom, function (error, result) {});
+	//Meteor.call('getHeight', pos, zoom, function (error, result) {});
 
 	for(var i = tile.maxZoom ; i >= tile.minZoom ; i--){
 
