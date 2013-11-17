@@ -74,20 +74,10 @@ DDD.animate = function(){
 
 }
 
-DDD.loadData = function(d){
-
-	//loop through BAG data
-	$.each(d, function(key,val){
-		DDD.addBAG(val.geom.coordinates);
-		// return false;
-	});
-
-};
-
-DDD.addBAG = function(obj){
+DDD.addBuilding = function(building,data){
 
 	//loop through polygones
-	$.each(obj, function(key,val){
+	$.each(building, function(key,val){
 
 		//tile.getHeight(val[0]);
 
@@ -106,14 +96,14 @@ DDD.addBAG = function(obj){
 
 		//extrude & make mesh
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		var building = new THREE.Mesh( geometry, DDD.material.building );
+		var building3D = new THREE.Mesh( geometry, DDD.material.building );
 
 		// building.position.x = points[0].x;
 		// building.position.y = points[0].y;
 		//building.scale.set(10,10,0);
 
-		DDD.buildings.push(building);
-		DDD.scene.add(building);
+		DDD.buildings.push(building3D);
+		DDD.scene.add(building3D);
 
 	});
 

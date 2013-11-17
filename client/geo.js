@@ -11,7 +11,12 @@ window.geo = {
 	zoom: 22
 };
 
+
 geo.init = function(){
+
+	//set collections
+	Meteor.subscribe("all-buildings");
+	geo.buildingsDB = new Meteor.Collection('buildings');
 
 	//get the data for den bosch
 	geo.get();
@@ -21,12 +26,14 @@ geo.init = function(){
 geo.get = function(){
 
 	//add buildings
-	geo.buildingsDB = new Meteor.Collection('buildings');
-	geo.buildings = geo.buildingsDB.find();
+	Meteor.autorun(function(){
 
-	geo.buildings.forEach(function(building){
-		console.log('add ' + building.id);
-		DDD.addBAG(building);
+		geo.buildings = geo.buildingsDB.find();
+		geo.buildings.forEach(function(building){
+			console.log(building)
+			DDD.addBuilding(building.geom.coordinates,building);
+		});
+
 	});
 
 }

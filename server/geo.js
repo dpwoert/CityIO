@@ -8,13 +8,24 @@ var geo = {
 	center: [51.68836,5.30507]
 };
 
+//publish on startup
+Meteor.startup(function(){
+
+	//load buildings
+	geo.buildingsDB = new Meteor.Collection('buildings');
+	Meteor.publish("all-buildings", function() {
+		return geo.buildingsDB.find({});
+	});		
+
+
+});
+
 Meteor.methods({
 	//trigger loading all api's again
 	buildCity: function(){
 
 		//load & resest DB
-		var buildings = new Meteor.Collection('buildings');
-		buildings.remove({});
+		geo.buildingsDB.remove({});
 		console.log('==== Building city ====');
 
 		//get & prepare BAG entries
@@ -22,7 +33,7 @@ Meteor.methods({
 			'pos': geo.center, 
 			'radius': geo.terrainSize,
 			'after': geo.addBAG,
-			'db': buildings,
+			'db': geo.buildingsDB,
 			'finished': function(){}
 		});
 	}
@@ -61,6 +72,7 @@ geo.getBAG = function(obj){
 
 			//check if finished/more pages
 			if(result.data.results.length < obj.per_page || geo.calls >= geo.maxCalls){
+
 				//finished
 				console.log('finshed!!1!');
 				console.log('records added:' + obj.db.find().fetch().length);
