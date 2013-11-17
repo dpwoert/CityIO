@@ -79,8 +79,6 @@ DDD.addBuilding = function(building,data){
 	//loop through polygones
 	$.each(building, function(key,val){
 
-		//tile.getHeight(val[0]);
-
 		//get points
 		var points = DDD.getPoints(val);
 		var shape = new THREE.Shape(points);
@@ -98,12 +96,19 @@ DDD.addBuilding = function(building,data){
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
 		var building3D = new THREE.Mesh( geometry, DDD.material.building );
 
+		//add data
+		building3D.userData.id = data.id;
+		building3D.userData.bouwjaar = data.bouwjaar;
+		building3D.userData.height = data.height;
+
 		// building.position.x = points[0].x;
 		// building.position.y = points[0].y;
 		//building.scale.set(10,10,0);
 
 		DDD.buildings.push(building3D);
 		DDD.scene.add(building3D);
+
+		//check if already exists [todo]
 
 	});
 
