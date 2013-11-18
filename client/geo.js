@@ -30,7 +30,7 @@ geo.get = function(){
 
 		geo.buildings = geo.buildingsDB.find();
 		geo.buildings.forEach(function(building){
-			console.log(building)
+			//console.log(building)
 			DDD.addBuilding(building.geom.coordinates,building);
 		});
 

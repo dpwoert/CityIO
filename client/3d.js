@@ -82,10 +82,12 @@ DDD.addBuilding = function(building,data){
 		//get points
 		var points = DDD.getPoints(val);
 		var shape = new THREE.Shape(points);
+
+		var height = data.calculated;
 		
 		//settings
 		var extrusionSettings = {
-			amount: Math.random()*20 + 10,
+			amount: height,
 			//bevelSize: 15,
 			bevelEnabled: false,
 			//steps: 0,

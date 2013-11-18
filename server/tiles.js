@@ -1,6 +1,8 @@
 tiles = {
 	minZoom: 11,
-	maxZoom: 14
+	maxZoom: 14,
+	minHeight: -12,
+	maxHeight: 30
 };
 
 tiles.getTile = function(pos, zoom){
@@ -65,13 +67,27 @@ tiles.readHeight = function(point, img, db, id){
         var x = Math.floor(point[0]*256);
         var y = Math.floor(point[1]*256);
         console.log('x: ' + x + ' y: ' + y);
-        console.log( png.getPixel(x,y) );
+        var pixel = png.getPixel(x,y)
+        console.log( pixel );
 
         //get height
+        var height = ((pixel[1]*256)+pixel[2])/100 + tiles.minHeight;
+        console.log('HOOGTE: ' + height + ' m');
 
-        //save
+        //get floor
 
-        //check if all records saved...
+        //try to save
+        var Fiber = Npm.require('fibers');
+        Fiber(function(){
+
+	        geo.buildingsDB.update(id, {
+	        	$set: {
+		        	calculated: height,
+		        	floor: 0	
+	        	}
+	        });
+
+        }).run();
 
     });
 }
@@ -101,47 +117,50 @@ tiles.getHeight = function(pos, zoom, db, id){
 			if (err) throw err;
 	  		tiles.readHeight(tile.point, data, db, id);
 		});
+   	} 
+   	else {
+
+		//get from web so prepare connection
+		url = url.parse(urlProvider);
+	    var options = { 
+	    	host: url.hostname, port: 80, path: url.pathname,
+	    	headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
+	    };
+
+	    //get from the interwebz
+	    var request = http.get(options, function(res){
+		    var imagedata = '';
+		    res.setEncoding('binary');
+		    console.log('get url ' + urlProvider);
+
+		    //received more data
+		    res.on('data', function(chunk){
+		        imagedata += chunk;
+		    })
+
+		    //image completed
+		    res.on('end', function(){
+
+		    	if(imagedata.indexOf('error')>0){
+		    		console.log('error at their host, bitches');
+		    		tiles.getHeight(pos, zoom - 1, db, id);
+		    	} 
+		    	else {
+
+			    	//save to cache file
+			        fs.writeFile(cachePath, imagedata, 'binary', function(err){
+			            if (err) throw err;
+			            console.log('File saved, now read png.');
+				        tiles.readHeight(tile.point, imagedata, db, id);
+			        });
+
+		    	}
+
+		    })
+
+		});
    	}
 
-	//get from web so prepare connection
-	url = url.parse(urlProvider);
-    var options = { 
-    	host: url.hostname, port: 80, path: url.pathname,
-    	headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
-    };
-
-    //get from the interwebz
-    var request = http.get(options, function(res){
-	    var imagedata = '';
-	    res.setEncoding('binary');
-	    console.log('get url ' + urlProvider);
-
-	    //received more data
-	    res.on('data', function(chunk){
-	        imagedata += chunk;
-	    })
-
-	    //image completed
-	    res.on('end', function(){
-
-	    	if(imagedata.indexOf('error')>0){
-	    		console.log('error at their host, bitches');
-	    		tiles.getHeight(pos, zoom - 1, db, id);
-	    	} 
-	    	else {
-
-		    	//save to cache file
-		        fs.writeFile(cachePath, imagedata, 'binary', function(err){
-		            if (err) throw err;
-		            console.log('File saved, now read png.');
-			        tiles.readHeight(tile.point, imagedata, db, id);
-		        });
-
-	    	}
-
-	    })
-
-	});
 
 };
 
