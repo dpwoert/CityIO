@@ -1,4 +1,4 @@
-var geo = {
+geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
 	maxCalls: 2,
 	calls: 0,
@@ -74,7 +74,7 @@ geo.getBAG = function(obj){
 			if(result.data.results.length < obj.per_page || geo.calls >= geo.maxCalls){
 
 				//finished
-				console.log('finshed!!1!');
+				console.log('finshed gettings BAG data');
 				console.log('records added:' + obj.db.find().fetch().length);
 				obj.finished();
 			} 
@@ -90,10 +90,28 @@ geo.addBAG = function(obj, db){
 	var bagID = obj.layers['bag.panden'].data.pand_id;
 	//console.log('add bag, id: ' + bagID);
 
+	//get center
+	var geoCenter = geo.getCenter(obj.geom.coordinates[0]);
+
+	//insert into database
 	db.insert({
 		id: bagID,
 		bouwjaar: obj.layers['bag.panden'].data.bouwjaar,
 		geom: obj.geom,
-		height: Math.random()*20 + 10
+		height: 0,
+		center: geoCenter
+	}, function(error, id){
+		//get & save height
+		tiles.saveHeight(geoCenter, db, id);
 	});
+}
+
+geo.getCenter = function(arr){
+    var x = arr.map(function(a){ return a[0] });
+    var y = arr.map(function(a){ return a[1] });
+    var minX = Math.min.apply(null, x);
+    var maxX = Math.max.apply(null, x);
+    var minY = Math.min.apply(null, y);
+    var maxY = Math.max.apply(null, y);
+    return [(minX + maxX)/2, (minY + maxY)/2];
 }
