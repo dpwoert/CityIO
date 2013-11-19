@@ -28,6 +28,9 @@ geo.get = function(){
 	//add buildings
 	Meteor.autorun(function(){
 
+		//check for performance
+		if(DDD.pause) return false;
+
 		geo.buildings = geo.buildingsDB.find();
 		geo.buildings.forEach(function(building){
 			//console.log(building)

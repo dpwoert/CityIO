@@ -40,12 +40,12 @@ tiles.getTile = function(pos, zoom){
 	tile.y = tile._y;
 
 	//round
-	tile._x = Math.floor(tile.x);
-	tile._y = Math.floor(tile.y);
+	tile._x = Math.ceil(tile.x);
+	tile._y = Math.ceil(tile.y);
 
 	//get point
-	tile.dx = tile.x - tile._x;
-	tile.dy = tile.y - tile._y;
+	tile.dx = tile._x - tile.x;
+	tile.dy = tile._y - tile.y;
 
 	return {
 		x: tile._x,
@@ -56,7 +56,7 @@ tiles.getTile = function(pos, zoom){
 }
 
 //read height data
-tiles.readHeight = function(point, img, db, id){
+tiles.readHeight = function(point, img, url, db, id){
 	console.log('reading png');
 
 	var PNGReader = Meteor.require('png.js');
@@ -66,9 +66,9 @@ tiles.readHeight = function(point, img, db, id){
 
         var x = Math.floor(point[0]*256);
         var y = Math.floor(point[1]*256);
-        console.log('x: ' + x + ' y: ' + y);
+        //console.log('x: ' + x + ' y: ' + y);
         var pixel = png.getPixel(x,y)
-        console.log( pixel );
+        //console.log( pixel );
 
         //get height
         var height = ((pixel[1]*256)+pixel[2])/100 + tiles.minHeight;
@@ -83,7 +83,11 @@ tiles.readHeight = function(point, img, db, id){
 	        geo.buildingsDB.update(id, {
 	        	$set: {
 		        	calculated: height,
-		        	floor: 0	
+		        	floor: 0,	
+
+		        	//debug purposes
+		        	tileUrl: url,
+		        	tilePoint: point
 	        	}
 	        });
 
@@ -102,23 +106,13 @@ tiles.getHeight = function(pos, zoom, db, id){
 
 	//get tile
 	var tile = tiles.getTile(pos, zoom);
-	console.log(tile);
+	//console.log(tile);
 	var urlProvider = 'http://ahn.geodan.nl/ahn/viewer3/cgi-bin/tilecache/tilecache.py/1.0.0/iahn2/'+tile.z+'/'+tile.x+'/'+tile.y+'.png';
 	var cachePath = tile.z + '-' + tile.x + '-' + tile.y + '.png';
 	console.log(urlProvider);
 
-	//check if file is already cached
-	var readfile = function(path){
-   	}
-
- 	if (fs.existsSync(cachePath)){
-   		console.log('already exists');
-   		fs.readFile(cachePath, function (err, data) {
-			if (err) throw err;
-	  		tiles.readHeight(tile.point, data, db, id);
-		});
-   	} 
-   	else {
+   	//get file from web
+   	var getfile = function(){
 
 		//get from web so prepare connection
 		url = url.parse(urlProvider);
@@ -142,7 +136,7 @@ tiles.getHeight = function(pos, zoom, db, id){
 		    res.on('end', function(){
 
 		    	if(imagedata.indexOf('error')>0){
-		    		console.log('error at their host, bitches');
+		    		console.log('FAILED - error at their host | trying again');
 		    		tiles.getHeight(pos, zoom - 1, db, id);
 		    	} 
 		    	else {
@@ -150,8 +144,8 @@ tiles.getHeight = function(pos, zoom, db, id){
 			    	//save to cache file
 			        fs.writeFile(cachePath, imagedata, 'binary', function(err){
 			            if (err) throw err;
-			            console.log('File saved, now read png.');
-				        tiles.readHeight(tile.point, imagedata, db, id);
+			            console.log('load from url');
+				        tiles.readHeight(tile.point, imagedata, urlProvider, db, id);
 			        });
 
 		    	}
@@ -159,8 +153,17 @@ tiles.getHeight = function(pos, zoom, db, id){
 		    })
 
 		});
-   	}
 
+   	};
+
+   	//check if in cache
+   	fs.readFile(cachePath, "binary", function(err, file) {  
+    	if(err) {
+    		getfile();
+    	} else {
+    		tiles.readHeight(tile.point, file, urlProvider, db, id);
+    	}
+    });
 
 };
 

@@ -1,6 +1,6 @@
 geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 2,
+	maxCalls: 3,
 	calls: 0,
 
 	//get field settings

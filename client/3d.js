@@ -101,7 +101,13 @@ DDD.addBuilding = function(building,data){
 		//add data
 		building3D.userData.id = data.id;
 		building3D.userData.bouwjaar = data.bouwjaar;
-		building3D.userData.height = data.height;
+		building3D.userData.height = data.calculated;
+
+		//add cache data
+		building3D.userData.tile = {
+			url: data.tileUrl,
+		    point: data.tilePoint
+		}
 
 		// building.position.x = points[0].x;
 		// building.position.y = points[0].y;
