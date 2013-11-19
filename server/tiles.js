@@ -40,11 +40,11 @@ tiles.getTile = function(pos, zoom){
 	tile.y = tile._y;
 
 	//round
-	tile._x = Math.ceil(tile.x);
+	tile._x = Math.floor(tile.x);
 	tile._y = Math.ceil(tile.y);
 
 	//get point
-	tile.dx = tile._x - tile.x;
+	tile.dx = tile.x - tile._x;
 	tile.dy = tile._y - tile.y;
 
 	return {
@@ -83,7 +83,7 @@ tiles.readHeight = function(point, img, url, db, id){
 	        geo.buildingsDB.update(id, {
 	        	$set: {
 		        	calculated: height,
-		        	floor: 0,	
+		        	floor: 6, //NAP avg in Den Bosch	
 
 		        	//debug purposes
 		        	tileUrl: url,

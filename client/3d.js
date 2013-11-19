@@ -83,7 +83,8 @@ DDD.addBuilding = function(building,data){
 		var points = DDD.getPoints(val);
 		var shape = new THREE.Shape(points);
 
-		var height = data.calculated;
+		//make height
+		var height = data.calculated * geo.pixelScale;
 		
 		//settings
 		var extrusionSettings = {
