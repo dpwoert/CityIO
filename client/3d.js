@@ -47,6 +47,8 @@ DDD.init = function(){
 
     DDD.enabled = true;
 
+    DDD.addTest();
+
 };
 
 DDD.setCameraControls = function(){
@@ -121,7 +123,7 @@ DDD.addBuilding = function(building,data){
 
 	});
 
-}
+};
 
 DDD.getPoints = function(obj){
 	var points = [];
@@ -131,7 +133,7 @@ DDD.getPoints = function(obj){
 	}
 
 	return points;
-}
+};
 
 DDD.translatePoint2D = function(point2){
 	var coords = geo.projection([ +point2[1], +point2[0] ]);
@@ -147,4 +149,38 @@ DDD.translatePoint2D = function(point2){
 	// console.log(point);
 
 	return new THREE.Vector2(point[0],point[1]);
+};
+
+DDD.addTest = function(){
+	// model
+
+	var manager = new THREE.LoadingManager();
+	manager.onProgress = function ( item, loaded, total ) {
+
+		console.log( item, loaded, total );
+
+	};
+
+	var loader = new THREE.OBJLoader( manager );
+	loader.load( 'models/kerkexport5.obj', function ( object ) {
+
+		object.traverse( function ( child ) {
+
+			if ( child instanceof THREE.Mesh ) {
+
+				child.material = DDD.material.building;
+				child.material.needsUpdate = true;
+
+			}
+
+		} );
+
+		//object.position.y = - 80;
+
+		DDD.TESTITEM = object;
+		console.log(object);
+		DDD.scene.add( object );
+
+	} );
+
 }

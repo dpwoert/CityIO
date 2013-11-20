@@ -19,7 +19,7 @@ THREE.saveGeometryToObj = function (geometry, save) {
     }
 
     if(save){
-        console.save(save);
+        console.save(s);
     }
 
     return s;
