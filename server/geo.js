@@ -1,10 +1,10 @@
 geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 3,
+	maxCalls: 6,
 	calls: 0,
 
 	//get field settings
-	terrainSize: 2, //km
+	terrainSize: 3, //km
 	center: [51.68836,5.30507]
 };
 

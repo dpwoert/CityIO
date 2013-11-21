@@ -143,7 +143,7 @@ tiles.getHeight = function(pos, zoom, db, id){
 
 			    	//save to cache file
 			        fs.writeFile(cachePath, imagedata, 'binary', function(err){
-			            if (err) throw err;
+			            if (err) console.log('err');
 			            console.log('load from url');
 				        tiles.readHeight(tile.point, imagedata, urlProvider, db, id);
 			        });
