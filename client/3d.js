@@ -116,6 +116,8 @@ DDD.addBuilding = function(building,data){
 		// building.position.y = points[0].y;
 		//building.scale.set(10,10,0);
 
+		if(data.id == 796100000237576) return false;
+
 		DDD.buildings.push(building3D);
 		DDD.scene.add(building3D);
 
@@ -162,7 +164,7 @@ DDD.addTest = function(){
 	};
 
 	var loader = new THREE.OBJLoader( manager );
-	loader.load( 'models/kerkexport5.obj', function ( object ) {
+	loader.load( 'models/kerkexport9.obj', function ( object ) {
 
 		object.traverse( function ( child ) {
 
