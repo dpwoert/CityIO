@@ -69,7 +69,9 @@ DDD.animate = function(){
     //shedule next frame
     requestAnimationFrame( DDD.animate );
 
+    //update
     DDD.controls.update( DDD.clock.getDelta() );
+    timeline.run();
 
     //render
     DDD.renderer.render( DDD.scene, DDD.camera );
@@ -103,8 +105,9 @@ DDD.addBuilding = function(building,data){
 
 		//add data
 		building3D.userData.id = data.id;
-		building3D.userData.bouwjaar = data.bouwjaar;
+		building3D.userData.bouwjaar = +data.bouwjaar;
 		building3D.userData.height = data.calculated;
+		building3D.userData.height3D = height;
 
 		//add cache data
 		building3D.userData.tile = {
@@ -120,6 +123,9 @@ DDD.addBuilding = function(building,data){
 
 		DDD.buildings.push(building3D);
 		DDD.scene.add(building3D);
+
+		//add to timeline
+		timeline.add(building3D);
 
 		//check if already exists [todo]
 
