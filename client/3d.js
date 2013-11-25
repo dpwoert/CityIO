@@ -26,6 +26,8 @@ DDD.init = function(){
     	//wireframe: true,
     	color: 0x95a5a6,
     	shading: THREE.FlatShading,
+    	// transparent: true,
+    	// opacity: 0.5
     });
 
     var planeGeo = new THREE.PlaneGeometry(5000, 5000, 50, 50);

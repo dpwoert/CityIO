@@ -2,7 +2,7 @@ window.timeline = {
 	startDate: 1900,
 	endDate: 2020,
 	currentDate: 1900,
-	delta: 0.1,
+	delta: 0.35,
 	objects: []
 };
 
