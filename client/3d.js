@@ -1,8 +1,11 @@
 window.DDD = {
 
+	//collections
 	material: {},
+	buildings: [],
 
-	buildings: []
+	//options
+	merge: false
 
 };
 

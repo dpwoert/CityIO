@@ -10,8 +10,6 @@ timeline.add = function(obj){
 
 	if(+obj.userData.bouwjaar > timeline.startDate){
 		//obj.position.setY( obj.userData.height3D );
-		obj.visible = false;
-
 		timeline.objects.push(obj);
 	}
 	
@@ -32,6 +30,8 @@ timeline.run = function(){
 
 		if(+obj.userData.bouwjaar < currentDate){
 			obj.visible = true;
+		} else {
+			obj.visible = false;
 		}
 
 	});
