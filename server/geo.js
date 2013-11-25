@@ -1,10 +1,10 @@
 geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 6,
+	maxCalls: 8,
 	calls: 0,
 
 	//get field settings
-	terrainSize: 3, //km
+	terrainSize: 2, //km
 	center: [51.68836,5.30507]
 };
 
@@ -13,6 +13,7 @@ Meteor.startup(function(){
 
 	//load buildings
 	geo.buildingsDB = new Meteor.Collection('buildings');
+	geo.streetsDB = new Meteor.Collection('streets');
 	Meteor.publish("all-buildings", function() {
 		return geo.buildingsDB.find({});
 	});		
@@ -36,6 +37,21 @@ Meteor.methods({
 			'db': geo.buildingsDB,
 			'finished': function(){}
 		});
+	},
+
+	buildStreets: function(){
+
+		//load & reset DB
+		geo.buildingsDB.remove({});
+		console.log('==== Building streets ====');
+
+		//get streets
+		geo.getOSM({
+			'pos': geo.center,
+			'radius': geo.terrainSize,
+			'db': geo.streetsDB
+		});
+
 	}
 });
 
@@ -104,6 +120,64 @@ geo.addBAG = function(obj, db){
 		//get & save height
 		tiles.saveHeight(geoCenter, db, id);
 	});
+}
+
+geo.getOSM = function(obj){
+	var options = {
+		lat: obj.pos[0],
+		lon: obj.pos[1],
+		radius: 1000*obj.radius,
+		geom: true,
+		'osm::highway': '',
+		per_page: 5000,
+		page: 0
+	};
+
+	getPage();
+
+	function getPage(){
+
+		//measure no calls
+		geo.calls++;
+		options.page += 1;
+		console.log('get OSM page: ' + options.page)
+
+		//make request
+		Meteor.http.get(geo.APIurl, { params: options } , function(error, result){
+
+			console.log(result.data.url);
+
+			//add to data object
+			_.each(result.data.results, function(value){
+				if(value.name  && value.layers.osm.data.maxspeed){
+
+					//make object
+					var street = {
+						'id': value.cdk_id,
+						'name': value.name,
+						'maxspeed': value.layers.osm.data.maxspeed,
+						'highway': value.layers.osm.data.highway,
+					}
+
+					//save object
+					obj.db.insert(street);
+
+				}
+			});
+
+			//check if finished/more pages
+			if(result.data.results.length < obj.per_page || geo.calls >= geo.maxCalls){
+
+				//finished
+				console.log('finshed gettings OSM data');
+				console.log('records added:' + obj.db.find().fetch().length);
+
+			} 
+			else {
+				getPage();
+			}
+		});
+	}
 }
 
 geo.getCenter = function(arr){

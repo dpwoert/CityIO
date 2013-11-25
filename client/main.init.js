@@ -15,4 +15,8 @@ Meteor.startup(function(){
 		DDD.pause = true;
 		Meteor.call('buildCity');
 	}
+	window.rebuildStreets = function(){
+		DDD.pause = true;
+		Meteor.call('buildStreets');
+	}
 });
