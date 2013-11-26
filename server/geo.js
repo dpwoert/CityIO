@@ -1,10 +1,10 @@
 geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 8,
+	maxCalls: 10,
 	calls: 0,
 
 	//get field settings
-	terrainSize: 2, //km
+	terrainSize: 1.5, //km
 	center: [51.68836,5.30507]
 };
 
@@ -42,7 +42,7 @@ Meteor.methods({
 	buildStreets: function(){
 
 		//load & reset DB
-		geo.buildingsDB.remove({});
+		geo.streetsDB.remove({});
 		console.log('==== Building streets ====');
 
 		//get streets
