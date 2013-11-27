@@ -5,7 +5,15 @@ window.DDD = {
 	buildings: [],
 
 	//options
-	merge: false
+	merge: false,
+
+	//colors
+	pollution: {
+		min: 20.806,
+		max: 45.5,
+		steps: 6,
+		colors: [0xbdc3c7,0xB1DEBC, 0x6CD6A0,0x009470,0x009470,0xB32706]
+	}
 
 };
 
@@ -25,21 +33,7 @@ DDD.init = function(){
     document.body.appendChild( DDD.renderer.domElement );
 
     //make material
-    DDD.material.building = new THREE.MeshLambertMaterial({
-    	//wireframe: true,
-    	color: 0x95a5a6,
-    	shading: THREE.FlatShading,
-    	// transparent: true,
-    	// opacity: 0.5
-    }); 
-
-    DDD.material.buildingRED = new THREE.MeshLambertMaterial({
-    	//wireframe: true,
-    	color: 0xFF0000,
-    	shading: THREE.FlatShading,
-    	// transparent: true,
-    	// opacity: 0.5
-    });
+   	DDD.makeMaterials();
 
     var planeGeo = new THREE.PlaneGeometry(5000, 5000, 50, 50);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
@@ -60,7 +54,7 @@ DDD.init = function(){
 
     DDD.enabled = true;
 
-    DDD.addTest();
+    //DDD.addTest();
 
 };
 
@@ -90,6 +84,30 @@ DDD.animate = function(){
 
 }
 
+DDD.makeMaterials = function(){
+
+	//make scale for pollution
+	DDD.pollution.scale = d3.scale.linear()
+		.domain([DDD.pollution.min, DDD.pollution.max])
+		.range([0,DDD.pollution.steps-1]);
+
+	//start
+	DDD.material.building = [];
+
+	//loop
+	for(var i = 0; i < DDD.pollution.steps; i++){
+
+		DDD.material.building[i] = new THREE.MeshLambertMaterial({
+	    	color: DDD.pollution.colors[i],
+	    	shading: THREE.FlatShading,
+	    	// transparent: true,
+	    	// opacity: 0.5
+    	}); 
+
+	}
+
+}
+
 DDD.addBuilding = function(building,data){
 
 	//loop through polygones
@@ -111,15 +129,19 @@ DDD.addBuilding = function(building,data){
 			bevelThickness: 0
 		};
 
+		//group on pollution
+		var material = DDD.material.building[Math.round(DDD.pollution.scale(data.fijnstof.no2))];
+
 		//extrude & make mesh
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		var building3D = new THREE.Mesh( geometry, DDD.material.building );
+		var building3D = new THREE.Mesh( geometry, material );
 
 		//add data
 		building3D.userData.id = data.id;
 		building3D.userData.bouwjaar = +data.bouwjaar;
 		building3D.userData.height = data.calculated;
 		building3D.userData.height3D = height;
+		building3D.userData.fijnstof = data.fijnstof;
 
 		//add cache data
 		building3D.userData.tile = {
@@ -204,11 +226,11 @@ DDD.addTest = function(){
 	//V2
 	loader = new THREE.JSONLoader();
 
-	loader.load( "models/2.js", function( geometry ) {
+	loader.load( "models/3.js", function( geometry ) {
 
 	    //var geometry = new THREE.CubeGeometry(5,10,5);
 
-		mesh = new THREE.Mesh( geometry, DDD.material.buildingRED );
+		mesh = new THREE.Mesh( geometry, DDD.material.building );
 		//mesh.scale.set( 10, 10, 10 );
 		//mesh.position.y = 0;
 		//mesh.position.x = 0;

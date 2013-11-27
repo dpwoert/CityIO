@@ -36,5 +36,5 @@ mouse.click = function(){
     //console.log('http://geodata.nationaalgeoregister.nl/tms/1.0.0/brtachtergrondkaart@EPSG:28992@png8/');
     // THREE.saveGeometryToObj(mouse.active.geometry,true);
     //console.save(mouse.active);
-    Export.Object(mouse.active);
+    //Export.Object(mouse.active);
 }

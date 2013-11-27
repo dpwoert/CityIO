@@ -23,6 +23,7 @@ Meteor.startup(function(){
 });
 
 Meteor.methods({
+
 	//trigger loading all api's again
 	buildCity: function(){
 
@@ -53,7 +54,12 @@ Meteor.methods({
 			'db': geo.streetsDB
 		});
 
+	},
+
+	getPollution: function(){
+		research.getPollution(geo.buildingsDB);
 	}
+
 });
 
 geo.getBAG = function(obj){

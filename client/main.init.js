@@ -19,4 +19,8 @@ Meteor.startup(function(){
 		DDD.pause = true;
 		Meteor.call('buildStreets');
 	}
+	window.getPollution = function(){
+		DDD.pause = true;
+		Meteor.call('getPollution');
+	}
 });
