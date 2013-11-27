@@ -154,7 +154,7 @@ DDD.addBuilding = function(building,data){
 		//building.scale.set(10,10,0);
 
 		//hide church
-		if(data.id == 796100000237576) return false;
+		// if(data.id == 796100000237576) return false;
 
 		DDD.buildings.push(building3D);
 		DDD.scene.add(building3D);
