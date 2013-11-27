@@ -31,6 +31,14 @@ DDD.init = function(){
     	shading: THREE.FlatShading,
     	// transparent: true,
     	// opacity: 0.5
+    }); 
+
+    DDD.material.buildingRED = new THREE.MeshLambertMaterial({
+    	//wireframe: true,
+    	color: 0xFF0000,
+    	shading: THREE.FlatShading,
+    	// transparent: true,
+    	// opacity: 0.5
     });
 
     var planeGeo = new THREE.PlaneGeometry(5000, 5000, 50, 50);
@@ -76,7 +84,6 @@ DDD.animate = function(){
 
     //update
     DDD.controls.update( DDD.clock.getDelta() );
-    timeline.run();
 
     //render
     DDD.renderer.render( DDD.scene, DDD.camera );
@@ -124,13 +131,11 @@ DDD.addBuilding = function(building,data){
 		// building.position.y = points[0].y;
 		//building.scale.set(10,10,0);
 
+		//hide church
 		if(data.id == 796100000237576) return false;
 
 		DDD.buildings.push(building3D);
 		DDD.scene.add(building3D);
-
-		//add to timeline
-		timeline.add(building3D);
 
 		//check if already exists [todo]
 
@@ -167,32 +172,47 @@ DDD.translatePoint2D = function(point2){
 DDD.addTest = function(){
 	// model
 
-	var manager = new THREE.LoadingManager();
-	manager.onProgress = function ( item, loaded, total ) {
+	// var manager = new THREE.LoadingManager();
+	// manager.onProgress = function ( item, loaded, total ) {
 
-		console.log( item, loaded, total );
+	// 	console.log( item, loaded, total );
 
-	};
+	// };
 
-	var loader = new THREE.OBJLoader( manager );
-	loader.load( 'models/kerkexport9.obj', function ( object ) {
+	// var loader = new THREE.OBJLoader( manager );
+	// loader.load( 'models/kerkexport9.obj', function ( object ) {
 
-		object.traverse( function ( child ) {
+	// 	object.traverse( function ( child ) {
 
-			if ( child instanceof THREE.Mesh ) {
+	// 		if ( child instanceof THREE.Mesh ) {
 
-				child.material = DDD.material.building;
-				child.material.needsUpdate = true;
+	// 			child.material = DDD.material.building;
+	// 			child.material.needsUpdate = true;
 
-			}
+	// 		}
 
-		} );
+	// 	} );
 
-		//object.position.y = - 80;
+	// 	//object.position.y = - 80;
 
-		DDD.TESTITEM = object;
-		console.log(object);
-		DDD.scene.add( object );
+	// 	DDD.TESTITEM = object;
+	// 	console.log(object);
+	// 	DDD.scene.add( object );
+
+	// } );
+
+	//V2
+	loader = new THREE.JSONLoader();
+
+	loader.load( "models/2.js", function( geometry ) {
+
+	    //var geometry = new THREE.CubeGeometry(5,10,5);
+
+		mesh = new THREE.Mesh( geometry, DDD.material.buildingRED );
+		//mesh.scale.set( 10, 10, 10 );
+		//mesh.position.y = 0;
+		//mesh.position.x = 0;
+		DDD.scene.add( mesh );
 
 	} );
 
