@@ -13,11 +13,12 @@ Meteor.startup(function(){
 
 	//load buildings
 	geo.buildingsDB = new Meteor.Collection('buildings');
-	geo.streetsDB = new Meteor.Collection('streets');
 	Meteor.publish("all-buildings", function() {
 		return geo.buildingsDB.find({});
-	});		
+	});
 
+	//load streets		
+	geo.streetsDB = new Meteor.Collection('streets');
 
 });
 

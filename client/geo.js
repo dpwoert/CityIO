@@ -23,9 +23,6 @@ geo.init = function(){
 
 	//get the data for den bosch
 	geo.get();
-
-	//REMOVE
-	$('#year').click(function(){ timeline.active=true; });
 	
 };
 
