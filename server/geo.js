@@ -41,6 +41,50 @@ Meteor.methods({
 		});
 	},
 
+	updateBuilding: function(id, override){
+
+		if(!id || id < 1){
+			console.log('WRONG ID');
+			return false;
+		}
+
+		var set = {};
+
+		//check if building needs to be hidden
+		if(override.url){
+			set.url = override.url;
+		}
+
+		//custom height?
+		if(override.height){
+			set.height = override.height;
+		}
+
+		//hide
+		if(override.hide){
+			set.hide = true;
+		}
+
+		//clean overrides?
+		if(override.clean){
+			set.url = '';
+			set.height = '';
+			set.hide = false;
+		}
+
+		console.log('find id: ' + id);
+		console.log(geo.buildingsDB.find({ 'id':id.toString() }).fetch());
+
+		//update building/overide automatic parameters
+		geo.buildingsDB.update({ 'id':id.toString() }, {
+        	$set: set
+        });
+
+        console.log('updated building ' + id);
+        console.log(set);
+
+	},
+
 	buildStreets: function(){
 
 		//load & reset DB

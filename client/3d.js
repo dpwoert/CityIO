@@ -55,8 +55,6 @@ DDD.init = function(){
 
     DDD.enabled = true;
 
-    DDD.addTest();
-
 };
 
 DDD.setCameraControls = function(){
@@ -114,58 +112,82 @@ DDD.addBuilding = function(building,data){
 	//loop through polygones
 	$.each(building, function(key,val){
 
+		//group on pollution
+		var material = DDD.material.building[Math.round(DDD.pollution.scale(data.fijnstof.no2))];
+
 		//get points
 		var points = DDD.getPoints(val);
 		var shape = new THREE.Shape(points);
 
 		//make height
-		var height = data.calculated * geo.pixelScale;
-		
-		//settings
-		var extrusionSettings = {
-			amount: height,
-			//bevelSize: 15,
-			bevelEnabled: false,
-			//steps: 0,
-			bevelThickness: 0
-		};
-
-		//group on pollution
-		var material = DDD.material.building[Math.round(DDD.pollution.scale(data.fijnstof.no2))];
-
-		//extrude & make mesh
-		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		var building3D = new THREE.Mesh( geometry, material );
+		var height;
+		if(data.height) { height = data.height; }
+		else { height = data.calculated }
+		height *= geo.pixelScale;
 
 		//add data
-		building3D.userData.id = data.id;
-		building3D.userData.bouwjaar = +data.bouwjaar;
-		building3D.userData.height = data.calculated;
-		building3D.userData.height3D = height;
-		building3D.userData.fijnstof = data.fijnstof;
+		var userdata = {};
+		userdata.id = data.id;
+		userdata.bouwjaar = +data.bouwjaar;
+		userdata.height = data.calculated;
+		userdata.height3D = height;
+		userdata.fijnstof = data.fijnstof;
+		userdata.raw = data;
 
-		//add cache data
-		building3D.userData.tile = {
+		//add debug data
+		userdata.tile = {
 			url: data.tileUrl,
 		    point: data.tilePoint
 		}
 
-		// building.position.x = points[0].x;
-		// building.position.y = points[0].y;
-		//building.scale.set(10,10,0);
+		//make model?
+		if(!data.url){
 
-		//hide church
-		//if(data.id == 796100000237576) return false;
-		if(data.id == 796100000247523) return false;
+			//settings
+			var extrusionSettings = {
+				amount: height,
+				//bevelSize: 15,
+				bevelEnabled: false,
+				//steps: 0,
+				bevelThickness: 0
+			};
 
-		DDD.buildings.push(building3D);
-		DDD.scene.add(building3D);
+			//extrude & make mesh
+			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
+			var building3D = new THREE.Mesh( geometry, material );
 
-		//check if already exists [todo]
+			//save userdata to model
+			building3D.userData = userdata;
+
+			//add to stage
+			DDD.buildings.push(building3D);
+			DDD.scene.add(building3D);
+		}
+		//load model
+		else {
+			DDD.loadModel(data.url, material, userdata);
+		}
 
 	});
 
 };
+
+DDD.loadModel = function(url, material, userdata){
+
+	loader = new THREE.JSONLoader();
+	loader.load( 'models/' + url , function( geometry ) {
+
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.userData = userdata;
+		mesh.userData.custom = true;
+
+		//add to stage
+		DDD.buildings.push(mesh);
+		DDD.scene.add( mesh );
+
+	} );
+
+}
 
 DDD.getPoints = function(obj){
 	var points = [];

@@ -14,13 +14,17 @@ Meteor.startup(function(){
 	window.rebuildCity = function(){
 		DDD.pause = true;
 		Meteor.call('buildCity');
-	}
+	};
 	window.rebuildStreets = function(){
 		DDD.pause = true;
 		Meteor.call('buildStreets');
-	}
+	};
 	window.getPollution = function(){
 		DDD.pause = true;
 		Meteor.call('getPollution');
-	}
+	};
+	window.updateBuilding = function(id,obj){
+		DDD.pause = true;
+		Meteor.call('updateBuilding', id,obj);
+	};
 });
