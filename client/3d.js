@@ -3,6 +3,7 @@ window.DDD = {
 	//collections
 	material: {},
 	buildings: [],
+	groups: [],
 
 	//options
 	merge: false,
@@ -35,15 +36,15 @@ DDD.init = function(){
     //make material
    	DDD.makeMaterials();
 
-    var planeGeo = new THREE.PlaneGeometry(5000, 5000, 50, 50);
+    var planeGeo = new THREE.PlaneGeometry(2500, 2500, 50, 50);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
     var plane = new THREE.Mesh(planeGeo, planeMat);
     //plane.rotation.x = -Math.PI/2;
     DDD.scene.add(plane);
 
     //light
-    var hemisphere = new THREE.HemisphereLight(0xffffff, 0x999999, 1);
- 	DDD.scene.add(hemisphere);
+    DDD.hemisphere = new THREE.HemisphereLight(0xffffff, 0x999999, 1);
+ 	DDD.scene.add(DDD.hemisphere);
 
     //camera
     DDD.setCameraControls();
@@ -54,7 +55,7 @@ DDD.init = function(){
 
     DDD.enabled = true;
 
-    //DDD.addTest();
+    DDD.addTest();
 
 };
 
@@ -154,7 +155,8 @@ DDD.addBuilding = function(building,data){
 		//building.scale.set(10,10,0);
 
 		//hide church
-		// if(data.id == 796100000237576) return false;
+		//if(data.id == 796100000237576) return false;
+		if(data.id == 796100000247523) return false;
 
 		DDD.buildings.push(building3D);
 		DDD.scene.add(building3D);
@@ -226,15 +228,20 @@ DDD.addTest = function(){
 	//V2
 	loader = new THREE.JSONLoader();
 
-	loader.load( "models/3.js", function( geometry ) {
+	loader.load( "models/landschot-station_v3.js", function( geometry ) {
 
 	    //var geometry = new THREE.CubeGeometry(5,10,5);
 
-		mesh = new THREE.Mesh( geometry, DDD.material.building );
+	    console.log(geometry);
+
+		mesh = new THREE.Mesh( geometry, DDD.material.building[0] );
 		//mesh.scale.set( 10, 10, 10 );
 		//mesh.position.y = 0;
 		//mesh.position.x = 0;
 		DDD.scene.add( mesh );
+
+		console.log('-custom model:-');
+		console.log(mesh);
 
 	} );
 
