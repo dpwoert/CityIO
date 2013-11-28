@@ -33,10 +33,7 @@ research.getPollution = function(db){
 			//get distance like a caveman
 			var dist = measureDistance(building.center[1],building.center[0] , val.pos[0], val.pos[1]);
 
-			if(dist < 1 || dist == null || dist==undefined || dist == false){
-				console.log(dist);
-			}
-
+			//check if distance is shorter then previous distances
 			if(dist < distMin || distMin == null){
 				closest = val;
 				distMin = dist;
