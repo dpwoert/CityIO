@@ -21,11 +21,16 @@ window.DDD = {
 DDD.init = function(){
 
 	//camera
-	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 5000 );
+	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 3000 );
     DDD.camera.position.z = 500;
+    DDD.camera.position.y = 200;
+    // DDD.camera.rotation.order = "YXZ";
 
     //make scene
     DDD.scene = new THREE.Scene();
+    DDD.group = new THREE.Object3D();
+    DDD.scene.add(DDD.group);
+    DDD.group.rotateX(-Math.PI/2);
 
     //start
     DDD.renderer = new THREE.WebGLRenderer();
@@ -36,15 +41,22 @@ DDD.init = function(){
     //make material
    	DDD.makeMaterials();
 
-    var planeGeo = new THREE.PlaneGeometry(2500, 2500, 50, 50);
+    var planeGeo = new THREE.PlaneGeometry(2500, 2500, 10, 10);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
     var plane = new THREE.Mesh(planeGeo, planeMat);
-    //plane.rotation.x = -Math.PI/2;
-    DDD.scene.add(plane);
+    DDD.group.add(plane);
 
     //light
-    DDD.hemisphere = new THREE.HemisphereLight(0xffffff, 0x999999, 1);
+    DDD.hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
  	DDD.scene.add(DDD.hemisphere);
+
+	// make a sun (zon)
+ 	DDD.zon = new THREE.PointLight(0xFFFFFF);
+	DDD.zon.position.x = 1000;
+	DDD.zon.position.y = 1000;
+	DDD.zon.position.z = 1000;
+	DDD.zon.intensity = 0.2;
+	DDD.scene.add(DDD.zon);
 
     //camera
     DDD.setCameraControls();
@@ -58,22 +70,33 @@ DDD.init = function(){
 };
 
 DDD.setCameraControls = function(){
-	DDD.controls = new THREE.FlyControls( DDD.camera );
-	//DDD.controls = new THREE.OrbitControls( DDD.camera );
+	// DDD.controls = new THREE.FlyControls( DDD.camera );
 
-	DDD.controls.movementSpeed = 50;
-	DDD.controls.rollSpeed = Math.PI / 8;
-	DDD.controls.autoForward = false;
-	DDD.controls.dragToLook = false;
+	// DDD.controls.movementSpeed = 50;
+	// DDD.controls.rollSpeed = Math.PI / 8;
+	// DDD.controls.autoForward = false;
+	// DDD.controls.dragToLook = false;
+
+	DDD.controls = new THREE.FirstPersonControls( DDD.camera );
+
+	DDD.controls.movementSpeed = 100;
+	DDD.controls.lookSpeed = 0.125;
+	DDD.controls.lookVertical = true;
+	DDD.controls.constrainVertical = false;
+	// DDD.controls.verticalMin = 1.1;
+	// DDD.controls.verticalMax = 2.2;
 };
 
 DDD.animate = function(){
 
 	//pause
-    if(DDD.pause) return false
+    if(DDD.pause) return false;
 
     //shedule next frame
     requestAnimationFrame( DDD.animate );
+
+    //check if all objects are loaded
+    if(DDD.buildings.length < 10000) return false;
 
     //update
     DDD.controls.update( DDD.clock.getDelta() );
@@ -154,14 +177,16 @@ DDD.addBuilding = function(building,data){
 
 			//extrude & make mesh
 			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-			var building3D = new THREE.Mesh( geometry, material );
+		    //var bufferGeometry = THREE.BufferGeometryUtils.fromGeometry( geometry );
+			var building3D = new THREE.Mesh( bufferGeometry , material );
 
 			//save userdata to model
 			building3D.userData = userdata;
 
 			//add to stage
 			DDD.buildings.push(building3D);
-			DDD.scene.add(building3D);
+			DDD.group.add(building3D);
+
 		}
 		//load model
 		else {
@@ -183,7 +208,7 @@ DDD.loadModel = function(url, material, userdata){
 
 		//add to stage
 		DDD.buildings.push(mesh);
-		DDD.scene.add( mesh );
+		DDD.group.add( mesh );
 
 	} );
 
@@ -214,57 +239,3 @@ DDD.translatePoint2D = function(point2){
 
 	return new THREE.Vector2(point[0],point[1]);
 };
-
-DDD.addTest = function(){
-	// model
-
-	// var manager = new THREE.LoadingManager();
-	// manager.onProgress = function ( item, loaded, total ) {
-
-	// 	console.log( item, loaded, total );
-
-	// };
-
-	// var loader = new THREE.OBJLoader( manager );
-	// loader.load( 'models/kerkexport9.obj', function ( object ) {
-
-	// 	object.traverse( function ( child ) {
-
-	// 		if ( child instanceof THREE.Mesh ) {
-
-	// 			child.material = DDD.material.building;
-	// 			child.material.needsUpdate = true;
-
-	// 		}
-
-	// 	} );
-
-	// 	//object.position.y = - 80;
-
-	// 	DDD.TESTITEM = object;
-	// 	console.log(object);
-	// 	DDD.scene.add( object );
-
-	// } );
-
-	//V2
-	loader = new THREE.JSONLoader();
-
-	loader.load( "models/landschot-station_v3.js", function( geometry ) {
-
-	    //var geometry = new THREE.CubeGeometry(5,10,5);
-
-	    console.log(geometry);
-
-		mesh = new THREE.Mesh( geometry, DDD.material.building[0] );
-		//mesh.scale.set( 10, 10, 10 );
-		//mesh.position.y = 0;
-		//mesh.position.x = 0;
-		DDD.scene.add( mesh );
-
-		console.log('-custom model:-');
-		console.log(mesh);
-
-	} );
-
-}
