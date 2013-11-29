@@ -172,13 +172,14 @@ DDD.addBuilding = function(building,data){
 				//bevelSize: 15,
 				bevelEnabled: false,
 				//steps: 0,
-				bevelThickness: 0
+				bevelThickness: 0,
+				steps: 1
 			};
 
 			//extrude & make mesh
 			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
 		    //var bufferGeometry = THREE.BufferGeometryUtils.fromGeometry( geometry );
-			var building3D = new THREE.Mesh( bufferGeometry , material );
+			var building3D = new THREE.Mesh( geometry , material );
 
 			//save userdata to model
 			building3D.userData = userdata;
