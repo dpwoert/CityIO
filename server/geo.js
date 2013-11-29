@@ -12,13 +12,13 @@ geo = {
 Meteor.startup(function(){
 
 	//load buildings
-	geo.buildingsDB = new Meteor.Collection('buildings');
+	geo.buildingsDB = new Meteor.SmartCollection('buildings');
 	Meteor.publish("all-buildings", function() {
 		return geo.buildingsDB.find({});
 	});
 
 	//load streets		
-	geo.streetsDB = new Meteor.Collection('streets');
+	geo.streetsDB = new Meteor.SmartCollection('streets');
 
 });
 

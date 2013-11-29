@@ -19,7 +19,7 @@ geo.init = function(){
 
 	//set collections
 	Meteor.subscribe("all-buildings");
-	geo.buildingsDB = new Meteor.Collection('buildings');
+	geo.buildingsDB = new Meteor.SmartCollection('buildings');
 
 	//get the data for den bosch
 	geo.get();
