@@ -13,6 +13,7 @@ Meteor.startup(function(){
 
 	//load buildings
 	geo.buildingsDB = new Meteor.SmartCollection('buildings');
+	
 	Meteor.publish("all-buildings", function() {
 		return geo.buildingsDB.find({});
 	});
@@ -23,6 +24,10 @@ Meteor.startup(function(){
 });
 
 Meteor.methods({
+
+	buildingCount: function(){
+		return geo.buildingsDB.find().count();
+	},
 
 	//trigger loading all api's again
 	buildCity: function(){

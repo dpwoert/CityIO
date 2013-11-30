@@ -32,6 +32,9 @@ DDD.init = function(){
     DDD.scene.add(DDD.group);
     DDD.group.rotateX(-Math.PI/2);
 
+    //fog
+    DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0009 );
+
     //start
     DDD.renderer = new THREE.WebGLRenderer();
     DDD.renderer.setSize( window.innerWidth, window.innerHeight );

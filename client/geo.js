@@ -8,7 +8,10 @@ window.geo = {
 	//get field settings
 	terrainSize: 10, //km
 	center: [51.68836,5.30507],
-	zoom: 22
+	zoom: 22,
+
+	buildingCount: 0,
+	buildingIDs: []
 };
 
 
@@ -21,24 +24,47 @@ geo.init = function(){
 	Meteor.subscribe("all-buildings");
 	geo.buildingsDB = new Meteor.SmartCollection('buildings');
 
-	//get the data for den bosch
-	geo.get();
+	Meteor.call('buildingCount', function(err, res){
+		geo.buildingCount = res;
+		//get the data for den bosch now we know how much data we have...
+		geo.get();
+	});
+
 	
 };
 
 geo.get = function(){
 
 	//add buildings
-	Meteor.autorun(function(){
+	Meteor.autorun(function(c){
 
 		//check for performance
 		if(DDD.pause) return false;
 
 		geo.buildings = geo.buildingsDB.find();
 		geo.buildings.forEach(function(building){
-			//console.log(building)
+			
+			//to prevent doubles
+			if(geo.buildingIDs.indexOf(building.id) > -1){
+				return false;
+			}
+
+			geo.buildingIDs.push(building.id);
 			DDD.addBuilding(building.geom.coordinates,building);
 		});
+
+		//check if completed
+		if( geo.buildingIDs.length >= geo.buildingCount ){
+			console.log('loaded');
+
+			//add to garbage
+			geo.buildingIDs == null;
+			delete geo.buildingIDs;
+
+			//unscribe [todo]
+
+			//merge buildings
+		}
 
 	});
 
