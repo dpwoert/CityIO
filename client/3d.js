@@ -44,6 +44,7 @@ DDD.init = function(){
     //make material
    	DDD.makeMaterials();
 
+   	//floor
     var planeGeo = new THREE.PlaneGeometry(2500, 2500, 10, 10);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
     var plane = new THREE.Mesh(planeGeo, planeMat);
@@ -73,21 +74,15 @@ DDD.init = function(){
 };
 
 DDD.setCameraControls = function(){
-	// DDD.controls = new THREE.FlyControls( DDD.camera );
-
-	// DDD.controls.movementSpeed = 50;
-	// DDD.controls.rollSpeed = Math.PI / 8;
-	// DDD.controls.autoForward = false;
-	// DDD.controls.dragToLook = false;
 
 	DDD.controls = new THREE.FirstPersonControls( DDD.camera );
 
 	DDD.controls.movementSpeed = 100;
 	DDD.controls.lookSpeed = 0.125;
 	DDD.controls.lookVertical = true;
-	DDD.controls.constrainVertical = false;
-	// DDD.controls.verticalMin = 1.1;
-	// DDD.controls.verticalMax = 2.2;
+	DDD.controls.constrainVertical = true;
+	DDD.controls.verticalMin = 1.4;
+	DDD.controls.verticalMax = 2.2;
 };
 
 DDD.animate = function(){
