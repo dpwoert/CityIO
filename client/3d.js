@@ -4,9 +4,10 @@ window.DDD = {
 	material: {},
 	buildings: [],
 	groups: [],
+	cacheGeom: [],
 
 	//options
-	merge: false,
+	merge: true,
 
 	//colors
 	pollution: {
@@ -94,7 +95,7 @@ DDD.animate = function(){
     requestAnimationFrame( DDD.animate );
 
     //check if all objects are loaded
-    if(DDD.buildings.length < 10000) return false;
+    if(!DDD.loaded) return false;
 
     //update
     DDD.controls.update( DDD.clock.getDelta() );
@@ -124,6 +125,11 @@ DDD.makeMaterials = function(){
 	    	// opacity: 0.5
     	}); 
 
+		//make cache for merge
+		if(DDD.merge){
+			DDD.cacheGeom[i] = new THREE.Geometry();
+			// DDD.cacheGeom.push( new THREE.CubeGeometry(10,10,10) );
+		}
 	}
 
 }
@@ -134,7 +140,8 @@ DDD.addBuilding = function(building,data){
 	$.each(building, function(key,val){
 
 		//group on pollution
-		var material = DDD.material.building[Math.round(DDD.pollution.scale(data.fijnstof.no2))];
+		var groupKey = Math.round(DDD.pollution.scale(data.fijnstof.no2))
+		var material = DDD.material.building[groupKey];
 
 		//get points
 		var points = DDD.getPoints(val);
@@ -176,15 +183,21 @@ DDD.addBuilding = function(building,data){
 
 			//extrude & make mesh
 			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		    //var bufferGeometry = THREE.BufferGeometryUtils.fromGeometry( geometry );
-			var building3D = new THREE.Mesh( geometry , material );
 
-			//save userdata to model
-			building3D.userData = userdata;
+			if(DDD.merge){
+				THREE.GeometryUtils.merge(DDD.cacheGeom[groupKey],geometry);
+			} else {
+				//don't merge and add userdata
+				var building3D = new THREE.Mesh( geometry , material );
 
-			//add to stage
-			DDD.buildings.push(building3D);
-			DDD.group.add(building3D);
+				//save userdata to model
+				building3D.userData = userdata;
+
+				//add to stage
+				DDD.buildings.push(building3D);
+				DDD.group.add(building3D);
+				
+			}
 
 		}
 		//load model
@@ -211,6 +224,28 @@ DDD.loadModel = function(url, material, userdata){
 
 	} );
 
+}
+
+DDD.buildingsFinished = function(){
+
+	//merge buildings
+	if(DDD.merge){
+
+		for(var i = 0; i < DDD.pollution.steps; i++){
+
+			building3D = new THREE.Mesh(DDD.cacheGeom[i], DDD.material.building[i]);
+
+			DDD.buildings.push(building3D);
+			DDD.group.add(building3D);
+
+
+		}
+
+	}
+
+	DDD.loaded = true;
+
+	console.log('buildings added');
 }
 
 DDD.getPoints = function(obj){

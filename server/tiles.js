@@ -74,8 +74,6 @@ tiles.readHeight = function(point, img, url, db, id){
         var height = ((pixel[1]*256)+pixel[2])/100 + tiles.minHeight;
         console.log('HOOGTE: ' + height + ' m');
 
-        //get floor
-
         //try to save
         var Fiber = Npm.require('fibers');
         Fiber(function(){

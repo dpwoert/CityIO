@@ -64,6 +64,7 @@ geo.get = function(){
 			//unscribe [todo]
 
 			//merge buildings
+			DDD.buildingsFinished();
 		}
 
 	});
