@@ -132,6 +132,12 @@ DDD.makeMaterials = function(){
 		}
 	}
 
+	//lines
+	DDD.material.street = new THREE.LineBasicMaterial({
+        color: 0xFF0000,
+        linewidth: 5 
+    });
+
 }
 
 DDD.addBuilding = function(building,data){
@@ -238,7 +244,6 @@ DDD.buildingsFinished = function(){
 			DDD.buildings.push(building3D);
 			DDD.group.add(building3D);
 
-
 		}
 
 	}
@@ -246,6 +251,29 @@ DDD.buildingsFinished = function(){
 	DDD.loaded = true;
 
 	console.log('buildings added');
+}
+
+DDD.addStreet = function(points, data){
+	var points2D = DDD.getPoints(points);
+
+	//geometry
+	var geom = new THREE.Geometry();
+
+	$.each(points, function(key,point){
+
+		//points
+		var V2 = DDD.translatePoint2D([ point[1],point[0] ]);
+		var V3 = new THREE.Vector3( V2.x , V2.y , (Math.random()*20)+5 );
+
+		geom.vertices.push(V3);
+	});
+
+	//make line
+	var line = new THREE.Line(geom, DDD.material.street);
+	console.log(line);
+
+	DDD.group.add(line);
+
 }
 
 DDD.getPoints = function(obj){
@@ -263,9 +291,6 @@ DDD.translatePoint2D = function(point2){
 	var center = geo.centerProjection;
 
 	var point = [];
-	var mp = 100000;
-	// point[0] = (point2[0] * mp) - (geo.center[1]*mp);
-	// point[1] = (point2[1] * mp) - (geo.center[0]*mp);
 	point[0] = coords[0] - center[0];
 	point[1] = coords[1] - center[1];
 

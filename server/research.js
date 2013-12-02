@@ -60,3 +60,7 @@ research.getPollution = function(db){
 	});
 	
 };
+
+research.getNoise = function(pos){
+	
+}

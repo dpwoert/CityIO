@@ -23,6 +23,8 @@ geo.init = function(){
 	//set collections
 	Meteor.subscribe("all-buildings");
 	geo.buildingsDB = new Meteor.SmartCollection('buildings');
+	Meteor.subscribe("all-streets");
+	geo.streetsDB = new Meteor.SmartCollection('streets');
 
 	Meteor.call('buildingCount', function(err, res){
 		geo.buildingCount = res;
@@ -41,6 +43,7 @@ geo.get = function(){
 		//check for performance
 		if(DDD.pause) return false;
 
+		//add buildings
 		geo.buildings = geo.buildingsDB.find();
 		geo.buildings.forEach(function(building){
 			
@@ -53,6 +56,14 @@ geo.get = function(){
 			DDD.addBuilding(building.geom.coordinates,building);
 		});
 
+		//add streets
+		geo.streets = geo.streetsDB.find();
+		geo.streets.forEach(function (street) {
+			
+			DDD.addStreet(street.points, street);
+
+		});
+
 		//check if completed
 		if( geo.buildingIDs.length >= geo.buildingCount ){
 			console.log('loaded');
@@ -60,8 +71,6 @@ geo.get = function(){
 			//add to garbage
 			geo.buildingIDs == null;
 			delete geo.buildingIDs;
-
-			//unscribe [todo]
 
 			//merge buildings
 			DDD.buildingsFinished();
