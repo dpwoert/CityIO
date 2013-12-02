@@ -128,7 +128,6 @@ DDD.makeMaterials = function(){
 		//make cache for merge
 		if(DDD.merge){
 			DDD.cacheGeom[i] = new THREE.Geometry();
-			// DDD.cacheGeom.push( new THREE.CubeGeometry(10,10,10) );
 		}
 	}
 
@@ -263,7 +262,7 @@ DDD.addStreet = function(points, data){
 
 		//points
 		var V2 = DDD.translatePoint2D([ point[1],point[0] ]);
-		var V3 = new THREE.Vector3( V2.x , V2.y , (Math.random()*20)+5 );
+		var V3 = new THREE.Vector3( V2.x , V2.y , (Math.random()*19)+5 );
 
 		geom.vertices.push(V3);
 	});
