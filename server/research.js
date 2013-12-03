@@ -24,7 +24,7 @@ research.getPollution = function(db, again){
 
 	});
 
-	var query = { fijnstof: { $exists:  } };
+	var query = { fijnstof: { $exists: false } };
 	if(again) query = {};
 	db.find(query).forEach(function(building){
 
