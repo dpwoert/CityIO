@@ -1,3 +1,5 @@
+/*
+
 var imgSize = 10; // Grote van de afbeelding
 var imgTime = 'night'; // day / night
 var imgType = 'car'; // car / train 
@@ -109,4 +111,4 @@ tiles.saveSound = function(pos, db, id){
         tiles.getSound(pos, db, id)
 };
 
-
+*/

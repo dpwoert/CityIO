@@ -1,6 +1,6 @@
 geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 10,
+	maxCalls: 20,
 	calls: 0,
 
 	//get field settings
@@ -37,14 +37,19 @@ Meteor.methods({
 	},
 
 	//trigger loading all api's again
-	buildCity: function(){
+	buildCity: function(add){
 
 		//load & resest DB
-		geo.buildingsDB.remove({});
-		console.log('==== Building city ====');
+		if(!add){
+			geo.buildingsDB.remove({});
+			console.log('==== Building city ====');
+		} else {
+			console.log('==== Updating city ====');
+		}
 
 		//get & prepare BAG entries
 		geo.getBAG({
+			'add': add,
 			'pos': geo.center, 
 			'radius': geo.terrainSize,
 			'after': geo.addBAG,
@@ -112,8 +117,8 @@ Meteor.methods({
 
 	},
 
-	getPollution: function(){
-		research.getPollution(geo.buildingsDB);
+	getPollution: function(again){
+		research.getPollution(geo.buildingsDB,again);
 	}
 
 });
@@ -146,7 +151,7 @@ geo.getBAG = function(obj){
 
 			//add to data object
 			_.each(result.data.results, function(value){
-				obj.after(value, obj.db);
+				obj.after(value, obj.db, obj.add);
 			});
 
 			//check if finished/more pages
@@ -165,9 +170,17 @@ geo.getBAG = function(obj){
 
 }
 
-geo.addBAG = function(obj, db){
+geo.addBAG = function(obj, db, add){
 	var bagID = obj.layers['bag.panden'].data.pand_id;
 	//console.log('add bag, id: ' + bagID);
+
+	if(add){
+		var exist = db.find({ id: bagID }).count();
+		if(exist > 0){
+			//already in db
+			return false;
+		}
+	}
 
 	//get center
 	var geoCenter = geo.getCenter(obj.geom.coordinates[0]);

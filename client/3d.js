@@ -13,7 +13,7 @@ window.DDD = {
 	pollution: {
 		min: 20.806,
 		max: 45.5,
-		steps: 6,
+		steps: 5,
 		// colors: [0xbdc3c7,0xB1DEBC, 0x6CD6A0,0x009470,0x009470,0xB32706]
 
 		//colors: [0x8999A8, 0xBCD3E7, 0x4A535B, 0x545F68, 0x353C42]
@@ -150,7 +150,8 @@ DDD.addBuilding = function(building,data){
 	$.each(building, function(key,val){
 
 		//group on pollution
-		var groupKey = Math.round(DDD.pollution.scale(data.fijnstof.no2))
+		var no2 = data.fijnstof ? data.fijnstof.no2 : DDD.pollution.min;
+		var groupKey = Math.round(DDD.pollution.scale(no2));
 		var material = DDD.material.building[groupKey];
 
 		//get points

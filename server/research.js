@@ -2,7 +2,7 @@
 research = {};
 
 //load pollution data to database
-research.getPollution = function(db){
+research.getPollution = function(db, again){
 
 	console.log('====== GET POLLUTION DATA ======');
 	var count = 0;
@@ -24,7 +24,9 @@ research.getPollution = function(db){
 
 	});
 
-	db.find({}).forEach(function(building){
+	var query = { fijnstof: { $exists:  } };
+	if(again) query = {};
+	db.find(query).forEach(function(building){
 
 		var closest = null;
 		var distMin = null;
@@ -62,5 +64,5 @@ research.getPollution = function(db){
 };
 
 research.getNoise = function(pos){
-	
+
 }
