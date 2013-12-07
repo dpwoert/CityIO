@@ -1,7 +1,7 @@
 /*
 var imgTime = 'night';  // day / night
 var imgType = 'car';    // car / train 
-var imgOutput = 'image'; //Choose an output. image, json, pjson, html
+var imgOutput = 'json'; //Choose an output. image, json, pjson, html
 var imgSize = 10; // The width/height of the image. If you want 10x10px use 10. If you want 1x1px use 1. 
 var distanceInMeters = 1;   // Distance between x1, y1 and the x2, y2 coordinates. Use 1 for 1 meter, 2 for 2 meters, 10 for 10 meters. 1000 = 1km. 
 
