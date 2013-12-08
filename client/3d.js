@@ -23,7 +23,7 @@ window.DDD = {
 	},
 
 	//street heights
-	streetHeights: d3.scale.pow().domain([50,75]).range([5,50])
+	streetHeights: d3.scale.log().domain([50,75]).range([5,50])
 
 };
 
