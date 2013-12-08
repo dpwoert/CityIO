@@ -1,8 +1,14 @@
 tiles = {
+
+	//AHN
 	minZoom: 11,
 	maxZoom: 14,
-	minHeight: -12,
-	maxHeight: 30
+	minHeight: -12, //m
+	maxHeight: 30, //m
+
+	//soundtiles
+	soundtileSize: 10, //px
+	soundtileWidth: 10 //m
 };
 
 tiles.getTile = function(pos, zoom){
@@ -55,6 +61,52 @@ tiles.getTile = function(pos, zoom){
 	};
 }
 
+tiles.getSoundTile = function(pos){
+
+
+	//get RDC
+	var RDC = '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel ' +
+			  '+towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812 +units=m +no_defs';
+	var RDCpos = proj4(RDC, [ pos[1],pos[0] ]);
+	console.log(RDCpos);
+
+	//make url
+	function makeUrl(map){
+
+		var left = [], right = [];
+		left[0] = Math.round(RDCpos[0])-(tiles.soundtileWidth/2);
+		left[1] = Math.round(RDCpos[1])-(tiles.soundtileWidth/2);
+
+		right[0] = Math.round(RDCpos[0])+(tiles.soundtileWidth/2);
+		right[1] = Math.round(RDCpos[1])+(tiles.soundtileWidth/2);
+
+
+		//convert to url
+		// return 'http://geoproxy.s-hertogenbosch.nl/PWArcGIS1/rest/services/externvrij/Geluidbelasting/MapServer/export?bbox='
+		// 		+left[0]+','+left[1]+','+right[0]+','+right[1]
+		// 		+'&bboxSR=28992&layers=show:'+map+'+&layerdefs=&size='+tiles.soundtileSize+','+tiles.soundtileSize+'&imageSR=28992&format=png8'
+		// 		+'&transparent=true&dpi=96&time=&layerTimeOptions=&f=json';
+
+		return 'http://geoproxy.s-hertogenbosch.nl/pwarcgis1/rest/services/externvrij/Geluidbelasting/MapServer/export?dpi=96&transparent=true&format=png8&bbox='+left[0]+','+left[1]+','+right[0]+','+right[1]+'&bboxSR=28992&imageSR=28992&size=943%2C512&layers=show%3A0%2C2&f=image';
+
+	}
+	
+	//return urls
+	return {
+
+		day: {
+			car: makeUrl(1),
+			train: makeUrl(4),
+		},
+
+		night: {
+			car: makeUrl(2),
+			train: makeUrl(5)
+		}
+	};
+
+}
+
 //read height data
 tiles.readHeight = function(point, img, url, db, id){
 	console.log('reading png');
@@ -67,7 +119,7 @@ tiles.readHeight = function(point, img, url, db, id){
         var x = Math.floor(point[0]*256);
         var y = Math.floor(point[1]*256);
         //console.log('x: ' + x + ' y: ' + y);
-        var pixel = png.getPixel(x,y)
+        var pixel = png.getPixel(x,y);
         //console.log( pixel );
 
         //get height

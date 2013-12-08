@@ -236,11 +236,15 @@ geo.getOSM = function(obj){
 						'name': value.name,
 						'maxspeed': value.layers.osm.data.maxspeed,
 						'highway': value.layers.osm.data.highway,
-						'points': points
+						'points': points,
+						'soundDay': [],
+						'soundNight': []
 					}
 
 					//save object
-					obj.db.insert(street);
+					obj.db.insert(street, function(error, id){
+						research.getNoise(points, id, obj.db);
+					});
 
 				}
 			});
