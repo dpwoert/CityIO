@@ -20,7 +20,10 @@ window.DDD = {
 		// colors: [0xAAD7D9,0x79B3AD,0x6A877F,0x586E55,0x454D46]
 		// colors: [0xF2EDE4, 0xD9D1C7, 0x8D8681, 0x303440, 0x666A73]
 		colors: [0xFAFAFA, 0xBFBCB8, 0x7F7E7A, 0x403F3D, 0x313133]
-	}
+	},
+
+	//street heights
+	streetHeights: d3.scale.pow().domain([50,75]).range([5,50])
 
 };
 
@@ -261,14 +264,22 @@ DDD.buildingsFinished = function(){
 DDD.addStreet = function(points, data){
 	var points2D = DDD.getPoints(points);
 
+	//sort sound data
+	var soundNight = data.soundNight.sort(function(a,b){return a.key-b.key});
+	var soundDay = data.soundDay.sort(function(a,b){return a.key-b.key});
+
 	//geometry
 	var geom = new THREE.Geometry();
 
 	$.each(points, function(key,point){
 
+		//get height
+		console.log(soundDay[key]);
+		var height = soundDay[key] ? DDD.streetHeights(soundDay[key].db) : 5;
+
 		//points
 		var V2 = DDD.translatePoint2D([ point[1],point[0] ]);
-		var V3 = new THREE.Vector3( V2.x , V2.y , (Math.random()*19)+5 );
+		var V3 = new THREE.Vector3( V2.x , V2.y , height );
 
 		geom.vertices.push(V3);
 	});

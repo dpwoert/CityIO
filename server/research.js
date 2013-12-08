@@ -131,7 +131,7 @@ research.getNoise = function(points, id, db){
 research.readNoise = function(data, type, key, id, db){
 
 	//determine nr of steps
-	var steps = 10; //on one axis
+	var steps = 25; //on one axis
 
 	console.log('reading noise for ' + id);
 
@@ -162,7 +162,7 @@ research.readNoise = function(data, type, key, id, db){
 		if(c.r == 192 && c.g == 49 && c.b == 199){ return 70; }
 		if(c.r == 255 && c.g == 0 && c.b == 0){ return 65; }
 		if(c.r == 248 && c.g == 128 && c.b == 23){ return 60; }
-		if(c.r == 255 && c.g == 255 && c.b == 0){ return 55; }
+		if(c.r == 255 && c.g == 240 && c.b == 0){ return 55; }
 
 		//night
 		if(c.r == 94 && c.g == 118 && c.b == 126){ return 70; }
@@ -172,7 +172,8 @@ research.readNoise = function(data, type, key, id, db){
 		if(c.r == 237 && c.g == 218 && c.b == 116){ return 50; }
 
 		//empty
-		if(c.r == 0 && c.g == 0 && c.b == 0){ return 50; }		
+		if(c.r == 255 && c.g == 255 && c.b == 255){ return 50; }		
+		if(c.r == 253 && c.g == 253 && c.b == 253){ return 50; }		
 		if(c.r == undefined){ return 50; }		
 
 		//no value found?
@@ -193,8 +194,8 @@ research.readNoise = function(data, type, key, id, db){
         } 
 
         //determine stepsize
-        var stepSizeX = png.getWidth()/steps;
-		var stepSizeY = png.getHeight()/steps;
+        var stepSizeX = Math.floor(png.getWidth()/steps);
+		var stepSizeY = Math.floor(png.getHeight()/steps);
 
         //read average
         var total = 0;
@@ -204,7 +205,8 @@ research.readNoise = function(data, type, key, id, db){
         		total = total+translateColor({
         			r: pixel[0],
         			g: pixel[1],
-        			b: pixel[2]
+        			b: pixel[2],
+        			a: pixel[3]
         		});
         	}
         }

@@ -8,7 +8,7 @@ tiles = {
 
 	//soundtiles
 	soundtileSize: 10, //px
-	soundtileWidth: 10 //m
+	soundtileWidth: 20 //m
 };
 
 tiles.getTile = function(pos, zoom){
