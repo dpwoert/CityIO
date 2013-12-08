@@ -1,7 +1,7 @@
 /*
 var imgTime = 'night';  // day / night
 var imgType = 'car';    // car / train 
-var imgOutput = 'image'; //Choose an output. image, json, pjson, html
+var imgOutput = 'json'; //Choose an output. image, json, pjson, html
 var imgSize = 10; // The width/height of the image. If you want 10x10px use 10. If you want 1x1px use 1. 
 var distanceInMeters = 1;   // Distance between x1, y1 and the x2, y2 coordinates. Use 1 for 1 meter, 2 for 2 meters, 10 for 10 meters. 1000 = 1km. 
 
@@ -53,13 +53,16 @@ tiles.getSound = function(pos, db, id){
         };
 
         var tile = tiles.getTile(pos);
-
-        var urlProvider = 'http://geoproxy.s-hertogenbosch.nl/PWArcGIS1/rest/services/externvrij/Geluidbelasting/MapServer/export?bbox='
-                                                +parseInt(RDCpos[0])+'%2C'+parseInt(RDCpos[1])+'%2C'+(parseInt(RDCpos[0])+distanceInMeters)+'%2C'+(parseInt(RDCpos[1])+distanceInMeters)
-                                                +'&bboxSR=28992&layers=show%3A'+map+'+&layerdefs=&size='+imgSize+'%2C'+imgSize+'&imageSR=28992&format=png8'
-                                                +'&transparent=true&dpi=96&time=&layerTimeOptions=&f='+imgOutput;
+        
+        $.getJSON('http://geoproxy.s-hertogenbosch.nl/PWArcGIS1/rest/services/externvrij/Geluidbelasting/MapServer/export?bbox='
+                    +parseInt(RDCpos[0])+'%2C'+parseInt(RDCpos[1])+'%2C'+(parseInt(RDCpos[0])+distanceInMeters)+'%2C'+(parseInt(RDCpos[1])+distanceInMeters)
+                    +'&bboxSR=28992&layers=show%3A'+map+'+&layerdefs=&size='+imgSize+'%2C'+imgSize+'&imageSR=28992&format=png8'
+                    +'&transparent=true&dpi=96&time=&layerTimeOptions=&f=json', function(urlProvider) {
+            console.log(urlProvider.href);
+            var imageUrlProvider = urlProvider.href;
+        });
+        
         var cachePath = parseInt(RDCpos[0]) + '-' + parseInt(RDCpos[1]) + '.png';
-        console.log(urlProvider);
 
         //get file from web
         var getfile = function(){
