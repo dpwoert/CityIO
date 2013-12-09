@@ -1,5 +1,5 @@
 3Dcity
 ======
 
-City (Den Bosch) rendered in 3D
+The city 's-Hertogenbosch, Netherlands rendered in 3D
 
