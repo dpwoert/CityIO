@@ -1,4 +1,5 @@
 3Dcity
 ======
 
-city (Den Bosch) rendered in 3D
+City (Den Bosch) rendered in 3D
+
