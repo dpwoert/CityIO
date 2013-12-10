@@ -23,7 +23,8 @@ window.DDD = {
 	},
 
 	//street heights
-	streetHeights: d3.scale.log().domain([50,75]).range([5,50])
+	groundlines: false,
+	streetHeights: d3.scale.log().domain([50,75]).range([5,50]).base(2)
 
 };
 
@@ -42,7 +43,7 @@ DDD.init = function(){
     DDD.group.rotateX(-Math.PI/2);
 
     //fog
-    DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0009 );
+    DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0003 );
 
     //start
     DDD.renderer = new THREE.WebGLRenderer();
@@ -142,7 +143,14 @@ DDD.makeMaterials = function(){
 	//lines
 	DDD.material.street = new THREE.LineBasicMaterial({
         color: 0xFF0000,
-        linewidth: 5 
+        linewidth: 8
+    });
+
+    DDD.material.street2 = new THREE.LineBasicMaterial({
+        color: 0xFF0000,
+        linewidth: 1,
+        transparent: true,
+        opacity: 0.5
     });
 
 }
@@ -274,7 +282,6 @@ DDD.addStreet = function(points, data){
 	$.each(points, function(key,point){
 
 		//get height
-		console.log(soundDay[key]);
 		var height = soundDay[key] ? DDD.streetHeights(soundDay[key].db) : 5;
 
 		//points
@@ -282,12 +289,22 @@ DDD.addStreet = function(points, data){
 		var V3 = new THREE.Vector3( V2.x , V2.y , height );
 
 		geom.vertices.push(V3);
+
+		//line down
+		if(DDD.groundlines){
+
+			var geom2 = new THREE.Geometry();
+			geom2.vertices.push(new THREE.Vector3( V2.x , V2.y , 1 ));
+			geom2.vertices.push(new THREE.Vector3( V2.x , V2.y , height ));
+			var line2 = new THREE.Line(geom2, DDD.material.street2);
+			console.log(line2);
+			DDD.group.add(line2);
+
+		}
 	});
 
 	//make line
 	var line = new THREE.Line(geom, DDD.material.street);
-	console.log(line);
-
 	DDD.group.add(line);
 
 }
