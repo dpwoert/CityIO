@@ -24,7 +24,7 @@ window.DDD = {
 
 	//street heights
 	groundlines: false,
-	streetHeights: d3.scale.log().domain([50,75]).range([5,50]).base(2)
+	streetHeights: d3.scale.log().domain([50,75]).range([1,50]).base(2)
 
 };
 
@@ -141,17 +141,15 @@ DDD.makeMaterials = function(){
 	}
 
 	//lines
-	DDD.material.street = new THREE.LineBasicMaterial({
-        color: 0xFF0000,
-        linewidth: 8
-    });
+    DDD.material.streetTube = new THREE.MeshLambertMaterial({
+    	color: 0xFF0000,
+    	//shading: THREE.FlatShading,
+	}); 
 
-    DDD.material.street2 = new THREE.LineBasicMaterial({
-        color: 0xFF0000,
-        linewidth: 1,
-        transparent: true,
-        opacity: 0.5
-    });
+	DDD.cacheTube = new THREE.Geometry();
+	var streets3D = new THREE.Mesh ( DDD.cacheTube , DDD.material.streetTube );
+	DDD.group.add(streets3D);
+
 
 }
 
@@ -277,18 +275,20 @@ DDD.addStreet = function(points, data){
 	var soundDay = data.soundDay.sort(function(a,b){return a.key-b.key});
 
 	//geometry
-	var geom = new THREE.Geometry();
+	// var geom = new THREE.Geometry();
+	var path = [];
 
 	$.each(points, function(key,point){
 
 		//get height
-		var height = soundDay[key] ? DDD.streetHeights(soundDay[key].db) : 5;
+		var height = soundDay[key] ? DDD.streetHeights(soundDay[key].db) : 1;
 
 		//points
 		var V2 = DDD.translatePoint2D([ point[1],point[0] ]);
 		var V3 = new THREE.Vector3( V2.x , V2.y , height );
 
-		geom.vertices.push(V3);
+		// geom.vertices.push(V3);
+		path.push(V3);
 
 		//line down
 		if(DDD.groundlines){
@@ -297,15 +297,28 @@ DDD.addStreet = function(points, data){
 			geom2.vertices.push(new THREE.Vector3( V2.x , V2.y , 1 ));
 			geom2.vertices.push(new THREE.Vector3( V2.x , V2.y , height ));
 			var line2 = new THREE.Line(geom2, DDD.material.street2);
-			console.log(line2);
 			DDD.group.add(line2);
 
 		}
 	});
 
-	//make line
-	var line = new THREE.Line(geom, DDD.material.street);
-	DDD.group.add(line);
+	if(path.length > 0){
+
+		//make line
+		// var line = new THREE.Line(geom, DDD.material.street);
+		// DDD.group.add(line);
+
+		//make tube
+		var path3D = new THREE.SplineCurve3(path);
+		var tube = new THREE.TubeGeometry(path3D, 10, 2, 10, false, true);
+		// var street3D = new THREE.Mesh ( tube , DDD.material.streetTube );
+		// DDD.group.add(street3D);
+		console.log(data.id);
+
+		THREE.GeometryUtils.merge(DDD.cacheTube,tube);
+
+	}
+
 
 }
 
