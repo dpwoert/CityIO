@@ -285,7 +285,7 @@ geo.splitRoad = function(points){
 
 		//calculate nr of points
 		var distance = geo.measureDistance(start[0],start[1],end[0],end[1]);
-		var parts = Math.round(distance/geo.roadSteps);
+		var parts = Math.ceil(distance/geo.roadSteps);
 
 		//add interpolated points
 		var point;

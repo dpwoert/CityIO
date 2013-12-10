@@ -268,6 +268,7 @@ DDD.buildingsFinished = function(){
 }
 
 DDD.addStreet = function(points, data){
+	
 	var points2D = DDD.getPoints(points);
 
 	//sort sound data
