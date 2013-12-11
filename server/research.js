@@ -24,8 +24,16 @@ research.getPollution = function(db, again){
 
 	});
 
+	//prevents double
 	var query = { fijnstof: { $exists: false } };
 	if(again) query = {};
+
+	//check if there are buildings that aren't mapped
+	if(again && db.find(query).count() < 1){
+		console.log('all buildings are mapped');
+	}
+
+	//execute
 	db.find(query).forEach(function(building){
 
 		var closest = null;
@@ -43,16 +51,21 @@ research.getPollution = function(db, again){
 
 		});
 
-		//save to db
-		db.update(building._id, {
-        	$set: {
-	        	fijnstof: {
-	        		no2: closest.conc_no2,
-					pm10: closest.conc_pm10,
-					pm25: closest.conc_pm25
+        var Fiber = Npm.require('fibers');
+        Fiber(function(){
+
+			//save to db
+			db.update(building._id, {
+	        	$set: {
+		        	fijnstof: {
+		        		no2: closest.conc_no2,
+						pm10: closest.conc_pm10,
+						pm25: closest.conc_pm25
+		        	}
 	        	}
-        	}
-        });
+	        });
+
+        }).run();
 
 		count++;
         console.log('saved ' + building.id + ' | ' + count);
