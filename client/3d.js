@@ -31,7 +31,7 @@ window.DDD = {
 DDD.init = function(){
 
 	//camera
-	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 3000 );
+	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 4000 );
     DDD.camera.position.z = 500;
     DDD.camera.position.y = 200;
     // DDD.camera.rotation.order = "YXZ";
@@ -55,7 +55,7 @@ DDD.init = function(){
    	DDD.makeMaterials();
 
    	//floor
-    var planeGeo = new THREE.PlaneGeometry(2500, 2500, 10, 10);
+    var planeGeo = new THREE.PlaneGeometry(3000, 3000, 10, 10);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
     var plane = new THREE.Mesh(planeGeo, planeMat);
     DDD.group.add(plane);
@@ -268,7 +268,7 @@ DDD.buildingsFinished = function(){
 }
 
 DDD.addStreet = function(points, data){
-	
+
 	var points2D = DDD.getPoints(points);
 
 	//sort sound data
@@ -311,11 +311,7 @@ DDD.addStreet = function(points, data){
 
 		//make tube
 		var path3D = new THREE.SplineCurve3(path);
-		var tube = new THREE.TubeGeometry(path3D, 10, 2, 10, false, true);
-		// var street3D = new THREE.Mesh ( tube , DDD.material.streetTube );
-		// DDD.group.add(street3D);
-		console.log(data.id);
-
+		var tube = new THREE.TubeGeometry(path3D, 10, 1.2, 10, false, true);
 		THREE.GeometryUtils.merge(DDD.cacheTube,tube);
 
 	}

@@ -7,7 +7,7 @@ window.geo = {
 
 	//get field settings
 	terrainSize: 10, //km
-	center: [51.68836,5.30507],
+	center: [51.697816,5.303675],
 	zoom: 22,
 
 	buildingCount: 0,

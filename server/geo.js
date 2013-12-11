@@ -3,9 +3,12 @@ geo = {
 	maxCalls: 20,
 	calls: 0,
 
-	//get field settings
-	terrainSize: 1.5, //km
-	center: [51.68836,5.30507],
+	//get city settings
+	// terrainSize: 1.5, //km
+	// center: [51.68836,5.30507],
+
+	terrainSize: 4, //km
+	center: [51.697816,5.303675],
 
 	//road settings
 	roadSteps: 20 //meters
