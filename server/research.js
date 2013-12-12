@@ -34,7 +34,8 @@ research.getPollution = function(db, again){
 	}
 
 	//execute
-	db.find(query).forEach(function(building){
+	var results = db.find(query).fetch()
+	_.each(results, function(building){
 
 		var closest = null;
 		var distMin = null;
