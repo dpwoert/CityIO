@@ -311,7 +311,7 @@ DDD.addStreet = function(points, data){
 
 		//make tube
 		var path3D = new THREE.SplineCurve3(path);
-		var tube = new THREE.TubeGeometry(path3D, 10, 1.2, 10, false, true);
+		var tube = new THREE.TubeGeometry(path3D, 5, 1.2, 10, false, true);
 		THREE.GeometryUtils.merge(DDD.cacheTube,tube);
 
 	}
