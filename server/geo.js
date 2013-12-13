@@ -1,6 +1,6 @@
 geo = {
 	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 20,
+	maxCalls: 30,
 	calls: 0,
 
 	//get city settings
@@ -178,7 +178,7 @@ geo.addBAG = function(obj, db, add){
 	//console.log('add bag, id: ' + bagID);
 
 	if(add){
-		var exist = db.find({ id: bagID }).count();
+		var exist = db.find({ id: bagID, calculated: { $exists: true } }).count();
 		if(exist > 0){
 			//already in db
 			return false;
