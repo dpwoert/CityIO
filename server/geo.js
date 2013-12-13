@@ -120,6 +120,10 @@ Meteor.methods({
 
 	},
 
+	buildOSM: function(){
+
+	},
+
 	getPollution: function(again){
 		research.getPollution(geo.buildingsDB,again);
 	}
@@ -228,7 +232,7 @@ geo.getOSM = function(obj){
 
 			//add to data object
 			_.each(result.data.results, function(value){
-				if(value.name  && value.layers.osm.data.maxspeed){
+				if( (value.name  && value.layers.osm.data.maxspeed) || (value.name  && value.layers.osm.data.ref) ){
 
 					//make points
 					var points = geo.splitRoad(value.geom.coordinates);
