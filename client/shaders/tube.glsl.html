@@ -1,0 +1,22 @@
+<template name="shaderTubeFragment">
+
+uniform float minHeight;
+uniform float maxHeight;
+varying float y;
+
+void main() {
+	gl_FragColor = vec4( y/maxHeight , 0.0, 0.0, 1.0);
+}
+
+</template>
+
+<template name="shaderTubeVertex">
+
+varying float y;
+
+void main(void) {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    y = position.z;
+}
+
+</template>

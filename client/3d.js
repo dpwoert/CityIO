@@ -19,12 +19,17 @@ window.DDD = {
 		//colors: [0x8999A8, 0xBCD3E7, 0x4A535B, 0x545F68, 0x353C42]
 		// colors: [0xAAD7D9,0x79B3AD,0x6A877F,0x586E55,0x454D46]
 		// colors: [0xF2EDE4, 0xD9D1C7, 0x8D8681, 0x303440, 0x666A73]
-		colors: [0xFAFAFA, 0xBFBCB8, 0x7F7E7A, 0x403F3D, 0x313133]
+		// colors: [0xFAFAFA, 0xBFBCB8, 0x7F7E7A, 0x403F3D, 0x313133]
+		colors: [0xf1f1f1, 0xd6dfdb, 0xbfcdc6, 0xdfa5a1, 0xe87364]
 	},
 
 	//street heights
 	groundlines: false,
-	streetHeights: d3.scale.log().domain([50,75]).range([1,50]).base(2)
+	streetHeight: { min: 1.0, max: 30.0 },
+	streetHeights: d3.scale.log()
+		.domain([50,75])
+		.range([1,30])
+		.base(2)
 
 };
 
@@ -55,7 +60,7 @@ DDD.init = function(){
    	DDD.makeMaterials();
 
    	//floor
-    var planeGeo = new THREE.PlaneGeometry(3000, 3000, 10, 10);
+    var planeGeo = new THREE.PlaneGeometry(3000, 3000, 1, 1);
     var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
     var plane = new THREE.Mesh(planeGeo, planeMat);
     DDD.group.add(plane);
@@ -141,11 +146,33 @@ DDD.makeMaterials = function(){
 	}
 
 	//lines
-    DDD.material.streetTube = new THREE.MeshLambertMaterial({
-    	color: 0xFF0000,
-    	//shading: THREE.FlatShading,
-	}); 
+ //    DDD.material.streetTube = new THREE.MeshNormalMaterial({
+ //    	color: 0xFF0000,
+ //    	//shading: THREE.FlatShading,
+	// }); 
 
+	// var uniforms = {
+	// 	  opacity: {type: 'f', value: 1.0},
+	// };
+
+ //    DDD.material.streetTube = new THREE.ShaderMaterial({
+	// 	uniforms: uniforms,
+	// 	attributes: {},
+	// 	vertexShader: THREE.ShaderLib.basic.vertexShader,
+	// 	fragmentShader: Template.shaderTube(),
+	// 	transparent: false
+	// });
+
+	DDD.material.streetTube = new THREE.ShaderMaterial({
+		uniforms: {
+			"maxHeight" : { type: "f", value: DDD.streetHeight.max },
+			"minHeight" : { type: "f", value: DDD.streetHeight.min }
+		},
+	    vertexShader : Template.shaderTubeVertex(),
+	    fragmentShader: Template.shaderTubeFragment()
+	});
+
+    //start tube caching
 	DDD.cacheTube = new THREE.Geometry();
 	var streets3D = new THREE.Mesh ( DDD.cacheTube , DDD.material.streetTube );
 	DDD.group.add(streets3D);
@@ -311,7 +338,7 @@ DDD.addStreet = function(points, data){
 
 		//make tube
 		var path3D = new THREE.SplineCurve3(path);
-		var tube = new THREE.TubeGeometry(path3D, 5, 1.2, 10, false, true);
+		var tube = new THREE.TubeGeometry(path3D, 3, 1.1, 8, false, true);
 		THREE.GeometryUtils.merge(DDD.cacheTube,tube);
 
 	}
