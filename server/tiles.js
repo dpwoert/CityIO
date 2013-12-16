@@ -87,7 +87,7 @@ tiles.getSoundTile = function(pos){
 		// 		+'&bboxSR=28992&layers=show:'+map+'+&layerdefs=&size='+tiles.soundtileSize+','+tiles.soundtileSize+'&imageSR=28992&format=png8'
 		// 		+'&transparent=true&dpi=96&time=&layerTimeOptions=&f=json';
 
-		return 'http://geoproxy.s-hertogenbosch.nl/pwarcgis1/rest/services/externvrij/Geluidbelasting/MapServer/export?dpi=96&transparent=true&format=png8&bbox='+left[0]+','+left[1]+','+right[0]+','+right[1]+'&bboxSR=28992&imageSR=28992&size=943%2C512&layers=show%3A0%2C2&f=image';
+		return 'http://geoproxy.s-hertogenbosch.nl/pwarcgis1/rest/services/externvrij/Geluidbelasting/MapServer/export?dpi=96&transparent=true&format=png8&bbox='+left[0]+','+left[1]+','+right[0]+','+right[1]+'&bboxSR=28992&imageSR=28992&size=943%2C512&layers=show%3A'+map+'%2C2&f=image';
 
 	}
 	

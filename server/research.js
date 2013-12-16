@@ -80,15 +80,6 @@ research.getPollution = function(db, again){
 //todo for multiple points
 research.getNoise = function(points, id, db){
 
-	// var getIMG = function(tileUrl, type, key){
-	// 	console.log('convert tile to img url: ' + tileUrl);
-	// 	Meteor.http.get(tileUrl, {} , function(error, result){
-	// 		//if(error) console.log(error);
-	// 		var obj = JSON.parse(result.content);
-	// 		getPNG(obj.href, type, key);
-	// 	});
-	// }
-
 	//request function
 	var getPNG = function(tileUrl, type, key){
 

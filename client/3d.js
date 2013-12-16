@@ -147,23 +147,6 @@ DDD.makeMaterials = function(){
 	}
 
 	//lines
- //    DDD.material.streetTube = new THREE.MeshNormalMaterial({
- //    	color: 0xFF0000,
- //    	//shading: THREE.FlatShading,
-	// }); 
-
-	// var uniforms = {
-	// 	  opacity: {type: 'f', value: 1.0},
-	// };
-
- //    DDD.material.streetTube = new THREE.ShaderMaterial({
-	// 	uniforms: uniforms,
-	// 	attributes: {},
-	// 	vertexShader: THREE.ShaderLib.basic.vertexShader,
-	// 	fragmentShader: Template.shaderTube(),
-	// 	transparent: false
-	// });
-
 	DDD.material.streetTube = new THREE.ShaderMaterial({
 		uniforms: {
 			"maxHeight" : { type: "f", value: DDD.streetHeight.max },
@@ -174,10 +157,13 @@ DDD.makeMaterials = function(){
 	});
 
     //start tube caching
-	DDD.cacheTube = new THREE.Geometry();
-	var streets3D = new THREE.Mesh ( DDD.cacheTube , DDD.material.streetTube );
-	DDD.group.add(streets3D);
-
+	DDD.tubeDay = new THREE.Geometry();
+	DDD.tubeNight = new THREE.Geometry();
+	var streetDay = new THREE.Mesh ( DDD.tubeDay , DDD.material.streetTube );
+	var streetNight = new THREE.Mesh ( DDD.tubeNight , DDD.material.streetTube );
+	streetNight.visible = false;
+	DDD.group.add(streetDay);
+	DDD.group.add(streetNight);
 
 }
 
@@ -300,47 +286,45 @@ DDD.addStreet = function(points, data){
 	var points2D = DDD.getPoints(points);
 
 	//sort sound data
-	var soundNight = data.soundNight.sort(function(a,b){return a.key-b.key});
 	var soundDay = data.soundDay.sort(function(a,b){return a.key-b.key});
+	var soundNight = data.soundNight.sort(function(a,b){return a.key-b.key});
 
 	//geometry
-	// var geom = new THREE.Geometry();
-	var path = [];
+	var pathDay = [];
+	var pathNight = [];
 
 	$.each(points, function(key,point){
 
 		//get height
-		var height = soundDay[key] ? DDD.streetHeights(soundDay[key].db) : 1;
+		var heightDay = soundDay[key] ? DDD.streetHeights(soundDay[key].db) : 1;
+		var heightNight = soundNight[key] ? DDD.streetHeights(soundNight[key].db) : 1;
 
 		//points
 		var V2 = DDD.translatePoint2D([ point[1],point[0] ]);
-		var V3 = new THREE.Vector3( V2.x , V2.y , height );
+		var V3Day = new THREE.Vector3( V2.x , V2.y , heightDay );
+		var V3Night = new THREE.Vector3( V2.x , V2.y , heightNight );
 
 		// geom.vertices.push(V3);
-		path.push(V3);
+		pathDay.push(V3Day);
+		pathNight.push(V3Night);
 
-		//line down
-		if(DDD.groundlines){
-
-			var geom2 = new THREE.Geometry();
-			geom2.vertices.push(new THREE.Vector3( V2.x , V2.y , 1 ));
-			geom2.vertices.push(new THREE.Vector3( V2.x , V2.y , height ));
-			var line2 = new THREE.Line(geom2, DDD.material.street2);
-			DDD.group.add(line2);
-
-		}
 	});
 
-	if(path.length > 0){
-
-		//make line
-		// var line = new THREE.Line(geom, DDD.material.street);
-		// DDD.group.add(line);
+	if(pathDay.length > 0){
 
 		//make tube
-		var path3D = new THREE.SplineCurve3(path);
+		var path3D = new THREE.SplineCurve3(pathDay);
 		var tube = new THREE.TubeGeometry(path3D, 3, 1.1, 8, false, true);
-		THREE.GeometryUtils.merge(DDD.cacheTube,tube);
+		THREE.GeometryUtils.merge(DDD.tubeDay,tube);
+
+	}
+
+	if(pathNight.length > 0){
+
+		//make tube
+		var path3D = new THREE.SplineCurve3(pathNight);
+		var tube = new THREE.TubeGeometry(path3D, 3, 1.1, 8, false, true);
+		THREE.GeometryUtils.merge(DDD.tubeNight,tube);
 
 	}
 

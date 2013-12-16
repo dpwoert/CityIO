@@ -23,6 +23,12 @@ geo.init = function(){
 	//get the data
 	Meteor.call('getData', function(error, data){
 
+		//error
+		if(error){
+			console.log('ERROR fetching data');
+			return false;
+		}
+
 		//add buildings
 		_.each(data.buildings, function(building){
 			
