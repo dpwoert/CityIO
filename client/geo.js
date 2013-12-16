@@ -53,6 +53,7 @@ geo.get = function(){
 			}
 
 			geo.buildingIDs.push(building.id);
+			console.log('add building');
 			DDD.addBuilding(building.geom.coordinates,building);
 		});
 
