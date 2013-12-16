@@ -20,32 +20,11 @@ geo.init = function(){
 	//get scale
 	geo.setScales();
 
-	//set collections
-	Meteor.subscribe("all-buildings");
-	geo.buildingsDB = new Meteor.SmartCollection('buildings');
-	Meteor.subscribe("all-streets");
-	geo.streetsDB = new Meteor.SmartCollection('streets');
-
-	Meteor.call('buildingCount', function(err, res){
-		geo.buildingCount = res;
-		//get the data for den bosch now we know how much data we have...
-		geo.get();
-	});
-
-	
-};
-
-geo.get = function(){
-
-	//add buildings
-	Meteor.autorun(function(c){
-
-		//check for performance
-		if(DDD.pause) return false;
+	//get the data
+	Meteor.call('getData', function(error, data){
 
 		//add buildings
-		geo.buildings = geo.buildingsDB.find();
-		geo.buildings.forEach(function(building){
+		_.each(data.buildings, function(building){
 			
 			//to prevent doubles
 			if(geo.buildingIDs.indexOf(building.id) > -1){
@@ -58,27 +37,23 @@ geo.get = function(){
 		});
 
 		//add streets
-		geo.streets = geo.streetsDB.find();
-		geo.streets.forEach(function (street) {
+		_.each(data.streets, function (street) {
 			
 			DDD.addStreet(street.points, street);
 
 		});
 
-		//check if completed
-		if( geo.buildingIDs.length >= geo.buildingCount ){
-			console.log('loaded');
+		//add to garbage
+		geo.buildingIDs == null;
+		delete geo.buildingIDs;
 
-			//add to garbage
-			geo.buildingIDs == null;
-			delete geo.buildingIDs;
+		//merge buildings
+		DDD.buildingsFinished();
 
-			//merge buildings
-			DDD.buildingsFinished();
-		}
 
 	});
 
+	
 };
 
 geo.setScales = function(){

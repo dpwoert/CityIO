@@ -39,6 +39,13 @@ Meteor.methods({
 		return geo.buildingsDB.find().count();
 	},
 
+	getData: function(){
+		return {
+			buildings: geo.buildingsDB.find().fetch(),
+			streets: geo.streetsDB.find().fetch()
+		}
+	},
+
 	//trigger loading all api's again
 	buildCity: function(add){
 

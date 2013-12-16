@@ -62,7 +62,7 @@ DDD.init = function(){
 
    	//floor
     var planeGeo = new THREE.PlaneGeometry(3000, 3000, 1, 1);
-    var planeMat = new THREE.MeshLambertMaterial({color: 0xecf0f1});
+    var planeMat = new THREE.MeshLambertMaterial({color: 0xF5F5F5});
     var plane = new THREE.Mesh(planeGeo, planeMat);
     DDD.group.add(plane);
 
