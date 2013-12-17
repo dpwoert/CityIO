@@ -27,10 +27,10 @@ window.DDD = {
 	//street heights
 	groundlines: false,
 	streetHeight: { min: 1.0, max: 30.0 },
-	streetHeights: d3.scale.log()
+	streetHeights: d3.scale.pow()
 		.domain([50,75])
 		.range([1,30])
-		.base(2)
+		.exponent(20)
 
 };
 
@@ -150,10 +150,18 @@ DDD.makeMaterials = function(){
 	DDD.material.streetTube = new THREE.ShaderMaterial({
 		uniforms: {
 			"maxHeight" : { type: "f", value: DDD.streetHeight.max },
-			"minHeight" : { type: "f", value: DDD.streetHeight.min }
+			"minHeight" : { type: "f", value: DDD.streetHeight.min },
+			"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
+			"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) },
+			"colorEnd" : { type: "v4", value: new THREE.Vector4( 1, 0, 0, 1 ) },
+			"stopPos" : { type: "f", value: 0.5 },
+
+			"fogColor" : { type: "c", value: DDD.scene.fog.color },
+			"fogDensity" : { type: "f", value: DDD.scene.fog.density },
 		},
 	    vertexShader : Template.shaderTubeVertex(),
-	    fragmentShader: Template.shaderTubeFragment()
+	    fragmentShader: Template.shaderTubeFragment(),
+	    fog: true
 	});
 
     //start tube caching
