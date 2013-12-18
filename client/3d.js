@@ -152,9 +152,11 @@ DDD.makeMaterials = function(){
 			"maxHeight" : { type: "f", value: DDD.streetHeight.max },
 			"minHeight" : { type: "f", value: DDD.streetHeight.min },
 			"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
-			"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) },
+			"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
+			// "colorStop" : { type: "v4", value: new THREE.Vector4( (209/255) , (162/255) , (87/255), 1 ) },
+			// "colorEnd" : { type: "v4", value: new THREE.Vector4( (209/255), (102/225), (87/225), 1 ) },
 			"colorEnd" : { type: "v4", value: new THREE.Vector4( 1, 0, 0, 1 ) },
-			"stopPos" : { type: "f", value: 0.5 },
+			"stopPos" : { type: "f", value: 0.4 },
 
 			"fogColor" : { type: "c", value: DDD.scene.fog.color },
 			"fogDensity" : { type: "f", value: DDD.scene.fog.density },
