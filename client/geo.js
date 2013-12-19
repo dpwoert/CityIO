@@ -29,32 +29,20 @@ geo.init = function(){
 			return false;
 		}
 
-		//add buildings
-		_.each(data.buildings, function(building){
-			
-			//to prevent doubles
-			if(geo.buildingIDs.indexOf(building.id) > -1){
-				return false;
-			}
+		var buildings = new Buildings(DDD.scene);
+		buildings.source(data.buildings);
+		buildings.addTo(DDD.group);
 
-			geo.buildingIDs.push(building.id);
-			console.log('add building');
-			DDD.addBuilding(building.geom.coordinates,building);
-		});
+		var streets = new Streets(DDD.scene);
 
 		//add streets
 		_.each(data.streets, function (street) {
 			
-			DDD.addStreet(street.points, street);
+			streets.add(street.points, street);
 
 		});
 
-		//add to garbage
-		geo.buildingIDs == null;
-		delete geo.buildingIDs;
-
-		//merge buildings
-		DDD.buildingsFinished();
+		streets.addTo(DDD.group);
 
 
 	});

@@ -1,0 +1,42 @@
+<template name="shaderSurfaceFragment">
+
+uniform float minHeight;
+uniform float maxHeight;
+
+uniform vec4 colorDay;
+uniform vec4 colorNight;
+uniform float time;
+
+varying float z;
+
+#ifdef USE_FOG
+
+	uniform vec3 fogColor;
+	uniform float fogDensity;
+
+
+#endif
+
+void main() {
+	gl_FragColor = colorDay;
+
+	float depth = gl_FragCoord.z / gl_FragCoord.w;
+	const float LOG2 = 1.442695;
+	float fogFactor = exp2( - fogDensity * fogDensity * depth * depth * LOG2 );
+	fogFactor = 1.0 - clamp( fogFactor, 0.0, 1.0 );
+	gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+}
+
+</template>
+
+<template name="shaderSurfaceVertex">
+
+varying float z;
+
+void main(void) {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    z = position.z;
+}
+
+</template>
