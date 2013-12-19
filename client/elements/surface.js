@@ -3,7 +3,7 @@ window.Surfaces = function(scene){
 	this.types = {
 		'ground': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
 		'nature': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
-		'water': { 'colorDay': new THREE.Color(0x2e90b9), 'colorNight': new THREE.Color(0x11485f) },
+		'water': { 'colorDay': new THREE.Color(0x81c6f6), 'colorNight': new THREE.Color(0x11485f) },
 	};
 
 	this.data = [];
@@ -19,8 +19,8 @@ window.Surfaces = function(scene){
 			//uniforms
 			type.uniforms = {
 				"time" : { type: "f", value: 0 },
-				"colorDay" : { type: "v4", value: type.colorDay },
-				"colorNight" : { type: "v4", value: type.colorNight }, //oranje
+				"colorDay" : { type: "c", value: type.colorDay },
+				"colorNight" : { type: "c", value: type.colorNight },
 
 				"fogColor" : { type: "c", value: scene.fog.color },
 				"fogDensity" : { type: "f", value: scene.fog.density },

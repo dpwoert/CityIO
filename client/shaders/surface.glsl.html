@@ -3,8 +3,8 @@
 uniform float minHeight;
 uniform float maxHeight;
 
-uniform vec4 colorDay;
-uniform vec4 colorNight;
+uniform vec3 colorDay;
+uniform vec3 colorNight;
 uniform float time;
 
 varying float z;
@@ -14,11 +14,11 @@ varying float z;
 	uniform vec3 fogColor;
 	uniform float fogDensity;
 
-
 #endif
 
 void main() {
-	gl_FragColor = colorDay;
+
+	gl_FragColor = vec4(colorDay,1.0);
 
 	float depth = gl_FragCoord.z / gl_FragCoord.w;
 	const float LOG2 = 1.442695;
