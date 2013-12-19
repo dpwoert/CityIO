@@ -40,9 +40,11 @@ Meteor.methods({
 	},
 
 	getData: function(){
+		//TODO remove onzin values
 		return {
 			buildings: geo.buildingsDB.find().fetch(),
-			streets: geo.streetsDB.find().fetch()
+			streets: geo.streetsDB.find().fetch(),
+			water: JSON.parse( Assets.getText("data/water.json") )
 		}
 	},
 

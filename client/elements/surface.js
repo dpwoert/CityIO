@@ -3,7 +3,10 @@ window.Surfaces = function(scene){
 	this.types = {
 		'ground': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
 		'nature': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
+		'water': { 'colorDay': new THREE.Color(0x2e90b9), 'colorNight': new THREE.Color(0x11485f) },
 	};
+
+	this.data = [];
 
 	this.init = function(){
 
@@ -26,8 +29,8 @@ window.Surfaces = function(scene){
 			//material
 			type.material = new THREE.ShaderMaterial({
 				uniforms: type.uniforms,
-			    vertexShader : Template.shaderFaceVertex(),
-			    fragmentShader: Template.shaderFaceFragment(),
+			    vertexShader : Template.shaderSurfaceVertex(),
+			    fragmentShader: Template.shaderSurfaceFragment(),
 			    fog: true
 			});
 
@@ -41,12 +44,13 @@ window.Surfaces = function(scene){
 
 	}.call(this);
 
-	this.add = function(list, type, height){
+	this.add = function(data){
 
 		//generate points in 2d space
 		var points = [];
+		var list = data.geom.coordinates[0];
 		for(var i = 0 ; i < list.length ; i++){
-			points.push( scene.points.translate2D([ list[i][0],list[i][1] ]) );
+			points.push( scene.points.translate2D([ list[i][0], list[i][1] ]) );
 		}
 
 		var shape = new THREE.Shape(points);
@@ -64,7 +68,8 @@ window.Surfaces = function(scene){
 
 		//extrude & make mesh
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		THREE.GeometryUtils.merge(this.types[type].geometry,geometry);			
+		debugger
+		THREE.GeometryUtils.merge(this.types[data.type].geometry,geometry);			
 
 	};
 
@@ -75,6 +80,30 @@ window.Surfaces = function(scene){
 			type.uniforms.time.value = time;
 
 		});
+	};
+
+	//use a source
+	this.source = function(type,source){
+
+		for( var i = 0 ; i < source.length ; i++){
+			source[i].type = type;
+		}
+
+		this.data = source;
+		debugger
+
+	};
+
+	this.startLoading = function(){
+
+		//load all
+		var item;
+		for( var i = 0 ; i < this.data.length ; i ++ ){
+			item = this.data[i];
+			this.add(item);
+			scene.preloader.step();
+		}
+
 	};
 
 	this.addTo = function(obj3d){

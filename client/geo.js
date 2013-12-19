@@ -37,7 +37,11 @@ geo.init = function(){
 		streets.source(data.streets);
 		streets.addTo(DDD.group);
 
-		DDD.preloader.load([streets, buildings]);
+		var water = new Surfaces(DDD.scene);
+		water.source('water', data.water);
+		water.addTo(DDD.group);
+
+		DDD.preloader.load([streets, buildings, water]);
 		DDD.preloader.start();
 
 
