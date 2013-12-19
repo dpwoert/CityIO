@@ -34,15 +34,11 @@ geo.init = function(){
 		buildings.addTo(DDD.group);
 
 		var streets = new Streets(DDD.scene);
-
-		//add streets
-		_.each(data.streets, function (street) {
-			
-			streets.add(street.points, street);
-
-		});
-
+		streets.source(data.streets);
 		streets.addTo(DDD.group);
+
+		DDD.preloader.load([streets, buildings]);
+		DDD.preloader.start();
 
 
 	});

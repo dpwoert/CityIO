@@ -36,7 +36,9 @@ window.Buildings = function(scene){
 
 	}.call(this);
 
-	this.add = function(building, data){
+	this.add = function(data){
+
+		var building = data.geom.coordinates[0];
 
 		//group on pollution
 		var no2 = data.fijnstof ? data.fijnstof.no2 : scaleMin;
@@ -55,6 +57,8 @@ window.Buildings = function(scene){
 		if(data.height) { height = data.height; }
 		else { height = data.calculated }
 		height *= geo.pixelScale; //TODO
+
+		if(isNaN(height)) height = 1;
 
 		//settings
 		var extrusionSettings = {
@@ -95,60 +99,30 @@ window.Buildings = function(scene){
 	//use a source
 	this.source = function(source){
 
-		var cacheList = [];
-		this.preloader = true;
-		this.preloaded = 0;
-		this.total = source.length;
-		_this = this;
-
-		console.log('start loading');
-
-		_.each(source, function(building){
-			_.defer(function() {
-
-					_this.preloaded++;
-					
-					//to prevent doubles
-					if(cacheList.indexOf(building.id) == -1){
-
-						cacheList.push(building.id);
-						_this.add(building.geom.coordinates[0],building);
-						
-					}
-					_this.checkStatus();
-
-			});
-		});
+		this.data = source;
 
 	};
 
-	this.checkStatus = function(){
-
-		//check
-		if(!this.preloader) return false;
-
-		//update
-		if(this.preloaded % 1000 == 1){
-			console.log(Math.round((this.preloaded/this.total) * 100) + '% loaded (' + this.preloaded + ' buildings)');
+	this.startLoading = function(){
+		
+		//load all
+		var item;
+		for( var i = 0 ; i < this.data.length ; i ++ ){
+			item = this.data[i];
+			this.add(item);
+			scene.preloader.step();
 		}
 
-		//finished?
-		if(this.preloaded == this.total){
-			console.log('finished');
-			DDD.loaded = true;
-			//todo remove!!
-		}
+	}
 
-	};
-
-	//add to the  3d world
+	//add to the 3d world
 	this.addTo = function(obj3d){
 
 		_.each(this.groups, function(group){
 
-			obj3d.add(group.mesh);
+           	obj3d.add(group.mesh);
 
-		});
+        });
 
 	};
 	

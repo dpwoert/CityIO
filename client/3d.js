@@ -52,6 +52,10 @@ DDD.init = function(){
     var points = new Points(geo.center,geo.zoom);
     DDD.scene.points = points;
 
+    //preloader
+    DDD.preloader = new Preloader();
+    DDD.scene.preloader = DDD.preloader;
+
     //fog
     DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0003 );
 
@@ -111,7 +115,7 @@ DDD.animate = function(){
     requestAnimationFrame( DDD.animate );
 
     //check if all objects are loaded
-    if(!DDD.loaded) return false;
+    if(!DDD.preloader.ready) return false;
 
     //update
     DDD.controls.update( DDD.clock.getDelta() );

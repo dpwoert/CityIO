@@ -19,9 +19,6 @@ window.Streets = function(scene){
 	
 	this.init = function(){
 
-		this.material = [];
-		this.geometry = [];
-
 		//create materials
 		_.each(this.types, function(type){
 
@@ -65,7 +62,9 @@ window.Streets = function(scene){
 
 	}.call(this);
 
-	this.add = function(list, data){
+	this.add = function(data){
+
+		var list = data.points;
 
 		//check
 		if(list.length < 1 ) return false;
@@ -112,13 +111,30 @@ window.Streets = function(scene){
 		});
 	};
 
+	this.source = function(source){
+		this.data = source;
+	};
+
+	this.startLoading = function(){
+		
+		//load all
+		var item;
+		for( var i = 0 ; i < this.data.length ; i ++ ){
+			item = this.data[i];
+			this.add(item);
+			scene.preloader.step();
+
+		}
+
+	}
+
 	this.addTo = function(obj3d){
 
 		_.each(this.types, function(type){
 
-			obj3d.add(type.mesh);
+           	obj3d.add(type.mesh);
 
-		});
+        });
 
 	};
 
