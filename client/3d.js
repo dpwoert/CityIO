@@ -56,6 +56,10 @@ DDD.init = function(){
     DDD.preloader = new Preloader();
     DDD.scene.preloader = DDD.preloader;
 
+    //timeline
+    DDD.timeline = new Timeline();
+    DDD.scene.timeline = DDD.timeline;
+
     //fog
     DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0003 );
 
@@ -117,8 +121,12 @@ DDD.animate = function(){
     //check if all objects are loaded
     if(!DDD.preloader.ready) return false;
 
+    //timeline
+    var delta = DDD.clock.getDelta();
+    if(DDD.timeline.needsUpdate) DDD.timeline.render( delta );
+
     //update
-    DDD.controls.update( DDD.clock.getDelta() );
+    DDD.controls.update( delta );
 
     //render
     DDD.renderer.render( DDD.scene, DDD.camera );

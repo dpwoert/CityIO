@@ -68,7 +68,6 @@ window.Surfaces = function(scene){
 
 		//extrude & make mesh
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		debugger
 		THREE.GeometryUtils.merge(this.types[data.type].geometry,geometry);			
 
 	};
@@ -90,7 +89,6 @@ window.Surfaces = function(scene){
 		}
 
 		this.data = source;
-		debugger
 
 	};
 

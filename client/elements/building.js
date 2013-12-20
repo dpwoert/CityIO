@@ -56,7 +56,7 @@ window.Buildings = function(scene){
 		var height;
 		if(data.height) { height = data.height; }
 		else { height = data.calculated }
-		height *= geo.pixelScale; //TODO
+		height *= scene.points.pixelScale; //TODO
 
 		if(isNaN(height)) height = 1;
 

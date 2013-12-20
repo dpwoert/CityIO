@@ -30,7 +30,7 @@ window.Streets = function(scene){
 				"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
 				// "colorStop" : { type: "v4", value: new THREE.Vector4( (209/255) , (162/255) , (87/255), 1 ) },
 				// "colorEnd" : { type: "v4", value: new THREE.Vector4( (209/255), (102/225), (87/225), 1 ) },
-				"colorEnd" : { type: "v4", value: new THREE.Vector4( 1, 0, 0, 1 ) },
+				"colorEnd" : { type: "v4", value: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
 				"stopPos" : { type: "f", value: 0.4 },
 
 				"fogColor" : { type: "c", value: scene.fog.color },
