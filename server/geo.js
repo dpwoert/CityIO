@@ -44,7 +44,8 @@ Meteor.methods({
 		return {
 			buildings: geo.buildingsDB.find().fetch(),
 			streets: geo.streetsDB.find().fetch(),
-			water: JSON.parse( Assets.getText("data/water.json") )
+			water: JSON.parse( Assets.getText("data/water.json") ),
+			region: JSON.parse( Assets.getText("data/region.json") )
 		}
 	},
 

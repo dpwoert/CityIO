@@ -1,19 +1,17 @@
 window.Surfaces = function(scene){
 	
 	this.types = {
-		'ground': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
-		'nature': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
+		'floor': { 'colorDay': new THREE.Color(0xDDDDDD), 'colorNight': new THREE.Color(0xF5F5F5) },
 		'water': { 'colorDay': new THREE.Color(0x81c6f6), 'colorNight': new THREE.Color(0x11485f) },
+		'nature': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
 	};
 
 	this.data = [];
 
 	this.init = function(){
 
-		this.material = [];
-		this.geometry = [];
-
-		//create materials
+		//create types
+		var i = 1;
 		_.each(this.types, function(type){
 
 			//uniforms
@@ -37,8 +35,14 @@ window.Surfaces = function(scene){
 			//geometry
 			type.geometry = new THREE.Geometry();
 
+			//height (z-index sorting)
+			type.height = i*2;
+
 			//make mesh
 			type.mesh = new THREE.Mesh(type.geometry, type.material);
+
+			//itterate heights
+			i++;
 
 		});
 
@@ -54,7 +58,7 @@ window.Surfaces = function(scene){
 		}
 
 		var shape = new THREE.Shape(points);
-		var height = height ? height : 1;
+		var height = this.types[data.type].height ? this.types[data.type].height : 1;
 
 		//settings
 		var extrusionSettings = {
@@ -88,7 +92,11 @@ window.Surfaces = function(scene){
 			source[i].type = type;
 		}
 
-		this.data = source;
+		if(this.data.length > 1){
+			this.data = this.data.concat(source);
+		} else {
+			this.data = source;
+		}
 
 	};
 
