@@ -24,8 +24,8 @@ window.Streets = function(scene){
 
 			//uniforms
 			type.uniforms = {
-				"maxHeight" : { type: "f", value: DDD.streetHeight.max },
-				"minHeight" : { type: "f", value: DDD.streetHeight.min },
+				"minHeight" : { type: "f", value: rangeMin },
+				"maxHeight" : { type: "f", value: rangeMax },
 				"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
 				"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
 				// "colorStop" : { type: "v4", value: new THREE.Vector4( (209/255) , (162/255) , (87/255), 1 ) },

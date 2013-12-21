@@ -21,6 +21,7 @@ data.init = function(){
 
 		var surfaces = new Surfaces(DDD.scene);
 		surfaces.source('water', data.water);
+		surfaces.source('floor', data.region);
 		surfaces.addTo(DDD.group);
 
 		//preloader
