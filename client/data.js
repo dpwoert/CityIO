@@ -3,7 +3,10 @@ window.data = {};
 data.init = function(){
 
 	//get the data
+	console.time("downloading data");
 	Meteor.call('getData', function(error, data){
+
+		console.timeEnd("downloading data");
 
 		//error
 		if(error){
