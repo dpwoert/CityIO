@@ -31,6 +31,10 @@ Meteor.startup(function(){
 		return geo.streetsDB.find({});
 	});
 
+	//save to cache
+	cache = new buildJSON();
+	//cache.build();
+
 });
 
 Meteor.methods({
@@ -40,13 +44,7 @@ Meteor.methods({
 	},
 
 	getData: function(){
-		//TODO remove onzin values
-		return {
-			buildings: geo.buildingsDB.find().fetch(),
-			streets: geo.streetsDB.find().fetch(),
-			water: JSON.parse( Assets.getText("data/water.json") ),
-			region: JSON.parse( Assets.getText("data/region.json") )
-		}
+		return cache.get();
 	},
 
 	//trigger loading all api's again

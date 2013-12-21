@@ -11,6 +11,8 @@ data.init = function(){
 			return false;
 		}
 
+		console.log(data);
+
 		var buildings = new Buildings(DDD.scene);
 		buildings.source(data.buildings);
 		buildings.addTo(DDD.group);
