@@ -39,13 +39,13 @@ Meteor.startup(function(){
 
 Meteor.methods({
 
-	buildingCount: function(){
-		return geo.buildingsDB.find().count();
-	},
-
 	getData: function(){
 		return cache.get();
 	},
+
+	rebuildCache: function(){
+		cache.build();
+	}
 
 	//trigger loading all api's again
 	buildCity: function(add){
