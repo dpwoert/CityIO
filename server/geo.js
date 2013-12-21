@@ -45,7 +45,7 @@ Meteor.methods({
 
 	rebuildCache: function(){
 		cache.build();
-	}
+	},
 
 	//trigger loading all api's again
 	buildCity: function(add){
