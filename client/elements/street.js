@@ -1,10 +1,11 @@
 window.Streets = function(scene){
 
 	//types
-	this.types = {
-		day: { search: 'soundDay' },
-		//night: { search: 'soundNight' }
-	}
+	this.types = [
+		{ name: 'soundDay', visible: true },
+		{ name: 'soundNight', visible: false }
+		//night: { search: 'soundNight', visible: false }
+	];
 
 	//scale domain
 	var domainMin = 50;
@@ -44,7 +45,8 @@ window.Streets = function(scene){
 				uniforms: type.uniforms,
 			    vertexShader : Template.shaderTubeVertex(),
 			    fragmentShader: Template.shaderTubeFragment(),
-			    fog: true
+			    fog: true,
+			    visible: type.visible
 			});
 
 			//geometry
@@ -71,11 +73,11 @@ window.Streets = function(scene){
 		//check
 		if(list.length < 1 ) return false;
 
-		scale = this.scale;
-		_.each(this.types, function(type){
+		for( var i = 0 ; i < this.types.length ; i ++){
+			var type = this.types[i];
 
 			//sort sound data
-			var sound = data[type.search].sort(function(a,b){return a.key-b.key});
+			var sound = data[type.name].sort(function(a,b){return a.key-b.key});
 
 			var path = [];
 
@@ -85,7 +87,7 @@ window.Streets = function(scene){
 				var point = list[i];
 
 				//get height
-				var height = sound[i] ? scale(sound[i].db) : 1;
+				var height = sound[i] ? this.scale(sound[i].db) : 1;
 
 				//points
 				var V2 = scene.points.translate2D([ point[1], point[0] ]);
@@ -99,9 +101,9 @@ window.Streets = function(scene){
 			var path3D = new THREE.SplineCurve3(path);
 			var tube = new THREE.TubeGeometry(path3D, 3, 1.1, 5, false, true);
 			THREE.GeometryUtils.merge(type.geometry,tube);
-			// tube.dispose();
+			tube.dispose();
 
-		});
+		}
 
 	};
 
