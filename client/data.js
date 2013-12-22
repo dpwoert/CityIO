@@ -14,7 +14,7 @@ data.init = function(){
 			return false;
 		}
 
-		console.log(data);
+		// console.log(data);
 
 		var buildings = new Buildings(DDD.scene);
 		buildings.source(data.buildings);
@@ -22,6 +22,7 @@ data.init = function(){
 
 		var streets = new Streets(DDD.scene);
 		streets.source(data.streets);
+		// streets.source(data.streets);
 		streets.addTo(DDD.group);
 
 		var surfaces = new Surfaces(DDD.scene);
@@ -30,12 +31,14 @@ data.init = function(){
 		surfaces.addTo(DDD.group);
 
 		//preloader
-		DDD.preloader.load([streets, buildings, surfaces]);
-		DDD.preloader.start();
+		// DDD.preloader.load([buildings, surfaces]);
+		DDD.preloader.load([buildings, surfaces, streets]);
+		DDD.preloader.start();	
 
 		//timeline
-		DDD.timeline.add([ surfaces ]);
+		//DDD.timeline.add([ surfaces ]);
 
+		data = null;
 
 	});
 

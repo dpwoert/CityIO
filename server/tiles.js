@@ -115,6 +115,10 @@ tiles.readHeight = function(point, img, url, db, id){
     var reader = new PNGReader(img);
     reader.parse(function(err,png){
         if(err) console.log(err);
+        if(png == undefined) {
+        	console.log('unexpected error');
+        	return false;
+        }
 
         var x = Math.floor(point[0]*256);
         var y = Math.floor(point[1]*256);

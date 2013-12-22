@@ -10,6 +10,7 @@ buildJSON = function(){
 
 		//add buildings
 		data.buildings = geo.buildingsDB.find().fetch();
+		// data.buildings = data.buildings.slice(0,30000);
 		data.buildings = this.strip([ 'id','bouwjaar','tileUrl','tilePoint' ], data.buildings);
 
 		//add streets
@@ -19,6 +20,10 @@ buildJSON = function(){
 		//add water
 		data.water = JSON.parse( Assets.getText("data/water.json") );
 		data.water = this.strip([ 'cdk_id','name','node_type','layer','layers' ], data.water);
+
+		//add grass/nature
+		// data.grass = JSON.parse( Assets.getText("data/grass.json") );
+		// data.grass = this.strip([ 'cdk_id','name','node_type','layer','layers' ], data.grass);
 
 		//add region
 		data.region = JSON.parse( Assets.getText("data/region.json") );
@@ -39,7 +44,6 @@ buildJSON = function(){
 	};
 
 	this.get = function(){
-		console.log('returning data: ' + this.data.length);
 		return this.data;
 	};
 

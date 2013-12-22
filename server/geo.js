@@ -1,13 +1,10 @@
 geo = {
-	APIurl: 'http://api.citysdk.waag.org/nodes',
-	maxCalls: 30,
+	APIurl: 'http://api.citysdk.waag.org/admr.nl.shertogenbosch/nodes',
+	maxCalls: 90,
 	calls: 0,
 
 	//get city settings
-	// terrainSize: 1.5, //km
-	// center: [51.68836,5.30507],
-
-	terrainSize: 4, //km
+	terrainSize: 3.6, //km
 	center: [51.697816,5.303675],
 
 	//road settings
@@ -48,10 +45,10 @@ Meteor.methods({
 	},
 
 	//trigger loading all api's again
-	buildCity: function(add){
+	buildCity: function(clean){
 
 		//load & resest DB
-		if(!add){
+		if(clean){
 			geo.buildingsDB.remove({});
 			console.log('==== Building city ====');
 		} else {
@@ -60,7 +57,6 @@ Meteor.methods({
 
 		//get & prepare BAG entries
 		geo.getBAG({
-			'add': add,
 			'pos': geo.center, 
 			'radius': geo.terrainSize,
 			'after': geo.addBAG,
@@ -134,6 +130,32 @@ Meteor.methods({
 
 	getPollution: function(again){
 		research.getPollution(geo.buildingsDB,again);
+	},
+
+	dedouble: function(){
+
+		var cache = [];
+		var list = geo.buildingsDB.find().fetch();
+		console.log('searching for doubles');
+
+		_.each(list, function(building){
+
+			if(cache.indexOf(building.id) == -1){
+				cache.push(building.id)
+			} else {
+				console.log('double in list');
+
+				// geo.buildingsDB.update({ 'id':id.toString() }, {
+		  //       	$set: {
+		  //       		'double': true
+		  //       	}
+		  //       });
+			}
+
+		});
+
+		console.log('finished, with ' + cache.length + ' in cache');
+
 	}
 
 });
@@ -166,7 +188,7 @@ geo.getBAG = function(obj){
 
 			//add to data object
 			_.each(result.data.results, function(value){
-				obj.after(value, obj.db, obj.add);
+				obj.after(value, obj.db);
 			});
 
 			//check if finished/more pages
@@ -185,16 +207,14 @@ geo.getBAG = function(obj){
 
 }
 
-geo.addBAG = function(obj, db, add){
+geo.addBAG = function(obj, db){
 	var bagID = obj.layers['bag.panden'].data.pand_id;
-	//console.log('add bag, id: ' + bagID);
 
-	if(add){
-		var exist = db.find({ id: bagID, calculated: { $exists: true } }).count();
-		if(exist > 0){
-			//already in db
-			return false;
-		}
+	//check if already done
+	var exist = db.find({ id: bagID, calculated: { $exists: true } }).count();
+	if(exist > 0){
+		//already in db
+		return false;
 	}
 
 	//get center

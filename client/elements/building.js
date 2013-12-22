@@ -5,8 +5,10 @@ window.Buildings = function(scene){
 	this.groups = [];
 
 	//scale
-	scaleMin = 20.806;
-	scaleMax = 45.5;
+	this.scaleMin = 20.806;
+	this.scaleMax = 45.5;
+
+	var pointer = 0;
 
 	this.init = function(){
 
@@ -15,7 +17,7 @@ window.Buildings = function(scene){
 
 		//scale
 		this.scale = d3.scale.linear()
-			.domain([scaleMin, scaleMax])
+			.domain([this.scaleMin, this.scaleMax])
 			.range([0,this.steps-1]);
 
 		//loop
@@ -41,7 +43,7 @@ window.Buildings = function(scene){
 		var building = data.geom.coordinates[0];
 
 		//group on pollution
-		var no2 = data.fijnstof ? data.fijnstof.no2 : scaleMin;
+		var no2 = data.fijnstof ? data.fijnstof.no2 : this.scaleMin;
 		var groupKey = Math.round(this.scale(no2));
 
 		//generate points in 2d space
@@ -75,6 +77,7 @@ window.Buildings = function(scene){
 			//extrude & make mesh
 			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
 			THREE.GeometryUtils.merge(this.groups[groupKey].geometry,geometry);	
+			geometry.dispose();
 
 		} else {
 			this.addModel(data.url,this.groups[groupKey].geometry);
@@ -103,15 +106,33 @@ window.Buildings = function(scene){
 
 	};
 
-	this.startLoading = function(){
+	// this.startLoading = function(){
 		
-		//load all
-		var item;
-		for( var i = 0 ; i < this.data.length ; i ++ ){
-			item = this.data[i];
-			this.add(item);
-			scene.preloader.step();
-		}
+	// 	//load all
+	// 	var item;
+	// 	var that = this;
+	// 	for( var i = 0 ; i < this.data.length ; i ++ ){
+	// 		item = this.data[i];
+
+	// 			console.log('add building');
+	// 			that.add(item);
+	// 			that.data[i] = null;
+	// 			delete that.data[i];
+	// 			scene.preloader.step();
+
+	// 			debugger
+	// 	}
+
+	// }
+
+	this.loadNext = function(){
+
+		//add
+		this.add(this.data[pointer]);
+
+		//delete
+		this.data[pointer] = null;
+		pointer++;
 
 	}
 

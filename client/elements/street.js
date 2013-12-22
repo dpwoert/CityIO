@@ -3,7 +3,7 @@ window.Streets = function(scene){
 	//types
 	this.types = {
 		day: { search: 'soundDay' },
-		night: { search: 'soundNight' }
+		//night: { search: 'soundNight' }
 	}
 
 	//scale domain
@@ -11,11 +11,13 @@ window.Streets = function(scene){
 	var domainMax = 75;
 
 	//scale range
-	var rangeMin = 1;
+	var rangeMin = 5;
 	var rangeMax = 30;
 
 	//scale exponent
 	var exponent = 20;
+
+	var pointer = 0;
 	
 	this.init = function(){
 
@@ -95,8 +97,9 @@ window.Streets = function(scene){
 
 			//make tube
 			var path3D = new THREE.SplineCurve3(path);
-			var tube = new THREE.TubeGeometry(path3D, 3, 1.1, 8, false, true);
+			var tube = new THREE.TubeGeometry(path3D, 3, 1.1, 5, false, true);
 			THREE.GeometryUtils.merge(type.geometry,tube);
+			// tube.dispose();
 
 		});
 
@@ -115,16 +118,14 @@ window.Streets = function(scene){
 		this.data = source;
 	};
 
-	this.startLoading = function(){
-		
-		//load all
-		var item;
-		for( var i = 0 ; i < this.data.length ; i ++ ){
-			item = this.data[i];
-			this.add(item);
-			scene.preloader.step();
+	this.loadNext = function(){
 
-		}
+		//add
+		this.add(this.data[pointer]);
+
+		//delete
+		this.data[pointer] = null;
+		pointer++;
 
 	}
 

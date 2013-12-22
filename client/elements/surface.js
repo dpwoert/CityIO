@@ -8,6 +8,8 @@ window.Surfaces = function(scene){
 
 	this.data = [];
 
+	var pointer = 0;
+
 	this.init = function(){
 
 		//create types
@@ -72,7 +74,8 @@ window.Surfaces = function(scene){
 
 		//extrude & make mesh
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		THREE.GeometryUtils.merge(this.types[data.type].geometry,geometry);			
+		THREE.GeometryUtils.merge(this.types[data.type].geometry,geometry);
+		geometry.dispose();			
 
 	};
 
@@ -100,17 +103,17 @@ window.Surfaces = function(scene){
 
 	};
 
-	this.startLoading = function(){
+	this.loadNext = function(){
 
-		//load all
-		var item;
-		for( var i = 0 ; i < this.data.length ; i ++ ){
-			item = this.data[i];
-			this.add(item);
-			scene.preloader.step();
-		}
+		//add
+		this.add(this.data[pointer]);
 
-	};
+		//delete
+		this.data[pointer] = null;
+
+		pointer++;
+
+	}
 
 	this.addTo = function(obj3d){
 

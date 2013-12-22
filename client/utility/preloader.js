@@ -5,6 +5,7 @@ window.Preloader = function(html, callback){
 	this.loaded = 0;
 	this.ready = false;
 	this.classes = [];
+	this.started = false;
 	
 	this.init = function(){
 
@@ -14,15 +15,62 @@ window.Preloader = function(html, callback){
 
 		//measure loading time
 		this.startTime = +Date.now();
+		this.started = true;
+		this.currentClass = 0;
+		this.i = 0;
 
 		//log
 		console.log('start loading');
+		console.time('loading');
 
-		for( var i = 0 ; i < this.classes.length ; i++){
-			this.classes[i].startLoading();
-		}
+		// for( var i = 0 ; i < this.classes.length ; i++){
+		// 	console.log('load ' + this.classes[i].valueOf() );
+
+		// 	for( var j = 0 ; j < this.classes[i].data.length ; j++){
+		// 		this.classes[i].loadNext();
+		// 		this.step();
+		// 	}
+
+		// }
+
 
 	};
+
+	this.loading = function(){
+		
+		//step
+		this.i += this.stepSize;
+		var c = this.currentClass;
+		var end = this.i;
+		var start = end-this.stepSize;
+
+		//finished?
+		if(c >= this.classes.length){
+			this.finished();
+			return false;
+		}
+
+
+		//check
+		if(this.i >= this.classes[this.currentClass].data.length){
+
+			//save for next itteration
+			this.currentClass++;
+			this.i = 0;
+			
+			end = this.classes[c].data.length;
+
+			console.log('next set loading');
+		}
+
+		for( var j = start ; j < end ; j++){
+
+			this.classes[c].add( this.classes[c].data[j] );
+			delete this.classes[c].data[j];
+			this.step();
+		}
+
+	}
 
 	this.load = function(classes){
 
@@ -44,9 +92,9 @@ window.Preloader = function(html, callback){
 		}
 
 		//check if finished
-		if(this.loaded == this.toLoad){
-			this.finished();
-		}
+		// if(this.loaded == this.toLoad){
+		// 	this.finished();
+		// }
 
 	};
 
@@ -76,9 +124,10 @@ window.Preloader = function(html, callback){
 		if(_.isFunction(callback)) callback();
 
 		//delete preloader data
-		//delete this.data;
+		this.classes = null;
 
 		console.log('finished loading');
+		console.timeEnd('loading');
 	}
 
 }

@@ -90,7 +90,15 @@ DDD.animate = function(){
     requestAnimationFrame( DDD.animate );
 
     //check if all objects are loaded
-    if(!DDD.preloader.ready) return false;
+    if(!DDD.preloader.ready) {
+
+    	//need to load
+    	if(DDD.preloader.started) {
+    		DDD.preloader.loading();
+    	}
+
+    	return false;
+    }
 
     //timeline
     var delta = DDD.clock.getDelta();
