@@ -3,7 +3,7 @@ window.DDD = {};
 DDD.init = function(){
 
 	//camera
-	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 4000 );
+	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
     DDD.camera.position.z = 500;
     DDD.camera.position.y = 200;
     // DDD.camera.rotation.order = "YXZ";

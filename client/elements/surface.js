@@ -7,6 +7,7 @@ window.Surfaces = function(scene){
 	};
 
 	this.data = [];
+	var keys = [];
 
 	var pointer = 0;
 
@@ -14,7 +15,9 @@ window.Surfaces = function(scene){
 
 		//create types
 		var i = 1;
-		_.each(this.types, function(type){
+		_.each(this.types, function(type,key){
+
+			keys.push(key);
 
 			//uniforms
 			type.uniforms = {
@@ -117,12 +120,18 @@ window.Surfaces = function(scene){
 
 	this.addTo = function(obj3d){
 
-		_.each(this.types, function(type){
-
-			obj3d.add(type.mesh);
-
-		});
+		this.parent = obj3d;
 
 	};
+
+	this.finished = function(){
+
+		var key;
+		for ( var i = 0 ; i < keys.length ; i++){
+			key = keys[i];
+			this.parent.add( this.types[key].mesh );
+		}
+
+	}
 
 };

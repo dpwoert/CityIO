@@ -1,6 +1,6 @@
 window.Preloader = function(html, callback){
 
-	this.stepSize = 1000;
+	this.stepSize = 250;
 	this.toLoad = 0;
 	this.loaded = 0;
 	this.ready = false;
@@ -52,6 +52,7 @@ window.Preloader = function(html, callback){
 
 
 		//check
+		var clean = false;
 		if(this.i >= this.classes[this.currentClass].data.length){
 
 			//save for next itteration
@@ -61,6 +62,7 @@ window.Preloader = function(html, callback){
 			end = this.classes[c].data.length;
 
 			console.log('next set loading');
+			clean = true;
 		}
 
 		for( var j = start ; j < end ; j++){
@@ -68,6 +70,11 @@ window.Preloader = function(html, callback){
 			this.classes[c].add( this.classes[c].data[j] );
 			delete this.classes[c].data[j];
 			this.step();
+		}
+
+		if(clean){
+			this.classes[c].finished.call(this.classes[c]);
+			this.classes[c] = null;
 		}
 
 	}

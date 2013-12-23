@@ -139,12 +139,18 @@ window.Buildings = function(scene){
 	//add to the 3d world
 	this.addTo = function(obj3d){
 
-		_.each(this.groups, function(group){
-
-           	obj3d.add(group.mesh);
-
-        });
+		this.parent = obj3d;
 
 	};
+
+	this.finished = function(){
+	
+		for( var i = 0 ; i < this.groups.length ; i++ ){
+			
+           	this.parent.add(this.groups[i].mesh);
+
+		}
+
+	}
 	
 };

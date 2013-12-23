@@ -4,8 +4,9 @@ geo = {
 	calls: 0,
 
 	//get city settings
-	terrainSize: 3.6, //km
-	center: [51.697816,5.303675],
+	terrainSize: 3, //km
+	// center: [51.697816,5.303675],
+	center: [51.695118333515886,5.310516357421875],
 
 	//road settings
 	roadSteps: 20 //meters

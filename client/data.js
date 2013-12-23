@@ -24,6 +24,7 @@ data.init = function(){
 		streets.source(data.streets);
 		// streets.source(data.streets);
 		streets.addTo(DDD.group);
+		window.DEBUGS = streets;
 
 		var surfaces = new Surfaces(DDD.scene);
 		surfaces.source('water', data.water);
@@ -31,8 +32,7 @@ data.init = function(){
 		surfaces.addTo(DDD.group);
 
 		//preloader
-		// DDD.preloader.load([buildings, surfaces]);
-		DDD.preloader.load([buildings, surfaces, streets]);
+		DDD.preloader.load([buildings, surfaces]);
 		DDD.preloader.start();	
 
 		//timeline

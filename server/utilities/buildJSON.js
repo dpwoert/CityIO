@@ -10,7 +10,7 @@ buildJSON = function(){
 
 		//add buildings
 		data.buildings = geo.buildingsDB.find().fetch();
-		// data.buildings = data.buildings.slice(0,30000);
+		// data.buildings = data.buildings.slice(0,40000);
 		data.buildings = this.strip([ 'id','bouwjaar','tileUrl','tilePoint' ], data.buildings);
 
 		//add streets

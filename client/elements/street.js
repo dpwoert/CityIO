@@ -133,12 +133,18 @@ window.Streets = function(scene){
 
 	this.addTo = function(obj3d){
 
-		_.each(this.types, function(type){
-
-           	obj3d.add(type.mesh);
-
-        });
+		this.parent = obj3d;
 
 	};
+
+	this.finished = function(){
+
+		for( var i = 0 ; i < this.types.length ; i++ ){
+			
+           	this.parent.add(this.types[i].mesh);
+
+		}
+
+	}
 
 };
