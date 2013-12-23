@@ -49,7 +49,7 @@ DDD.setScene = function(){
     DDD.scene.timeline = DDD.timeline;
 
     //fog
-    DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0003 );
+    DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0005 );
 
 }
 
