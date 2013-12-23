@@ -1,0 +1,60 @@
+@sidebarInnerWidth: @sidebarWidth - ( @sidebarMargin * 2 );
+
+navigation#sidebar{
+	
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: @sidebarWidth;
+	height: 100%;
+
+	background: @sidebarBG;
+	color: @sidebarBase;
+
+	h1{
+		color: @sidebarBase;
+		font-size: 12px;
+		font-weight: 100;
+		font-family: 'helvetica','arial',sans-serif;
+	}
+
+	h1, ul{
+		//inner width
+		width: @sidebarInnerWidth;
+		margin-left: @sidebarMargin;
+
+		//line
+		border-top: 1px solid @sidebarLine;
+		padding-bottom: @sidebarLineBottom;
+	}
+
+	ul#light{
+
+		li{
+			//pos
+			float: left;
+			margin-top: @sidebarLineBottom;
+
+			//square
+			width: @sidebarButton;
+			height: @sidebarButton;
+
+			//colors
+			background: @buttonOff;
+			.transition(background-color 0.5s ease);
+
+			&:first-child{
+				//cave man stilo
+				margin-left: ( @sidebarInnerWidth - ( 2 * @sidebarButton ) ) / 2;
+			}
+		}
+
+		.selected{
+			background-color: @buttonOn;
+		}
+
+		//icons
+
+	}
+
+}

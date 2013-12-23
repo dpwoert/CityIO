@@ -11,11 +11,14 @@ DDD.init = function(){
     DDD.setScene();
     DDD.setLight();
 
+    //element
+    DDD.$ = $('body .visualization');
+
     //start
     DDD.renderer = new THREE.WebGLRenderer();
-    DDD.renderer.setSize( window.innerWidth, window.innerHeight );
+    DDD.renderer.setSize( DDD.$.width(), DDD.$.height() );
 
-    document.body.appendChild( DDD.renderer.domElement );
+    DDD.$.append( DDD.renderer.domElement );
 
     //camera
     DDD.setCameraControls();
@@ -50,6 +53,9 @@ DDD.setScene = function(){
 
     //fog
     DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0005 );
+    DDD.scene.fog.night = new THREE.Color(0x333333);
+    DDD.scene.fog.day = new THREE.Color(0xFFFFFF);
+    DDD.timeline.addFog(DDD.scene.fog, 1, 0.4);
 
 }
 
@@ -78,6 +84,10 @@ DDD.setLight = function(){
 	DDD.zon.position.z = 1000;
 	DDD.zon.intensity = 0.2;
 	DDD.scene.add(DDD.zon);
+
+	//add to timeline
+	DDD.timeline.addLight(DDD.hemisphere,0.8,0.2);
+	DDD.timeline.addLight(DDD.zon,0.2,0.1);
 
 }
 

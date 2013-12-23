@@ -31,12 +31,13 @@ window.Streets = function(scene){
 				"maxHeight" : { type: "f", value: rangeMax },
 				"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
 				"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
-				// "colorStop" : { type: "v4", value: new THREE.Vector4( (209/255) , (162/255) , (87/255), 1 ) },
-				// "colorEnd" : { type: "v4", value: new THREE.Vector4( (209/255), (102/225), (87/225), 1 ) },
 				"colorEnd" : { type: "v4", value: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
 				"stopPos" : { type: "f", value: 0.4 },
 
+				"currentTime" : { type: "f", value: 0 },
 				"fogColor" : { type: "c", value: scene.fog.color },
+				"fogNight" : { type: "c", value: scene.fog.night },
+				"fogDay" : { type: "c", value: scene.fog.day },
 				"fogDensity" : { type: "f", value: scene.fog.density },
 			};
 
@@ -109,11 +110,11 @@ window.Streets = function(scene){
 
 	this.changeTime = function(time){
 
-		_.each(this.types, function(type){
+		var type;
+		for ( var i = 0 ; i < this.types.length ; i++){
+			this.types[i].uniforms.currentTime.value = time;
+		}
 
-			type.uniforms.time.value = time;
-
-		});
 	};
 
 	this.source = function(source){

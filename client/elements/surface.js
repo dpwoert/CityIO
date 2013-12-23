@@ -1,7 +1,7 @@
 window.Surfaces = function(scene){
 	
 	this.types = {
-		'floor': { 'colorDay': new THREE.Color(0xDDDDDD), 'colorNight': new THREE.Color(0xF5F5F5) },
+		'floor': { 'colorDay': new THREE.Color(0xDDDDDD), 'colorNight': new THREE.Color(0x333333) },
 		'water': { 'colorDay': new THREE.Color(0x81c6f6), 'colorNight': new THREE.Color(0x11485f) },
 		'nature': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
 	};
@@ -21,11 +21,13 @@ window.Surfaces = function(scene){
 
 			//uniforms
 			type.uniforms = {
-				"time" : { type: "f", value: 0 },
+				"currentTime" : { type: "f", value: 0 },
 				"colorDay" : { type: "c", value: type.colorDay },
 				"colorNight" : { type: "c", value: type.colorNight },
 
 				"fogColor" : { type: "c", value: scene.fog.color },
+				"fogNight" : { type: "c", value: scene.fog.night },
+				"fogDay" : { type: "c", value: scene.fog.day },
 				"fogDensity" : { type: "f", value: scene.fog.density },
 			};
 
@@ -84,11 +86,12 @@ window.Surfaces = function(scene){
 
 	this.changeTime = function(time){
 
-		_.each(this.types, function(type){
+		var key;
+		for ( var i = 0 ; i < keys.length ; i++){
+			key = keys[i];
+			this.types[key].uniforms.currentTime.value = time;
+		}
 
-			type.uniforms.time.value = time;
-
-		});
 	};
 
 	//use a source
