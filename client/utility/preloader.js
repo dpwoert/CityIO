@@ -23,17 +23,6 @@ window.Preloader = function(html, callback){
 		console.log('start loading');
 		console.time('loading');
 
-		// for( var i = 0 ; i < this.classes.length ; i++){
-		// 	console.log('load ' + this.classes[i].valueOf() );
-
-		// 	for( var j = 0 ; j < this.classes[i].data.length ; j++){
-		// 		this.classes[i].loadNext();
-		// 		this.step();
-		// 	}
-
-		// }
-
-
 	};
 
 	this.loading = function(){
