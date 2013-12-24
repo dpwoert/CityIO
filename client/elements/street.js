@@ -2,8 +2,8 @@ window.Streets = function(scene){
 
 	//types
 	this.types = [
-		{ name: 'soundDay', visible: true, day: 1 },
-		{ name: 'soundNight', visible: false, day: 0 }
+		{ name: 'soundDay', visible: true, day: 1, color3: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
+		{ name: 'soundNight', visible: false, day: 0, color3: new THREE.Vector4( 0, 0, 1, 1 ) }
 		//night: { search: 'soundNight', visible: false }
 	];
 
@@ -31,7 +31,7 @@ window.Streets = function(scene){
 				"maxHeight" : { type: "f", value: rangeMax },
 				"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
 				"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
-				"colorEnd" : { type: "v4", value: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
+				"colorEnd" : { type: "v4", value: type.color3 },
 				"stopPos" : { type: "f", value: 0.4 },
 
 				"day" : { type: "f", value: type.day },
@@ -76,8 +76,9 @@ window.Streets = function(scene){
 		//check
 		if(list.length < 1 ) return false;
 
+		var type;
 		for( var i = 0 ; i < this.types.length ; i ++){
-			var type = this.types[i];
+			type = this.types[i];
 
 			//sort sound data
 			var sound = data[type.name].sort(function(a,b){return a.key-b.key});
@@ -85,12 +86,12 @@ window.Streets = function(scene){
 			var path = [];
 
 			//make 3d path
-			for(var i = 0 ; i < list.length ; i++){
+			for(var j = 0 ; j < list.length ; j++){
 
-				var point = list[i];
+				var point = list[j];
 
 				//get height
-				var height = sound[i] ? this.scale(sound[i].db) : 1;
+				var height = sound[j] ? this.scale(sound[j].db) : 1;
 
 				//points
 				var V2 = scene.points.translate2D([ point[1], point[0] ]);
