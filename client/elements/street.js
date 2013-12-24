@@ -2,8 +2,8 @@ window.Streets = function(scene){
 
 	//types
 	this.types = [
-		{ name: 'soundDay', visible: true },
-		{ name: 'soundNight', visible: false }
+		{ name: 'soundDay', visible: true, day: 1 },
+		{ name: 'soundNight', visible: false, day: 0 }
 		//night: { search: 'soundNight', visible: false }
 	];
 
@@ -33,6 +33,8 @@ window.Streets = function(scene){
 				"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
 				"colorEnd" : { type: "v4", value: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
 				"stopPos" : { type: "f", value: 0.4 },
+
+				"day" : { type: "f", value: type.day },
 
 				"currentTime" : { type: "f", value: 0 },
 				"fogColor" : { type: "c", value: scene.fog.color },

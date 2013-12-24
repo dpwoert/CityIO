@@ -35,14 +35,7 @@ window.Timeline = function(){
 	//switch between day/night
 	this.switch = function(){
 		this.needsUpdate = true;
-		
-		if(this.day){
-			this.day = false;
-			$('body').addClass('night');
-		} else {
-			this.day = true;
-			$('body').removeClass('night');
-		}
+		this.day = this.day ? false : true;
 
 		console.log('switch light');
 	};
@@ -74,10 +67,11 @@ window.Timeline = function(){
 			light.light.intensity = light.scale(this.now);
 		}
 
-		// var fogColor = this.fog.scale(this.now);
-		// this.fog.fog.color.r = fogColor;
-		// this.fog.fog.color.g = fogColor;
-		// this.fog.fog.color.b = fogColor;
+		var fogColor = this.fog.scale(this.now);
+		this.fog.fog.color.r = fogColor;
+		this.fog.fog.color.g = fogColor;
+		this.fog.fog.color.b = fogColor;
+		DDD.renderer.setClearColor(this.fog.fog.color, 1);
 
 		//end?
 		if(this.now == 0 || this.now == 1){

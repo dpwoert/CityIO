@@ -53,9 +53,9 @@ DDD.setScene = function(){
 
     //fog
     DDD.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0005 );
-    DDD.scene.fog.night = new THREE.Color(0x333333);
+    DDD.scene.fog.night = new THREE.Color(0x000000);
     DDD.scene.fog.day = new THREE.Color(0xFFFFFF);
-    DDD.timeline.addFog(DDD.scene.fog, 1, 0.4);
+    DDD.timeline.addFog(DDD.scene.fog, 1, 0);
 
 }
 

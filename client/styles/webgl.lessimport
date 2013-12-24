@@ -8,7 +8,7 @@
 
 body{
 
-	.transition(background-color 5s ease);
+	.transition(background-color 4s ease-in);
 
 	&.night{
 		background-color: #000;
