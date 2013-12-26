@@ -1,9 +1,11 @@
 window.Streets = function(scene){
 
+	this.scale = d3.scale.linear().domain([0,1]).range([0,1]);
+
 	//types
 	this.types = [
-		{ name: 'soundDay', visible: true, day: 1, color3: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
-		{ name: 'soundNight', visible: false, day: 0, color3: new THREE.Vector4( 0, 0, 1, 1 ) }
+		{ name: 'soundDay', visible: true, day: 1, scale: d3.scale.linear().domain([0,0.5]).range([1,0]).clamp(true) },
+		{ name: 'soundNight', visible: false, day: 0, scale: d3.scale.linear().domain([0.5,1]).range([0,1]).clamp(true) }
 		//night: { search: 'soundNight', visible: false }
 	];
 
@@ -31,7 +33,7 @@ window.Streets = function(scene){
 				"maxHeight" : { type: "f", value: rangeMax },
 				"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
 				"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, //oranje
-				"colorEnd" : { type: "v4", value: type.color3 },
+				"colorEnd" : { type: "v4", value: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
 				"stopPos" : { type: "f", value: 0.4 },
 
 				"day" : { type: "f", value: type.day },
@@ -49,7 +51,7 @@ window.Streets = function(scene){
 			    vertexShader : Template.shaderTubeVertex(),
 			    fragmentShader: Template.shaderTubeFragment(),
 			    fog: true,
-			    visible: type.visible
+			    //visible: type.visible
 			});
 
 			//geometry
@@ -116,6 +118,7 @@ window.Streets = function(scene){
 		var type;
 		for ( var i = 0 ; i < this.types.length ; i++){
 			this.types[i].uniforms.currentTime.value = time;
+			this.types[i].uniforms.day.value = this.types[i].scale(time);
 		}
 
 	};
