@@ -6,7 +6,6 @@ DDD.init = function(){
 	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
     DDD.camera.position.z = 500;
     DDD.camera.position.y = 200;
-    // DDD.camera.eulerOrder = 'yxz';
 
     DDD.setScene();
     DDD.setLight();
@@ -21,9 +20,11 @@ DDD.init = function(){
     DDD.$.append( DDD.renderer.domElement );
 
     //camera
-    DDD.setCameraControls();
     DDD.scene.camera = new CameraPosition(DDD.scene, DDD.camera, DDD.group);
     DDD.addCameras();
+
+    //controls
+    DDD.setControls();
 
     //action
     DDD.clock = new THREE.Clock();
@@ -71,13 +72,12 @@ DDD.addCameras = function(){
 
 }
 
-DDD.setCameraControls = function(){
+DDD.setControls = function(){
 
 	DDD.controls = new THREE.FirstPersonControls( DDD.camera );
 
 	DDD.controls.freeze = true;
-	DDD.controls.activeLook = false;
-	
+
 	DDD.controls.movementSpeed = 100;
 	DDD.controls.lookSpeed = 0.125;
 	DDD.controls.lookVertical = true;
