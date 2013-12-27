@@ -20,11 +20,11 @@ DDD.init = function(){
     DDD.$.append( DDD.renderer.domElement );
 
     //camera
-    DDD.scene.camera = new CameraPosition(DDD.scene, DDD.camera, DDD.group);
+    DDD.setControls();
+    DDD.scene.camera = new CameraPosition(DDD.scene, DDD.camera, DDD.controls, DDD.group);
     DDD.addCameras();
 
     //controls
-    DDD.setControls();
 
     //action
     DDD.clock = new THREE.Clock();
@@ -66,6 +66,7 @@ DDD.addCameras = function(){
 
 	//add points
 	DDD.scene.camera.add(1, [51.688406,5.316525], [51.694677,5.301272], 100);
+	DDD.scene.camera.add(2, [51.711646,5.282217], [51.677703,5.328051], 500);
 
 	//switch to first
 	DDD.scene.camera.switchTo(1);
@@ -84,6 +85,7 @@ DDD.setControls = function(){
 	DDD.controls.constrainVertical = true;
 	DDD.controls.verticalMin = 1.4;
 	DDD.controls.verticalMax = 2.2;
+
 };
 
 DDD.setLight = function(){
@@ -128,6 +130,7 @@ DDD.animate = function(){
     //timeline
     var delta = DDD.clock.getDelta();
     if(DDD.timeline.needsUpdate) DDD.timeline.render( delta );
+    if(DDD.scene.camera.needsUpdate) DDD.scene.camera.render( delta );
 
     //update
     DDD.controls.update( delta );
