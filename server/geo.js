@@ -29,6 +29,9 @@ Meteor.startup(function(){
 		return geo.streetsDB.find({});
 	});
 
+	//load postal codes
+	geo.postalDB = new Meteor.SmartCollection('postalcodes');
+
 	//save to cache
 	cache = new buildJSON();
 	//cache.build();
@@ -126,6 +129,33 @@ Meteor.methods({
 	},
 
 	buildOSM: function(){
+		//special OSM layers [todo]
+	},
+
+	getPostalCodes: function(){
+
+		geo.postalDB.remove({});
+		console.log('==== Getting all postal codes ====');
+
+		geo.getPostalCodes({
+			'pos': geo.center,
+			'radius': geo.terrainSize,
+			'db': geo.postalDB
+		});
+
+	},
+
+	getPostalCode: function(code){
+
+		var result = geo.postalDB.find({ postcode: code }).fetch();
+
+		console.log(result);
+
+		if(result.length > 0){
+			return result.geo;
+		} else {
+			return false;
+		}
 
 	},
 
@@ -206,7 +236,7 @@ geo.getBAG = function(obj){
 		});
 	}
 
-}
+};
 
 geo.addBAG = function(obj, db){
 	var bagID = obj.layers['bag.panden'].data.pand_id;
@@ -299,6 +329,56 @@ geo.getOSM = function(obj){
 		});
 	}
 }
+
+geo.getPostalCodes = function(obj){
+	
+	var options = {
+		lat: obj.pos[0],
+		lon: obj.pos[1],
+		radius: 1000*obj.radius,
+		layer: 'pc.nlp6',
+		geom: true,
+		per_page: 1000,
+		page: 0
+	};
+
+	getPage();
+
+	function getPage(){
+
+		//measure no calls
+		geo.calls++;
+		options.page += 1;
+		console.log('get postal codes page: ' + options.page)
+
+		//make request
+		Meteor.http.get(geo.APIurl, { params: options } , function(error, result){
+
+			console.log(result.data.url);
+
+			//add to data object
+			_.each(result.data.results, function(value){
+				obj.db.insert({
+					'postcode': value.name,
+					'geo': value.geom.coordinates
+				});
+			});
+
+			//check if finished/more pages
+			if(result.data.results.length < obj.per_page || geo.calls >= geo.maxCalls){
+
+				//finished
+				console.log('finshed gettings postal codes data');
+				console.log('records added:' + obj.db.find().fetch().length);
+				obj.finished();
+			} 
+			else {
+				getPage();
+			}
+		});
+	}
+
+};
 
 geo.splitRoad = function(points){
 
