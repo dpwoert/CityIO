@@ -1,3 +1,5 @@
+//see: http://blogs.truthlabs.com/2013/10/02/creating-the-low-poly-look-in-webgl/
+
 window.FX = function(renderer, scene, camera){
 
 	var dpr = window.devicePixelRatio || 1;
@@ -11,7 +13,7 @@ window.FX = function(renderer, scene, camera){
         this.hblur.uniforms['r'].value = this.vblur.uniforms['r'].value = point;
 
 	}
-	
+
 	this.init = function(){
 
 		//Create Shader Passes
@@ -21,11 +23,11 @@ window.FX = function(renderer, scene, camera){
 	    this.composer.addPass(this.renderPass);
 
 	    //FXAA - AntiAliasing
-	    var effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
+	    this.effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
         var width = window.innerWidth || 2;
         var height = window.innerHeight || 2;
-        effectFXAA.uniforms['resolution'].value.set(1 / (width * dpr ), 1 / (height * dpr ));
-        this.composer.addPass(effectFXAA);
+        this.effectFXAA.uniforms['resolution'].value.set(1 / (width * dpr ), 1 / (height * dpr ));
+        this.composer.addPass(this.effectFXAA);
 
         //Tilt shift
         this.hblur = new THREE.ShaderPass(THREE.HorizontalTiltShiftShader);
@@ -48,11 +50,19 @@ window.FX = function(renderer, scene, camera){
 
 	this.setBackground = function(color){
 		this.renderPass.clearColor = color;
-	}
+	};
 
 
 	this.render = function(delta){
 		this.composer.render(delta);
-	}
+	};
+
+	this.resize = function(){
+		//on resize
+		this.composer.setSize(window.innerWidth * dpr, window.innerHeight * dpr);
+		var width = window.innerWidth || 2;
+        var height = window.innerHeight || 2;
+		this.effectFXAA.uniforms['resolution'].value.set(1 / (width * dpr ), 1 / (height * dpr ));
+	};
 
 }

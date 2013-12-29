@@ -141,3 +141,15 @@ DDD.animate = function(){
     DDD.FX.render(delta);
 
 }
+
+//resize
+window.onresize = _.debounce(function(){
+
+    //update normal renderer
+    DDD.renderer.setSize( DDD.$.width(), DDD.$.height() );
+    DDD.camera.aspect = DDD.$.width() / DDD.$.height();
+    DDD.camera.updateProjectionMatrix();
+
+    //update fx
+    DDD.FX.resize();
+})

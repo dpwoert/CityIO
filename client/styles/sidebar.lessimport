@@ -2,11 +2,12 @@
 
 navigation#sidebar{
 	
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: @sidebarWidth;
 	height: 100%;
+	z-index: 2;
 
 	background: @sidebarBG;
 	color: @sidebarBase;
