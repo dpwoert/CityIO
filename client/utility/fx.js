@@ -2,6 +2,16 @@ window.FX = function(renderer, scene, camera){
 
 	var dpr = window.devicePixelRatio || 1;
 	
+	this.setBlur = function(blur, point){
+
+		var bluriness = blur;
+
+        this.hblur.uniforms['h'].value = bluriness / window.innerWidth;
+        this.vblur.uniforms['v'].value = bluriness / window.innerHeight;
+        this.hblur.uniforms['r'].value = this.vblur.uniforms['r'].value = point;
+
+	}
+	
 	this.init = function(){
 
 		//Create Shader Passes
@@ -40,15 +50,6 @@ window.FX = function(renderer, scene, camera){
 		this.renderPass.clearColor = color;
 	}
 
-	this.setBlur = function(blur, point){
-
-		var bluriness = blur;
-
-        this.hblur.uniforms['h'].value = bluriness / window.innerWidth;
-        this.vblur.uniforms['v'].value = bluriness / window.innerHeight;
-        this.hblur.uniforms['r'].value = this.vblur.uniforms['r'].value = point;
-
-	}
 
 	this.render = function(delta){
 		this.composer.render(delta);
