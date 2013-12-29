@@ -270,7 +270,8 @@ geo.getOSM = function(obj){
 		lon: obj.pos[1],
 		radius: 1000*obj.radius,
 		geom: true,
-		'osm::highway': '',
+		'osm::highway': 'motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|residential|construction|unclassified',
+		'data_op': 'or',
 		per_page: 5000,
 		page: 0
 	};
