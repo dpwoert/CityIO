@@ -98,7 +98,7 @@ window.CameraPosition = function(scene, camera, controls, translate){
 
 	this.render = function(delta){
 
-		this.completed += delta * 0.01;
+		this.completed += (delta * 0.01);
 
 		var eye = this.animation.fromEye.lerp(this.animation.toEye, this.completed);
 		var target = this.animation.fromTarget.lerp(this.animation.toTarget, this.completed);
@@ -107,7 +107,7 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		camera.lookAt(target);
 
 		//check if completed
-		if(this.completed >= 1){
+		if(this.completed >= 0.1){
 			this.needsUpdate = false;
 		}
 

@@ -71,7 +71,9 @@ window.Timeline = function(){
 		this.fog.fog.color.r = fogColor;
 		this.fog.fog.color.g = fogColor;
 		this.fog.fog.color.b = fogColor;
-		DDD.renderer.setClearColor(this.fog.fog.color, 1);
+
+		// DDD.renderer.setClearColor(this.fog.fog.color, 1);
+		DDD.FX.setBackground(this.fog.fog.color);
 
 		//end?
 		if(this.now == 0 || this.now == 1){

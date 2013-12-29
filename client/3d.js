@@ -24,7 +24,8 @@ DDD.init = function(){
     DDD.scene.camera = new CameraPosition(DDD.scene, DDD.camera, DDD.controls, DDD.group);
     DDD.addCameras();
 
-    //controls
+    //FX
+    DDD.FX = new FX(DDD.renderer, DDD.scene, DDD.camera);
 
     //action
     DDD.clock = new THREE.Clock();
@@ -136,6 +137,7 @@ DDD.animate = function(){
     DDD.controls.update( delta );
 
     //render
-    DDD.renderer.render( DDD.scene, DDD.camera );
+    // DDD.renderer.render( DDD.scene, DDD.camera );
+    DDD.FX.render(delta);
 
 }
