@@ -32,13 +32,13 @@ window.FX = function(renderer, scene, camera){
         //Tilt shift
         this.hblur = new THREE.ShaderPass(THREE.HorizontalTiltShiftShader);
         this.vblur = new THREE.ShaderPass(THREE.VerticalTiltShiftShader);
-        this.setBlur(2.5, 0.5);
+        this.setBlur(2, 0.5);
 
         this.composer.addPass(this.hblur);
         this.composer.addPass(this.vblur);
 
         //film grain
-        var effectFilm = new THREE.FilmPass(0.025, 0, 100, false);
+        var effectFilm = new THREE.FilmPass(0.04, 0, 100, false);
         this.composer.addPass(effectFilm);
 
 	    //copy pass?
