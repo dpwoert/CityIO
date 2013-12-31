@@ -1,0 +1,4064 @@
+[
+  {
+    "cdk_id": "w6308637",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2976522,
+          51.6989521
+        ],
+        [
+          5.2979319,
+          51.6992839
+        ],
+        [
+          5.2983015,
+          51.6997234
+        ],
+        [
+          5.29867,
+          51.70006
+        ],
+        [
+          5.2996707,
+          51.700772
+        ],
+        [
+          5.3005378,
+          51.7012114
+        ],
+        [
+          5.3014814,
+          51.7015681
+        ],
+        [
+          5.3026421,
+          51.701822
+        ],
+        [
+          5.3034356,
+          51.7019206
+        ],
+        [
+          5.3037498,
+          51.7019394
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "AND_r_r": "15002954",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226029",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2976846,
+          51.6991001
+        ],
+        [
+          5.2979272,
+          51.6993601
+        ],
+        [
+          5.2980537,
+          51.6995355
+        ],
+        [
+          5.298534,
+          51.700047
+        ],
+        [
+          5.2989898,
+          51.7003718
+        ],
+        [
+          5.2994424,
+          51.7006741
+        ],
+        [
+          5.2999489,
+          51.7009663
+        ],
+        [
+          5.3006474,
+          51.7013045
+        ],
+        [
+          5.3014922,
+          51.7016184
+        ],
+        [
+          5.3024199,
+          51.701824
+        ],
+        [
+          5.3032603,
+          51.7019552
+        ],
+        [
+          5.3037252,
+          51.7019763
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308635",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3037498,
+          51.7019394
+        ],
+        [
+          5.3043526,
+          51.7019398
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002956",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w157666137",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3037252,
+          51.7019763
+        ],
+        [
+          5.3043259,
+          51.7019765
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w137199269",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3014922,
+          51.7016184
+        ],
+        [
+          5.3005291,
+          51.70132
+        ],
+        [
+          5.2997781,
+          51.7009909
+        ],
+        [
+          5.2992846,
+          51.7007383
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "construction",
+          "construction": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225957",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2989898,
+          51.7003718
+        ],
+        [
+          5.2986603,
+          51.7000771
+        ],
+        [
+          5.2983015,
+          51.6997234
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w137199268",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.29867,
+          51.70006
+        ],
+        [
+          5.2982117,
+          51.6994516
+        ],
+        [
+          5.2977503,
+          51.6988864
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "construction",
+          "construction": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308636",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3122669,
+          51.7009708
+        ],
+        [
+          5.3093899,
+          51.70135
+        ],
+        [
+          5.3064913,
+          51.7017184
+        ],
+        [
+          5.3051361,
+          51.7018887
+        ],
+        [
+          5.3047313,
+          51.7019229
+        ],
+        [
+          5.3043526,
+          51.7019398
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225965",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2979101,
+          51.6994305
+        ],
+        [
+          5.2981986,
+          51.6998136
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w137199263",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2992846,
+          51.7007383
+        ],
+        [
+          5.2986198,
+          51.7003234
+        ],
+        [
+          5.297688,
+          51.6994327
+        ],
+        [
+          5.2969429,
+          51.6984313
+        ],
+        [
+          5.2966431,
+          51.6980097
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "bridge": "yes",
+          "railway": "construction",
+          "construction": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308640",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2976522,
+          51.6989521
+        ],
+        [
+          5.2979272,
+          51.6993601
+        ],
+        [
+          5.2981986,
+          51.6998136
+        ],
+        [
+          5.29831,
+          51.70003
+        ],
+        [
+          5.29861,
+          51.70061
+        ],
+        [
+          5.2987399,
+          51.70104
+        ],
+        [
+          5.2988734,
+          51.7017139
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226030",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2975711,
+          51.6989341
+        ],
+        [
+          5.2976846,
+          51.6991001
+        ],
+        [
+          5.2979101,
+          51.6994305
+        ],
+        [
+          5.2985355,
+          51.7006042
+        ],
+        [
+          5.298681,
+          51.7010378
+        ],
+        [
+          5.2988166,
+          51.7017061
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308646",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2976254,
+          51.6989133
+        ],
+        [
+          5.2976522,
+          51.6989521
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "AND_r_r": "15002947",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308633",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2988734,
+          51.7017139
+        ],
+        [
+          5.2989252,
+          51.7020677
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w137199267",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2977503,
+          51.6988864
+        ],
+        [
+          5.2970545,
+          51.6978886
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "bridge": "yes",
+          "railway": "construction",
+          "construction": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226033",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2988166,
+          51.7017061
+        ],
+        [
+          5.2988678,
+          51.7020742
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308653",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2969191,
+          51.6979309
+        ],
+        [
+          5.2970499,
+          51.69811
+        ],
+        [
+          5.2971,
+          51.69818
+        ],
+        [
+          5.2976254,
+          51.6989133
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002937;15002940;15002945",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225971",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2968434,
+          51.6979425
+        ],
+        [
+          5.2975711,
+          51.6989341
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002945",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226013",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.297404,
+          51.697598
+        ],
+        [
+          5.2963748,
+          51.6961483
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "service": "yard"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225978",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2972967,
+          51.6976637
+        ],
+        [
+          5.2961174,
+          51.6959949
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "service": "yard"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226025",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2972532,
+          51.6976978
+        ],
+        [
+          5.295928,
+          51.6958296
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "service": "yard"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w141792134",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2970545,
+          51.6978886
+        ],
+        [
+          5.2968217,
+          51.6975279
+        ],
+        [
+          5.296296,
+          51.6967432
+        ],
+        [
+          5.2960814,
+          51.6963242
+        ],
+        [
+          5.2959419,
+          51.6960515
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "construction",
+          "construction": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225990",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2973562,
+          51.6976322
+        ],
+        [
+          5.2963074,
+          51.69619
+        ],
+        [
+          5.2961174,
+          51.6959949
+        ],
+        [
+          5.2958606,
+          51.6956343
+        ],
+        [
+          5.2957402,
+          51.6954155
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "service": "yard"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308669",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2953477,
+          51.6947785
+        ],
+        [
+          5.2957402,
+          51.6954155
+        ],
+        [
+          5.2959699,
+          51.69572
+        ],
+        [
+          5.2963748,
+          51.6961483
+        ],
+        [
+          5.2966102,
+          51.6963973
+        ],
+        [
+          5.2974827,
+          51.6975752
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "AND_r_r": "15002926",
+          "railway": "rail",
+          "service": "yard",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290950",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.295516,
+          51.6952902
+        ],
+        [
+          5.2959125,
+          51.6962064
+        ],
+        [
+          5.29594,
+          51.69627
+        ],
+        [
+          5.29615,
+          51.69672
+        ],
+        [
+          5.2969191,
+          51.6979309
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "AND_r_r": "15002931",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w141792135",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2966431,
+          51.6980097
+        ],
+        [
+          5.2963174,
+          51.6975744
+        ],
+        [
+          5.2958454,
+          51.6965768
+        ],
+        [
+          5.295663,
+          51.6961114
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "construction",
+          "construction": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308668",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2953477,
+          51.6947785
+        ],
+        [
+          5.2958374,
+          51.6957003
+        ],
+        [
+          5.295928,
+          51.6958296
+        ],
+        [
+          5.29627,
+          51.69645
+        ],
+        [
+          5.297194,
+          51.6977172
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "AND_r_r": "15002927",
+          "railway": "rail",
+          "service": "yard",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290965",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2954401,
+          51.6952935
+        ],
+        [
+          5.2957159,
+          51.6959001
+        ],
+        [
+          5.296079,
+          51.6967258
+        ],
+        [
+          5.296342,
+          51.6971988
+        ],
+        [
+          5.2968434,
+          51.6979425
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w157666136",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3043259,
+          51.7019765
+        ],
+        [
+          5.3050176,
+          51.701943
+        ],
+        [
+          5.3061047,
+          51.7017983
+        ],
+        [
+          5.3082395,
+          51.7015318
+        ],
+        [
+          5.3103526,
+          51.7012612
+        ],
+        [
+          5.3122735,
+          51.7010055
+        ],
+        [
+          5.3126991,
+          51.7009479
+        ],
+        [
+          5.3154747,
+          51.7006139
+        ],
+        [
+          5.3162455,
+          51.7005581
+        ],
+        [
+          5.3170107,
+          51.7005257
+        ],
+        [
+          5.3178017,
+          51.7005171
+        ],
+        [
+          5.3185306,
+          51.7005371
+        ],
+        [
+          5.3191376,
+          51.7005741
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290968",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2953477,
+          51.6947785
+        ],
+        [
+          5.2952459,
+          51.694617
+        ],
+        [
+          5.2951553,
+          51.6944736
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290953",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2949954,
+          51.6936556
+        ],
+        [
+          5.2950202,
+          51.6938211
+        ],
+        [
+          5.2952459,
+          51.694617
+        ],
+        [
+          5.2952818,
+          51.6947141
+        ],
+        [
+          5.2954005,
+          51.6950204
+        ],
+        [
+          5.295516,
+          51.6952902
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308688",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.29506,
+          51.69392
+        ],
+        [
+          5.2950655,
+          51.6939363
+        ],
+        [
+          5.2953477,
+          51.6947785
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "AND_r_r": "15002911",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290962",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2950684,
+          51.6943358
+        ],
+        [
+          5.2951198,
+          51.6946036
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290963",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.294602,
+          51.6935963
+        ],
+        [
+          5.2947491,
+          51.693961
+        ],
+        [
+          5.295018,
+          51.6945588
+        ],
+        [
+          5.2952591,
+          51.69503
+        ],
+        [
+          5.2954401,
+          51.6952935
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308641",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.312649,
+          51.7009144
+        ],
+        [
+          5.3122669,
+          51.7009708
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290969",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2949974,
+          51.6935187
+        ],
+        [
+          5.2950655,
+          51.6939363
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290970",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2949954,
+          51.6936556
+        ],
+        [
+          5.2949928,
+          51.6938328
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290945",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2949974,
+          51.6935187
+        ],
+        [
+          5.2949954,
+          51.6936556
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290960",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.294951,
+          51.693368
+        ],
+        [
+          5.2949954,
+          51.6936556
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290956",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2950684,
+          51.6943358
+        ],
+        [
+          5.2948396,
+          51.6939731
+        ],
+        [
+          5.294602,
+          51.6935963
+        ],
+        [
+          5.2943774,
+          51.6929877
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290958",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2939846,
+          51.6917873
+        ],
+        [
+          5.2941944,
+          51.6922705
+        ],
+        [
+          5.2943954,
+          51.6927541
+        ],
+        [
+          5.2946327,
+          51.6933132
+        ],
+        [
+          5.2947974,
+          51.6937007
+        ],
+        [
+          5.2949477,
+          51.6940578
+        ],
+        [
+          5.294989,
+          51.6941531
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290966",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2939978,
+          51.6905515
+        ],
+        [
+          5.2940747,
+          51.6907254
+        ],
+        [
+          5.2945304,
+          51.6917685
+        ],
+        [
+          5.2948688,
+          51.692576
+        ],
+        [
+          5.2949553,
+          51.6928703
+        ],
+        [
+          5.2949974,
+          51.6935187
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290959",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2935565,
+          51.691626
+        ],
+        [
+          5.2937655,
+          51.6919084
+        ],
+        [
+          5.2938377,
+          51.6920233
+        ],
+        [
+          5.2939191,
+          51.692153
+        ],
+        [
+          5.2939897,
+          51.6922655
+        ],
+        [
+          5.2941697,
+          51.6925721
+        ],
+        [
+          5.2943774,
+          51.6929877
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308616",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2989252,
+          51.7020677
+        ],
+        [
+          5.2989805,
+          51.7028035
+        ],
+        [
+          5.29897,
+          51.70337
+        ],
+        [
+          5.2989499,
+          51.70383
+        ],
+        [
+          5.29887,
+          51.70446
+        ],
+        [
+          5.29876,
+          51.70492
+        ],
+        [
+          5.298526,
+          51.705754
+        ],
+        [
+          5.2981154,
+          51.706802
+        ],
+        [
+          5.2979241,
+          51.707189
+        ],
+        [
+          5.2975403,
+          51.7078376
+        ],
+        [
+          5.29713,
+          51.70844
+        ],
+        [
+          5.2969391,
+          51.7086888
+        ],
+        [
+          5.29439,
+          51.71183
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290957",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2937697,
+          51.6914273
+        ],
+        [
+          5.2940457,
+          51.6920225
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225998",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2988678,
+          51.7020742
+        ],
+        [
+          5.2989252,
+          51.7028047
+        ],
+        [
+          5.2989133,
+          51.7033678
+        ],
+        [
+          5.2988809,
+          51.7038494
+        ],
+        [
+          5.2987981,
+          51.7044608
+        ],
+        [
+          5.2987008,
+          51.7049163
+        ],
+        [
+          5.2984639,
+          51.7057448
+        ],
+        [
+          5.2980404,
+          51.7067904
+        ],
+        [
+          5.2978506,
+          51.7071786
+        ],
+        [
+          5.2974758,
+          51.7078193
+        ],
+        [
+          5.2970656,
+          51.7084417
+        ],
+        [
+          5.2968635,
+          51.7087174
+        ],
+        [
+          5.2943276,
+          51.7118303
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290946",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.295516,
+          51.6952902
+        ],
+        [
+          5.2953114,
+          51.6948767
+        ],
+        [
+          5.2951553,
+          51.6944736
+        ],
+        [
+          5.2950684,
+          51.6943358
+        ],
+        [
+          5.294989,
+          51.6941531
+        ],
+        [
+          5.2949059,
+          51.6938636
+        ],
+        [
+          5.2947451,
+          51.693436
+        ],
+        [
+          5.2944657,
+          51.6927677
+        ],
+        [
+          5.2936724,
+          51.690815
+        ],
+        [
+          5.2931849,
+          51.689627
+        ],
+        [
+          5.2928312,
+          51.6887564
+        ],
+        [
+          5.2924431,
+          51.6878351
+        ],
+        [
+          5.2922155,
+          51.6872649
+        ],
+        [
+          5.2920837,
+          51.6868939
+        ],
+        [
+          5.2919387,
+          51.6864862
+        ],
+        [
+          5.2916791,
+          51.6859205
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290948",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2951553,
+          51.6944736
+        ],
+        [
+          5.2950739,
+          51.6941992
+        ],
+        [
+          5.2949928,
+          51.6938328
+        ],
+        [
+          5.2949306,
+          51.6935525
+        ],
+        [
+          5.2947699,
+          51.6927662
+        ],
+        [
+          5.2943841,
+          51.6918251
+        ],
+        [
+          5.2930424,
+          51.6885363
+        ],
+        [
+          5.2927992,
+          51.6880742
+        ],
+        [
+          5.2923541,
+          51.6872787
+        ],
+        [
+          5.2920837,
+          51.6868939
+        ],
+        [
+          5.2919333,
+          51.6866898
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w37418174",
+    "name": "'s-Hertogenbosch Oost",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.319125,
+          51.7005433
+        ],
+        [
+          5.3185345,
+          51.7005067
+        ],
+        [
+          5.3177882,
+          51.7004835
+        ],
+        [
+          5.3170263,
+          51.7004915
+        ],
+        [
+          5.3162385,
+          51.7005226
+        ],
+        [
+          5.3154652,
+          51.7005806
+        ],
+        [
+          5.312649,
+          51.7009144
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "name": "'s-Hertogenbosch Oost",
+          "gauge": "1435",
+          "layer": "1",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290943",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2920797,
+          51.6865949
+        ],
+        [
+          5.2921687,
+          51.6869077
+        ],
+        [
+          5.2926236,
+          51.6876144
+        ],
+        [
+          5.2930982,
+          51.6885359
+        ],
+        [
+          5.294755,
+          51.6925025
+        ],
+        [
+          5.2949281,
+          51.6932934
+        ],
+        [
+          5.294951,
+          51.693368
+        ],
+        [
+          5.2949974,
+          51.6935187
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308680",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2919245,
+          51.6874521
+        ],
+        [
+          5.2920477,
+          51.6879399
+        ],
+        [
+          5.2922311,
+          51.6884723
+        ],
+        [
+          5.2929715,
+          51.6902902
+        ],
+        [
+          5.2933695,
+          51.6911938
+        ],
+        [
+          5.2936208,
+          51.6916444
+        ],
+        [
+          5.2937655,
+          51.6919084
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290955",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2954401,
+          51.6952935
+        ],
+        [
+          5.2951198,
+          51.6946036
+        ],
+        [
+          5.2948396,
+          51.6939731
+        ],
+        [
+          5.2947367,
+          51.6937062
+        ],
+        [
+          5.2946057,
+          51.6934219
+        ],
+        [
+          5.2944524,
+          51.6930031
+        ],
+        [
+          5.2941773,
+          51.69239
+        ],
+        [
+          5.2940457,
+          51.6920225
+        ],
+        [
+          5.2939846,
+          51.6917873
+        ],
+        [
+          5.2936457,
+          51.6909032
+        ],
+        [
+          5.2932222,
+          51.6899376
+        ],
+        [
+          5.2927277,
+          51.6886883
+        ],
+        [
+          5.2923536,
+          51.6877628
+        ],
+        [
+          5.2919333,
+          51.6866898
+        ],
+        [
+          5.2915007,
+          51.6857355
+        ],
+        [
+          5.291371,
+          51.6853817
+        ],
+        [
+          5.2912608,
+          51.6850813
+        ],
+        [
+          5.2911412,
+          51.6847768
+        ],
+        [
+          5.2909488,
+          51.6843037
+        ],
+        [
+          5.2906786,
+          51.683472
+        ],
+        [
+          5.2906864,
+          51.6829946
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290947",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.291371,
+          51.6853817
+        ],
+        [
+          5.2914411,
+          51.6857319
+        ],
+        [
+          5.2915175,
+          51.6861054
+        ],
+        [
+          5.2917306,
+          51.6866156
+        ],
+        [
+          5.2919779,
+          51.6874472
+        ],
+        [
+          5.2921205,
+          51.6879648
+        ],
+        [
+          5.2924331,
+          51.6887716
+        ],
+        [
+          5.2932975,
+          51.6908097
+        ],
+        [
+          5.2936101,
+          51.6915381
+        ],
+        [
+          5.2938377,
+          51.6920233
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290952",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2916791,
+          51.6859205
+        ],
+        [
+          5.2920797,
+          51.6865949
+        ],
+        [
+          5.2923566,
+          51.6870641
+        ],
+        [
+          5.2931571,
+          51.688529
+        ],
+        [
+          5.2939978,
+          51.6905515
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290967",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2936011,
+          51.6891337
+        ],
+        [
+          5.2933093,
+          51.6884393
+        ],
+        [
+          5.2928049,
+          51.6876131
+        ],
+        [
+          5.2922634,
+          51.6867746
+        ],
+        [
+          5.2920929,
+          51.6864849
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290942",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.29197,
+          51.68632
+        ],
+        [
+          5.2921991,
+          51.6867179
+        ],
+        [
+          5.2926936,
+          51.6875303
+        ],
+        [
+          5.293114,
+          51.6882508
+        ],
+        [
+          5.2932449,
+          51.6884778
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308761",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.29152,
+          51.68551
+        ],
+        [
+          5.29173,
+          51.68592
+        ],
+        [
+          5.29197,
+          51.68632
+        ],
+        [
+          5.2920929,
+          51.6864849
+        ],
+        [
+          5.29305,
+          51.68777
+        ],
+        [
+          5.2933908,
+          51.688438
+        ],
+        [
+          5.293469,
+          51.6886334
+        ],
+        [
+          5.293669,
+          51.6891261
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "AND_r_r": "15002841",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w186959064",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2939191,
+          51.692153
+        ],
+        [
+          5.2938346,
+          51.6917216
+        ],
+        [
+          5.2937697,
+          51.6914273
+        ],
+        [
+          5.2934578,
+          51.6906599
+        ],
+        [
+          5.2930448,
+          51.6897249
+        ],
+        [
+          5.2923921,
+          51.6880817
+        ],
+        [
+          5.2922313,
+          51.687657
+        ],
+        [
+          5.2920063,
+          51.6871205
+        ],
+        [
+          5.2917467,
+          51.6865258
+        ],
+        [
+          5.2915038,
+          51.6858888
+        ],
+        [
+          5.2914411,
+          51.6857319
+        ],
+        [
+          5.2910617,
+          51.6847812
+        ],
+        [
+          5.2908704,
+          51.6843127
+        ],
+        [
+          5.2906134,
+          51.6834717
+        ],
+        [
+          5.2906278,
+          51.6829966
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88234291",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2904744,
+          51.6838909
+        ],
+        [
+          5.2910106,
+          51.685289
+        ],
+        [
+          5.2915246,
+          51.6865376
+        ],
+        [
+          5.2916797,
+          51.6868941
+        ],
+        [
+          5.2918281,
+          51.6872575
+        ],
+        [
+          5.2919962,
+          51.687938
+        ],
+        [
+          5.2921619,
+          51.6884899
+        ],
+        [
+          5.2924586,
+          51.689224
+        ],
+        [
+          5.2927801,
+          51.6900473
+        ],
+        [
+          5.2932845,
+          51.6912137
+        ],
+        [
+          5.2935565,
+          51.691626
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290939",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2921687,
+          51.6869077
+        ],
+        [
+          5.2919387,
+          51.6864862
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w37418175",
+    "name": "'s-Hertogenbosch Oost",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3199189,
+          51.700606
+        ],
+        [
+          5.319125,
+          51.7005433
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "name": "'s-Hertogenbosch Oost",
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88434979",
+    "name": "'s-Hertogenbosch Oost",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3191376,
+          51.7005741
+        ],
+        [
+          5.3199078,
+          51.7006297
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "name": "'s-Hertogenbosch Oost",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88234299",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2937413,
+          51.6891212
+        ],
+        [
+          5.2934659,
+          51.6884338
+        ],
+        [
+          5.2931369,
+          51.6878535
+        ],
+        [
+          5.2926545,
+          51.6871882
+        ],
+        [
+          5.292331,
+          51.6867574
+        ],
+        [
+          5.2919788,
+          51.6862238
+        ],
+        [
+          5.2917485,
+          51.6858864
+        ],
+        [
+          5.2914977,
+          51.6852244
+        ],
+        [
+          5.2912999,
+          51.6847681
+        ],
+        [
+          5.2911057,
+          51.6842856
+        ],
+        [
+          5.2908428,
+          51.6834678
+        ],
+        [
+          5.2908582,
+          51.6830677
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308599",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.29439,
+          51.71183
+        ],
+        [
+          5.2940712,
+          51.7122437
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225967",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2943276,
+          51.7118303
+        ],
+        [
+          5.2939841,
+          51.7122591
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308725",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2904892,
+          51.6836666
+        ],
+        [
+          5.2915788,
+          51.6864988
+        ],
+        [
+          5.2917329,
+          51.686866
+        ],
+        [
+          5.2919245,
+          51.6874521
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w89821443",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2916791,
+          51.6859205
+        ],
+        [
+          5.29152,
+          51.68551
+        ],
+        [
+          5.2912205,
+          51.6847725
+        ],
+        [
+          5.2910272,
+          51.6842947
+        ],
+        [
+          5.2907515,
+          51.6834717
+        ],
+        [
+          5.2907408,
+          51.682995
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308804",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2908004,
+          51.6825716
+        ],
+        [
+          5.2907408,
+          51.682995
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002799",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308803",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2906924,
+          51.682568
+        ],
+        [
+          5.2906278,
+          51.6829966
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002800",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88290940",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2906864,
+          51.6829946
+        ],
+        [
+          5.2907423,
+          51.6825692
+        ],
+        [
+          5.2908476,
+          51.6817673
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002799",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308809",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2909136,
+          51.6817674
+        ],
+        [
+          5.2908004,
+          51.6825716
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002794",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308587",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2940712,
+          51.7122437
+        ],
+        [
+          5.2903454,
+          51.7168194
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308810",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2907876,
+          51.6817623
+        ],
+        [
+          5.2906924,
+          51.682568
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "AND_r_r": "15002793",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88225949",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2939841,
+          51.7122591
+        ],
+        [
+          5.2902863,
+          51.7167952
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308586",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2903454,
+          51.7168194
+        ],
+        [
+          5.2900139,
+          51.7172226
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226034",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2902863,
+          51.7167952
+        ],
+        [
+          5.2899421,
+          51.717213
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88299128",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2900145,
+          51.6672133
+        ],
+        [
+          5.2900088,
+          51.6676468
+        ],
+        [
+          5.2900944,
+          51.6689661
+        ],
+        [
+          5.2902136,
+          51.669514
+        ],
+        [
+          5.2911122,
+          51.6721393
+        ],
+        [
+          5.2915675,
+          51.6735703
+        ],
+        [
+          5.2917327,
+          51.674446
+        ],
+        [
+          5.2917816,
+          51.6754184
+        ],
+        [
+          5.2916135,
+          51.6768227
+        ],
+        [
+          5.2913078,
+          51.678953
+        ],
+        [
+          5.2909227,
+          51.6812272
+        ],
+        [
+          5.2908476,
+          51.6817673
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88434964",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3199078,
+          51.7006297
+        ],
+        [
+          5.3202481,
+          51.7006582
+        ],
+        [
+          5.3212667,
+          51.7008164
+        ],
+        [
+          5.3225888,
+          51.7010586
+        ],
+        [
+          5.3233591,
+          51.7012553
+        ],
+        [
+          5.3302454,
+          51.7033115
+        ],
+        [
+          5.3365501,
+          51.7052209
+        ],
+        [
+          5.3415647,
+          51.7067483
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308645",
+    "name": "'s-Hertogenbosch Oost",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3416186,
+          51.7067231
+        ],
+        [
+          5.3387753,
+          51.7058672
+        ],
+        [
+          5.3365738,
+          51.7051943
+        ],
+        [
+          5.3302945,
+          51.7032844
+        ],
+        [
+          5.32707,
+          51.70234
+        ],
+        [
+          5.3234007,
+          51.7012229
+        ],
+        [
+          5.3226324,
+          51.7010287
+        ],
+        [
+          5.321308,
+          51.7007789
+        ],
+        [
+          5.3202459,
+          51.700632
+        ],
+        [
+          5.3199189,
+          51.700606
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "name": "'s-Hertogenbosch Oost",
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308816",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2907198,
+          51.6631465
+        ],
+        [
+          5.2901578,
+          51.6665453
+        ],
+        [
+          5.2900853,
+          51.6672278
+        ],
+        [
+          5.2901117,
+          51.6685317
+        ],
+        [
+          5.2901503,
+          51.6689488
+        ],
+        [
+          5.2902581,
+          51.66944
+        ],
+        [
+          5.2914578,
+          51.6729457
+        ],
+        [
+          5.29167,
+          51.6736099
+        ],
+        [
+          5.29177,
+          51.6740799
+        ],
+        [
+          5.2918424,
+          51.6749243
+        ],
+        [
+          5.2918547,
+          51.6757371
+        ],
+        [
+          5.29177,
+          51.67658
+        ],
+        [
+          5.2912793,
+          51.679628
+        ],
+        [
+          5.2910594,
+          51.6807748
+        ],
+        [
+          5.2909136,
+          51.6817674
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308568",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2900139,
+          51.7172226
+        ],
+        [
+          5.28712,
+          51.72081
+        ],
+        [
+          5.2846061,
+          51.7238933
+        ],
+        [
+          5.2822272,
+          51.7267863
+        ],
+        [
+          5.2794985,
+          51.7301444
+        ],
+        [
+          5.2777366,
+          51.7322878
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "CG",
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88226004",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2899421,
+          51.717213
+        ],
+        [
+          5.2877489,
+          51.7199156
+        ],
+        [
+          5.2845385,
+          51.7238821
+        ],
+        [
+          5.2821748,
+          51.7267733
+        ],
+        [
+          5.279428,
+          51.7301294
+        ],
+        [
+          5.2783404,
+          51.7314679
+        ],
+        [
+          5.2776835,
+          51.7322601
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "ref": "BG",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88299127",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2907689,
+          51.6625331
+        ],
+        [
+          5.2906599,
+          51.6631993
+        ],
+        [
+          5.2903695,
+          51.6649965
+        ],
+        [
+          5.2900577,
+          51.6668676
+        ],
+        [
+          5.2900145,
+          51.6672133
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "AND_r_r": "15002693",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88434958",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3415647,
+          51.7067483
+        ],
+        [
+          5.3422523,
+          51.7069521
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w27789903",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3416186,
+          51.7067231
+        ],
+        [
+          5.342288,
+          51.7069275
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88434950",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3422523,
+          51.7069521
+        ],
+        [
+          5.3456005,
+          51.7079745
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w27789905",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.342288,
+          51.7069275
+        ],
+        [
+          5.3447129,
+          51.7076587
+        ],
+        [
+          5.345618,
+          51.7079363
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88434998",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3456005,
+          51.7079745
+        ],
+        [
+          5.3470624,
+          51.7084025
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308618",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.345618,
+          51.7079363
+        ],
+        [
+          5.3470666,
+          51.7083734
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88435000",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3470624,
+          51.7084025
+        ],
+        [
+          5.3496876,
+          51.7092227
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w6308483",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3470666,
+          51.7083734
+        ],
+        [
+          5.3490567,
+          51.7089658
+        ],
+        [
+          5.3497344,
+          51.7091615
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w186872189",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3496876,
+          51.7092227
+        ],
+        [
+          5.3513909,
+          51.7097446
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w186872190",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3497344,
+          51.7091615
+        ],
+        [
+          5.3514283,
+          51.7096754
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "gauge": "1435",
+          "layer": "1",
+          "bridge": "yes",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w186872192",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.3513909,
+          51.7097446
+        ],
+        [
+          5.3530676,
+          51.7102017
+        ],
+        [
+          5.3530879,
+          51.7102078
+        ],
+        [
+          5.353187,
+          51.7102391
+        ],
+        [
+          5.3531999,
+          51.7102438
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  },
+  {
+    "cdk_id": "w88345833",
+    "name": "",
+    "node_type": "node",
+    "geom": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          5.2900211,
+          51.6666553
+        ],
+        [
+          5.2899411,
+          51.6671964
+        ],
+        [
+          5.2899294,
+          51.6676619
+        ],
+        [
+          5.2899538,
+          51.6685339
+        ],
+        [
+          5.290125,
+          51.6695045
+        ],
+        [
+          5.2903603,
+          51.6702134
+        ],
+        [
+          5.2906293,
+          51.6709716
+        ],
+        [
+          5.2911214,
+          51.6724009
+        ],
+        [
+          5.2915065,
+          51.6735988
+        ],
+        [
+          5.2916777,
+          51.6746014
+        ],
+        [
+          5.2916501,
+          51.6757576
+        ],
+        [
+          5.2915554,
+          51.6766181
+        ],
+        [
+          5.2912482,
+          51.6786134
+        ],
+        [
+          5.2910881,
+          51.6795982
+        ],
+        [
+          5.2908294,
+          51.681485
+        ],
+        [
+          5.2907876,
+          51.6817623
+        ]
+      ]
+    },
+    "layers": {
+      "osm": {
+        "data": {
+          "AND_r_r": "15002786",
+          "railway": "rail",
+          "voltage": "1500",
+          "frequency": "0",
+          "electrified": "contact_line"
+        }
+      }
+    },
+    "layer": "osm"
+  }
+]
