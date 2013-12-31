@@ -2,12 +2,12 @@
 
 navigation#sidebar{
 	
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: @sidebarWidth;
 	height: 100%;
-	z-index: 2;
+	z-index: 50;
 
 	background: @sidebarBG;
 	color: @sidebarBase;
@@ -20,6 +20,7 @@ navigation#sidebar{
 	}
 
 	h1, ul{
+		
 		//inner width
 		width: @sidebarInnerWidth;
 		margin-left: @sidebarMargin;
@@ -27,35 +28,13 @@ navigation#sidebar{
 		//line
 		border-top: 1px solid @sidebarLine;
 		padding-bottom: @sidebarLineBottom;
+
 	}
 
-	ul#light{
-
-		li{
-			//pos
-			float: left;
-			margin-top: @sidebarLineBottom;
-
-			//square
-			width: @sidebarButton;
-			height: @sidebarButton;
-
-			//colors
-			background: @buttonOff;
-			.transition(background-color 0.5s ease);
-
-			&:first-child{
-				//cave man stilo
-				margin-left: ( @sidebarInnerWidth - ( 2 * @sidebarButton ) ) / 2;
-			}
-		}
-
-		.selected{
-			background-color: @buttonOn;
-		}
-
-		//icons
-
+	input{
+		background: black;
+		color: white;
+		border: none;
 	}
 
 }

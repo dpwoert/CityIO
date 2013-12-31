@@ -147,16 +147,7 @@ Meteor.methods({
 
 	getPostalCode: function(code){
 
-		var result = geo.postalDB.find({ postcode: code }).fetch();
-
-		console.log(result);
-
-		if(result.length > 0){
-			return result.geo;
-		} else {
-			return false;
-		}
-
+		return geo.postalDB.find({ postcode: code }).fetch();
 	},
 
 	getPollution: function(again){

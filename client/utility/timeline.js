@@ -16,19 +16,7 @@ window.Timeline = function(){
 			.domain([0,1])
 			.range([0,1])
 			.exponent(1.1)
-			.clamp(true)
-
-		var that = this;
-
-		//call
-		var $li = $('ul#light li');
-		$li.click(function(){
-
-			that.switch.call(that);
-			$li.removeClass('selected');
-			$(this).addClass('selected');
-
-		});
+			.clamp(true);
 
 	}.call(this);
 
@@ -41,8 +29,6 @@ window.Timeline = function(){
 	};
 
 	this.render = function(delta){
-
-		//debugger
 
 		var d = (delta * 0.25);
 

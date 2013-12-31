@@ -27,6 +27,32 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		};
 	};
 
+	this.addSpot = function(id, pos, show){
+
+		var pixels = scene.points.translate([pos[0], pos[1]]);
+		var pixels2 = scene.points.translate([pos[0], pos[1]]);
+		pixels[0] += (500 * scene.points.pixelScale);
+
+		var geom = new THREE.IcosahedronGeometry(15,0);
+		var mat = new THREE.MeshLambertMaterial({ shading: THREE.FlatShading, color: 0xFF0000 });
+		this.mesh = new THREE.Mesh(geom, mat)
+		this.mesh.position = new THREE.Vector3(pixels2[0],pixels2[1],20);
+		DDD.group.add(this.mesh);
+
+		this.objects[id] = {
+			'id': id,
+			'geo': pos,
+			'pos': pixels,
+			'lookAt': pixels2,
+			'height': 400
+		};
+
+		if(show){
+			this.switchTo(id);
+		}
+
+	}
+
 	this.switchTo = function(id){
 
 		//get camera pos
@@ -43,8 +69,8 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		//look at
 		var lookAt = new THREE.Vector3();
 		lookAt.z = 0;
-		lookAt.z = obj.lookAt[0];
-		lookAt.x = obj.lookAt[1];
+		lookAt.x = obj.lookAt[0];
+		lookAt.y = obj.lookAt[1];
 
 		//look at right subject
 		var p2 = translate.localToWorld(lookAt);
@@ -68,7 +94,7 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		this.current.from = p1;
 		this.current.to = p2;
 
-	}
+	};
 
 	this.animateTo = function(toEye, toTarget){
 		this.animate(this.current.from,this.current.to,toEye,toTarget);

@@ -78,12 +78,13 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		if ( this.domElement !== document ) {
 
-			this.domElement.focus();
+			//this.domElement.focus();
+			return false;
 
 		}
 
-		event.preventDefault();
-		event.stopPropagation();
+		// event.preventDefault();
+		// event.stopPropagation();
 
 		if ( this.activeLook ) {
 
@@ -102,8 +103,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.onMouseUp = function ( event ) {
 
-		event.preventDefault();
-		event.stopPropagation();
+		// event.preventDefault();
+		// event.stopPropagation();
 
 		if ( this.activeLook ) {
 
@@ -260,7 +261,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	};
 
 
-	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
+	// this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 
 	this.domElement.addEventListener( 'mousemove', bind( this, this.onMouseMove ), false );
 	this.domElement.addEventListener( 'mousedown', bind( this, this.onMouseDown ), false );

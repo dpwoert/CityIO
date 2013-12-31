@@ -133,7 +133,7 @@ DDD.animate = function(){
     if(DDD.timeline.needsUpdate) DDD.timeline.render( delta );
     if(DDD.scene.camera.needsUpdate) DDD.scene.camera.render( delta );
 
-    //update
+    //controls
     DDD.controls.update( delta );
 
     //render

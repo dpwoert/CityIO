@@ -4,17 +4,59 @@
 
 <body>
 
-	<navigation id="sidebar">
-		<h1>Traffic Flow</h1>
-		<ul id="light">
-			<li class="day selected"></li>
-			<li class="night"></li>
-		</ul>
-	</navigation>
-
 	<div class="visualization">
 		<!-- WEBGL here -->
 	</div>
 
+	{{> navigation}}
+
 </body>
 
+<template name="navigation">
+
+	<navigation id="sidebar">
+		<h1>Traffic Flow</h1>
+
+		<ul>
+			<li rel="1">Binnenstad</li>
+			<li rel="2">De Munstel</li>
+			<li rel="3">West</li>
+			<li rel="4">Graafsepoort</li>
+		</ul>
+
+		<ul>
+			<li>Zip code</li>
+			<li class="no-line">
+				<input name="code" type="text" value="5223DJ" class="code">
+				<input name="go" type="button" value="go" class="go">
+			</li>
+		</ul>
+
+		<ul>
+			<li>legend</li>
+			<li class="light"><span class="day">day</span>/<span class="night">night</span></li>
+		</ul>
+
+		<ul>
+			<li class="flymode">flymode</li>
+		</ul>
+
+	</navigation>
+
+</template>
+
+<template name="intro">
+
+	<video autoplay>
+		<source src="/intro.mp4" type="video/mp4" />
+  		<source src="/intro.webm" type="video/webm" />
+	</video>
+
+	<div id="no-video"></div>
+
+	<div id="intro">
+		<h1>LOGO</h1>
+		<span>COPY COPY</span>
+	</div>
+
+</template>
