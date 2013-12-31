@@ -20,7 +20,7 @@ navigation#sidebar{
 	}
 
 	h1, ul{
-		
+
 		//inner width
 		width: @sidebarInnerWidth;
 		margin-left: @sidebarMargin;
@@ -35,6 +35,14 @@ navigation#sidebar{
 		background: black;
 		color: white;
 		border: none;
+
+		&.waiting{
+			color: #ccc;
+		}
+
+		&.error{
+			color: red;
+		}
 	}
 
 }

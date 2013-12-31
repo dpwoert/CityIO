@@ -1,16 +1,23 @@
-window.PostalCode = function(code){
-	
+window.PostalCode = function(input){
+
+	var $input = $(input);	
+	var code = input.value;
+
+	console.log($input);
 
 	var waiting = function(){
-
+		$input.addClass('waiting');
 	}.call(this);
 
 	var showError = function(){
 		console.log('cant find it');
+		$input.addClass('error');
 	};
 
 	var showCode = function(pos){
-		console.log(pos);
+		
+		$input.removeClass('waiting');
+		$input.removeClass('error');
 
 		DDD.scene.camera.addSpot(code, pos, true);
 

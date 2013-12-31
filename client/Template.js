@@ -7,7 +7,7 @@ Template.navigation.rendered = function(){
 
 	button.onclick = function(){
 
-		var show = new PostalCode(input.value);
+		var show = new PostalCode(input);
 
 	}
 
