@@ -256,6 +256,10 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		targetPosition.y = position.y + 100 * Math.cos( this.phi );
 		targetPosition.z = position.z + 100 * Math.sin( this.phi ) * Math.sin( this.theta );
 
+		//targetPosition.applyEuler(DDD.camera.rotation);
+		//targetPosition.applyQuaternion( DDD.camera.quaternion );
+		// targetPosition.applyEuler(DDD.camera.rotation, DDD.camera.eulerOrder);
+
 		this.object.lookAt( targetPosition );
 
 	};

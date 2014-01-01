@@ -301,7 +301,7 @@ geo.getOSM = function(obj){
 
 					//save object
 					obj.db.insert(street, function(error, id){
-						research.getNoise(points, id, obj.db);
+						research.getNoise(points, id, obj.db, 'car');
 					});
 
 				}
@@ -320,6 +320,35 @@ geo.getOSM = function(obj){
 			}
 		});
 	}
+}
+
+geo.addRails = function(){
+
+	var data = Assets.getText("data/rail.json");
+
+	//add rails
+	_.each(data, function(value){
+
+		//make points
+		var points = geo.splitRoad(value.geom.coordinates);
+
+		//make object
+		var street = {
+			'id': value.cdk_id,
+			'name': value.name,
+			'rail': true,
+			'points': points,
+			'soundDay': [],
+			'soundNight': []
+		}
+
+		//save object
+		obj.db.insert(street, function(error, id){
+			research.getNoise(points, id, obj.db, 'train');
+		});
+
+	});
+
 }
 
 geo.getPostalCodes = function(obj){

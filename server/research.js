@@ -78,7 +78,7 @@ research.getPollution = function(db, again){
 };
 
 //todo for multiple points
-research.getNoise = function(points, id, db){
+research.getNoise = function(points, id, db, type){
 
 	//request function
 	var getPNG = function(tileUrl, type, key){
@@ -123,10 +123,13 @@ research.getNoise = function(points, id, db){
 		urls = tiles.getSoundTile(val);
 
 		//get the data
-		getPNG(urls.day.car, 'carDay', key);
-		getPNG(urls.night.car, 'carNight', key);
-		// getIMG(urls.day.train, 'trainDay');
-		// getIMG(urls.night.train, 'trainDay');
+		if(type == car){
+			getPNG(urls.day.car, 'carDay', key);
+			getPNG(urls.night.car, 'carNight', key);
+		} else {
+			getIMG(urls.day.train, 'trainDay');
+			getIMG(urls.night.train, 'trainDay');
+		}
 
 	});
 
@@ -232,6 +235,23 @@ research.readNoise = function(data, type, key, id, db){
         		}
         	};
         } else if (type == 'carDay'){
+        	toUpdate.$push = {
+        		'soundDay': {
+	        		$each: [add],
+	        		// $sort: { key: 1 }
+        		}
+        	};
+        }
+
+        //train
+        if(type == 'trainNight'){
+        	toUpdate.$push = {
+        		'soundNight': {
+	        		$each: [add],
+	        		// $sort: { key: 1 }
+        		}
+        	};
+        } else if (type == 'trainDay'){
         	toUpdate.$push = {
         		'soundDay': {
 	        		$each: [add],
