@@ -2,13 +2,33 @@
 Template.navigation.rendered = function(){
 
 	//postcode
-	var input = this.find('input.code');
-	var button = this.find('input.go');
+	var zipInput = this.find('input.code');
+	var zipButton = this.find('input.go');
 
-	button.onclick = function(){
+	zipButton.onclick = function(){
 
-		var show = new PostalCode(input);
+		var show = new PostalCode(zipInput);
 
 	}
+
+	//day/night
+	var day = this.find('span.day');
+	var night = this.find('span.night');
+
+	day.onclick = function(){
+
+		DDD.timeline.switchTo(true);
+		day.className = 'day selected';
+		night.className = 'night';
+
+	};
+
+	night.onclick = function(){
+
+		DDD.timeline.switchTo(false);
+		day.className = 'day';
+		night.className = 'night selected';
+
+	};
 
 }

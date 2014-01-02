@@ -31,6 +31,7 @@ navigation#sidebar{
 
 	}
 
+	//postal codes
 	input{
 		background: black;
 		color: white;
@@ -43,6 +44,15 @@ navigation#sidebar{
 		&.error{
 			color: red;
 		}
+	}
+
+	//day/night
+	.day, .night{
+
+		&.selected{
+			font-weight: bold;
+		}
+
 	}
 
 }

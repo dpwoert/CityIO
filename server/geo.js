@@ -128,6 +128,16 @@ Meteor.methods({
 
 	},
 
+	buildRails: function(){
+
+		geo.streetsDB.remove({ rail: true });
+		console.log('==== Building Rails ====');
+
+		//get streets
+		geo.addRails(geo.streetsDB);
+
+	},
+
 	buildOSM: function(){
 		//special OSM layers [todo]
 	},
@@ -322,12 +332,14 @@ geo.getOSM = function(obj){
 	}
 }
 
-geo.addRails = function(){
+geo.addRails = function(db){
 
-	var data = Assets.getText("data/rail.json");
+	var data =JSON.parse( Assets.getText("data/rail.json") );
 
 	//add rails
 	_.each(data, function(value){
+
+		console.log(value);
 
 		//make points
 		var points = geo.splitRoad(value.geom.coordinates);
@@ -335,7 +347,6 @@ geo.addRails = function(){
 		//make object
 		var street = {
 			'id': value.cdk_id,
-			'name': value.name,
 			'rail': true,
 			'points': points,
 			'soundDay': [],
@@ -343,8 +354,8 @@ geo.addRails = function(){
 		}
 
 		//save object
-		obj.db.insert(street, function(error, id){
-			research.getNoise(points, id, obj.db, 'train');
+		db.insert(street, function(error, id){
+			research.getNoise(points, id, db, 'train');
 		});
 
 	});

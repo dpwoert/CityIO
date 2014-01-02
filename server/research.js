@@ -123,12 +123,12 @@ research.getNoise = function(points, id, db, type){
 		urls = tiles.getSoundTile(val);
 
 		//get the data
-		if(type == car){
+		if(type == 'car'){
 			getPNG(urls.day.car, 'carDay', key);
 			getPNG(urls.night.car, 'carNight', key);
-		} else {
-			getIMG(urls.day.train, 'trainDay');
-			getIMG(urls.night.train, 'trainDay');
+		} else if(type =='train'){
+			getPNG(urls.day.train, 'trainDay', key);
+			getPNG(urls.night.train, 'trainNight', key);
 		}
 
 	});

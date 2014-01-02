@@ -28,6 +28,11 @@ window.Timeline = function(){
 		console.log('switch light');
 	};
 
+	this.switchTo = function(day){
+		this.needsUpdate = true;
+		this.day = day;
+	}
+
 	this.render = function(delta){
 
 		var d = (delta * 0.25);
