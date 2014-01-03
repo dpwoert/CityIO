@@ -1,0 +1,90 @@
+#intro-container{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+
+	z-index: 99;
+
+	background-color: white;
+	background-image: url('intro/bg.jpg');
+}
+
+video{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	display: none;
+}
+
+#intro{
+
+	position: relative;
+	margin: 0 auto;
+	margin-top: 160px;
+	width: 950px;
+
+	color: black;
+
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+
+	img{
+		margin: 0 auto;
+		width: 400px;
+		height: auto;
+		display: block;
+	}
+
+}
+
+#preloader{
+
+	margin: 0 auto;
+	margin-top: 250px;
+
+	.bar{
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+
+	.button{
+		width: 650px;
+	}
+
+}
+
+//responsive - iphone 5
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+{ 
+	video{
+		display: none;
+	}
+}
+
+//iphone <5
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+
+	video{
+		display: none;
+	}
+
+}
+
+//small screen
+@media screen and (max-width: 640px) {
+
+	video{
+		display: none;
+	}
+
+}

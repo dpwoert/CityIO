@@ -32,7 +32,7 @@ data.init = function(){
 
 		//preloader
 		DDD.preloader.load([buildings, surfaces, streets]);
-		DDD.preloader.start();	
+		//DDD.preloader.start();	
 
 		//timeline
 		DDD.timeline.add([ surfaces, streets ]);

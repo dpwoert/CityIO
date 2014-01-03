@@ -76,7 +76,9 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		var p2 = translate.localToWorld(lookAt);
 
 		//update controls
-		//TODO
+		controls.theta = 0;
+		controls.lat = 0;
+		controls.lon = 0;
 
 		//animate
 		if(this.first){
