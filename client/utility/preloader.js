@@ -7,8 +7,6 @@ window.Preloader = function(callback){
 	this.classes = [];
 	this.started = false;
 
-	var loader = document.querySelector("#preloader");
-	var bar = document.querySelector("#preloader .bar");
 	var width = 325;
 	
 	this.init = function(){
@@ -110,7 +108,7 @@ window.Preloader = function(callback){
 		var remaining = Math.round( (elapsed * (1-procent)) / 1000 );
 
 		//console.log('loaded ' + (procent * 100) + '% - ' + remaining + ' seconds remaining');
-		bar.style.width = (width * procent) + 'px';
+		document.querySelector("#preloader .bar").style.width = (width * procent) + 'px';
 
 	};
 
@@ -124,14 +122,16 @@ window.Preloader = function(callback){
 		if(_.isFunction(callback)) callback();
 
 		//change copy
+		document.querySelector("#preloaderCopy").innerHTML = '';
+		var loader = document.querySelector("#preloader");
 		loader.innerHTML = 'Map';
 		loader.className = 'button';
 
-		loader.click = function(){
+		loader.addEventListener("click",function(){
 
 			Session.set("hideIntro", true);
 
-		}
+		});
 
 		//delete preloader data
 		this.classes = null;
