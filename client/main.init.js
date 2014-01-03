@@ -4,7 +4,7 @@ Meteor.startup(function(){
 	DDD.init();
 
 	//get data
-	data.init();
+	//data.init();
 
 	//trigger reload
 	window.rebuildCity = function(add){

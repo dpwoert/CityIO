@@ -14,7 +14,8 @@ data.init = function(){
 			return false;
 		}
 
-		// console.log(data);
+		//change copy
+		Session.set("loaderCopy", 'Loading...');
 
 		var buildings = new Buildings(DDD.scene);
 		buildings.source(data.buildings);
@@ -32,7 +33,7 @@ data.init = function(){
 
 		//preloader
 		DDD.preloader.load([buildings, surfaces, streets]);
-		//DDD.preloader.start();	
+		DDD.preloader.start();	
 
 		//timeline
 		DDD.timeline.add([ surfaces, streets ]);

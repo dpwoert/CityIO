@@ -145,6 +145,9 @@ DDD.animate = function(){
 //resize
 window.onresize = _.debounce(function(){
 
+    //intro
+    if(!DDD.preloader.ready) Template.intro.resize();
+
     //update normal renderer
     DDD.renderer.setSize( DDD.$.width(), DDD.$.height() );
     DDD.camera.aspect = DDD.$.width() / DDD.$.height();
