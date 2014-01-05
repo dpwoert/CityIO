@@ -8,6 +8,8 @@ Session.set("loaderCopy", 'Downloading...');
 Template.intro.rendered = function(){
 
 	video = this.find('video');
+
+	if(!video) return false;
 	
 	video.addEventListener("canplay",function(){
 
