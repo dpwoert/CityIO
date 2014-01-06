@@ -23,7 +23,7 @@ City I/O is fully build in JavaScript (server and client side) and uses some of 
 * [Meteorite](https://github.com/oortcloud/meteorite)
 * [ThreeJS](http://www.threejs.org) (WebGL rendering)
 * [D3](http://d3js.org/)
-* [Less](http://lesscss.org/) (css precompiler)
+* [LESS](http://lesscss.org/) (CSS Precompiler)
 
 ## Browser support
 * Google Chrome (mac/pc)
