@@ -18,7 +18,7 @@ A unique 3D data visualization of the city ‘s-Hertogenbosch showing possible n
 ![City I/O Screenshot 2](http://s28.postimg.org/5rc39bcf1/gh2.png)
 
 ## Technique
-City I/O is fully build in JavaScript (and some CSS) and uses some of the latsest techniques for the web available :
+City I/O is fully build in JavaScript (and some CSS) and uses some of the latsest techniques for the web available:
 * [Meteor](https://www.meteor.com/)
 * [Meteorite](https://github.com/oortcloud/meteorite)
 * [NPM](https://npmjs.org/)
