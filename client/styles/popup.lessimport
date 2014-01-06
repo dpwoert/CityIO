@@ -96,4 +96,8 @@
 	&.visible{
 		display: block;
 	}
+
+	a{
+		color: @sidebarInactive;
+	}
 }
