@@ -9,6 +9,8 @@
 	</div>
 
 	{{> navigation}}
+	{{> popups}}
+
 	{{> intro}}
 
 </body>
@@ -38,7 +40,7 @@
 		</ul>
 
 		<ul>
-			<li>legend</li>
+			<li onclick="showPopup('legenda',true)">legend</li>
 			<li class="light"><span class="day selected">day</span>/<span class="night">night</span></li>
 		</ul>
 
@@ -46,7 +48,7 @@
 			<li class="flymode">flymode</li>
 		</ul>
 
-		<div class="sources">
+		<div class="sources" onclick="showPopup('sources', true)">
 			source/disclaimer
 		</div>
 
@@ -93,5 +95,57 @@
 	</div>
 
 	<div id="preloaderCopy">{{ copy }}</div>
+
+</template>
+
+
+<template name="popups">
+
+	<div id="popups">
+
+		<div class="overlay"></div>
+
+		<div class="popup controls">
+			<div class="continue">Continue</div>
+		</div>
+
+		<div class="popup legenda"></div>
+
+		<div class="popup sources">
+
+		<strong>© 2014 City I/O</strong><br>
+		Davey van der Woert<br>
+		Jesse van Rheenen<br>
+		Yannick Diezenberg<br><br>
+
+		<h2>Sound</h2>
+		s-Hertogenbosch.nl ( http://geoproxy.s-hertogenbosch.nl/apps2/geoportal_geluid.html )
+
+		<h2>Particulate matter</h2>
+		NSL-Monitoring.nl ( http://www.nsl-monitoring.nl/viewer/ )
+
+		<h2>Buildings</h2>
+		Surface: Kadaster.nl ( http://www.kadaster.nl/bag )
+		Height: Geodan.nl ( http://ahn.geodan.nl/ahn/ )
+
+		<h2>Nature</h2>
+		OpenStreetMap.org ( http://wiki.openstreetmap.org/wiki/Main_Page )
+
+		<h2>Roads</h2>
+		OpenStreetMap.org ( http://wiki.openstreetmap.org/wiki/Main_Page )
+
+		<h2>Postal Codes</h2>
+		NLExtract.nl ( http://www.nlextract.nl )
+
+		<h2>CitySDK</h2>
+		CitySDK.nl
+
+
+		<h1>DISCLAIMER</h1>
+		The information contained in this website is for general information purposes only. City I/O does not own any of the data. The data is collected from multiple sources. While we endeavour to keep the visualization correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability. Any reliance you place on such information is therefore strictly at your own risk.
+
+		</div>
+
+	</div>
 
 </template>

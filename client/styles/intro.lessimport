@@ -9,7 +9,7 @@
 
 	background-color: white;
 	background-image: url('/intro/bg.jpg');
-	background-size: contain;
+	background-size: cover;
 }
 
 #videoContainer{
