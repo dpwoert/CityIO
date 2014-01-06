@@ -75,11 +75,6 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		//look at right subject
 		var p2 = translate.localToWorld(lookAt);
 
-		//update controls
-		controls.theta = 0;
-		controls.lat = 0;
-		controls.lon = 0;
-
 		//animate
 		if(this.first){
 
@@ -87,6 +82,9 @@ window.CameraPosition = function(scene, camera, controls, translate){
 
 			camera.position = p1;
 			camera.lookAt( p2 );
+
+			//update controls
+			this.updateControls();
 
 		} else {
 			this.animateTo(p1, p2);
@@ -103,6 +101,9 @@ window.CameraPosition = function(scene, camera, controls, translate){
 	};
 
 	this.animate = function(fromEye, fromTarget, toEye, toTarget){
+
+		//freeze controls
+		//controls.freeze = true;
 
 		//reset animation
 		this.completed = 0;
@@ -134,11 +135,32 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		camera.position = eye;
 		camera.lookAt(target);
 
+		this.updateControls();
+
 		//check if completed
 		if(this.completed >= 0.1){
 			this.needsUpdate = false;
+			//controls.freeze = false;
 		}
 
 	};
+
+    this.updateControls = function(){
+
+        //http://www.gamedev.net/topic/626401-quaternion-from-latitude-and-longitude/?view=findpost&p=4949706
+        
+		console.log('update controls');
+		var theta = Math.PI + Math.atan2(camera.quaternion.z, camera.quaternion.x);
+		var phi = Math.acos(camera.quaternion.y);
+
+		var lat = phi / Math.PI * 180 - 90;
+		var lon = (theta / (2 * Math.PI) * 360 - 180);
+		// var lon = theta / (2 * Math.PI) * 360 - 180;
+
+		controls.lat = lat;
+		controls.lon = lon + 90;
+	
+
+    };
 
 }
