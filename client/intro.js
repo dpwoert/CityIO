@@ -4,8 +4,17 @@ var video;
 Session.set("hideIntro", false);
 Session.set("loaderCopy", 'Downloading...');
 
+
 //intro
 Template.intro.rendered = function(){
+
+	//Detect WebGL
+	if(!Detector.webgl){
+		Session.set("loaderCopy", "Oops, it looks you are using an old browser. We recommend to use the newest version of Chrome to see the fully functioning map");
+		var loader = this.find('#preloader');
+		loader.innerHTML = 'Demo';
+		loader.className = 'button';
+	}
 
 	video = this.find('video');
 
