@@ -18,13 +18,16 @@ A unique 3D data visualization of the city ‘s-Hertogenbosch showing possible n
 ![City I/O Screenshot 2](http://s28.postimg.org/5rc39bcf1/gh2.png)
 
 ## Technique
-City I/O is fully build in JavaScript (and some CSS) and uses some of the latsest techniques for the web available:
-* [Meteor](https://www.meteor.com/)
+City I/O is fully build in JavaScript (server and client side) and uses some of the latest techniques for the web available:
+* [Meteor](https://www.meteor.com/) (NodeJS, MongoDB, NPM, Underscore)
 * [Meteorite](https://github.com/oortcloud/meteorite)
-* [NPM](https://npmjs.org/)
+* [ThreeJS](http://www.threejs.org) (WebGL rendering)
+* [D3](http://d3js.org/)
+* [Less](http://lesscss.org/) (css precompiler)
 
 ## Browser support
-* Google Chrome (latest)
+* Google Chrome [mac/pc] (latest)
+* Firefox [mac/pc] (latest)
 
 ## Copyright
 © Davey van der Woert, Jesse van Rheenen, Yannick Diezenberg
