@@ -1,11 +1,13 @@
-window.Preloader = function(html, callback){
+window.Preloader = function(callback){
 
-	this.stepSize = 250;
+	this.stepSize = 100;
 	this.toLoad = 0;
 	this.loaded = 0;
 	this.ready = false;
 	this.classes = [];
 	this.started = false;
+
+	var width = 325;
 	
 	this.init = function(){
 
@@ -105,8 +107,8 @@ window.Preloader = function(html, callback){
 		var procent = this.loaded / this.toLoad;
 		var remaining = Math.round( (elapsed * (1-procent)) / 1000 );
 
-		console.log('loaded ' + (procent * 100) + '% - ' + remaining + ' seconds remaining');
-
+		//console.log('loaded ' + (procent * 100) + '% - ' + remaining + ' seconds remaining');
+		document.querySelector("#preloader .bar").style.width = (width * procent) + 'px';
 
 	};
 
@@ -118,6 +120,18 @@ window.Preloader = function(html, callback){
 		
 		//callback
 		if(_.isFunction(callback)) callback();
+
+		//change copy
+		document.querySelector("#preloaderCopy").innerHTML = '';
+		var loader = document.querySelector("#preloader");
+		loader.innerHTML = 'Map';
+		loader.className = 'button';
+
+		loader.addEventListener("click",function(){
+
+			Session.set("hideIntro", true);
+
+		});
 
 		//delete preloader data
 		this.classes = null;

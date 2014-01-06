@@ -9,6 +9,7 @@
 	</div>
 
 	{{> navigation}}
+	{{> intro}}
 
 </body>
 
@@ -46,17 +47,35 @@
 </template>
 
 <template name="intro">
+	{{#unless hidden}}
+	<div id="intro-container">
 
-	<video autoplay>
-		<source src="/intro.mp4" type="video/mp4" />
-  		<source src="/intro.webm" type="video/webm" />
-	</video>
+		<div id="videoContainer">
 
-	<div id="no-video"></div>
+			<video autoplay loop>
+				<source src="video/intro.mp4" type="video/mp4" />
+		  		<source src="video/intro.webm" type="video/webm" />
+			</video>
 
-	<div id="intro">
-		<h1>LOGO</h1>
-		<span>COPY COPY</span>
+		</div>
+
+		<div id="intro">
+			<img src="intro/logo.svg" class="logo" alt="City I/O - Den Bosch" />
+			<span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet</span>
+		</div>
+
+		{{> preloader}}
+
 	</div>
+	{{/unless}}
+
+</template>
+
+<template name="preloader">
+	<div id="preloader">
+		<div class="bar"></div>
+	</div>
+
+	<div id="preloaderCopy">{{ copy }}</div>
 
 </template>
