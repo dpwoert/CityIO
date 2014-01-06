@@ -8,10 +8,6 @@ window.CameraPosition = function(scene, camera, controls, translate){
 
 	this.first = true;
 	this.needsUpdate = false;
-	
-	this.init = function(){
-
-	}.call(this);
 
 	this.add = function(id, pos, lookAt, height){
 
@@ -33,11 +29,13 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		var pixels2 = scene.points.translate([pos[0], pos[1]]);
 		pixels[0] += (500 * scene.points.pixelScale);
 
-		var geom = new THREE.IcosahedronGeometry(15,0);
-		var mat = new THREE.MeshLambertMaterial({ shading: THREE.FlatShading, color: 0xFF0000 });
-		this.mesh = new THREE.Mesh(geom, mat)
-		this.mesh.position = new THREE.Vector3(pixels2[0],pixels2[1],20);
-		DDD.group.add(this.mesh);
+		/*
+			var geom = new THREE.IcosahedronGeometry(15,0);
+			var mat = new THREE.MeshLambertMaterial({ shading: THREE.FlatShading, color: 0xFF0000 });
+			this.mesh = new THREE.Mesh(geom, mat)
+			this.mesh.position = new THREE.Vector3(pixels2[0],pixels2[1],20);
+			DDD.group.add(this.mesh);
+		*/
 
 		this.objects[id] = {
 			'id': id,
@@ -51,7 +49,7 @@ window.CameraPosition = function(scene, camera, controls, translate){
 			this.switchTo(id);
 		}
 
-	}
+	};
 
 	this.switchTo = function(id){
 
@@ -162,5 +160,16 @@ window.CameraPosition = function(scene, camera, controls, translate){
 	
 
     };
+
+    this.init = function(){
+
+		var that = this;
+		$('.cameraPositions li').click(function(){
+			that.switchTo.call(that, $(this).attr('rel'));
+			$('.cameraPositions li.selected').removeClass('selected');
+			$(this).addClass('selected');
+		});
+
+	}.call(this);
 
 }

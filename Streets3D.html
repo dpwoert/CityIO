@@ -16,9 +16,10 @@
 <template name="navigation">
 
 	<navigation id="sidebar">
-		<h1>Traffic Flow</h1>
 
-		<ul>
+		<img src="main/logo.svg" />
+
+		<ul class="cameraPositions">
 			<li rel="1">Binnenstad</li>
 			<li rel="2">De Munstel</li>
 			<li rel="3">West</li>
@@ -52,7 +53,7 @@
 
 		<div id="videoContainer">
 
-			<video autoplay loop>
+			<video autoplay loop poster="intro/bg.jpg">
 				<source src="video/intro.mp4" type="video/mp4" />
 		  		<source src="video/intro.webm" type="video/webm" />
 			</video>
