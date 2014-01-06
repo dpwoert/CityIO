@@ -92,7 +92,7 @@
 </template>
 
 <template name="preloader">
-	<div id="preloader">
+	<div id="preloader" {{#if buffer}} class="buffer" {{/if}}>
 		<div class="bar"></div>
 	</div>
 

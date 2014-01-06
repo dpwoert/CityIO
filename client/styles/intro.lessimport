@@ -99,6 +99,17 @@
 		text-transform: uppercase;
 	}
 
+	&.buffer{
+		.bar{
+			position: absolute;
+			left: 0;
+			right: 0;
+			width: 100%;
+			opacity: 0.1;
+			background-image: url(/intro/barberpole.gif);
+		}
+	}
+
 }
 
 #preloaderCopy{

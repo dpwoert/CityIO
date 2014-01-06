@@ -14,7 +14,7 @@ data.init = function(){
 			return false;
 		}
 
-		//change copy
+		//change copy/preloader
 		Session.set("loaderCopy", 'Loading...');
 
 		var buildings = new Buildings(DDD.scene);

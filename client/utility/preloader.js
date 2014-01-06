@@ -11,6 +11,7 @@ window.Preloader = function(callback){
 	
 	this.init = function(){
 
+
 	}.call(this);
 
 	this.start = function(){
@@ -20,6 +21,8 @@ window.Preloader = function(callback){
 		this.started = true;
 		this.currentClass = 0;
 		this.i = 0;
+
+		Session.set("buffer", false);
 
 		//log
 		console.log('start loading');

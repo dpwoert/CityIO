@@ -3,6 +3,7 @@ var video;
 //variables
 Session.set("hideIntro", false);
 Session.set("loaderCopy", 'Downloading...');
+Session.set("buffer", true);
 
 
 //intro
@@ -22,6 +23,7 @@ Template.intro.rendered = function(){
 	
 	video.addEventListener("canplay",function(){
 
+
 		//loaded video so start loading data
 		video.className = 'loaded';
 		data.init();
@@ -38,4 +40,8 @@ Template.intro.hidden = function(){
 //preloader
 Template.preloader.copy = function(){
 	return Session.get("loaderCopy");
+};
+
+Template.preloader.buffer = function(){
+	return Session.get("buffer");
 };
