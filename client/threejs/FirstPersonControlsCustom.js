@@ -123,8 +123,6 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.onMouseMove = function ( event ) {
 
-		this.cursor.move(event.pageX, event.pageY);
-
 		if ( this.domElement === document ) {
 
 			this.mouseX = event.pageX - this.viewHalfX;
