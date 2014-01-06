@@ -1,4 +1,6 @@
-window.Cursor = function(element){
+window.Cursor = function(mouseX, mouseY){
+
+	var element = $('.cursor');
 	
 	this.init = function(){
 
