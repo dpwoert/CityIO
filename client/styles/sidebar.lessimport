@@ -12,30 +12,79 @@ navigation#sidebar{
 	background: @sidebarBG;
 	color: @sidebarBase;
 
-	h1{
-		color: @sidebarBase;
-		font-size: 12px;
-		font-weight: 100;
-		font-family: 'helvetica','arial',sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+
+	.logo{
+		width: @sidebarInnerWidth;
+		height: @sidebarInnerWidth * ( 28 / 107);
+
+		margin-left: @sidebarMargin;
+		margin-top: 17px;
 	}
 
-	h1, ul{
+	ul{
 
 		//inner width
-		width: @sidebarInnerWidth;
+		width: @sidebarInnerWidth + @sidebarMargin;
 		margin-left: @sidebarMargin;
+		margin-top: 22px;
 
-		//line
-		border-top: 1px solid @sidebarLine;
 		padding-bottom: @sidebarLineBottom;
+		color: @sidebarInactive;
+
+		li{
+			border-bottom: 1px solid @sidebarLine;
+			cursor: pointer;
+			padding-top: 10px;
+			padding-bottom: 2px;
+
+			&.no-line{
+				border-bottom: none;
+				padding-top: 0px;
+			}
+		}
+
+		li:hover{
+			color: @sidebarHover;
+		}
+
+		&.cameraPositions{
+			//margin-top: 11px;
+		}
+
+		.selected{
+			color: @sidebarBase;
+		}
 
 	}
 
 	//postal codes
 	input{
-		background: black;
-		color: white;
 		border: none;
+		height: 21px;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		line-height: 21px;
+		margin-top: 8px;
+
+		&.code{
+			width: 72px;
+			background: @sidebarBase;
+			color: @sidebarInactive;
+			padding-left: 5px;
+			text-transform: uppercase;
+		}
+
+		&.go{
+			background-color: @sidebarLine;
+			color: @sidebarBase;
+			margin-left: 3px;
+			padding: 0 10px;
+		}
 
 		&.waiting{
 			color: #ccc;
@@ -53,6 +102,15 @@ navigation#sidebar{
 			font-weight: bold;
 		}
 
+	}
+
+	//source/disclaimer
+	.sources{
+		position: absolute;
+		width: @sidebarWidth;
+		text-align: center;
+		bottom: 3px;
+		font-size: 11px;
 	}
 
 }

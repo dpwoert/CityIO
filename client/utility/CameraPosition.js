@@ -166,7 +166,7 @@ window.CameraPosition = function(scene, camera, controls, translate){
 		var that = this;
 		$('.cameraPositions li').click(function(){
 			that.switchTo.call(that, $(this).attr('rel'));
-			$('.cameraPositions li.selected').removeClass('selected');
+			$('.selected').removeClass('selected');
 			$(this).addClass('selected');
 		});
 
