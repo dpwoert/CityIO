@@ -1,25 +1,30 @@
-window.Cursor = function(mouseX, mouseY){
+window.Cursor = function(element){
 
-	var element = $('.cursor');
+	//var element = $('.cursor');
 	
-	this.init = function(){
+	// this.init = function(){
 
 
-		//add mouse move callback
 
+	// }.call(this);
 
-	}.call(this);
+	this.move = function(mouseX, mouseY){
 
-	this.move = function(event){
-
-		//update html
-
-	}
-
-	this.getRotation = function(){
-
-		return THREE.Math.radToDeg(1);
+		//move
+		element.style.left = mouseX + 'px';
+		element.style.top = mouseY + 'px';
 
 	}
+
+	// this.getRotation = function(){
+
+	//     // edge from X to Y
+	//     var north = new THREE.Vector3(0,0,-1);
+	//     var direction = new THREE.Vector3().subVectors( DDD.camera.position, north );
+	//     var arrow = new THREE.ArrowHelper( direction, north );
+
+	//     return arrow.rotation;
+
+	// }
 
 }

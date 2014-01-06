@@ -120,6 +120,7 @@ window.CameraPosition = function(scene, camera, controls, translate){
 
 		//trigger rendering
 		this.needsUpdate = true;
+		DDD.controls.freeze = true;
 
 	};
 
@@ -161,12 +162,28 @@ window.CameraPosition = function(scene, camera, controls, translate){
 
     };
 
+    this.flyMode = function(){
+
+    	showPopup('controls', true, function(){
+    		DDD.controls.freeze = false;
+    	});
+
+    }
+
     this.init = function(){
 
+    	//camera positions
 		var that = this;
 		$('.cameraPositions li').click(function(){
 			that.switchTo.call(that, $(this).attr('rel'));
-			$('.selected').removeClass('selected');
+			$('li.selected').removeClass('selected');
+			$(this).addClass('selected');
+		});
+
+		//flight mode
+		$('.flymode').click(function(){
+			that.flyMode();
+			$('li.selected').removeClass('selected');
 			$(this).addClass('selected');
 		});
 

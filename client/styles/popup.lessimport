@@ -76,20 +76,21 @@
 		font-family: 'Source Sans Pro';
 		position: absolute;
 		bottom: 0;
-		margin-bottom: 0 - 21px - 8px;
+		margin-bottom: 0 - 25px - 8px;
 
-		height: 21px;
+		height: 25px;
 		width: 85px;
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 
-		padding: 3px;
 
 		margin-left: 0 - ( 85px / 2 );
 		left: 50%;
 
-		line-height:  21px;
+		line-height:  25px;
 		text-align: center;
+
+		cursor: pointer;
 	}
 
 	&.visible{

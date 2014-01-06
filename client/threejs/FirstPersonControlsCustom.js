@@ -50,6 +50,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.viewHalfX = 0;
 	this.viewHalfY = 0;
 
+	this.cursor = new Cursor(document.getElementById('cursor'));
+
 	if ( this.domElement !== document ) {
 
 		this.domElement.setAttribute( 'tabindex', -1 );
@@ -122,6 +124,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	};
 
 	this.onMouseMove = function ( event ) {
+
+		this.cursor.move(event.pageX, event.pageY);
 
 		if ( this.domElement === document ) {
 

@@ -19,6 +19,9 @@ window.PostalCode = function(input){
 		$input.removeClass('waiting');
 		$input.removeClass('error');
 
+		$('li.selected').removeClass('selected');
+		$('li.zipcode').addClass('selected');
+
 		DDD.scene.camera.addSpot(code, pos, true);
 
 	};

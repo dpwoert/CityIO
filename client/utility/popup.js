@@ -1,4 +1,4 @@
-window.showPopup = function(name, overlay){
+window.showPopup = function(name, overlay, handle){
 
 
 	//hide?
@@ -28,6 +28,8 @@ window.showPopup = function(name, overlay){
 	//close
 	$('.overlay, .continue').unbind().click(function(){
 		showPopup(false);
+
+		if($.isFunction(handle)) handle();
 	})
 
 };
