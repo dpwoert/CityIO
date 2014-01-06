@@ -69,7 +69,7 @@
 
 	width: 325px;
 	height: 32px;
-	border: 2px solid rgba(255,255,255,0.3);
+	border: 3px solid rgba(255,255,255,0.3);
 	color: white;
 
 	font-family: 'brandon bold';
