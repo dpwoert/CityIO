@@ -1,5 +1,5 @@
 <head>
-  <title>Streets3D</title>
+ 	<title>City I/O</title>
 </head>
 
 <body>
@@ -20,10 +20,13 @@
 		<img class="logo" src="main/logo.svg" />
 
 		<ul class="cameraPositions">
-			<li rel="1" class="selected">Binnenstad</li>
-			<li rel="2">De Munstel</li>
-			<li rel="3">West</li>
-			<li rel="4">Graafsepoort</li>
+			<li rel="0" class="selected">Overview</li>
+			<li rel="1">Z-Willemsvaart</li>
+			<li rel="2">Brugplein</li>
+			<li rel="3">Maaspoort</li>
+			<li rel="4">Wilhelminaplein</li>
+			<li rel="5">Zuidwal</li>
+
 		</ul>
 
 		<ul>
@@ -66,12 +69,20 @@
 
 		<div id="intro">
 			<img src="intro/logo.svg" class="logo" alt="City I/O - Den Bosch" />
-			<span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet</span>
+			<span>
+				City I/O gives you a unique 3D view of the city ‘s-Hertogenbosch, the Netherlands.
+				<br><br>
+				<strong>Input</strong>: cadastral map, height map, postal codes, noise pollution data, particulate matter data and OpenStreetMap data.<br>
+				<strong>Output</strong>: a unique 3D data visualization of the city ‘s-Hertogenbosch showing possible nuisances of different kind of emissions.
+			</span>
 		</div>
 
 		{{> preloader}}
 
 	</div>
+
+	<span class="preload-font">City I/O loading</span>
+
 	{{/unless}}
 
 </template>

@@ -116,6 +116,11 @@
 
 }
 
+.preload-font{
+	font-family: 'brandon bold';
+	color:transparent;
+}
+
 //responsive - iphone 5
 @media only screen 
 and (min-device-width : 320px) 
