@@ -66,8 +66,12 @@ DDD.setScene = function(){
 DDD.addCameras = function(){
 
 	//add points
-	DDD.scene.camera.add(1, [51.688406,5.316525], [51.694677,5.301272], 100);
-	DDD.scene.camera.add(2, [51.711646,5.282217], [51.677703,5.328051], 500);
+    DDD.scene.camera.add(1, [51.68877, 5.31707], [51.68873, 5.31170], 80); //Z-Willemsvaart. 
+    DDD.scene.camera.add(2, [51.69088, 5.30097], [51.69402, 5.29868], 220); //Brugplein
+    DDD.scene.camera.add(3, [51.68877, 5.32488], [51.69415, 5.32152], 120); //Ijzeren vrouwen
+    DDD.scene.camera.add(4, [51.72748, 5.30275], [51.72380, 5.30920], 150); //Maaspoort
+    DDD.scene.camera.add(5, [51.67950, 5.29550], [51.68490, 5.29408], 150); //Wilhelminapleim
+    DDD.scene.camera.add(6, [51.68105, 5.30482], [51.68515, 5.30353], 250); //Zuidwal
 
 	//switch to first
 	DDD.scene.camera.switchTo(1);
