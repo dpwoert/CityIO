@@ -31,7 +31,8 @@ navigation#sidebar{
 		//inner width
 		width: @sidebarInnerWidth + @sidebarMargin;
 		margin-left: @sidebarMargin;
-		margin-top: 22px;
+		// margin-top: 22px;
+		margin-top: 17px;
 
 		padding-bottom: @sidebarLineBottom;
 		color: @sidebarInactive;
