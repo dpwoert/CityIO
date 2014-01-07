@@ -56,7 +56,7 @@ window.Buildings = function(scene){
 		var shape = new THREE.Shape(points);
 
 		//get height
-		var height;
+		var height = 0;
 		if(data.height) { height = data.height; }
 		else { height = data.calculated }
 		height *= scene.points.pixelScale; //TODO
@@ -73,14 +73,15 @@ window.Buildings = function(scene){
 			steps: 1
 		};
 
-		if(!data.url){
+		if(!data.url && !data.hide){
 
 			//extrude & make mesh
 			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
 			THREE.GeometryUtils.merge(this.groups[groupKey].geometry,geometry);	
 			geometry.dispose();
 
-		} else {
+		} 
+		else if (data.url){
 			this.addModel(data.url,this.groups[groupKey].geometry);
 		}
 
