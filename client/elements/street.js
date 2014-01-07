@@ -35,7 +35,9 @@ window.Streets = function(scene){
 	var rangeMax = 30;
 
 	//scale exponent
-	var exponent = 20;
+	// var exponent = 20;
+	var exponentDay = 20;
+	var exponentNight = 40;
 
 	var pointer = 0;
 	
@@ -79,11 +81,16 @@ window.Streets = function(scene){
 
 		});
 
-		//scale
-		this.scale = d3.scale.pow()
+		//scales
+		this.scaleDay = d3.scale.pow()
 			.domain([domainMin,domainMax])
 			.range([rangeMin,rangeMax])
-			.exponent(exponent);
+			.exponent(exponentDay);
+
+		this.scaleNight = d3.scale.pow()
+			.domain([domainMin,domainMax])
+			.range([rangeMin,rangeMax])
+			.exponent(exponentNight);
 
 
 	}.call(this);
@@ -118,7 +125,12 @@ window.Streets = function(scene){
 				var point = list[j];
 
 				//get height
-				var height = sound[j] ? this.scale(sound[j].db) : 1;
+				var height = 1;
+				if(type.day == 1){
+					height = sound[j] ? this.scaleDay(sound[j].db) : 1;
+				} else {
+					height = sound[j] ? this.scaleDay(sound[j].db) : 1;
+				}
 
 				//points
 				var V2 = scene.points.translate2D([ point[1], point[0] ]);
