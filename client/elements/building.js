@@ -18,7 +18,8 @@ window.Buildings = function(scene){
 		//scale
 		this.scale = d3.scale.linear()
 			.domain([this.scaleMin, this.scaleMax])
-			.range([0,this.steps-1]);
+			.range([0,this.steps-1])
+			.clamp(true);
 
 		//loop
 		for(var i = 0; i < this.steps; i++){
