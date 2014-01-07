@@ -28,6 +28,7 @@ City I/O is fully build in JavaScript (server and client side) and uses some of 
 ## Browser support
 * Google Chrome (mac/pc)
 * Firefox (mac/pc)
+* Opera (mac/pc)
 
 ## Copyright
 © Davey van der Woert, Jesse van Rheenen, Yannick Diezenberg
