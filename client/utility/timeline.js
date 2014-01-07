@@ -24,13 +24,21 @@ window.Timeline = function(){
 	this.switch = function(){
 		this.needsUpdate = true;
 		this.day = this.day ? false : true;
-
-		console.log('switch light');
+		this.classChange();
 	};
 
 	this.switchTo = function(day){
 		this.needsUpdate = true;
 		this.day = day;
+		this.classChange();
+	}
+
+	this.classChange = function(){
+		if(this.day){
+			$('body').removeClass('night');
+		} else {
+			$('body').addClass('night');
+		}
 	}
 
 	this.render = function(delta){

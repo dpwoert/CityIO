@@ -7,3 +7,7 @@
 
 	cursor: url(/main/cursor3.png), auto;
 }
+
+.night .visualization{
+	cursor: url(/main/cursor3-white.png), auto;
+}
