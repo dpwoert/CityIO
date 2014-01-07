@@ -11,5 +11,5 @@
   firstScript.parentNode.insertBefore(scriptElement, firstScript)
 }(window, document, 'script', 'ga'));
 
-ga('create', 'UA-44816550-2', 'deepspace.herokuapp.com');
+ga('create', 'UA-44816550-3', 'cityio.nl');
 ga('send', 'pageview');

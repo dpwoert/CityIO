@@ -138,6 +138,8 @@ window.Preloader = function(callback){
 			Session.set("hideIntro", true);
 			that.hidden = true;
 
+			ga('send', 'event', 'loaded', 'true');
+
 		});
 
 		//delete preloader data

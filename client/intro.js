@@ -15,6 +15,10 @@ Template.intro.rendered = function(){
 		var loader = this.find('#preloader');
 		loader.innerHTML = 'Demo';
 		loader.className = 'button';
+
+		ga('send', 'event', 'old-browser', 'true');
+	} else {
+		ga('send', 'event', 'old-browser', 'false');
 	}
 
 	video = this.find('video');
@@ -22,7 +26,6 @@ Template.intro.rendered = function(){
 	if(!video) return false;
 	
 	video.addEventListener("canplay",function(){
-
 
 		//loaded video so start loading data
 		video.className = 'loaded';
