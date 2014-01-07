@@ -138,8 +138,6 @@ DDD.animate = function(){
     //still seeing intro
     if(!DDD.preloader.hidden) return false;
 
-    debugger
-
     //timeline
     var delta = DDD.clock.getDelta();
     if(DDD.timeline.needsUpdate) DDD.timeline.render( delta );
