@@ -147,8 +147,6 @@ window.CameraPosition = function(scene, camera, controls, translate){
     this.updateControls = function(){
 
         //http://www.gamedev.net/topic/626401-quaternion-from-latitude-and-longitude/?view=findpost&p=4949706
-        
-		console.log('update controls');
 		var theta = Math.PI + Math.atan2(camera.quaternion.z, camera.quaternion.x);
 		var phi = Math.acos(camera.quaternion.y);
 
