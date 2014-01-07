@@ -67,7 +67,7 @@ DDD.addCameras = function(){
 
 	//add points
 
-    DDD.scene.camera.add(9, [51.67285, 5.29323], [51.69203, 5.30217], 5000); //Overview top
+    DDD.scene.camera.add(9, [51.67285, 5.29323], [51.69203, 5.30217], 2500); //Overview top
     DDD.scene.camera.add(0, [51.67285, 5.29323], [51.69203, 5.30217], 500); //Overview
     DDD.scene.camera.add(1, [51.68877, 5.31707], [51.68873, 5.31170], 80); //Z-Willemsvaart. 
     DDD.scene.camera.add(2, [51.69088, 5.30097], [51.69402, 5.29868], 220); //Brugplein
@@ -77,7 +77,7 @@ DDD.addCameras = function(){
 
 	//switch to first
     DDD.scene.camera.switchTo(9);
-	DDD.scene.camera.switchTo(0);
+    DDD.scene.camera.switchTo(0);
 
 }
 
@@ -134,6 +134,11 @@ DDD.animate = function(){
 
     	return false;
     }
+
+    //still seeing intro
+    if(!DDD.preloader.hidden) return false;
+
+    debugger
 
     //timeline
     var delta = DDD.clock.getDelta();

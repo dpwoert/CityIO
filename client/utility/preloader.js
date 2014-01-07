@@ -5,6 +5,7 @@ window.Preloader = function(callback){
 	this.toLoad = 0;
 	this.loaded = 0;
 	this.ready = false;
+	this.hidden = false;
 	this.classes = [];
 	this.started = false;
 
@@ -119,8 +120,9 @@ window.Preloader = function(callback){
 	//done
 	this.finished = function(){
 
-		//done
+		//ready
 		this.ready = true;
+		var that = this;
 		
 		//callback
 		if(_.isFunction(callback)) callback();
@@ -134,6 +136,7 @@ window.Preloader = function(callback){
 		loader.addEventListener("click",function(){
 
 			Session.set("hideIntro", true);
+			that.hidden = true;
 
 		});
 
