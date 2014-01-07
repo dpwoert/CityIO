@@ -15,6 +15,9 @@ geo = {
 //publish on startup
 Meteor.startup(function(){
 
+	//check if acces and log
+	console.log('STARTUP, Acces: ' + acces() );
+
 	//load buildings
 	geo.buildingsDB = new Meteor.SmartCollection('buildings');
 	
@@ -36,6 +39,7 @@ Meteor.startup(function(){
 	cache = new buildJSON();
 	//cache.build();
 
+
 });
 
 Meteor.methods({
@@ -48,156 +52,164 @@ Meteor.methods({
 		cache.build();
 	},
 
-	//trigger loading all api's again
-	buildCity: function(clean){
-
-		//load & resest DB
-		if(clean){
-			geo.buildingsDB.remove({});
-			console.log('==== Building city ====');
-		} else {
-			console.log('==== Updating city ====');
-		}
-
-		//get & prepare BAG entries
-		geo.getBAG({
-			'pos': geo.center, 
-			'radius': geo.terrainSize,
-			'after': geo.addBAG,
-			'db': geo.buildingsDB,
-			'finished': function(){}
-		});
-	},
-
-	updateBuilding: function(id, override){
-
-		if(!id || id < 1){
-			console.log('WRONG ID');
-			return false;
-		}
-
-		var set = {};
-
-		//check if building needs to be hidden
-		if(override.url){
-			set.url = override.url;
-		}
-
-		//custom height?
-		if(override.height){
-			set.height = override.height;
-		}
-
-		//hide
-		if(override.hide){
-			set.hide = true;
-		}
-
-		//clean overrides?
-		if(override.clean){
-			set.url = '';
-			set.height = '';
-			set.hide = false;
-		}
-
-		console.log('find id: ' + id);
-		console.log(geo.buildingsDB.find({ 'id':id.toString() }).fetch());
-
-		//update building/overide automatic parameters
-		geo.buildingsDB.update({ 'id':id.toString() }, {
-        	$set: set
-        });
-
-        console.log('updated building ' + id);
-        console.log(set);
-
-	},
-
-	buildStreets: function(){
-
-		//load & reset DB
-		geo.streetsDB.remove({});
-		console.log('==== Building streets ====');
-
-		//get streets
-		geo.getOSM({
-			'pos': geo.center,
-			'radius': geo.terrainSize,
-			'db': geo.streetsDB
-		});
-
-	},
-
-	buildRails: function(){
-
-		geo.streetsDB.remove({ rail: true });
-		console.log('==== Building Rails ====');
-
-		//get streets
-		geo.addRails(geo.streetsDB);
-
-	},
-
-	buildOSM: function(){
-
-		//special OSM layers - highway
-		geo.streetsDB.remove({ motorway: true });
-		console.log('==== Building Highways ====');
-
-		//get streets
-		geo.addHighways(geo.streetsDB);
-
-	},
-
-	getPostalCodes: function(){
-
-		geo.postalDB.remove({});
-		console.log('==== Getting all postal codes ====');
-
-		geo.getPostalCodes({
-			'pos': geo.center,
-			'radius': geo.terrainSize,
-			'db': geo.postalDB
-		});
-
-	},
-
 	getPostalCode: function(code){
 
 		return geo.postalDB.find({ postcode: code }).fetch();
-	},
-
-	getPollution: function(again){
-		research.getPollution(geo.buildingsDB,again);
-	},
-
-	dedouble: function(){
-
-		var cache = [];
-		var list = geo.buildingsDB.find().fetch();
-		console.log('searching for doubles');
-
-		_.each(list, function(building){
-
-			if(cache.indexOf(building.id) == -1){
-				cache.push(building.id)
-			} else {
-				console.log('double in list');
-
-				// geo.buildingsDB.update({ 'id':id.toString() }, {
-		  //       	$set: {
-		  //       		'double': true
-		  //       	}
-		  //       });
-			}
-
-		});
-
-		console.log('finished, with ' + cache.length + ' in cache');
-
 	}
 
 });
+
+if( acces() ){
+
+	Meteor.methods({
+
+		//trigger loading all api's again
+		buildCity: function(clean){
+
+			//load & resest DB
+			if(clean){
+				geo.buildingsDB.remove({});
+				console.log('==== Building city ====');
+			} else {
+				console.log('==== Updating city ====');
+			}
+
+			//get & prepare BAG entries
+			geo.getBAG({
+				'pos': geo.center, 
+				'radius': geo.terrainSize,
+				'after': geo.addBAG,
+				'db': geo.buildingsDB,
+				'finished': function(){}
+			});
+		},
+
+		updateBuilding: function(id, override){
+
+			if(!id || id < 1){
+				console.log('WRONG ID');
+				return false;
+			}
+
+			var set = {};
+
+			//check if building needs to be hidden
+			if(override.url){
+				set.url = override.url;
+			}
+
+			//custom height?
+			if(override.height){
+				set.height = override.height;
+			}
+
+			//hide
+			if(override.hide){
+				set.hide = true;
+			}
+
+			//clean overrides?
+			if(override.clean){
+				set.url = '';
+				set.height = '';
+				set.hide = false;
+			}
+
+			console.log('find id: ' + id);
+			console.log(geo.buildingsDB.find({ 'id':id.toString() }).fetch());
+
+			//update building/overide automatic parameters
+			geo.buildingsDB.update({ 'id':id.toString() }, {
+	        	$set: set
+	        });
+
+	        console.log('updated building ' + id);
+	        console.log(set);
+
+		},
+
+		buildStreets: function(){
+
+			//load & reset DB
+			geo.streetsDB.remove({});
+			console.log('==== Building streets ====');
+
+			//get streets
+			geo.getOSM({
+				'pos': geo.center,
+				'radius': geo.terrainSize,
+				'db': geo.streetsDB
+			});
+
+		},
+
+		buildRails: function(){
+
+			geo.streetsDB.remove({ rail: true });
+			console.log('==== Building Rails ====');
+
+			//get streets
+			geo.addRails(geo.streetsDB);
+
+		},
+
+		buildOSM: function(){
+
+			//special OSM layers - highway
+			geo.streetsDB.remove({ motorway: true });
+			console.log('==== Building Highways ====');
+
+			//get streets
+			geo.addHighways(geo.streetsDB);
+
+		},
+
+		getPostalCodes: function(){
+
+			geo.postalDB.remove({});
+			console.log('==== Getting all postal codes ====');
+
+			geo.getPostalCodes({
+				'pos': geo.center,
+				'radius': geo.terrainSize,
+				'db': geo.postalDB
+			});
+
+		},
+
+		getPollution: function(again){
+			research.getPollution(geo.buildingsDB,again);
+		},
+
+		dedouble: function(){
+
+			var cache = [];
+			var list = geo.buildingsDB.find().fetch();
+			console.log('searching for doubles');
+
+			_.each(list, function(building){
+
+				if(cache.indexOf(building.id) == -1){
+					cache.push(building.id)
+				} else {
+					console.log('double in list');
+
+					// geo.buildingsDB.update({ 'id':id.toString() }, {
+			  //       	$set: {
+			  //       		'double': true
+			  //       	}
+			  //       });
+				}
+
+			});
+
+			console.log('finished, with ' + cache.length + ' in cache');
+
+		}
+
+	});
+
+}
 
 geo.getBAG = function(obj){
 	
