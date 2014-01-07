@@ -37,7 +37,7 @@ window.Streets = function(scene){
 	//scale exponent
 	// var exponent = 20;
 	var exponentDay = 20;
-	var exponentNight = 40;
+	var exponentNight = 21;
 
 	var pointer = 0;
 	
@@ -88,7 +88,7 @@ window.Streets = function(scene){
 			.exponent(exponentDay);
 
 		this.scaleNight = d3.scale.pow()
-			.domain([domainMin,domainMax])
+			.domain([domainMin,domainMax-5])
 			.range([rangeMin,rangeMax])
 			.exponent(exponentNight);
 
@@ -129,7 +129,7 @@ window.Streets = function(scene){
 				if(type.day == 1){
 					height = sound[j] ? this.scaleDay(sound[j].db) : 1;
 				} else {
-					height = sound[j] ? this.scaleDay(sound[j].db) : 1;
+					height = sound[j] ? this.scaleNight(sound[j].db) : 1;
 				}
 
 				//points
