@@ -1,6 +1,7 @@
 window.Preloader = function(callback){
 
-	this.stepSize = 100;
+	this.stepSize = 50;
+	this.updateSize = 1000;
 	this.toLoad = 0;
 	this.loaded = 0;
 	this.ready = false;
@@ -88,7 +89,7 @@ window.Preloader = function(callback){
 		this.loaded++;
 
 		//check if needs to update display
-		if(this.loaded % this.stepSize == 0){
+		if(this.loaded % this.updateSize == 0){
 			this.update()
 		}
 

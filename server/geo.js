@@ -139,7 +139,14 @@ Meteor.methods({
 	},
 
 	buildOSM: function(){
-		//special OSM layers [todo]
+
+		//special OSM layers - highway
+		geo.streetsDB.remove({ motorway: true });
+		console.log('==== Building Highways ====');
+
+		//get streets
+		geo.addHighways(geo.streetsDB);
+
 	},
 
 	getPostalCodes: function(){
@@ -334,7 +341,7 @@ geo.getOSM = function(obj){
 
 geo.addRails = function(db){
 
-	var data =JSON.parse( Assets.getText("data/rail.json") );
+	var data = JSON.parse( Assets.getText("data/rail.json") );
 
 	//add rails
 	_.each(data, function(value){
@@ -356,6 +363,36 @@ geo.addRails = function(db){
 		//save object
 		db.insert(street, function(error, id){
 			research.getNoise(points, id, db, 'train');
+		});
+
+	});
+
+};
+
+geo.addHighways = function(db){
+
+	var data =JSON.parse( Assets.getText("data/highway.json") );
+
+	//add rails
+	_.each(data, function(value){
+
+		console.log(value);
+
+		//make points
+		var points = geo.splitRoad(value.geom.coordinates);
+
+		//make object
+		var street = {
+			'id': value.cdk_id,
+			'motorway': true,
+			'points': points,
+			'soundDay': [],
+			'soundNight': []
+		}
+
+		//save object
+		db.insert(street, function(error, id){
+			research.getNoise(points, id, db, 'car');
 		});
 
 	});
@@ -412,9 +449,12 @@ geo.getPostalCodes = function(obj){
 
 };
 
-geo.splitRoad = function(points){
+geo.splitRoad = function(points, steps){
 
 	var split = [];
+
+	//steps
+	if(!steps) steps = geo.roadSteps;
 	
 	//interpolate	
 	function lerp(start, dest, dist) { 
