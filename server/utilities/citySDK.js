@@ -1,8 +1,17 @@
 CitySDK = function(city){
+
+	//get region
+	var region;
+	switch(city){
+		case 'denBosch': region = 'admr.nl.shertogenbosch';
+	}
 	
 	//settings
-	this.url = 'http://api.citysdk.waag.org/admr.nl.shertogenbosch/nodes';
-	this.filters = {};
+	var apiUrl = 'http://api.citysdk.waag.org/'+region+'/nodes';
+	var filters = {};
+
+	//promisses
+	var q = Meteor.require('q');
 
 	this.setPosition = function(lat, lon, radius){
 		this.lat = lat;
@@ -11,7 +20,7 @@ CitySDK = function(city){
 	};
 
 	this.addFilter = function(name, filter){
-		this.filters[name] = filter;
+		filters[name] = filter;
 	}
 
 	this.get = function(obj){
@@ -25,17 +34,21 @@ CitySDK = function(city){
 
 			geom: true,
 			per_page: 1000,
-			page: 0
+			page: 0,
 
 			filter: 'none',
 			after: null,
 			finished: null,
-			maxCalls: 100
+			maxCalls: 100,
 
 			save: false,
 			saveTo: null
 
 		});
+
+		var deferred = q.defer();
+		getPages(obj, deferred);
+		return deferred.promise;
 
 	};
 
@@ -46,28 +59,34 @@ CitySDK = function(city){
 
 	//get filter
 	var getFilter = function(name){
-		return this.filters[name];
+		return filters[name];
 	};
 
 	//do the magic stuff
-	var getPages = function(options){
+	var getPages = function(options, deferred){
 
 		var calls = 0;
 
 		//filter url
-		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls');
+		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls', 'save', 'saveTo');
 
-		function getPage(){
+		var getPage = function(){
 
 			//measure no calls
 			calls++;
-			options.page += 1;
-			console.log('get page: ' + options.page)
+			urlOptions.page += 1;
+			console.log('get page: ' + urlOptions.page)
 
 			//make request
-			Meteor.http.get(this.url, { params: urlOptions } , function(error, result){
+			Meteor.http.get(apiUrl, { params: urlOptions } , function(error, result){
 
 				console.log(result.data.url);
+
+				//check if error - if so reject with promises
+				if(error){
+					console.log('error');
+					deferred.reject(error);
+				}
 
 				//add to data object
 				_.each(result.data.results, function(value){
@@ -80,7 +99,7 @@ CitySDK = function(city){
 					value.city = city;
 
 					//after
-					if(_.isFunction(options.after) options.after(value);
+					if(_.isFunction(options.after)) options.after(value);
 
 					//save
 					if(options.save) saveTo(options.saveTo, value);
@@ -91,8 +110,11 @@ CitySDK = function(city){
 				if(result.data.results.length < options.per_page || calls >= options.maxCalls){
 
 					//finished
-					console.log('finshed gettings CitySDK data');
-					if(_.isFunction(options.finished) options.finished();
+					console.log('finshed getting CitySDK data');
+					if(_.isFunction(options.finished)) options.finished();
+
+					//promise finished
+					deferred.resolve();
 
 				} 
 				else {
@@ -102,6 +124,10 @@ CitySDK = function(city){
 			});
 
 		}
+
+		//start getting data
+		getPage();
+
 	};
 
 	//add standard filters
@@ -116,11 +142,35 @@ CitySDK = function(city){
 		this.addFilter('multipolygon', function(d){
 			//TODO
 			return d;
-		})
+		});
+
+		//BAG records
+		this.addFilter('BAG', function(d){
+			return {
+				id: d.layers['bag.panden'].data.pand_id,
+				bouwjaar: d.layers['bag.panden'].data.bouwjaar,
+				geom: d.geom,
+				height: 0,
+				center: geo.getCenter(d.geom.coordinates[0])
+			};
+		});
+
+		//streets
+		this.addFilter('streets', function(d){
+			return {
+				'id': d.cdk_id,
+				'name': d.name,
+				'maxspeed': d.layers.osm.data.maxspeed,
+				'highway': d.layers.osm.data.highway,
+				'points': geo.splitRoad(d.geom.coordinates),
+				'soundDay': [],
+				'soundNight': []
+			};
+		});
 
 	}.call(this);
 
 };
 
 //shortcut
-SDK = citySDK;
+SDK = CitySDK;

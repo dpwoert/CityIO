@@ -491,7 +491,6 @@ geo.splitRoad = function(points, steps){
 		var point;
 		for(var j=0 ; j < parts ; j++){
 			point = (1 / parts) * j;
-			console.log(point);
 			split.push(lerp(start, end, point));
 		}
 
