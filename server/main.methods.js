@@ -14,6 +14,12 @@ Meteor.methods({
 
 		scrape();
 
+	},
+
+	getLength: function(){
+		
+		return mongo.Buildings.find().fetch();
+
 	}
 
 });

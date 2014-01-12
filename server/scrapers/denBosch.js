@@ -9,7 +9,7 @@ scrapers.denBosch = function(){
 	var lat = 51.695118333515886;
 	var lon = 5.310516357421875;
 	// var radius = 3.2;
-	var radius = 0.3;
+	var radius = 0.1;
 
 	//reset
 	mongo.Buildings.remove({ city: 'denBosch' });
@@ -39,10 +39,21 @@ scrapers.denBosch = function(){
 	});
 
 	//execute
-	q.all([BAG, streets]).then(function(){
+	q.all([BAG, streets])
+		// .then(function(){
+		// 	console.log('start checking');
+		// 	return new checkIfUpdated(mongo.Buildings);
+		// })
+		.then(function(){ 
 
-		console.log('GOT SDK DATA');
+			//Get AHN data
+			return BatchAHN(mongo.Buildings); 
 
-	});
+		}).then(function(){ 
+
+			console.log('done AHN'); 
+
+		});
+
 
 };
