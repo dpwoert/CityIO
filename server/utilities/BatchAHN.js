@@ -36,7 +36,7 @@ BatchAHN = function(db, find){
 
 		//get the data
 		var list = [];
-		var get, id;
+		var done = 0;
 		for(var i = start ; i < end ; i++){
 			list[i] = { promise: AHN.get(data[i].center[0], data[i].center[1]), id: data[i]._id };
 		}
@@ -47,24 +47,25 @@ BatchAHN = function(db, find){
 			//update when ready
 			val.promise.then(function(d){
 
-				db.update(val.id, { $set: d }); 
+				db.update(val.id, { $set: d });
+				done++;
+
+				//check if done
+				if(done >= end - start){
+
+					if(!last) {
+						console.log('get next batch');
+						getBatch(end, end+batchSize);
+					}
+					else { 
+						//no more batching
+						console.log('Resolved AHN batch')
+						deferred.resolve();  
+					}
+
+				}
 
 			});
-
-		});
-
-		//batch done
-		q.all(list).then(function(){
-
-			if(!last) {
-				console.log('get next batch');
-				getBatch(end, end+batchSize);
-			}
-			else { 
-				//no more batching
-				console.log('Resolved AHN batch')
-				deferred.resolve();  
-			}
 
 		});
 
