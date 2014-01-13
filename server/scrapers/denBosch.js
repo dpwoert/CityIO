@@ -40,18 +40,22 @@ scrapers.denBosch = function(){
 
 	//execute
 	q.all([BAG, streets])
-		// .then(function(){
-		// 	console.log('start checking');
-		// 	return new checkIfUpdated(mongo.Buildings);
+
+		// .then(function(){ 
+
+		// 	//Get AHN height data
+		// 	return BatchAHN(mongo.Buildings); 
+
 		// })
 		.then(function(){ 
 
-			//Get AHN data
-			return BatchAHN(mongo.Buildings); 
+			//Get NSL polution data
+			return new NSL(mongo.Buildings, "data/data-pollution.json");
 
-		}).then(function(){ 
+		}).then(function(){
 
-			console.log('done AHN'); 
+			//get sound data
+			return new SoundData(mongo.Streets);
 
 		});
 

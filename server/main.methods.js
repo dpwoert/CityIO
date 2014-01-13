@@ -16,10 +16,15 @@ Meteor.methods({
 
 	},
 
-	getLength: function(){
-		
+	getTheData: function(){
+
 		return mongo.Buildings.find().fetch();
 
+	},
+
+	getNSL: function(){
+		console.log('NSL');
+		return JSON.parse( Assets.getText("data/data-pollution.json") );
 	}
 
 });
