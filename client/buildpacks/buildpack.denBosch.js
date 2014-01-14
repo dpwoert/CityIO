@@ -6,7 +6,7 @@ buildpacks.denBosch = function(){
 	Meteor.loadScripts([
 
 		'elements/soundStreets.js',
-		'elements/buildings.js'
+		'elements/buildings.js',
 		'elements/surfaces.js'
 
 	]).then(function(){
@@ -48,9 +48,14 @@ buildpacks.denBosch = function(){
 
 	}).then(function(d){
 
-		//prepare data
-		var buildings = new Buildings(DDD.scene);
-		//ADD SETTINGS
+		var buildingSettings = {
+			colors: [0xf9f9f9, 0xe8e8e8, 0xdbdbdb, 0xdfa5a1, 0xe87364],
+			scaleMin: 20.806,
+			scaleMax: 45.5,
+			input: function(d, scaleMin){ return d.fijnstof ? d.fijnstof.no2 : scaleMin; }
+		};
+
+		var buildings = new Buildings(DDD.scene, buildingSettings);
 		buildings.source(data.buildings);
 		buildings.addTo(DDD.group);
 
