@@ -59,7 +59,7 @@ buildpack.denBosch = function(){
 		}).then(function(){ 
 
 			//Get NSL polution data
-			return new NSL(mongo.Buildings, "data/data-pollution.json");
+			return new NSL(mongo.Buildings, "denBosch/NSL.json");
 
 		}).then(function(){
 
