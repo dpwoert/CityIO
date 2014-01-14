@@ -13,6 +13,9 @@ window.Preloader = function(callback){
 	
 	this.init = function(){
 
+		//make promise
+		this.deferred = Q.defer();
+		this.promise = this.deferred.promise;
 
 	}.call(this);
 
@@ -122,6 +125,7 @@ window.Preloader = function(callback){
 
 		//ready
 		this.ready = true;
+		this.deferred.resolve();
 		var that = this;
 		
 		//callback
