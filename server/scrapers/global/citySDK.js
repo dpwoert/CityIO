@@ -140,8 +140,13 @@ CitySDK = function(city){
 
 		//multi to normal polygon
 		this.addFilter('multipolygon', function(d){
-			//TODO
-			return d;
+			return {
+				'id': d.cdk_id,
+				'name': d.name,
+				geom: {
+					coordinates: [ d.geom.coordinates[0][0] ] //does this work?
+				}
+			};
 		});
 
 		//BAG records
