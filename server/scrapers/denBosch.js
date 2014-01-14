@@ -14,6 +14,7 @@ scrapers.denBosch = function(){
 	//reset
 	mongo.Buildings.remove({ city: 'denBosch' });
 	mongo.Streets.remove({ city: 'denBosch' });
+	mongo.Regions.remove({ city: 'denBosch' });
 
 	console.log('Resetted mongo');
 
@@ -38,25 +39,37 @@ scrapers.denBosch = function(){
 		saveTo: mongo.Streets
 	});
 
+	//rails
+	//via SDK
+
+	//Regions
+	//via SDK [to mongo.Regions]
+
+	//Water
+	//via SDK [to mongo.Regions]
+
 	//execute
 	q.all([BAG, streets])
 
-		// .then(function(){ 
+		.then(function(){ 
 
-		// 	//Get AHN height data
-		// 	return BatchAHN(mongo.Buildings); 
+			//Get AHN height data
+			return BatchAHN(mongo.Buildings); 
 
-		// })
-		// .then(function(){ 
+		}).then(function(){ 
 
-		// 	//Get NSL polution data
-		// 	return new NSL(mongo.Buildings, "data/data-pollution.json");
+			//Get NSL polution data
+			return new NSL(mongo.Buildings, "data/data-pollution.json");
 
-		// })
-		.then(function(){
+		}).then(function(){
 
-			//get sound data
+			//get sound data - streets
 			return new BatchSoundData(mongo.Streets, { type:'street' }, 'car');
+
+		}).then(function(){
+
+			//get sound data - rails
+			return new BatchSoundData(mongo.Streets, { type:'rails' }, 'train');
 
 		});
 
