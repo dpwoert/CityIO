@@ -17,6 +17,7 @@ BatchSoundData = function(db, find, type){
 		console.log('Records to update: ' + this.data.length);
 		getBatch(0, batchSize);
 
+
     }).run();
 
     var getBatch = function(start, end){
@@ -45,10 +46,12 @@ BatchSoundData = function(db, find, type){
 			val.promise.then(function(d){
 
 				//update db
-				_.each(d, function(val){
-					db.update(val.id, val);
+				_.each(d, function(update){
+					db.update(val.id, update);
 				});
 				done++;
+
+				console.log('saved: ' + val.id + ' | ' + d.length);
 
 				//check if done
 				if(done >= end - start){

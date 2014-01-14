@@ -18,7 +18,7 @@ Meteor.methods({
 
 	getTheData: function(){
 
-		return mongo.Buildings.find().fetch();
+		return mongo.Streets.find().fetch();
 
 	},
 

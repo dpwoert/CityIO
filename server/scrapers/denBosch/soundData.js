@@ -12,7 +12,7 @@ SoundData = function(points, type){
 	var updates = [];
 
 	//settings
-	var tilewidth = 20, tileSize = 10;
+	var tileWidth = 20, tileSize = 10;
 	
 	//get the correct url
 	var getTileUrls = function(pos){
@@ -54,7 +54,7 @@ SoundData = function(points, type){
 
 	}
 
-	var readNoise = function(){
+	var readNoise = function(data, type, key){
 
 		//determine nr of steps
 		var steps = 25; //on one axis
@@ -124,6 +124,8 @@ SoundData = function(points, type){
 	        var toUpdate = { $push : {} };
 	        var add = { 'key': key, 'db': avg };
 
+	        console.log('street point: ' + avg + 'dB');
+
 	        //day/night?
 	        if(type == 'carNight'){
 	        	toUpdate.$push = {
@@ -161,9 +163,11 @@ SoundData = function(points, type){
 
 	        //try to save
 	        updates.push(toUpdate);
+	        console.log('done ' + updates.length + '/' + points.length * 2);
 
 	        //finished?
-	        if(updates.length > 2){
+	        if(updates.length >= (2 * points.length ) ){
+	        	console.log('done a street');
 				deferred.resolve(updates);
 	        }
 

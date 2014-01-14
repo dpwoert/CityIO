@@ -33,7 +33,7 @@ scrapers.denBosch = function(){
 	var streets = sdk.get({
 		'osm::highway': 'motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|residential|construction|unclassified',
 		'data_op': 'or',
-		filter: 'streets',
+		filter: 'soundStreets',
 		save: true,
 		saveTo: mongo.Streets
 	});
@@ -47,15 +47,16 @@ scrapers.denBosch = function(){
 		// 	return BatchAHN(mongo.Buildings); 
 
 		// })
-		.then(function(){ 
+		// .then(function(){ 
 
-			//Get NSL polution data
-			return new NSL(mongo.Buildings, "data/data-pollution.json");
+		// 	//Get NSL polution data
+		// 	return new NSL(mongo.Buildings, "data/data-pollution.json");
 
-		}).then(function(){
+		// })
+		.then(function(){
 
 			//get sound data
-			return new SoundData(mongo.Streets);
+			return new BatchSoundData(mongo.Streets, { type:'street' }, 'car');
 
 		});
 

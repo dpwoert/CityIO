@@ -156,7 +156,7 @@ CitySDK = function(city){
 		});
 
 		//streets
-		this.addFilter('streets', function(d){
+		this.addFilter('soundStreets', function(d){
 			return {
 				'id': d.cdk_id,
 				'name': d.name,
@@ -164,7 +164,22 @@ CitySDK = function(city){
 				'highway': d.layers.osm.data.highway,
 				'points': geo.splitRoad(d.geom.coordinates),
 				'soundDay': [],
-				'soundNight': []
+				'soundNight': [],
+				'type': 'street'
+			};
+		});
+
+		//rails
+		this.addFilter('soundRails', function(d){
+			return {
+				'id': d.cdk_id,
+				'name': d.name,
+				'maxspeed': d.layers.osm.data.maxspeed,
+				'highway': d.layers.osm.data.highway,
+				'points': geo.splitRoad(d.geom.coordinates),
+				'soundDay': [],
+				'soundNight': [],
+				'type': 'rails'
 			};
 		});
 
