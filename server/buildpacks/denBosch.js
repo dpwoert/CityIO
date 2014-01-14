@@ -1,7 +1,7 @@
-scrapers = {};
+buildpack = {};
 var q = Meteor.require('q');
 
-scrapers.denBosch = function(){
+buildpack.denBosch = function(){
 
 	console.log('start fetching Den Bosch');
 

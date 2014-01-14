@@ -2,17 +2,17 @@ Meteor.methods({
 	
 	buildCityV2: function(city){
 
-		var scrape;
+		var build;
 
 		switch(city){
 
 			//den bosch
-			case 'denBosch': scrape = scrapers.denBosch; break;
-			case 'sHertogenBosch': scrape = scrapers.denBosch; break;
-			case 's-HertogenBosch': scrape = scrapers.denBosch; break;
+			case 'denBosch': build = buildpack.denBosch; break;
+			case 'sHertogenBosch': build = buildpack.denBosch; break;
+			case 's-HertogenBosch': build = buildpack.denBosch; break;
 		}
 
-		scrape();
+		build();
 
 	},
 
@@ -20,11 +20,6 @@ Meteor.methods({
 
 		return mongo.Streets.find().fetch();
 
-	},
-
-	getNSL: function(){
-		console.log('NSL');
-		return JSON.parse( Assets.getText("data/data-pollution.json") );
 	}
 
 });
