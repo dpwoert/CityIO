@@ -5,10 +5,27 @@ buildpacks.denBosch = function(){
 	//load js files
 	Meteor.loadScripts([
 
-		'denBosch/streets.js',
-		'TEST2.js'
+		'elements/soundStreets.js',
+		'elements/buildings.js'
+		'elements/surfaces.js'
 
 	]).then(function(){
+
+		//load shaders
+		var shaders = new ShaderLoader();
+
+		//tubes
+		shaders.add('soundTubeVertex', 'denBosch/shaders/soundTubeVertex.glsl');
+		shaders.add('soundTubeFragment', 'denBosch/shaders/soundTubeFragment.glsl');
+
+		//surfaces
+		shaders.add('surfaceVertex', 'denBosch/shaders/surfaceVertex.glsl');
+		shaders.add('surfaceFragment', 'denBosch/shaders/surfaceFragment.glsl');
+
+		shaders.load();
+		return shaders;
+
+	}).then(function(){
 
 		//init 3D
 		DDD.init( [51.697816,5.303675] , 22);
@@ -33,6 +50,7 @@ buildpacks.denBosch = function(){
 
 		//prepare data
 		var buildings = new Buildings(DDD.scene);
+		//ADD SETTINGS
 		buildings.source(data.buildings);
 		buildings.addTo(DDD.group);
 
