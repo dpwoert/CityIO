@@ -1,6 +1,7 @@
 {
   "packages": {
     "npm": {},
-    "smart-collections": {}
+    "smart-collections": {},
+    "external-file-loader": {}
   }
 }

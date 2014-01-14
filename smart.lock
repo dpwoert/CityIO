@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "npm": {},
-      "smart-collections": {}
+      "smart-collections": {},
+      "external-file-loader": {}
     },
     "packages": {
       "npm": {
@@ -13,8 +14,13 @@
       },
       "smart-collections": {
         "git": "https://github.com/arunoda/meteor-smart-collections.git",
-        "tag": "v0.3.23",
-        "commit": "bb31d4679c8a630db856f6a569a3f3232b3cd301"
+        "tag": "v0.4.0",
+        "commit": "da25a5e88c3b5e3c1cb3bd44fd7fdc3234448526"
+      },
+      "external-file-loader": {
+        "git": "https://github.com/davidd8/meteor-external-file-loader.git",
+        "tag": "v0.1.4",
+        "commit": "352694a7cf906b8241161c2fd1435161c1d5409f"
       }
     }
   }
