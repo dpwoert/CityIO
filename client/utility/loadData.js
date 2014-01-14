@@ -12,7 +12,7 @@ window.loadData = function(city){
 		//done
 		deferred.resolve(data);
 
-	}
+	});
 
 	return deferred.promise;
 
