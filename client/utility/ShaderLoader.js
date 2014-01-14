@@ -1,0 +1,36 @@
+window.Shaders = {};
+window.ShaderLoader = function(){
+
+	//promise
+	var deferred = Q.defer();
+	var promisses = [];
+	var data = [];
+
+	this.add = function(name, source){
+		var deferred = Q.defer();
+		promisses.push(deferred);
+		urls.push({ 'name': name, 'source': source, 'deferred': deferred });
+	}
+
+	this.load = function(){
+
+		_.each(data, function(value){
+
+			//get shaders
+			Meteor.http.get(value.source, function(error, result){
+				Shaders[value.name] = result;
+				value.deferred.resolve();
+			});
+
+		});
+
+		//all shaders loaded
+		Q.all(promisses).then(function(){
+			deferred.resolve();
+		});
+
+	}
+
+	return deferred.promise;	
+
+};
