@@ -60,6 +60,26 @@ AHN = function(){
 		};
 	}
 
+	var getPixelHeight = function(pixel){
+		return ((pixel[1]*256)+pixel[2])/100 - 12;
+	}
+
+	var getFloor = function(png){
+		var step = 5;
+		var min = 100;
+		for( var x = 0 ; x < 256 ; x+=step ){
+			for( var y = 0 ; y < 256 ; y+=step ){
+				var pixel = png.getPixel(x,y);
+				var height = getPixelHeight(pixel);
+				if(height < min){
+					min = height;
+				}
+			}
+		}
+
+		return min;
+	}
+
 	var readHeight = function(point, img, url, deferred){
 
 	    var reader = new PNGReader(img);
@@ -73,22 +93,20 @@ AHN = function(){
 
 	        var x = Math.floor(point[0]*256);
 	        var y = Math.floor(point[1]*256);
-	        //console.log('x: ' + x + ' y: ' + y);
 	        var pixel = png.getPixel(x,y);
-	        //console.log( pixel );
 
 	        //get height
-	        var height = ((pixel[1]*256)+pixel[2])/100 + tiles.minHeight;
+	        var height = getPixelHeight(pixel);
 	        console.log('HOOGTE: ' + height + ' m');
+
+	        //get floor
+	        var floor = getFloor(png);
+	        console.log('FLOOR: ' + floor + ' m');
 
 	        //save
 	        deferred.resolve({
-	        	calculated: height,
-	        	floor: 6, //NAP avg in Den Bosch	
-
-	        	//debug purposes
-	        	tileUrl: url,
-	        	tilePoint: point
+	        	'calculated': height,
+	        	'floor': floor
 	        });
 
 	    });
