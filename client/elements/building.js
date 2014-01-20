@@ -45,7 +45,7 @@ window.Buildings = function(scene, settings){
 
 		//group on pollution
 		// var no2 = data.fijnstof ? data.fijnstof.no2 : this.scaleMin;
-		var no2 = settings.input(data);
+		var no2 = settings.input(data, this.scaleMin);
 		var groupKey = Math.round(this.scale(no2));
 
 		//generate points in 2d space

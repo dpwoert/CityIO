@@ -9,8 +9,8 @@ window.ShaderLoader = function(){
 	this.add = function(name, source){
 		var deferred = Q.defer();
 		promisses.push(deferred);
-		urls.push({ 'name': name, 'source': source, 'deferred': deferred });
-	}
+		data.push({ 'name': name, 'source': source, 'deferred': deferred });
+	};
 
 	this.load = function(){
 
@@ -18,7 +18,7 @@ window.ShaderLoader = function(){
 
 			//get shaders
 			Meteor.http.get(value.source, function(error, result){
-				Shaders[value.name] = result;
+				Shaders[value.name] = result.content;
 				value.deferred.resolve();
 			});
 
@@ -29,8 +29,6 @@ window.ShaderLoader = function(){
 			deferred.resolve();
 		});
 
-	}
-
-	return deferred.promise;	
+	};
 
 };

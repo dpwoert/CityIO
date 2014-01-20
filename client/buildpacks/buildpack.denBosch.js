@@ -2,28 +2,33 @@ window.buildpacks = window.buildpacks || {};
 
 buildpacks.denBosch = function(){
 	
-	//load js files
-	Meteor.loadScripts([
-
-		'elements/soundStreets.js',
-		'elements/buildings.js',
-		'elements/surfaces.js'
-
-	]).then(function(){
+	var s = function(){
 
 		//load shaders
 		var shaders = new ShaderLoader();
 
 		//tubes
-		shaders.add('soundTubeVertex', 'denBosch/shaders/soundTubeVertex.glsl');
-		shaders.add('soundTubeFragment', 'denBosch/shaders/soundTubeFragment.glsl');
+		shaders.add('soundTubeVertex', '/shaders/soundTubeVertex.glsl');
+		shaders.add('soundTubeFragment', '/shaders/soundTubeFragment.glsl');
 
 		//surfaces
-		shaders.add('surfaceVertex', 'denBosch/shaders/surfaceVertex.glsl');
-		shaders.add('surfaceFragment', 'denBosch/shaders/surfaceFragment.glsl');
+		shaders.add('surfaceVertex', '/shaders/surfaceVertex.glsl');
+		shaders.add('surfaceFragment', '/shaders/surfaceFragment.glsl');
 
+		//start loading
 		shaders.load();
-		return shaders;
+		return shaders.promise;
+
+	}().then(function(){
+
+		//load js files
+		return Meteor.loadScripts([
+
+			'/elements/soundStreets.js',
+			'/elements/buildings.js',
+			'/elements/surfaces.js'
+
+		]);
 
 	}).then(function(){
 

@@ -1,12 +1,12 @@
-window.Buildings = function(scene){
+window.Buildings = function(scene, settings){
 
 	//colors for buildings
-	this.colors = [ 0xf9f9f9, 0xe8e8e8, 0xdbdbdb, 0xdfa5a1, 0xe87364];
+	this.colors = settings.colors;
 	this.groups = [];
 
 	//scale
-	this.scaleMin = 20.806;
-	this.scaleMax = 45.5;
+	this.scaleMin = settings.scaleMin;
+	this.scaleMax = settings.scaleMax;
 
 	var pointer = 0;
 
@@ -44,7 +44,8 @@ window.Buildings = function(scene){
 		var building = data.geom.coordinates[0];
 
 		//group on pollution
-		var no2 = data.fijnstof ? data.fijnstof.no2 : this.scaleMin;
+		// var no2 = data.fijnstof ? data.fijnstof.no2 : this.scaleMin;
+		var no2 = settings.input(data, scaleMin);
 		var groupKey = Math.round(this.scale(no2));
 
 		//generate points in 2d space

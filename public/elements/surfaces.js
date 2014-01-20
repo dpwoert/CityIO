@@ -34,8 +34,8 @@ window.Surfaces = function(scene){
 			//material
 			type.material = new THREE.ShaderMaterial({
 				uniforms: type.uniforms,
-			    vertexShader : Template.shaderSurfaceVertex(),
-			    fragmentShader: Template.shaderSurfaceFragment(),
+			    vertexShader : Shaders.surfaceVertex,
+			    fragmentShader: Shaders.surfaceFragment,
 			    fog: true
 			});
 

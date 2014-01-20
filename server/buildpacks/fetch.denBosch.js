@@ -40,16 +40,34 @@ buildpack.denBosch = function(){
 	});
 
 	//rails
-	//via SDK
+	var rails = sdk.get({
+		'osm::railway': 'rail',
+		filter: 'soundRails',
+		save: true,
+		saveTo: mongo.Streets
+	});
 
-	//Regions
-	//via SDK [to mongo.Regions]
+	//regions
+	var districts = sdk.get({
+		url: 'http://api.citysdk.waag.org/regions',
+		'admr::admn_level': 4,
+		filter: 'multipolygon',
+		filterOptions: { type: 'admr' },
+		save: true,
+		saveTo: mongo.Regions
+	});
 
 	//Water
-	//via SDK [to mongo.Regions]
+	var water = sdk.get({
+		'osm::natural': 'water',
+		filter: 'multipolygon',
+		filterOptions: { type: 'water' },
+		save: true,
+		saveTo: mongo.Regions
+	});
 
 	//execute
-	q.all([BAG, streets])
+	q.all([BAG, streets, rails, districts, water])
 
 		.then(function(){ 
 

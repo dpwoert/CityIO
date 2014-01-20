@@ -37,12 +37,15 @@ CitySDK = function(city){
 			page: 0,
 
 			filter: 'none',
+			filterOptions: {},
 			after: null,
 			finished: null,
 			maxCalls: 100,
 
 			save: false,
-			saveTo: null
+			saveTo: null,
+
+			url: apiUrl
 
 		});
 
@@ -67,8 +70,10 @@ CitySDK = function(city){
 
 		var calls = 0;
 
+		console.log(options.url);
+
 		//filter url
-		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls', 'save', 'saveTo');
+		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls', 'save', 'saveTo', 'filterOptions', 'url');
 
 		var getPage = function(){
 
@@ -78,13 +83,14 @@ CitySDK = function(city){
 			console.log('get page: ' + urlOptions.page)
 
 			//make request
-			Meteor.http.get(apiUrl, { params: urlOptions } , function(error, result){
+			Meteor.http.get(options.url, { params: urlOptions } , function(error, result){
 
 				console.log(result.data.url);
 
 				//check if error - if so reject with promises
 				if(error){
 					console.log('error');
+					console.log(error);
 					deferred.reject(error);
 				}
 
@@ -93,7 +99,7 @@ CitySDK = function(city){
 
 					//filter
 					var filter = getFilter(options.filter);
-					value = filter(value);
+					value = filter(value, options.filterOptions);
 
 					//add city key
 					value.city = city;
@@ -139,13 +145,13 @@ CitySDK = function(city){
 		});
 
 		//multi to normal polygon
-		this.addFilter('multipolygon', function(d){
+		this.addFilter('multipolygon', function(d, options){
 			return {
 				'id': d.cdk_id,
 				'name': d.name,
-				geom: {
-					coordinates: [ d.geom.coordinates[0][0] ] //does this work?
-				}
+				//does this work?
+				geom: { coordinates: [ d.geom.coordinates[0][0] ] },
+				'type': options.type
 			};
 		});
 
@@ -176,12 +182,12 @@ CitySDK = function(city){
 
 		//rails
 		this.addFilter('soundRails', function(d){
+			var that = this;
+			var split = geo.splitRoad(d.geom.coordinates);
 			return {
 				'id': d.cdk_id,
 				'name': d.name,
-				'maxspeed': d.layers.osm.data.maxspeed,
-				'highway': d.layers.osm.data.highway,
-				'points': geo.splitRoad(d.geom.coordinates),
+				'points': geo.filterRadius([split[1], split[0]], [that.lat, that.lon], that.radius ),
 				'soundDay': [],
 				'soundNight': [],
 				'type': 'rails'
