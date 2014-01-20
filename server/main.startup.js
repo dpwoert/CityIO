@@ -1,3 +1,5 @@
+cache = null;
+
 Meteor.startup(function(){
 
 	//log
@@ -5,5 +7,8 @@ Meteor.startup(function(){
 
 	//get mongo collections
 	mongo.init();
+
+	//make cache
+	cache = new buildJSON();
 
 });

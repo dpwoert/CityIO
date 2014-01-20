@@ -16,10 +16,15 @@ Meteor.methods({
 
 	},
 
-	getTheData: function(){
+	getData: function(city){
 
-		return mongo.Streets.find().fetch();
+		console.log(cache);
+		return cache.get(city);
 
+	},
+
+	TEST: function(){
+		return mongo.Buildings.find({city: 'denBosch'}).fetch();
 	}
 
 });

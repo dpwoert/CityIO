@@ -65,6 +65,11 @@ CitySDK = function(city){
 		return filters[name];
 	};
 
+	//whitelist
+	var whitelist = function(item, list){
+		return (list.indexOf(item) > -1) ? true : false;
+	}
+
 	//do the magic stuff
 	var getPages = function(options, deferred){
 
@@ -73,7 +78,7 @@ CitySDK = function(city){
 		console.log(options.url);
 
 		//filter url
-		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls', 'save', 'saveTo', 'filterOptions', 'url');
+		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls', 'save', 'saveTo', 'filterOptions', 'url', 'whitelist');
 
 		var getPage = function(){
 
@@ -96,6 +101,11 @@ CitySDK = function(city){
 
 				//add to data object
 				_.each(result.data.results, function(value){
+
+					//whitelist
+					if(options.whitelist){
+						if(!whitelist(value.id, options.whitelist)) return false;
+					}
 
 					//filter
 					var filter = getFilter(options.filter);
