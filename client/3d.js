@@ -2,8 +2,9 @@ window.DDD = {};
 
 DDD.init = function(center, zoom){
 
-	//camera
-	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
+
+    //camera
+    DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
     DDD.camera.position.z = 500;
     DDD.camera.position.y = 200;
 
@@ -44,7 +45,7 @@ DDD.setScene = function(center, zoom){
     DDD.group.rotateX(-Math.PI/2);
 
     //translation
-    var points = new Points(geo.center,geo.zoom);
+    var points = new Points(center, zoom);
     DDD.scene.points = points;
 
     //preloader
