@@ -1,8 +1,12 @@
 window.buildpacks = window.buildpacks || {};
 
 buildpacks.denBosch = function(){
+
+	console.log('start loading den bosch');
 	
-	var s = function(){
+	var loadShaders = function(){
+
+		console.log('load shaders');
 
 		//load shaders
 		var shaders = new ShaderLoader();
@@ -21,14 +25,16 @@ buildpacks.denBosch = function(){
 
 	}().then(function(){
 
+		console.log('shader loaded');
+
 		//load js files
-		return Meteor.loadScripts([
+		// return Meteor.loadScripts([
 
-			'/elements/soundStreets.js',
-			'/elements/buildings.js',
-			'/elements/surfaces.js'
+		// 	'/elements/soundStreets.js',
+		// 	'/elements/buildings.js',
+		// 	'/elements/surfaces.js'
 
-		]);
+		// ]);
 
 	}).then(function(){
 

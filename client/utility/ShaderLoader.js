@@ -3,6 +3,7 @@ window.ShaderLoader = function(){
 
 	//promise
 	var deferred = Q.defer();
+	this.promise = deferred.promise;
 	var promisses = [];
 	var data = [];
 
