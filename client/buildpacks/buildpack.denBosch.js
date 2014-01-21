@@ -43,7 +43,6 @@ buildpacks.denBosch = function(){
 		//init 3D
 		DDD.init( [51.697816,5.303675] , 22);
 
-	    console.log('THREEJS init');
 		//add camera's
 		DDD.scene.camera.add(9, [51.67285, 5.29323], [51.69203, 5.30217], 2500); //Overview top
 	    DDD.scene.camera.add(0, [51.67285, 5.29323], [51.69203, 5.30217], 500); //Overview
@@ -60,7 +59,7 @@ buildpacks.denBosch = function(){
 		// load data
 		return loadData('denBosch');
 
-	}).then(function(d){
+	}).then(function(data){
 
 		console.log('data loaded');
 
@@ -91,14 +90,12 @@ buildpacks.denBosch = function(){
 		//timeline
 		DDD.timeline.add([ surfaces, streets ]);
 
-		data = null;
-
 		return preloader.promise;
 
 	}).then(function(){
 
 		//done
-
+		console.log('done :-)');
 
 	});
 

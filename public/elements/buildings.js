@@ -45,7 +45,7 @@ window.Buildings = function(scene, settings){
 
 		//group on pollution
 		// var no2 = data.fijnstof ? data.fijnstof.no2 : this.scaleMin;
-		var no2 = settings.input(data, scaleMin);
+		var no2 = settings.input(data, this.scaleMin);
 		var groupKey = Math.round(this.scale(no2));
 
 		//generate points in 2d space
@@ -108,25 +108,6 @@ window.Buildings = function(scene, settings){
 		this.data = source;
 
 	};
-
-	// this.startLoading = function(){
-		
-	// 	//load all
-	// 	var item;
-	// 	var that = this;
-	// 	for( var i = 0 ; i < this.data.length ; i ++ ){
-	// 		item = this.data[i];
-
-	// 			console.log('add building');
-	// 			that.add(item);
-	// 			that.data[i] = null;
-	// 			delete that.data[i];
-	// 			scene.preloader.step();
-
-	// 			debugger
-	// 	}
-
-	// }
 
 	this.loadNext = function(){
 

@@ -11,13 +11,9 @@ window.Preloader = function(callback){
 
 	var width = 325;
 	
-	this.init = function(){
-
-		//make promise
-		this.deferred = Q.defer();
-		this.promise = this.deferred.promise;
-
-	}.call(this);
+	//make promise
+	var deferred = Q.defer();
+	this.promise = deferred.promise;
 
 	this.start = function(){
 
@@ -49,7 +45,6 @@ window.Preloader = function(callback){
 			return false;
 		}
 
-
 		//check
 		var clean = false;
 		if(this.i >= this.classes[this.currentClass].data.length){
@@ -65,7 +60,6 @@ window.Preloader = function(callback){
 		}
 
 		for( var j = start ; j < end ; j++){
-
 			this.classes[c].add( this.classes[c].data[j] );
 			delete this.classes[c].data[j];
 			this.step();
@@ -97,11 +91,6 @@ window.Preloader = function(callback){
 			this.update()
 		}
 
-		//check if finished
-		// if(this.loaded == this.toLoad){
-		// 	this.finished();
-		// }
-
 	};
 
 	//update display
@@ -113,10 +102,11 @@ window.Preloader = function(callback){
 
 		//procent
 		var procent = this.loaded / this.toLoad;
-		var remaining = Math.round( (elapsed * (1-procent)) / 1000 );
 
 		//console.log('loaded ' + (procent * 100) + '% - ' + remaining + ' seconds remaining');
 		document.querySelector("#preloader .bar").style.width = (width * procent) + 'px';
+
+		console.log('loaded: ' + procent*100 + '%');
 
 	};
 
@@ -125,11 +115,11 @@ window.Preloader = function(callback){
 
 		//ready
 		this.ready = true;
-		this.deferred.resolve();
+		debugger
+		deferred.resolve();
 		var that = this;
 		
-		//callback
-		if(_.isFunction(callback)) callback();
+		console.log('preloader');
 
 		//change copy
 		document.querySelector("#preloaderCopy").innerHTML = '';
