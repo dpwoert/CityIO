@@ -28,15 +28,17 @@ buildpacks.denBosch = function(){
 		console.log('shader loaded');
 
 		//load js files
-		// return Meteor.loadScripts([
+		return Meteor.loadScripts([
 
-		// 	'/elements/soundStreets.js',
-		// 	'/elements/buildings.js',
-		// 	'/elements/surfaces.js'
+			'/elements/soundStreets.js',
+			'/elements/buildings.js',
+			'/elements/surfaces.js'
 
-		// ]);
+		]);
 
 	}).then(function(){
+
+		console.log('scripts loaded');
 
 		//init 3D
 		DDD.init( [51.697816,5.303675] , 22);
