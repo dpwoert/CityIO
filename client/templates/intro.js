@@ -29,7 +29,7 @@ Template.intro.rendered = function(){
 
 		//loaded video so start loading data
 		video.className = 'loaded';
-		data.init();
+		//data.init();
 
 	});
 

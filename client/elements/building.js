@@ -41,6 +41,7 @@ window.Buildings = function(scene, settings){
 
 	this.add = function(data){
 
+		debugger
 		var building = data.geom.coordinates[0];
 
 		//group on pollution
