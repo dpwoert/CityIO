@@ -57,9 +57,11 @@ buildpacks.denBosch = function(){
 	    DDD.scene.camera.switchTo(0);
 
 		// load data
-		loadData('denBosch');
+		return loadData('denBosch');
 
 	}).then(function(d){
+
+		console.log('data loaded');
 
 		var buildingSettings = {
 			colors: [0xf9f9f9, 0xe8e8e8, 0xdbdbdb, 0xdfa5a1, 0xe87364],
