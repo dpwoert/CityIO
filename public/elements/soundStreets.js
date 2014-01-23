@@ -103,7 +103,7 @@ window.Streets = function(scene){
 		if(list.length < 1 ) return false;
 
 		//get types needed
-		if(!data.rail){
+		if(data.type == 'street'){
 			currentTypes = [ this.types[0], this.types[1] ];
 		}
 		else {
