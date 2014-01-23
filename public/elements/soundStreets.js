@@ -68,7 +68,7 @@ window.Streets = function(scene){
 			type.material = new THREE.ShaderMaterial({
 				uniforms: type.uniforms,
 			    vertexShader : Shaders.soundTubeVertex,
-			    fragmentShader: Shaders.soundTubeVertexFragment,
+			    fragmentShader: Shaders.soundTubeFragment,
 			    fog: true,
 			    //visible: type.visible
 			});

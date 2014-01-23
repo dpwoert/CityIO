@@ -84,16 +84,16 @@ buildpack.denBosch = function(){
 		}).then(function(){
 
 			//get sound data - streets
-			return new BatchSoundData(mongo.Streets, { type:'street' }, 'car');
-
-		}).then(function(){
-
-			//get sound data - rails
 			return new BatchSoundData(mongo.Streets, { type:'rails' }, 'train');
 
 		}).then(function(){
 
-			console.log('\033[31m ========================== \033[91m');
+			//get sound data - rails
+			return new BatchSoundData(mongo.Streets, { type:'street' }, 'car');
+
+		}).then(function(){
+
+			console.log('\033[31m ========================= \033[91m');
 			console.log('\033[31m COMPLETED \033[91m');
 
 		});

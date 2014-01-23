@@ -1,7 +1,7 @@
 BatchSoundData = function(db, find, type){
 
 	//settings
-	var batchSize = 50;
+	var batchSize = 10;
 	
 	//promise
 	var q = Meteor.require('q');
@@ -13,7 +13,7 @@ BatchSoundData = function(db, find, type){
     Fiber(function(){
 
     	//wait db to be updated
-		this.data = db.find({}).fetch();
+		this.data = db.find(find).fetch();
 		console.log('Records to update: ' + this.data.length);
 		getBatch(0, batchSize);
 
@@ -36,7 +36,7 @@ BatchSoundData = function(db, find, type){
 		var list = [];
 		var done = 0;
 		for(var i = start ; i < end ; i++){
-			list[i] = { promise: new SoundData(data[i].points, type), id: data[i]._id };
+			list[i] = { promise: new SoundData(data[i].points, type), id: data[i]._id, debug: data[i] };
 		}
 
 		//add callbacks
@@ -51,7 +51,7 @@ BatchSoundData = function(db, find, type){
 				});
 				done++;
 
-				console.log('saved: ' + val.id + ' | ' + d.length);
+				console.log('saved: ' + val.id + ' | ' + d.length + ' | ' + done + '/' + (end - start) + ' | ' + (start + done) + '/' + this.data.length + ' | ' + last);
 
 				//check if done
 				if(done >= end - start){
@@ -68,6 +68,11 @@ BatchSoundData = function(db, find, type){
 
 				}
 
+			}, function(){
+				//rejected
+				console.log('rejected:');
+				console.log(val.debug);
+				done++;
 			});
 
 		});

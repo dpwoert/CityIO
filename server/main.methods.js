@@ -18,7 +18,6 @@ Meteor.methods({
 
 	getData: function(city){
 
-		console.log(cache);
 		return cache.get(city);
 
 	},

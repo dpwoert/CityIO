@@ -115,7 +115,6 @@ window.Preloader = function(callback){
 
 		//ready
 		this.ready = true;
-		debugger
 		deferred.resolve();
 		var that = this;
 		

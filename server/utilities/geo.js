@@ -42,13 +42,12 @@ geo.splitRoad = function(points, steps){
 
 geo.filterRadius = function(points, center, radius){
 
-	console.log(points);
 
 	var clean = [];
 	for(var i = 0 ; i < points.length ; i++){
 		var point = points[i];
 		//add if in radius
-		if( geo.measureDistance(points[0], points[1], center[0], center[1]) < radius){
+		if( geo.measureDistance(point[0], point[1], center[0], center[1]) < radius){
 			clean.push(point);
 		}
 	}

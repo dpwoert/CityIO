@@ -12,6 +12,7 @@ CitySDK = function(city){
 
 	//promisses
 	var q = Meteor.require('q');
+	var that = this;
 
 	this.setPosition = function(lat, lon, radius){
 		this.lat = lat;
@@ -57,7 +58,11 @@ CitySDK = function(city){
 
 	//add to mongoDB
 	var saveTo = function(db, obj){
-		db.insert(obj);
+		if(obj) { 
+			db.insert(obj);
+		} else {
+			console.log('EMPTY SAVE TO DB');
+		}
 	}
 
 	//get filter
@@ -74,8 +79,6 @@ CitySDK = function(city){
 	var getPages = function(options, deferred){
 
 		var calls = 0;
-
-		console.log(options.url);
 
 		//filter url
 		var urlOptions = _.omit(options, 'after', 'filter','finished', 'maxCalls', 'save', 'saveTo', 'filterOptions', 'url', 'whitelist');
@@ -104,7 +107,7 @@ CitySDK = function(city){
 
 					//whitelist
 					if(options.whitelist){
-						if(!whitelist(value.id, options.whitelist)) return false;
+						if(!whitelist(value.cdk_id, options.whitelist)) return false;
 					}
 
 					//filter
@@ -160,7 +163,8 @@ CitySDK = function(city){
 				'id': d.cdk_id,
 				'name': d.name,
 				//does this work?
-				geom: { coordinates: [ d.geom.coordinates[0][0] ] },
+				// geom: { coordinates: [ d.geom.coordinates[0] ] },
+				geom: d.geom,
 				'type': options.type
 			};
 		});
@@ -192,12 +196,11 @@ CitySDK = function(city){
 
 		//rails
 		this.addFilter('soundRails', function(d){
-			var that = this;
 			var split = geo.splitRoad(d.geom.coordinates);
 			return {
 				'id': d.cdk_id,
 				'name': d.name,
-				'points': geo.filterRadius([split[1], split[0]], [that.lat, that.lon], that.radius ),
+				'points': geo.filterRadius(split, [that.lat, that.lon], that.radius ),
 				'soundDay': [],
 				'soundNight': [],
 				'type': 'rails'

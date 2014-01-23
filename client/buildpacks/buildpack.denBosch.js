@@ -85,6 +85,7 @@ buildpacks.denBosch = function(){
 
 		//preloader
 		DDD.preloader.load([buildings, surfaces, streets]);
+		// DDD.preloader.load([buildings, streets]);
 		DDD.preloader.start();	
 
 		//timeline
