@@ -59,7 +59,13 @@ window.Surfaces = function(scene){
 
 		//generate points in 2d space
 		var points = [];
-		var list = data.geom.coordinates[0];
+
+		//get polygones
+		var list;
+		if(data.geom.type == "MultiPolygon"){ list = data.geom.coordinates[0][0]; }
+		else { list = data.geom.coordinates[0]; }
+
+		//translate to 2d
 		for(var i = 0 ; i < list.length ; i++){
 			points.push( scene.points.translate2D([ list[i][0], list[i][1] ]) );
 		}

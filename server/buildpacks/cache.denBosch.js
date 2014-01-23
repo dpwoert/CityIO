@@ -19,7 +19,7 @@ cacheBuild.denBosch = function(){
 
 	//add region
 	data.region = mongo.Regions.find({ city: 'denBosch', type: 'admr' }).fetch();
-	data.region = cacheStrip(data.water, ['id','name','type']);;
+	data.region = cacheStrip(data.region, ['id','name','type']);;
 
 	return data;
 

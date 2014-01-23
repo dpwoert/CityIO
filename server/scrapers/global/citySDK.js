@@ -158,12 +158,10 @@ CitySDK = function(city){
 		});
 
 		//multi to normal polygon
-		this.addFilter('multipolygon', function(d, options){
+		this.addFilter('surface', function(d, options){
 			return {
 				'id': d.cdk_id,
 				'name': d.name,
-				//does this work?
-				// geom: { coordinates: [ d.geom.coordinates[0] ] },
 				geom: d.geom,
 				'type': options.type
 			};
