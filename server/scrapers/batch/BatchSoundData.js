@@ -1,7 +1,7 @@
 BatchSoundData = function(db, find, type){
 
 	//settings
-	var batchSize = 10;
+	var batchSize = 50;
 	
 	//promise
 	var q = Meteor.require('q');

@@ -71,7 +71,7 @@ AHN = function(){
 			for( var y = 0 ; y < 256 ; y+=step ){
 				var pixel = png.getPixel(x,y);
 				var height = getPixelHeight(pixel);
-				if(height < min){
+				if(height < min && height > -12){
 					min = height;
 				}
 			}
