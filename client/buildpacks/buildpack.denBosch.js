@@ -73,7 +73,7 @@ buildpacks.denBosch = function(){
 		var buildings = new Buildings(DDD.scene, buildingSettings);
 		buildings.source(data.buildings);
 		buildings.addTo(DDD.group);
-
+		debugger
 		var streets = new Streets(DDD.scene);
 		streets.source(data.streets);
 		streets.addTo(DDD.group);
