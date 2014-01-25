@@ -58,11 +58,7 @@ CitySDK = function(city){
 
 	//add to mongoDB
 	var saveTo = function(db, obj){
-		if(obj) { 
-			db.insert(obj);
-		} else {
-			console.log('EMPTY SAVE TO DB');
-		}
+		if(obj) db.insert(obj);
 	}
 
 	//get filter
@@ -180,12 +176,14 @@ CitySDK = function(city){
 
 		//streets
 		this.addFilter('soundStreets', function(d){
+			var split = geo.splitRoad(d.geom.coordinates);
+			if(split.length < 2) return false;
 			return {
 				'id': d.cdk_id,
 				'name': d.name,
 				'maxspeed': d.layers.osm.data.maxspeed,
 				'highway': d.layers.osm.data.highway,
-				'points': geo.splitRoad(d.geom.coordinates),
+				'points': split,
 				'soundDay': [],
 				'soundNight': [],
 				'type': 'street'
