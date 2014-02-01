@@ -1,4 +1,3 @@
-buildpack = {};
 var q = Meteor.require('q');
 
 buildpack.denBosch = function(){
@@ -9,7 +8,7 @@ buildpack.denBosch = function(){
 	var lat = 51.695118333515886;
 	var lon = 5.310516357421875;
 	// var radius = 3.2;
-	var radius = 1;
+	var radius = 3.2;
 
 	//reset
 	mongo.Buildings.remove({ city: 'denBosch' });
