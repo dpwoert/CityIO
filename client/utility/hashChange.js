@@ -16,6 +16,11 @@ window.hashChange = function(){
 			buildpacks.denBosch();
 		break;
 
+		case 'amsterdam':
+			console.log('url: amsterdamn');
+			buildpacks.amsterdam();
+		break;
+
 	}
 
 }
