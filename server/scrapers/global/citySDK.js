@@ -4,10 +4,12 @@ CitySDK = function(city){
 	var region;
 	switch(city){
 		case 'denBosch': region = 'admr.nl.shertogenbosch';
+		case 'amsterdam': region = 'admr.nl.amsterdam';
 	}
 	
 	//settings
-	var apiUrl = 'http://api.citysdk.waag.org/'+region+'/nodes';
+	// var apiUrl = 'http://api.citysdk.waag.org/'+region+'/nodes';
+	var apiUrl = 'http://api.citysdk.waag.org/nodes';
 	var filters = {};
 
 	//promisses
@@ -34,7 +36,7 @@ CitySDK = function(city){
 			radius: this.radius,
 
 			geom: true,
-			per_page: 1000,
+			per_page: 500,
 			page: 0,
 
 			filter: 'none',
@@ -90,6 +92,8 @@ CitySDK = function(city){
 			Meteor.http.get(options.url, { params: urlOptions } , function(error, result){
 
 				console.log(result.data.url);
+				console.log(options.url);
+				console.log(urlOptions);
 
 				//check if error - if so reject with promises
 				if(error){

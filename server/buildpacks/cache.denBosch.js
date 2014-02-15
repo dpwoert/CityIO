@@ -1,5 +1,3 @@
-cacheBuild = {};
-
 cacheBuild.denBosch = function(){
 	
 	var data = {};
