@@ -1,26 +1,12 @@
 Meteor.startup(function(){
 
-	//make 3d
-	DDD.init();
+	//url
+	window.onhashchange = hashChange;
+	hashChange();
 
-	//get data
-	//data.init();
+	//not loaded anything [remove in future]
+	if(location.hash = '#'){
+		location.hash = '#!/denBosch';
+	}
 
-	//trigger reload
-	window.rebuildCity = function(add){
-		DDD.pause = true;
-		Meteor.call('buildCity',add);
-	};
-	window.rebuildStreets = function(){
-		DDD.pause = true;
-		Meteor.call('buildStreets');
-	};
-	window.getPollution = function(again){
-		DDD.pause = true;
-		Meteor.call('getPollution',again);
-	};
-	window.updateBuilding = function(id,obj){
-		DDD.pause = true;
-		Meteor.call('updateBuilding', id,obj);
-	};
 });

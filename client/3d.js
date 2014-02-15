@@ -1,13 +1,14 @@
 window.DDD = {};
 
-DDD.init = function(){
+DDD.init = function(center, zoom){
 
-	//camera
-	DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
+
+    //camera
+    DDD.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
     DDD.camera.position.z = 500;
     DDD.camera.position.y = 200;
 
-    DDD.setScene();
+    DDD.setScene(center, zoom);
     DDD.setLight();
 
     //element
@@ -35,7 +36,7 @@ DDD.init = function(){
 
 };
 
-DDD.setScene = function(){
+DDD.setScene = function(center, zoom){
 
 	//make scene
     DDD.scene = new THREE.Scene();
@@ -44,7 +45,7 @@ DDD.setScene = function(){
     DDD.group.rotateX(-Math.PI/2);
 
     //translation
-    var points = new Points(geo.center,geo.zoom);
+    var points = new Points(center, zoom);
     DDD.scene.points = points;
 
     //preloader

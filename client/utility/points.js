@@ -1,5 +1,4 @@
 window.Points = function(center, zoom){
-	
 
 	this.translate = function(point2){
 		var coords = this.projection([ +point2[1], +point2[0] ]);
@@ -28,11 +27,11 @@ window.Points = function(center, zoom){
 
 		//pixel points
 		var pixels1 = this.projection(p1);
-		pixels1[0] = pixels1[0] - geo.center[0];
-		pixels1[1] = pixels1[1] - geo.center[1];
+		pixels1[0] = pixels1[0] - center[0];
+		pixels1[1] = pixels1[1] - center[1];
 		var pixels2 = this.projection(p2);
-		pixels2[0] = pixels2[0] - geo.center[0];
-		pixels2[1] = pixels2[1] - geo.center[1];
+		pixels2[0] = pixels2[0] - center[0];
+		pixels2[1] = pixels2[1] - center[1];
 
 		//pixel distance
 		var pixelDistance = Math.sqrt( Math.pow(pixels2[0]-pixels1[0],2) + Math.pow(pixels2[1]-pixels1[1],2) );
@@ -43,6 +42,7 @@ window.Points = function(center, zoom){
 	};
 
 	this.init = function(){
+
 
 		this.projection = d3.geo.mercator()
 			//.translate([1000 / 2, 10000 / 2])
@@ -56,6 +56,7 @@ window.Points = function(center, zoom){
 
 		//set scale
 		this.setScale();
+
 
 	}.call(this);
 
