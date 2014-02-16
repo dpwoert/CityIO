@@ -1,13 +1,19 @@
-var Fiber = Npm.require('fibers');
-Fiber(function(){
+function keepAlive() {
+	
+    setInterval(function() {
 
-	function keepAlive() {
-	    setInterval(function() {
-	        Meteor.http.get('http://city3d.herokuapp.com');
-	        keepAlive();
-	    }, 20 * 58 * 1000);
-	}
+    	//open in fiber
+		var Fiber = Npm.require('fibers');
+		Fiber(function(){
 
-	keepAlive();
-    	
-}).run();
+			//request and re-do
+        	Meteor.http.get('http://city3d.herokuapp.com');
+        	keepAlive();
+
+		}).run();
+
+    }, 20 * 58 * 1000);
+}
+
+keepAlive();
+	
