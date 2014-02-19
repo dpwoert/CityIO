@@ -9,6 +9,7 @@ window.hashChange = function(){
 	switch(url){
 
 		//buildpacks
+		case '':
 		case 'denbosch':
 		case 'shertogenbosch':
 		case 's-hertogenbosch':
