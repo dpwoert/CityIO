@@ -67,7 +67,7 @@ buildpacks.denBosch = function(){
 			colors: [0xf9f9f9, 0xe8e8e8, 0xdbdbdb, 0xdfa5a1, 0xe87364],
 			scaleMin: 20.806,
 			scaleMax: 45.5,
-			input: function(d, scaleMin){ return d.fijnstof ? d.fijnstof.no2 : scaleMin; }
+			input: function(d, scaleMin){ return d.fijnstof ? d.fijnstof : scaleMin; }
 		};
 
 		var buildings = new Buildings(DDD.scene, buildingSettings);
