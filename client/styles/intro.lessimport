@@ -132,6 +132,28 @@
 	color:transparent;
 }
 
+a.read-more-github{
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	z-index: 99;
+
+	font-size: 12px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	text-decoration: none;
+	color: white;
+
+	img{
+		width: 20px;
+		height: 20px;
+
+		position: relative;
+		top: 4px;
+	}
+}
+
 //responsive - iphone 5
 @media only screen 
 and (min-device-width : 320px) 
