@@ -12,13 +12,13 @@ Multiple data sources are used to create this 3D city.
 * [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Main_Page)
 
 ## Output
-A unique 3D data visualization of the city ‘s-Hertogenbosch showing possible nuisances of different kind of emissions.
+City I/O creates a generative 3D data visualization of the city ‘s-Hertogenbosch, showing possible nuisances of different kind of emissions.
 
 ![City I/O Screenshot 1](http://s28.postimg.org/qmydkk8m5/gh1.png)
 ![City I/O Screenshot 2](http://s28.postimg.org/5rc39bcf1/gh2.png)
 
 ## Technique
-City I/O is fully build in JavaScript (server and client side) and uses some of the latest techniques for the web available:
+City I/O is fully build in JavaScript (server and client side). The follwing techniques and libaries are used:
 * [Meteor](https://www.meteor.com/) (NodeJS, MongoDB, NPM, Underscore)
 * [Meteorite](https://github.com/oortcloud/meteorite)
 * [Three.js](http://www.threejs.org) (WebGL rendering)
@@ -26,9 +26,10 @@ City I/O is fully build in JavaScript (server and client side) and uses some of 
 * [LESS](http://lesscss.org/) (CSS Precompiler)
 
 ## Browser Support
-* Google Chrome (≥ v31) (Mac/Windows)
-* Firefox (≥ v26) (Mac/Windows)
-* Opera (≥ v18.0) (Mac/Windows)
+The latest versions of the following browsers are supported:
+* Google Chrome (Mac/Windows)
+* Firefox (Mac/Windows)
+* Opera (Mac/Windows)
 
 ## Copyright
 © Davey van der Woert, Jesse van Rheenen, Yannick Diezenberg
