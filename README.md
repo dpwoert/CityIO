@@ -1,7 +1,7 @@
 # City I/O
 City I/O creates an unique 3D visualization of the city [‘s-Hertogenbosch, the Netherlands](http://www.openstreetmap.org/#map=12/51.7012/5.3304).
 
-Our goal is to create a platform of City I/O with multiple cities, each with their own unique visualisation based on their data sources.
+Our goal is to create a platform with multiple cities, each with their own unique visualisation based on their data sources.
 
 ## Input
 Multiple data sources are used to create the 3D city. 
