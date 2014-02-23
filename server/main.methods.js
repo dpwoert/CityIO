@@ -16,6 +16,11 @@ Meteor.methods({
 				buildpack.amsterdam(); 
 			break;
 
+			//rotterdam
+			case 'rotterdam':
+				buildpack.rotterdam();
+			break;
+
 		}
 
 	},

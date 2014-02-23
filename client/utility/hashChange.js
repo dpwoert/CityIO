@@ -22,6 +22,11 @@ window.hashChange = function(){
 			buildpacks.amsterdam();
 		break;
 
+		case 'rotterdam':
+			console.log('url: rotterdamn');
+			buildpacks.rotterdam();
+		break;
+
 	}
 
 }
