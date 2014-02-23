@@ -61,8 +61,6 @@ buildpacks.denBosch = function(){
 
 	}).then(function(data){
 
-		debugger
-
 		console.log('data loaded');
 
 		var buildingSettings = {
