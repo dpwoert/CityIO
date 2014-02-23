@@ -1,4 +1,3 @@
-buildpack = {};
 var q = Meteor.require('q');
 
 buildpack.rotterdam = function(){

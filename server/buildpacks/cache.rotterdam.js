@@ -1,5 +1,3 @@
-cacheBuild = {};
-
 cacheBuild.rotterdam = function(){
 	
 	var data = {};
