@@ -102,8 +102,6 @@ window.Preloader = function(callback){
 
 		//procent
 		var procent = this.loaded / this.toLoad;
-
-		//console.log('loaded ' + (procent * 100) + '% - ' + remaining + ' seconds remaining');
 		document.querySelector("#preloader .bar").style.width = (width * procent) + 'px';
 
 		console.log('loaded: ' + procent*100 + '%');
@@ -125,7 +123,7 @@ window.Preloader = function(callback){
 
 		console.log('finished loading');
 		console.timeEnd('loading');
-		
+
 	};
 
 }
