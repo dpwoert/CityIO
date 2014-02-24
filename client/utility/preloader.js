@@ -116,30 +116,16 @@ window.Preloader = function(callback){
 		//ready
 		this.ready = true;
 		deferred.resolve();
-		var that = this;
-		
-		console.log('preloader');
 
 		//change copy
-		document.querySelector("#preloaderCopy").innerHTML = '';
-		var loader = document.querySelector("#preloader");
-		loader.innerHTML = 'Map';
-		loader.className = 'button';
-
-		loader.addEventListener("click",function(){
-
-			Session.set("hideIntro", true);
-			that.hidden = true;
-
-			ga('send', 'event', 'loaded', 'true');
-
-		});
+		Session.set("loaded", true);
 
 		//delete preloader data
 		this.classes = null;
 
 		console.log('finished loading');
 		console.timeEnd('loading');
-	}
+		
+	};
 
 }

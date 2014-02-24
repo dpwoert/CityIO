@@ -2,8 +2,7 @@ var video;
 
 //variables
 Session.set("hideIntro", false);
-Session.set("loaderCopy", 'Downloading...');
-Session.set("buffer", true);
+Session.set("buffer", false);
 
 
 //intro
@@ -11,40 +10,64 @@ Template.intro.rendered = function(){
 
 	//Detect WebGL
 	if(!Detector.webgl){
-		Session.set("loaderCopy", "Oops, it looks you are using an old browser. We recommend to use the newest version of Chrome to see the fully functioning map");
-		var loader = this.find('#preloader');
-		loader.innerHTML = 'Demo';
-		loader.className = 'button';
-
+		Session.set("webgl", false);
 		ga('send', 'event', 'old-browser', 'true');
 	} else {
+		Session.set("webgl", true);
 		ga('send', 'event', 'old-browser', 'false');
 	}
 
-	video = this.find('video');
-
-	if(!video) return false;
-	
-	video.addEventListener("canplay",function(){
-
-		//loaded video so start loading data
-		video.className = 'loaded';
-		//data.init();
-
-	});
-
 };
+
+Template.preloader.helpers({
+
+	'webgl': function(){
+		return Session.get('webgl');
+	},
+
+	'button': function(){
+		return ( !Session.get('webgl') || Session.get('loaded') );
+	},
+
+	'status': function(){
+
+		if(Session.get('buffer')){
+			return 'buffer';
+		} 
+		else if(Session.get('loaded')){
+			return 'loaded';
+		}
+	}
+
+});
+
+Template.intro.events({
+
+	'canplay video': function(event){
+
+		//prevent double loading
+		if(event.currentTarget.className == 'loaded') return false;
+
+		//play
+		event.currentTarget.className = 'loaded';
+		
+		//load data when video is loaded
+		if(Session.get('webgl')){
+			Session.set("buffer", true);
+			loadUrl();
+		} 
+
+	},
+
+	'click .loaded .bar': function(){
+		Session.set("hideIntro", true);
+		DDD.preloader.hidden = true;
+	}
+
+})
 
 //hide?
 Template.intro.hidden = function(){
 	return Session.get("hideIntro");
 };
 
-//preloader
-Template.preloader.copy = function(){
-	return Session.get("loaderCopy");
-};
-
-Template.preloader.buffer = function(){
-	return Session.get("buffer");
-};

@@ -1,4 +1,4 @@
-window.hashChange = function(){
+window.loadUrl = function(){
 	
 	//get url
 	var url = location.hash;

@@ -35,7 +35,8 @@
 
 		<ul>
 			<li onclick="showPopup('legenda',true)">legend</li>
-			<li class="light"><span class="day selected">day</span>/<span class="night">night</span></li>
+			<li class="light">
+				<span class="day {{#if timeline}}selected{{/if}}">day</span>/<span class="night {{#unless timeline}}selected{{/unless}}">night</span></li>
 		</ul>
 
 		<ul>
@@ -86,11 +87,20 @@
 </template>
 
 <template name="preloader">
-	<div id="preloader" {{#if buffer}} class="buffer" {{/if}}>
-		<div class="bar"></div>
-	</div>
 
-	<div id="preloaderCopy">{{ copy }}</div>
+	<div id="preloader" class="{{#unless webgl}}no-webgl{{/unless}}">
+
+		<div class="preloader-container {{status}} {{#if button}}button{{/if}}">
+			<div class="bar">
+				<span class="map">map</span>
+				<span class="demo">demo</span>
+			</div>
+		</div>
+
+		<div class="preloader-copy copy-loading {{status}}">Loading...</div>
+		<div class="preloader-copy copy-no-webgl">Oops, it looks you are using an old browser. We recommend to use the newest version of Chrome to see the fully functioning map</div>
+
+	</div>
 
 </template>
 

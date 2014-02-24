@@ -157,7 +157,7 @@ DDD.animate = function(){
 window.onresize = _.debounce(function(){
 
     //intro
-    if(!DDD.preloader.ready) Template.intro.resize();
+    //if(!DDD.preloader.ready) Template.intro.resize();
 
     //update normal renderer
     DDD.renderer.setSize( DDD.$.width(), DDD.$.height() );

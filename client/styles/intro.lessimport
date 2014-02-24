@@ -61,7 +61,7 @@
 
 }
 
-#preloader{
+.preloader-container{
 
 	position: relative;
 	margin: 0 auto;
@@ -97,6 +97,11 @@
 
 		cursor: pointer;
 		text-transform: uppercase;
+
+		.bar{
+			width: 100%;
+			background: none;
+		}
 	}
 
 	&.buffer{
@@ -110,9 +115,12 @@
 		}
 	}
 
+	span.demo{ display: none; }
+	span.map{ display: none; }
+
 }
 
-#preloaderCopy{
+.preloader-copy{
 	display: block;
 	position: relative;
 	width: 100%;
@@ -125,7 +133,24 @@
 
 	margin-top: 20px;
 
+	&.copy-no-webgl{
+		display: none;
+	}
+
 }
+
+//no web-gl
+#preloader.no-webgl{
+	.copy-no-webgl{ display: block; color: white; }
+	.copy-loading{ display: none; }
+	span.demo{ display: inline; }
+}
+
+//loaded
+#preloader .loaded {
+	span.map{ display: inline; }
+}
+#preloader .copy-loading.loaded{ display: none; }
 
 .preload-font{
 	font-family: 'brandon bold';

@@ -1,24 +1,30 @@
-//navigation
-Template.navigation.rendered = function(){
+//timeline start at day
+Session.set('timeline', true);
 
-	//day/night elements
-	var day = this.find('span.day');
-	var night = this.find('span.night');
+//helpers
+Template.navigation.helpers({
 
-	day.onclick = function(){
+	'timeline': function(){
+		return Session.get('timeline');
+	},
 
+	'cameraPoints': function(){
+		//TODO
+	}
+
+});
+
+//events
+Template.navigation.events({
+
+	'click span.day': function(event){
 		DDD.timeline.switchTo(true);
-		day.className = 'day selected';
-		night.className = 'night';
+		Session.set('timeline', true);
+	},
 
-	};
-
-	night.onclick = function(){
-
+	'click span.night': function(){
 		DDD.timeline.switchTo(false);
-		day.className = 'day';
-		night.className = 'night selected';
+		Session.set('timeline', false);
+	}
 
-	};
-
-}
+});
