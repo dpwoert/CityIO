@@ -14,7 +14,7 @@ Template.intro.rendered = function(){
 		ga('send', 'event', 'old-browser', 'true');
 	} else {
 		Session.set("webgl", true);
-		ga('send', 'event', 'old-browser', 'false');
+		//ga('send', 'event', 'old-browser', 'false');
 	}
 
 };
@@ -62,6 +62,10 @@ Template.intro.events({
 	'click .loaded .bar': function(){
 		Session.set("hideIntro", true);
 		DDD.preloader.hidden = true;
+	},
+
+	'click .no-webgl .bar': function(){
+		document.location = 'https://vimeo.com/87603478';
 	}
 
 })
