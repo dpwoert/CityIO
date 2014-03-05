@@ -3,7 +3,7 @@
   "dependencies": {
     "basePackages": {
       "npm": {},
-      "external-file-loader": {}
+      "streams": {}
     },
     "packages": {
       "npm": {
@@ -11,10 +11,10 @@
         "tag": "v0.2.6",
         "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
       },
-      "external-file-loader": {
-        "git": "https://github.com/davidd8/meteor-external-file-loader.git",
-        "tag": "v0.1.4",
-        "commit": "352694a7cf906b8241161c2fd1435161c1d5409f"
+      "streams": {
+        "git": "https://github.com/arunoda/meteor-streams.git",
+        "tag": "v0.1.17",
+        "commit": "9fcbbc9b7bf542827babc92089c19e730892a22f"
       }
     }
   }

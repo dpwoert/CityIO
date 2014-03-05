@@ -1,6 +1,6 @@
 {
   "packages": {
     "npm": {},
-    "external-file-loader": {}
+    "streams": {}
   }
 }
