@@ -80,6 +80,41 @@ buildpacks.rotterdam = function(){
 
 	}).then(function(){
 
+		//load boat 3d models
+		var deferred = Q.defer();
+
+		loader = new THREE.JSONLoader();
+
+	    loader.load( "/models/ship.js", function( geometry ) {
+
+	        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({
+	        	color: 0xFF0000
+	        }) );
+	        //mesh.scale.set( 10, 10, 10 );
+	        //mesh.position.y = 150;
+	        //mesh.position.x = 0;
+
+	        //rotate
+	        DDD.group.add(mesh);
+	        mesh.scale.set(10,10,10);
+	        mesh.rotateX(Math.PI/2);
+
+	        //set initial position as test
+	        var points = DDD.scene.points.translate2D([ 4.475384, 51.901984 ]); 
+	        mesh.position.x = points.x;
+	        mesh.position.y = points.y;
+			
+			console.log('loaded boat');
+			deferred.resolve();
+
+			DDD.boat = mesh;
+
+	    });
+
+		return deferred.promise;
+
+	}).then(function(){
+
 		//done
 		console.log('done :-)');
 
