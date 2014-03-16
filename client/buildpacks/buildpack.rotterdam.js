@@ -90,9 +90,6 @@ buildpacks.rotterdam = function(){
 	        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({
 	        	color: 0xFF0000
 	        }) );
-	        //mesh.scale.set( 10, 10, 10 );
-	        //mesh.position.y = 150;
-	        //mesh.position.x = 0;
 
 	        //rotate
 	        DDD.group.add(mesh);
@@ -104,7 +101,6 @@ buildpacks.rotterdam = function(){
 	        mesh.position.x = points.x;
 	        mesh.position.y = points.y;
 			
-			console.log('loaded boat');
 			deferred.resolve();
 
 			DDD.boat = mesh;
