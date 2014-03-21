@@ -9,12 +9,13 @@ Session.set("buffer", false);
 Template.intro.rendered = function(){
 
 	//Detect WebGL
-	if(!Detector.webgl){
+	if(!IO.webgl){
 		Session.set("webgl", false);
 		ga('send', 'event', 'old-browser', 'true');
+		console.log('webgl support detected');
 	} else {
 		Session.set("webgl", true);
-		//ga('send', 'event', 'old-browser', 'false');
+		ga('send', 'event', 'old-browser', 'false');
 	}
 
 };
@@ -61,11 +62,11 @@ Template.intro.events({
 
 	'click .loaded .bar': function(){
 		Session.set("hideIntro", true);
-		DDD.preloader.hidden = true;
+		IO.start3d();
 	},
 
 	'click .no-webgl .bar': function(){
-		document.location = 'https://vimeo.com/87603478';
+		//document.location = 'https://vimeo.com/87603478';
 	}
 
 })

@@ -1,0 +1,1 @@
+IO.addElement('buildings','cityio-element-building','buildings');

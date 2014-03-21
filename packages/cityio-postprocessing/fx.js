@@ -1,6 +1,6 @@
 //see: http://blogs.truthlabs.com/2013/10/02/creating-the-low-poly-look-in-webgl/
 
-window.FX = function(renderer, scene, camera){
+IO.FX = function(renderer, scene, camera){
 
 	var dpr = window.devicePixelRatio || 1;
 	
@@ -17,9 +17,9 @@ window.FX = function(renderer, scene, camera){
 	this.init = function(){
 
 		//Create Shader Passes
-	    this.composer = new THREE.EffectComposer(renderer);
+	    this.composer = new THREE.EffectComposer(IO.renderer);
         this.composer.setSize(window.innerWidth * dpr, window.innerHeight * dpr);
-	    this.renderPass = new THREE.RenderPass(scene, camera, null, new THREE.Color(0xFFFFFF));
+	    this.renderPass = new THREE.RenderPass(IO.scene, IO.camera, null, new THREE.Color(0xFFFFFF));
 	    this.composer.addPass(this.renderPass);
 
 	    //FXAA - AntiAliasing

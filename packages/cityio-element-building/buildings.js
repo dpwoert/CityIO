@@ -1,4 +1,9 @@
-window.Buildings = function(scene, settings){
+if(!IO || !IO.elements){
+	console.warn('IO element missing');
+	return false;
+}
+
+IO.elements.Buildings = function(scene, settings){
 
 	//colors for buildings
 	this.colors = settings.colors;
@@ -51,7 +56,7 @@ window.Buildings = function(scene, settings){
 		//generate points in 2d space
 		var points = [];
 		for(var i = 0 ; i < building.length ; i++){
-			points.push( scene.points.translate2D([ building[i][0],building[i][1] ]) );
+			points.push( IO.points.translate2D([ building[i][0],building[i][1] ]) );
 		}
 
 		var shape = new THREE.Shape(points);
@@ -61,7 +66,7 @@ window.Buildings = function(scene, settings){
 		if(data.height) { height = data.height; }
 		else { height = data.calculated }
 		height -= data.floor;
-		height *= scene.points.pixelScale; //TODO
+		height *= IO.points.pixelScale; //TODO
 
 		if(isNaN(height)) height = 1;
 

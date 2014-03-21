@@ -1,4 +1,4 @@
-window.Streets = function(scene){
+IO.elements.Streets = function(scene){
 
 	this.scale = d3.scale.linear().domain([0,1]).range([0,1]);
 
@@ -133,7 +133,7 @@ window.Streets = function(scene){
 				}
 
 				//points
-				var V2 = scene.points.translate2D([ point[1], point[0] ]);
+				var V2 = IO.points.translate2D([ point[1], point[0] ]);
 				var V3 = new THREE.Vector3( V2.x , V2.y , height );
 
 				path.push(V3);

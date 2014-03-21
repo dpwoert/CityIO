@@ -1,4 +1,4 @@
-measureDistance = function(lat1, lon1, lat2, lon2){
+IO.measureDistance = function(lat1, lon1, lat2, lon2){
 	//http://stackoverflow.com/questions/639695/how-to-convert-latitude-or-longitude-to-meters
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 - lat1) * Math.PI / 180;

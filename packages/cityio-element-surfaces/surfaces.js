@@ -1,4 +1,4 @@
-window.Surfaces = function(scene){
+IO.elements.Surfaces = function(scene){
 	
 	this.types = {
 		'floor': { 'colorDay': new THREE.Color(0xDDDDDD), 'colorNight': new THREE.Color(0x333333) },
@@ -67,7 +67,7 @@ window.Surfaces = function(scene){
 
 		//translate to 2d
 		for(var i = 0 ; i < list.length ; i++){
-			points.push( scene.points.translate2D([ list[i][0], list[i][1] ]) );
+			points.push( IO.points.translate2D([ list[i][0], list[i][1] ]) );
 		}
 
 		var shape = new THREE.Shape(points);
