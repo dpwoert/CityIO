@@ -4,22 +4,6 @@ var video;
 Session.set("hideIntro", false);
 Session.set("buffer", false);
 
-
-//intro
-Template.intro.rendered = function(){
-
-	//Detect WebGL
-	if(!IO.webgl){
-		Session.set("webgl", false);
-		ga('send', 'event', 'old-browser', 'true');
-		console.log('webgl support detected');
-	} else {
-		Session.set("webgl", true);
-		ga('send', 'event', 'old-browser', 'false');
-	}
-
-};
-
 Template.preloader.helpers({
 
 	'webgl': function(){

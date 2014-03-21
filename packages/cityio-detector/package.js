@@ -5,7 +5,7 @@ Package.describe({
 Package.on_use(function (api) {
 
 	// use dependencies
-	api.use(['three', 'cityio'], "client");
+	api.use(['three', 'cityio','session'], "client");
 
 	// load front-end
 	api.add_files('lib/detector.js', 'client', {bare:true});
