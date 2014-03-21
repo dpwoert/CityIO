@@ -18,12 +18,12 @@ Template.navigation.helpers({
 Template.navigation.events({
 
 	'click span.day': function(event){
-		DDD.timeline.switchTo(true);
+		IO.timeline.switchTo(true);
 		Session.set('timeline', true);
 	},
 
 	'click span.night': function(){
-		DDD.timeline.switchTo(false);
+		IO.timeline.switchTo(false);
 		Session.set('timeline', false);
 	}
 
