@@ -16,6 +16,4 @@ IO.render = function(){
 
 	}
 
-	console.log('tick');
-
 }
