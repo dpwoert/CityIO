@@ -52,7 +52,7 @@ IO.add3dModel = function(packageName, file){
 
 		    action: function () {
 		      	var filename = this.params.filename;
-		      	var text = fs.readFileSync(exports + '/programs/client/packages/'+packageName+'/'+file+'.json','utf8')
+		      	var text = fs.readFileSync(exports + '/programs/client/packages/'+packageName+'/3dmodels/'+file+'.json','utf8')
 
 		    	this.response.writeHead(200, {'Content-Type': 'application/javascript'});
 		    	this.response.end(text);

@@ -27,7 +27,7 @@ var setScene = function(){
 
 var setControls = function(){
 
-    IO.controls = new THREE.FirstPersonControls( DDD.camera );
+    IO.controls = new THREE.FirstPersonControls( IO.camera );
 
     IO.controls.freeze = true;
 

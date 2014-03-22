@@ -27,7 +27,7 @@ Router.map(function () {
 			});
 
 			//not found
-			console.warn('city not found: ' + city);
+			if(!found) console.warn('city not found: ' + city);
 
         }
 
