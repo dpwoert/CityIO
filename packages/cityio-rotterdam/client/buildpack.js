@@ -1,6 +1,8 @@
-window.buildpacks = window.buildpacks || {};
+IO.buildpacks.rotterdam = {
+	slug: 'rotterdam'
+};
 
-buildpacks.rotterdam = function(){
+IO.buildpacks.rotterdam.action = function(){
 
 	console.log('start loading Rotterdam');
 	
@@ -9,7 +11,7 @@ buildpacks.rotterdam = function(){
 		console.log('load shaders');
 
 		//load shaders
-		var shaders = new ShaderLoader();
+		var shaders = new IO.ShaderLoader();
 
 		//surfaces
 		shaders.add('surfaceVertex', '/shaders/surfaceVertex.glsl');
@@ -36,18 +38,18 @@ buildpacks.rotterdam = function(){
 		console.log('scripts loaded');
 
 		//init 3D
-		DDD.init( [51.91144966468436,4.478473663330078] , 22);
+		IO.init( [51.91144966468436,4.478473663330078] , 22);
 
 		//add camera's
-		DDD.scene.camera.add(9, [51.900496, 4.505809], [51.926122, 4.475253], 2500); //Overview top
-	    DDD.scene.camera.add(0, [51.900496, 4.505809], [51.926122, 4.475253], 500); //Overview
+		IO.cameraControl.add(9, [51.900496, 4.505809], [51.926122, 4.475253], 2500); //Overview top
+	    IO.cameraControl.add(0, [51.900496, 4.505809], [51.926122, 4.475253], 500); //Overview
 
 		//switch to first
-	    DDD.scene.camera.switchTo(9);
-	    DDD.scene.camera.switchTo(0);
+	    IO.cameraControl.switchTo(9);
+	    IO.cameraControl.switchTo(0);
 
 		// load data
-		return loadData('rotterdam');
+		return IO.loadData('rotterdam');
 
 	}).then(function(data){
 
@@ -60,21 +62,21 @@ buildpacks.rotterdam = function(){
 			input: function(d, scaleMin){ return 0; }
 		};
 
-		var buildings = new Buildings(DDD.scene, buildingSettings);
+		var buildings = new IO.elements.Buildings(IO.scene, buildingSettings);
 		buildings.source(data.buildings);
-		buildings.addTo(DDD.group);
+		buildings.addTo(IO.group);
 
-		var surfaces = new Surfaces(DDD.scene);
+		var surfaces = new IO.elements.Surfaces(IO.scene);
 		surfaces.source('water', data.water);
 		surfaces.source('floor', data.region);
-		surfaces.addTo(DDD.group);
+		surfaces.addTo(IO.group);
 
 		//preloader
-		DDD.preloader.load([buildings, surfaces]);
-		DDD.preloader.start();	
+		IO.preloader.load([buildings, surfaces]);
+		IO.preloader.start();	
 
 		//timeline
-		DDD.timeline.add([ surfaces ]);
+		IO.timeline.add([ surfaces ]);
 
 		return preloader.promise;
 
@@ -85,25 +87,25 @@ buildpacks.rotterdam = function(){
 
 		loader = new THREE.JSONLoader();
 
-	    loader.load( "/models/ship.js", function( geometry ) {
+	    loader.load( "/3dmodels/ship.json", function( geometry ) {
 
 	        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({
 	        	color: 0xFF0000
 	        }) );
 
 	        //rotate
-	        DDD.group.add(mesh);
+	        IO.group.add(mesh);
 	        mesh.scale.set(10,10,10);
 	        mesh.rotateX(Math.PI/2);
 
 	        //set initial position as test
-	        var points = DDD.scene.points.translate2D([ 4.475384, 51.901984 ]); 
+	        var points = IO.points.translate2D([ 4.475384, 51.901984 ]); 
 	        mesh.position.x = points.x;
 	        mesh.position.y = points.y;
 			
 			deferred.resolve();
 
-			DDD.boat = mesh;
+			window.boat = mesh;
 
 	    });
 
