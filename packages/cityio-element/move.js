@@ -32,7 +32,7 @@ IO.addShaders = function(packageName, file){
 
 		    action: function () {
 		      	var filename = this.params.filename;
-		      	var text = fs.readFileSync(exports + '/programs/client/packages/'+packageName+'/'+file+'.glsl','utf8')
+		      	var text = fs.readFileSync(exports + '/programs/client/packages/'+packageName+'/shaders/'+file+'.glsl','utf8')
 
 		    	this.response.writeHead(200, {'Content-Type': 'application/javascript'});
 		    	this.response.end(text);
@@ -48,7 +48,7 @@ IO.add3dModel = function(packageName, file){
 	Router.map(function () {
 		this.route('serve-3dmodel-' + file, {
 	    	where: 'server',
-	    	path: '/shaders/'+file+'.json',
+	    	path: '/3dmodels/'+file+'.json',
 
 		    action: function () {
 		      	var filename = this.params.filename;

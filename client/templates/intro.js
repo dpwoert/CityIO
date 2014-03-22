@@ -39,7 +39,6 @@ Template.intro.events({
 		//load data when video is loaded
 		if(Session.get('webgl')){
 			Session.set("buffer", true);
-			loadUrl();
 		} 
 
 	},
