@@ -8,5 +8,6 @@ Package.on_use(function (api) {
 
 	// load front-end
 	api.add_files('move.js', 'server');
+	api.add_files('addGlobalShaders.js', 'server');
 
 });
