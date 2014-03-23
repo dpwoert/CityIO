@@ -3,12 +3,12 @@ cache = null;
 Meteor.startup(function(){
 
 	//log
-	console.log('Server startup 2');
+	console.log('Server startup');
 
 	//get mongo collections
 	mongo.init();
 
 	//make cache
-	cache = new buildJSON();
+	IO.cache = new IO.Cache();
 
 });

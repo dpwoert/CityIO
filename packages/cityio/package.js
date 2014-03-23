@@ -8,6 +8,7 @@ Package.on_use(function (api) {
 
 	// use dependencies
 	api.use(['underscore','three','Q'], "client");
+	api.use(['underscore'], "server");
 
 	// load front-end
 	api.add_files([
@@ -29,11 +30,23 @@ Package.on_use(function (api) {
 	//load server
 	api.add_files([
 
-		'server/global.js'
+		'server/global.js',
+		'server/mongo.js',
+		'server/methods.js',
+
+		'server/methods/proj4.min.js',
+		'server/methods/acces.js',
+		'server/methods/cachestrip.js',
+		'server/methods/roundGPS.js',
+
+		'server/classes/Cache.js',
+
+		'server/startup.js',
 
 	], 'server');
 
 	//make globals
 	api.export('IO', both);
+	api.export(['mongo','geo'], 'server');
 
 });

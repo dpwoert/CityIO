@@ -12,8 +12,8 @@ Package.on_use(function (api) {
 	//add ships
 	api.add_files([
 
-		'3dmodels/ship.json'
-		
+		'3dmodels/ship2.json'
+
 	], 'client', {isAsset: true});
 
 	// load front-end

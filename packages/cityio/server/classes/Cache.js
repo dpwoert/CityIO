@@ -1,4 +1,4 @@
-buildJSON = function(){
+IO.Cache = function(){
 	
 	var fs = Npm.require('fs');
 

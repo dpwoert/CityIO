@@ -5,7 +5,7 @@ IO.buildpacks.rotterdam = {
 IO.buildpacks.rotterdam.action = function(){
 
 	console.log('start loading Rotterdam');
-	
+
 	var loadShaders = function(){
 
 		console.log('load shaders');
@@ -73,7 +73,7 @@ IO.buildpacks.rotterdam.action = function(){
 
 		//preloader
 		IO.preloader.load([buildings, surfaces]);
-		IO.preloader.start();	
+		IO.preloader.start();
 
 		//timeline
 		IO.timeline.add([ surfaces ]);
@@ -86,26 +86,39 @@ IO.buildpacks.rotterdam.action = function(){
 		var deferred = Q.defer();
 
 		loader = new THREE.JSONLoader();
+		window.boats = [];
 
-	    loader.load( "/3dmodels/ship.json", function( geometry ) {
+	    loader.load( "/3dmodels/ship2.json", function( geometry ) {
 
-	        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({
-	        	color: 0xFF0000
-	        }) );
+	    	var add_boat = function(pos,rot){
 
-	        //rotate
-	        IO.group.add(mesh);
-	        mesh.scale.set(10,10,10);
-	        mesh.rotateX(Math.PI/2);
+		        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({
+		        	color: 0x333333,
+					shading: THREE.FlatShading
+		        }) );
 
-	        //set initial position as test
-	        var points = IO.points.translate2D([ 4.475384, 51.901984 ]); 
-	        mesh.position.x = points.x;
-	        mesh.position.y = points.y;
-			
+		        //rotate
+		        IO.group.add(mesh);
+		        mesh.scale.set(4,4,4);
+		        mesh.rotateX(Math.PI/2);
+		        mesh.rotateY(rot);
+
+		        //set initial position as test
+		        var points = IO.points.translate2D( pos );
+		        mesh.position.x = points.x;
+		        mesh.position.y = points.y;
+		        mesh.position.z = -3;
+
+		        window.boats.push(mesh);
+
+	    	}
+
+	    	add_boat([ 4.475384, 51.901984 ], THREE.Math.degToRad(300) );
+	    	add_boat([ 4.484332, 51.90767  ], THREE.Math.degToRad(300) );
+	    	add_boat([ 4.49167, 51.915003 ], THREE.Math.degToRad(120) );
+	    	//add_boat([ 4.484932,51.906426 ], -Math.PI/7);
+
 			deferred.resolve();
-
-			window.boat = mesh;
 
 	    });
 

@@ -1,19 +1,22 @@
 Meteor.methods({
-	
+
 	buildCityV2: function(city){
+
+		//disable temp
+		return false;
 
 		switch(city){
 
 			//den bosch
 			case 'denBosch':
 			case 'sHertogenBosch':
-			case 's-HertogenBosch': 
-				buildpack.denBosch(); 
+			case 's-HertogenBosch':
+				buildpack.denBosch();
 			break;
 
 			//amsterdam
-			case 'amsterdam': 
-				buildpack.amsterdam(); 
+			case 'amsterdam':
+				buildpack.amsterdam();
 			break;
 
 			//rotterdam
@@ -27,12 +30,8 @@ Meteor.methods({
 
 	getData: function(city){
 
-		return cache.get(city);
+		return IO.cache.get(city);
 
-	},
-
-	TEST: function(){
-		return mongo.Buildings.find({city: 'denBosch'}).fetch();
 	}
 
 });

@@ -1,4 +1,4 @@
-roundGPS = function(input, digits){
+IO.roundGPS = function(input, digits){
 
 	//standard digits (rounding on 11 cm)
 	//see: http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude/8674#8674

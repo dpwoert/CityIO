@@ -1,4 +1,4 @@
-cacheStrip = function(data, keys){
+IO.cacheStrip = function(data, keys){
 	
 	var item;
     var key;

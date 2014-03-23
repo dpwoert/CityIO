@@ -1,1 +1,1 @@
-IO.add3dModel('cityio-rotterdam','ship');
+IO.add3dModel('cityio-rotterdam','ship2');
