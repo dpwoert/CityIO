@@ -1,4 +1,4 @@
-var q = Meteor.require('q');
+//var q = Meteor.require('q');
 
 buildpack.denBosch = function(){
 
@@ -70,12 +70,12 @@ buildpack.denBosch = function(){
 	//execute
 	q.all([BAG, streets, rails, districts, water])
 
-		.then(function(){ 
+		.then(function(){
 
 			//Get AHN height data
-			return BatchAHN(mongo.Buildings); 
+			return BatchAHN(mongo.Buildings);
 
-		}).then(function(){ 
+		}).then(function(){
 
 			//Get NSL polution data
 			return new NSL(mongo.Buildings, "denBosch/NSL.json");

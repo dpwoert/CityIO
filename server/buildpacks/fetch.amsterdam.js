@@ -1,5 +1,5 @@
 buildpack = {};
-var q = Meteor.require('q');
+//var q = Meteor.require('q');
 
 buildpack.amsterdam = function(){
 
@@ -52,10 +52,10 @@ buildpack.amsterdam = function(){
 	//execute
 	q.all([BAG, districts, water])
 
-		.then(function(){ 
+		.then(function(){
 
 			//Get AHN height data
-			return BatchAHN(mongo.Buildings); 
+			return BatchAHN(mongo.Buildings);
 
 		}).then(function(){
 
