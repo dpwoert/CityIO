@@ -1,14 +1,15 @@
 IO.Cache = function(){
-	
+
 	var fs = Npm.require('fs');
 
 	this.build = function(){
 
 		console.log('building cache');
-		var that = this;
-		_.each(cacheBuild, function(get, city){
-			var data = get();
-			that.save(data, city);
+		var self = this;
+
+		_.each(IO.buildpacks, function(get, city){
+			var data = get.cache();
+			self.save(data, city);
 		});
 
 	};

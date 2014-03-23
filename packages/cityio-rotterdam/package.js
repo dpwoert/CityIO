@@ -6,7 +6,7 @@ Package.on_use(function (api) {
 
 	// use dependencies
 	api.use(['cityio','cityio-loader'], "client");
-	api.use(['cityio'], "server");
+	api.use(['cityio','Q'], "server");
 	api.add_files('dependencies.js', 'server');
 
 	//add ships
@@ -19,5 +19,13 @@ Package.on_use(function (api) {
 	// load front-end
 	api.add_files('client/buildpack.js', 'client');
 
+	//load server
+	api.add_files([
+
+		'server/build.js',
+		'server/cache.js',
+		'server/fetch.js'
+
+	], 'server');
 
 });

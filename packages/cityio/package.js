@@ -7,8 +7,8 @@ Package.on_use(function (api) {
 	var both = ['client','server'];
 
 	// use dependencies
-	api.use(['underscore','three','Q'], "client");
-	api.use(['underscore'], "server");
+	api.use(['underscore','three','Q'], 'client');
+	api.use(['underscore'], 'server');
 
 	// load front-end
 	api.add_files([
@@ -39,7 +39,7 @@ Package.on_use(function (api) {
 		'server/methods/cachestrip.js',
 		'server/methods/roundGPS.js',
 
-		'server/classes/Cache.js',
+		'server/classes/geo.js',
 
 		'server/startup.js',
 

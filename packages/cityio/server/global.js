@@ -1,2 +1,6 @@
 //make global on server
-IO = {};
+IO = {
+    buildpacks: {},
+    scrapers: {},
+    batch: {}
+};
