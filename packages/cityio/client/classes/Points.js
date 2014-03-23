@@ -51,15 +51,11 @@ IO.Points = function(center, zoom){
 		    // .rotate([-9, 0, 0])
 		    .center(center);
 
-		console.log(center, zoom);
-
 		//get center in projection
 		this.centerProjection = this.projection(center);
 
 		//set scale
 		this.setScale();
-
-		console.log('scale set');
 
 
 	}.call(this);
