@@ -1,4 +1,4 @@
-IO.CameraPosition = function(){
+IO.classes.CameraPosition = function(){
 
 	this.objects = {};
 	this.current = {
@@ -156,7 +156,7 @@ IO.CameraPosition = function(){
 
 		IO.controls.lat = lat;
 		IO.controls.lon = lon + 90;
-	
+
 
     };
 

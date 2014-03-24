@@ -1,4 +1,4 @@
-IO.Points = function(center, zoom){
+IO.classes.Points = function(center, zoom){
 
 	this.translate = function(point2){
 		var coords = this.projection([ +point2[1], +point2[0] ]);

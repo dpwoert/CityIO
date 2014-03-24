@@ -1,4 +1,4 @@
-IO.Timeline = function(){
+IO.classes.Timeline = function(){
 
 	//day = 0 | night = 1
 	this.now = 0;
@@ -72,7 +72,7 @@ IO.Timeline = function(){
 		this.fog.fog.color.g = fogColor;
 		this.fog.fog.color.b = fogColor;
 
-		if(IO.FXs){
+		if(IO.FX){
 			IO.FX.setBackground(this.fog.fog.color);
 		} else {
 			IO.renderer.setClearColor(this.fog.fog.color, 1);

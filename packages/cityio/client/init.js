@@ -1,7 +1,5 @@
 var setScene = function(){
 
-    console.log('scene start');
-
     //make scene
     IO.scene = new THREE.Scene();
     IO.group = new THREE.Object3D();
@@ -9,13 +7,13 @@ var setScene = function(){
     IO.group.rotateX(-Math.PI/2);
 
     //translation
-    IO.points = new IO.Points(IO.center, IO.zoom);
+    IO.points = new IO.classes.Points(IO.center, IO.zoom);
 
     //preloader
-    IO.preloader = new IO.Preloader();
+    IO.preloader = new IO.classes.Preloader();
 
     //timeline
-    IO.timeline = new IO.Timeline();
+    IO.timeline = new IO.classes.Timeline();
 
     //fog
     IO.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0005 );
@@ -83,12 +81,12 @@ IO.start3d = function(){
 
 IO.init = function(pos, zoom){
 
-    console.log('init start');
-
 	//check
 	IO.zoom = zoom || 22;
 	if(!pos) console.warn('no position given');
 	IO.center = pos;
+
+    console.log('init');
 
 	//camera
     IO.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
@@ -96,8 +94,10 @@ IO.init = function(pos, zoom){
     IO.camera.position.y = 200;
 
     setScene();
+    console.log('scene added');
     setLight();
 
+    console.log('light added');
 
     //element - remove jq, use jq-lite or other option
     IO.$element = $('body .visualization');
@@ -110,23 +110,14 @@ IO.init = function(pos, zoom){
 
     //camera
     setControls();
-    console.log('controls added');
-    IO.cameraControl = new IO.CameraPosition();
-    console.log('camera controls added');
-    //IO.addCameras();
-
-    console.log('cameras added');
+    IO.cameraControl = new IO.classes.CameraPosition();
 
     //FX
-    IO.FX = new IO.FXs();
+    IO.FX = new IO.classes.FX();
 
     //action
     IO.clock = new THREE.Clock();
-
     IO.render();
-
     IO.enabled = true;
-
-    console.log('init ended');
 
 };

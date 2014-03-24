@@ -1,6 +1,8 @@
 //make global object
 IO = {
 
+	classes: {},
+
 	//position
 	center: [],
 	zoom: null,

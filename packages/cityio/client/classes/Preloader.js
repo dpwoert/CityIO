@@ -1,4 +1,4 @@
-IO.Preloader = function(){
+IO.classes.Preloader = function(){
 
 	this.stepSize = 50;
 	this.updateSize = 1000;
