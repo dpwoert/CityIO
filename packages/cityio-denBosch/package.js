@@ -2,6 +2,10 @@ Package.describe({
 	summary: "cityIO - Den Bosch visualisation"
 });
 
+Npm.depends({
+	'png.js': '0.1.1'
+});
+
 Package.on_use(function (api) {
 
 	// use dependencies
@@ -16,7 +20,10 @@ Package.on_use(function (api) {
 
 		'server/build.js',
 		'server/cache.js',
-		'server/fetch.js'
+		'server/fetch.js',
+
+		'scrapers/soundData.js',
+		'scrapers/BatchSoundData.js',
 
 	], 'server');
 

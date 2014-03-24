@@ -1,5 +1,5 @@
-BatchAHN = function(db, find){
-	
+IO.batch.AHN = function(db, find){
+
 	console.log('Start Getting AHN data');
 
 	//settings
@@ -7,10 +7,9 @@ BatchAHN = function(db, find){
 	find = find || {};
 
 	//AHN
-	this.AHN = new AHN();
+	this.AHN = new IO.scrapers.AHN();
 
 	//get data
-	var q = Meteor.require('q');
 	var Fiber = Npm.require('fibers');
     Fiber(function(){
 
@@ -57,10 +56,10 @@ BatchAHN = function(db, find){
 						console.log('get next batch');
 						getBatch(end, end+batchSize);
 					}
-					else { 
+					else {
 						//no more batching
 						console.log('Resolved AHN batch')
-						deferred.resolve();  
+						deferred.resolve();
 					}
 
 				}

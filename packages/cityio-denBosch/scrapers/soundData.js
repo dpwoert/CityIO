@@ -1,9 +1,8 @@
-SoundData = function(points, type){
+IO.scrapers.SoundData = function(points, type){
 
 	var http = Npm.require('http');
-	var q = Meteor.require('q');
-	var PNGReader = Meteor.require('png.js');
-	
+	var PNGReader = Npm.require('png.js');
+
 	//promise
 	var deferred = q.defer();
 	this.promise = deferred.promise;
@@ -13,7 +12,7 @@ SoundData = function(points, type){
 
 	//settings
 	var tileWidth = 20, tileSize = 10;
-	
+
 	//get the correct url
 	var getTileUrls = function(pos){
 
@@ -78,9 +77,9 @@ SoundData = function(points, type){
 			if(c.r == 237 && c.g == 218 && c.b == 116){ return 50; }
 
 			//empty
-			if(c.r == 255 && c.g == 255 && c.b == 255){ return 50; }		
-			if(c.r == 253 && c.g == 253 && c.b == 253){ return 50; }		
-			if(c.r == undefined){ return 50; }		
+			if(c.r == 255 && c.g == 255 && c.b == 255){ return 50; }
+			if(c.r == 253 && c.g == 253 && c.b == 253){ return 50; }
+			if(c.r == undefined){ return 50; }
 
 			//no value found?
 			console.log('no color value found');
@@ -96,7 +95,7 @@ SoundData = function(points, type){
 	        if(err){
 	        	console.log(err);
 	        	return false;
-	        } 
+	        }
 
 	        //determine stepsize
 	        var stepSizeX = Math.floor(png.getWidth()/steps);

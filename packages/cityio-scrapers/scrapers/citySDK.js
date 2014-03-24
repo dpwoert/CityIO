@@ -1,4 +1,4 @@
-CitySDK = function(city){
+IO.scrapers.CitySDK = function(city){
 
 	//get region
 	var region;
@@ -6,14 +6,13 @@ CitySDK = function(city){
 		case 'denBosch': region = 'admr.nl.shertogenbosch';
 		case 'amsterdam': region = 'admr.nl.amsterdam';
 	}
-	
+
 	//settings
 	// var apiUrl = 'http://api.citysdk.waag.org/'+region+'/nodes';
 	var apiUrl = 'http://api.citysdk.waag.org/nodes';
 	var filters = {};
 
 	//promisses
-	var q = Meteor.require('q');
 	var that = this;
 
 	this.setPosition = function(lat, lon, radius){
@@ -135,7 +134,7 @@ CitySDK = function(city){
 					//promise finished
 					deferred.resolve();
 
-				} 
+				}
 				else {
 					//proceed
 					getPage();
@@ -210,6 +209,3 @@ CitySDK = function(city){
 	}.call(this);
 
 };
-
-//shortcut
-SDK = CitySDK;

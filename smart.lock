@@ -2,16 +2,10 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "npm": {},
       "streams": {},
       "iron-router": {}
     },
     "packages": {
-      "npm": {
-        "git": "https://github.com/arunoda/meteor-npm.git",
-        "tag": "v0.2.6",
-        "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
-      },
       "streams": {
         "git": "https://github.com/arunoda/meteor-streams.git",
         "tag": "v0.1.17",

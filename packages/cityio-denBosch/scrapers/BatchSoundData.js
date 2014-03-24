@@ -1,10 +1,9 @@
-BatchSoundData = function(db, find, type){
+IO.batch.SoundData = function(db, find, type){
 
 	//settings
 	var batchSize = 50;
-	
+
 	//promise
-	var q = Meteor.require('q');
 	var deferred = q.defer();
 	this.promise = deferred.promise;
 
@@ -36,7 +35,7 @@ BatchSoundData = function(db, find, type){
 		var list = [];
 		var done = 0;
 		for(var i = start ; i < end ; i++){
-			list[i] = { promise: new SoundData(data[i].points, type), id: data[i]._id, debug: data[i] };
+			list[i] = { promise: new IO.scrapers.SoundData(data[i].points, type), id: data[i]._id, debug: data[i] };
 		}
 
 		//add callbacks
@@ -60,10 +59,10 @@ BatchSoundData = function(db, find, type){
 						console.log('get next batch');
 						getBatch(end, end+batchSize);
 					}
-					else { 
+					else {
 						//no more batching
 						console.log('Resolved SoundData batch')
-						deferred.resolve();  
+						deferred.resolve();
 					}
 
 				}

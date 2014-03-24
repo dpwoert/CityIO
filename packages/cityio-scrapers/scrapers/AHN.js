@@ -1,11 +1,10 @@
-AHN = function(){
+IO.scrapers.AHN = function(){
 
 	//load nodejs
 	var fs = Npm.require('fs');
 	var http = Npm.require('http');
 	var url = Npm.require('url');
-	var PNGReader = Meteor.require('png.js');
-	var q = Meteor.require('q');
+	var PNGReader = Npm.require('png.js');
 
 	//settings
 	this.minZoom = 11;
@@ -20,8 +19,8 @@ AHN = function(){
 				  '+towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812 +units=m +no_defs'
 		var RDCpos = proj4(RDC, [ pos[0],pos[1] ]);
 		var ref = {
-			a: 1, 
-			b: 285401.92, 
+			a: 1,
+			b: 285401.92,
 			c: -1,
 			d: 903401.92
 		};
@@ -127,7 +126,7 @@ AHN = function(){
 
 			//get from web so prepare connection
 			url = url.parse(urlProvider);
-		    var options = { 
+		    var options = {
 		    	host: url.hostname, port: 80, path: url.pathname,
 		    	headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
 		    };
@@ -149,7 +148,7 @@ AHN = function(){
 			    	if(imagedata.indexOf('error')>0){
 			    		console.log('FAILED - error at their host | trying again');
 			    		getHeight(pos, zoom - 1, deferred);
-			    	} 
+			    	}
 			    	else {
 
 				    	//save to cache file
@@ -168,7 +167,7 @@ AHN = function(){
 	   	};
 
 	   	//check if in cache
-	   	fs.readFile(cachePath, "binary", function(err, file) {  
+	   	fs.readFile(cachePath, "binary", function(err, file) {
 	    	if(err) {
 	    		getfile();
 	    	} else {
@@ -177,7 +176,7 @@ AHN = function(){
 	    });
 
 	};
-	
+
 	this.get = function(lat, lon){
 
 		//make promise

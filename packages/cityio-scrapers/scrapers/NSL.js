@@ -1,10 +1,9 @@
-NSL = function(db, src){
-	
+IO.scrapers.NSL = function(db, src){
+
 	var data, polution;
 	console.log('Get NSL data');
 
 	//promise
-	var q = Meteor.require('q');
 	var deferred = q.defer();
 	this.promise = deferred.promise;
 
@@ -61,7 +60,7 @@ NSL = function(db, src){
 						pm25: closest.conc_pm25
 		        	}
 	        	}
-	        });   
+	        });
 
 		});
 
