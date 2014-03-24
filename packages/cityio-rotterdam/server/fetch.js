@@ -48,8 +48,17 @@ IO.buildpacks.rotterdam.fetch = function(){
 		saveTo: mongo.Regions
 	});
 
+	//grass
+	var grass = sdk.get({
+		'osm::landuse': 'grass',
+		filter: 'surface',
+		filterOptions: { type: 'grass' },
+		save: true,
+		saveTo: mongo.Regions
+	});
+
 	//execute
-	q.all([BAG, districts, water])
+	q.all([BAG, districts, water, grass])
 
 		.then(function(){
 
