@@ -4,21 +4,6 @@ var video;
 Session.set("hideIntro", false);
 Session.set("buffer", false);
 
-
-//intro
-Template.intro.rendered = function(){
-
-	//Detect WebGL
-	if(!Detector.webgl){
-		Session.set("webgl", false);
-		ga('send', 'event', 'old-browser', 'true');
-	} else {
-		Session.set("webgl", true);
-		//ga('send', 'event', 'old-browser', 'false');
-	}
-
-};
-
 Template.preloader.helpers({
 
 	'webgl': function(){
@@ -54,18 +39,17 @@ Template.intro.events({
 		//load data when video is loaded
 		if(Session.get('webgl')){
 			Session.set("buffer", true);
-			loadUrl();
 		} 
 
 	},
 
 	'click .loaded .bar': function(){
 		Session.set("hideIntro", true);
-		DDD.preloader.hidden = true;
+		IO.start3d();
 	},
 
 	'click .no-webgl .bar': function(){
-		document.location = 'https://vimeo.com/87603478';
+		//document.location = 'https://vimeo.com/87603478';
 	}
 
 })

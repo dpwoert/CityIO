@@ -1,6 +1,6 @@
 {
   "packages": {
-    "npm": {},
-    "streams": {}
+    "streams": {},
+    "iron-router": {}
   }
 }

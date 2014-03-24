@@ -153,6 +153,7 @@ DDD.animate = function(){
 
 }
 
+/*
 //resize
 window.onresize = _.debounce(function(){
 
@@ -167,3 +168,4 @@ window.onresize = _.debounce(function(){
     //update fx
     DDD.FX.resize();
 })
+*/

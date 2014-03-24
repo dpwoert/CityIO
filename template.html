@@ -1,0 +1,158 @@
+<head>
+ 	<title>City I/O [beta v2]</title>
+</head>
+
+<body>
+
+	<div class="visualization">
+		<!-- WEBGL here -->
+	</div>
+
+	<div id="cursor"></div>
+
+	{{> navigation}}
+	{{> popups}}
+
+	{{> intro}}
+
+</body>
+
+<template name="navigation">
+
+	<navigation id="sidebar">
+
+		<img class="logo" src="/main/logo.svg" />
+
+		<ul class="cameraPositions">
+			<li rel="0" class="selected">Overview</li>
+			<li rel="1">Z-Willemsvaart</li>
+			<li rel="2">Brugplein</li>
+			<li rel="3">Maaspoort</li>
+			<li rel="4">Wilhelminaplein</li>
+			<li rel="5">Zuidwal</li>
+
+		</ul>
+
+		<ul>
+			<li onclick="showPopup('legenda',true)">legend</li>
+			<li class="light">
+				<span class="day {{#if timeline}}selected{{/if}}">day</span>/<span class="night {{#unless timeline}}selected{{/unless}}">night</span></li>
+		</ul>
+
+		<ul>
+			<li class="flymode">flymode</li>
+		</ul>
+
+		<div class="sources" onclick="showPopup('sources', true)">
+			source/disclaimer
+		</div>
+
+	</navigation>
+
+</template>
+
+<template name="intro">
+	{{#unless hidden}}
+	<div id="intro-container">
+
+		<div id="videoContainer">
+
+			<video autoplay loop poster="/intro/bg.jpg">
+				<source src="/video/intro.mp4" type="video/mp4" />
+		  		<source src="/video/intro.webm" type="video/webm" />
+			</video>
+
+		</div>
+
+		<div id="intro">
+			<img src="/intro/logo.svg" class="logo" alt="City I/O - Den Bosch" />
+			<span>
+				City I/O gives you a unique 3D view of the city ‘s-Hertogenbosch, the Netherlands.
+				<br><br>
+				<strong>Input</strong>: cadastral map, height map, postal codes, noise pollution data, particulate matter data and OpenStreetMap data.<br>
+				<strong>Output</strong>: a unique 3D data visualization of the city ‘s-Hertogenbosch showing possible nuisances of different kind of emissions.
+			</span>
+		</div>
+
+		{{> preloader}}
+
+	</div>
+
+	<a class="read-more-github" href="https://github.com/dpwoert/CityIO">read more <img src="/intro/github.svg"></a>
+
+	<span class="preload-font">City I/O loading</span>
+
+	{{/unless}}
+
+</template>
+
+<template name="preloader">
+
+	<div id="preloader" class="{{#unless webgl}}no-webgl{{/unless}}">
+
+		<div class="preloader-container {{status}} {{#if button}}button{{/if}}">
+			<div class="bar">
+				<span class="map">map</span>
+				<span class="demo">demo</span>
+			</div>
+		</div>
+
+		<div class="preloader-copy copy-loading {{status}}">Loading...</div>
+		<div class="preloader-copy copy-no-webgl">Oops, it looks you are using an old browser. We recommend to use the newest version of Chrome to see the fully functioning map</div>
+
+	</div>
+
+</template>
+
+
+<template name="popups">
+
+	<div id="popups">
+
+		<div class="overlay"></div>
+
+		<div class="popup controls">
+			<div class="continue">Continue</div>
+		</div>
+
+		<div class="popup legenda"></div>
+
+		<div class="popup sources">
+
+		<strong>© 2014 City I/O</strong><br>
+		Davey van der Woert<br>
+		Jesse van Rheenen<br>
+		Yannick Diezenberg<br><br>
+
+		<h2>Sound</h2>
+		<a href="http://geoproxy.s-hertogenbosch.nl/apps2/geoportal_geluid.html" target="_blank">s-Hertogenbosch.nl</a>
+
+		<h2>Particulate matter</h2>
+		<a href="http://www.nsl-monitoring.nl/viewer/" target="_blank">NSL-Monitoring.nl</a>
+
+		<h2>Buildings</h2>
+		Surface: <a href="http://www.kadaster.nl/bag" target="_blank">Kadaster.nl</a>
+		Height: <a href="http://ahn.geodan.nl/ahn/" target="_blank">Geodan.nl</a>
+
+		<h2>Nature</h2>
+		<a href="http://wiki.openstreetmap.org/wiki/Main_Page" target="_blank">OpenStreetMap.org</a>
+
+		<h2>Roads</h2>
+		<a href="http://wiki.openstreetmap.org/wiki/Main_Page" target="_blank">OpenStreetMap.org</a>
+
+		<h2>Postal Codes</h2>
+		<a href="http://www.nlextract.nl" target="_blank">NLExtract.nl</a>
+
+		<h2>CitySDK</h2>
+		<a href="http://citysdk.waag.org/" target="_blank">CitySDK</a>
+		<br>
+		<br>
+
+		<h1>DISCLAIMER</h1>
+		The information contained in this website is for general information purposes only. City I/O does not own any of the data. The data is collected from multiple sources. While we endeavour to keep the visualization correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability. Any reliance you place on such information is therefore strictly at your own risk.
+
+		</div>
+
+	</div>
+
+</template>
