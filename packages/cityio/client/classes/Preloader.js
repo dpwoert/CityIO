@@ -10,7 +10,7 @@ IO.Preloader = function(){
 	this.started = false;
 
 	var width = 325;
-	
+
 	//make promise
 	var deferred = Q.defer();
 	this.promise = deferred.promise;
@@ -37,7 +37,7 @@ IO.Preloader = function(){
 	};
 
 	this.loading = function(){
-		
+
 		//step
 		this.i += this.stepSize;
 		var c = this.currentClass;
@@ -57,7 +57,7 @@ IO.Preloader = function(){
 			//save for next itteration
 			this.currentClass++;
 			this.i = 0;
-			
+
 			end = this.classes[c].data.length;
 
 			console.log('next set loading');

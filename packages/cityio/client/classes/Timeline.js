@@ -7,7 +7,7 @@ IO.Timeline = function(){
 	this.items = [];
 	this.lights = [];
 	this.fog = null;
-	
+
 	//add to html
 	this.init = function(){
 
@@ -17,8 +17,6 @@ IO.Timeline = function(){
 			.range([0,1])
 			.exponent(1.1)
 			.clamp(true);
-
-		console.log('init timeline done');
 
 	}.call(this);
 
@@ -82,7 +80,7 @@ IO.Timeline = function(){
 		if(this.now == 0 || this.now == 1){
 			this.needsUpdate = false;
 			console.log('timeline animation done');
-		} 
+		}
 
 	};
 
