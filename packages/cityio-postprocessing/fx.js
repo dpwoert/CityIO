@@ -1,9 +1,9 @@
 //see: http://blogs.truthlabs.com/2013/10/02/creating-the-low-poly-look-in-webgl/
 
-IO.FX = function(renderer, scene, camera){
+IO.FXs = function(renderer, scene, camera){
 
 	var dpr = window.devicePixelRatio || 1;
-	
+
 	this.setBlur = function(blur, point){
 
 		var bluriness = blur;

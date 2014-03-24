@@ -89,7 +89,7 @@ IO.init = function(pos, zoom){
 	IO.zoom = zoom || 22;
 	if(!pos) console.warn('no position given');
 	IO.center = pos;
-	
+
 	//camera
     IO.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
     IO.camera.position.z = 500;
@@ -118,11 +118,11 @@ IO.init = function(pos, zoom){
     console.log('cameras added');
 
     //FX
-    IO.FX = new IO.FX();
+    IO.FX = new IO.FXs();
 
     //action
     IO.clock = new THREE.Clock();
-    
+
     IO.render();
 
     IO.enabled = true;
