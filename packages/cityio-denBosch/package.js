@@ -10,7 +10,7 @@ Package.on_use(function (api) {
 
 	// use dependencies
 	api.use(['cityio','cityio-loader'], 'client');
-	api.use(['cityio','Q'], 'server');
+	api.use(['cityio','Q','proj4'], 'server');
 
 	// load front-end
 	api.add_files('client/buildpack.js', 'client');
