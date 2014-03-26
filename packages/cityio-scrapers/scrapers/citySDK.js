@@ -5,6 +5,8 @@ IO.scrapers.CitySDK = function(city){
 	switch(city){
 		case 'denBosch': region = 'admr.nl.shertogenbosch';
 		case 'amsterdam': region = 'admr.nl.amsterdam';
+		case 'rotterdam': region = 'admr.nl.rotterdam';
+		default: region = 'admr.nl.'+city;
 	}
 
 	//settings
