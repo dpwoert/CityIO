@@ -124,12 +124,20 @@ IO.classes.CameraPosition = function(){
 
 	};
 
+	this.lerp3d = function(from, to, completed){
+		return new THREE.Vector3(
+			Math.easeInOutCubic(completed, from.x, to.x-from.x, 1),
+			Math.easeInOutCubic(completed, from.y, to.y-from.y, 1),
+			Math.easeInOutCubic(completed, from.z, to.z-from.z, 1)
+		);
+	}
+
 	this.render = function(delta){
 
-		this.completed += (delta * 0.01);
+		this.completed += 0.01;
 
-		var eye = this.animation.fromEye.lerp(this.animation.toEye, this.completed);
-		var target = this.animation.fromTarget.lerp(this.animation.toTarget, this.completed);
+		var eye = this.lerp3d(this.animation.fromEye, this.animation.toEye, this.completed);
+		var target = this.lerp3d(this.animation.fromTarget, this.animation.toTarget, this.completed);
 
 		IO.camera.position = eye;
 		IO.camera.lookAt(target);
@@ -137,7 +145,7 @@ IO.classes.CameraPosition = function(){
 		this.updateControls();
 
 		//check if completed
-		if(this.completed >= 0.1){
+		if(this.completed >= 1){
 			this.needsUpdate = false;
 			//controls.freeze = false;
 		}

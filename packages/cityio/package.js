@@ -16,6 +16,7 @@ Package.on_use(function (api) {
 		'client/global.js',
 
 		'client/methods/measureDistance.js',
+		'client/methods/easing.js',
 
 		'client/classes/Points.js',
 		'client/classes/Preloader.js',
