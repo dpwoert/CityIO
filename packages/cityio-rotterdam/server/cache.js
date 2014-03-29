@@ -19,7 +19,10 @@ IO.buildpacks.rotterdam.cache = function(){
 
 	//add grass
 	data.grass = mongo.Regions.find({ city: 'rotterdam', type: 'grass' }).fetch();
-	data.grass = IO.cacheStrip(data.region, ['id','name','type']);;
+	data.grass = IO.cacheStrip(data.grass, ['id','name','type']);;
+
+	var test = mongo.Regions.find({ _id: 'GFwM5jTRoriBndrop' }).fetch()
+	console.log(test[0].geom.coordinates);
 
 	return data;
 

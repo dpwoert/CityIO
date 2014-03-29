@@ -66,6 +66,8 @@ IO.buildpacks.rotterdam.action = function(){
 		buildings.source(data.buildings);
 		buildings.addTo(IO.group);
 
+		console.log(data);
+
 		var surfaces = new IO.elements.Surfaces(IO.scene);
 		surfaces.source('water', data.water);
 		surfaces.source('floor', data.region);

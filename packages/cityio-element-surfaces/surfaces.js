@@ -1,9 +1,9 @@
 IO.elements.Surfaces = function(scene){
-	
+
 	this.types = {
 		'floor': { 'colorDay': new THREE.Color(0xDDDDDD), 'colorNight': new THREE.Color(0x333333) },
 		'water': { 'colorDay': new THREE.Color(0x81c6f6), 'colorNight': new THREE.Color(0x11485f) },
-		'nature': { 'colorDay': new THREE.Color(0xF5F5F5), 'colorNight': new THREE.Color(0xF5F5F5) },
+		'nature': { 'colorDay': new THREE.Color(0x80c146), 'colorNight': new THREE.Color(0x80c146) },
 	};
 
 	this.data = [];
@@ -55,15 +55,10 @@ IO.elements.Surfaces = function(scene){
 
 	}.call(this);
 
-	this.add = function(data){
+	var addPolygon = function(list, data){
 
 		//generate points in 2d space
 		var points = [];
-
-		//get polygones
-		var list;
-		if(data.geom.type == "MultiPolygon"){ list = data.geom.coordinates[0][0]; }
-		else { list = data.geom.coordinates[0]; }
 
 		//translate to 2d
 		for(var i = 0 ; i < list.length ; i++){
@@ -86,7 +81,36 @@ IO.elements.Surfaces = function(scene){
 		//extrude & make mesh
 		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
 		THREE.GeometryUtils.merge(this.types[data.type].geometry,geometry);
-		geometry.dispose();			
+		geometry.dispose();
+
+	}
+
+	this.add = function(data){
+
+		if(data.geom.type == "LineString"){
+			return false;
+		}
+
+		//get polygones
+		var list;
+		if(data.geom.type == "MultiPolygon"){
+			list = data.geom.coordinates[0];
+			for(var x = 0 ; x < list.length ; x++){
+				addPolygon.call(this, list[x], data);
+			}
+		}
+		else if (data.geom.coordinates.length > 1){
+			list = data.geom.coordinates;
+			//multi
+			for(var x = 0 ; x < list.length ; x++){
+				addPolygon.call(this, list[x], data);
+			}
+		}
+		else {
+			//single
+			list = data.geom.coordinates[0];
+			addPolygon.call(this, list, data);
+		}
 
 	};
 

@@ -158,7 +158,7 @@ IO.scrapers.CitySDK = function(city){
 			return d;
 		});
 
-		//multi to normal polygon
+		//surface area's
 		this.addFilter('surface', function(d, options){
 			return {
 				'id': d.cdk_id,
