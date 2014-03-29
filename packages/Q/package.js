@@ -5,7 +5,7 @@ Package.describe({
 
 //require npm via server
 Npm.depends({
-    'q': '1.0.1'
+    'q': '1.0.0'
 });
 
 // Tell Meteor what to do with our package at bundle time
