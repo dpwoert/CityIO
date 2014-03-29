@@ -10,7 +10,7 @@ Npm.depends({
 Package.on_use(function (api) {
 
 	// use dependencies
-	api.use(['cityio','Q','proj4'], 'server');
+	api.use(['cityio','Q','proj4','underscore'], 'server');
 
 	//load server
 	api.add_files([

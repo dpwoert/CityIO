@@ -4,10 +4,14 @@ IO.batch.AHN = function(db, find){
 
 	//settings
 	var batchSize = 50;
-	find = find || {};
+
+	//which city?
+	if( _.isString(find) ){
+		find = {city: find};
+	}
 
 	//AHN
-	this.AHN = new IO.scrapers.AHN();
+	var AHN = new IO.scrapers.AHN();
 
 	//get data
 	var Fiber = Npm.require('fibers');
@@ -44,7 +48,7 @@ IO.batch.AHN = function(db, find){
 		_.each(list, function(val){
 
 			//update when ready
-			val.promise.then(function(d){
+			val.promise.then(Meteor.bindEnvironment(function(d){
 
 				db.update(val.id, { $set: d });
 				done++;
@@ -64,7 +68,7 @@ IO.batch.AHN = function(db, find){
 
 				}
 
-			});
+			}));
 
 		});
 
@@ -72,7 +76,7 @@ IO.batch.AHN = function(db, find){
 	};
 
 	//start
-	var deferred = q.defer();
+	var deferred = Q.defer();
 	this.promise = deferred.promise;
 	return this.promise;
 

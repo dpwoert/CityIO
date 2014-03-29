@@ -18,8 +18,8 @@ IO.buildpacks.rotterdam.cache = function(){
 	data.region = IO.cacheStrip(data.region, ['id','name','type']);;
 
 	//add grass
-	// data.grass = mongo.Regions.find({ city: 'rotterdam', type: 'grass' }).fetch();
-	// data.grass = IO.cacheStrip(data.region, ['id','name','type']);;
+	data.grass = mongo.Regions.find({ city: 'rotterdam', type: 'grass' }).fetch();
+	data.grass = IO.cacheStrip(data.region, ['id','name','type']);;
 
 	return data;
 

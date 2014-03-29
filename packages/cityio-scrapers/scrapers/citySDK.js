@@ -53,7 +53,7 @@ IO.scrapers.CitySDK = function(city){
 
 		});
 
-		var deferred = q.defer();
+		var deferred = Q.defer();
 		getPages(obj, deferred);
 		return deferred.promise;
 
@@ -180,7 +180,7 @@ IO.scrapers.CitySDK = function(city){
 		});
 
 		//streets
-		this.addFilter('soundStreets', function(d){
+		this.addFilter('streets', function(d){
 			var split = geo.splitRoad(d.geom.coordinates);
 			if(split.length < 2) return false;
 			return {
@@ -191,6 +191,7 @@ IO.scrapers.CitySDK = function(city){
 				'points': split,
 				'soundDay': [],
 				'soundNight': [],
+				'bridge': d.layers.osm.data.bridge || false,
 				'type': 'street'
 			};
 		});

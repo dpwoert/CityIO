@@ -1,5 +1,3 @@
-// var q = Meteor.require('q');
-
 IO.buildpacks.rotterdam.fetch = function(){
 
 	console.log('start fetching Rotterdam');
@@ -17,7 +15,7 @@ IO.buildpacks.rotterdam.fetch = function(){
 	console.log('Resetted mongo');
 
 	//first get all the 2d map data through CitySDK
-	var sdk = new IO.scrapers.SDK('rotterdam');
+	var sdk = new IO.scrapers.CitySDK('rotterdam');
 	sdk.setPosition(lat, lon, radius);
 
 	//BAG / Cadadastral data
@@ -36,6 +34,15 @@ IO.buildpacks.rotterdam.fetch = function(){
 		filterOptions: { type: 'admr' },
 		save: true,
 		saveTo: mongo.Regions
+	});
+
+	// Streets
+	var streets = sdk.get({
+		'osm::highway': 'motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|residential|construction|unclassified',
+		'data_op': 'or',
+		filter: 'streets',
+		save: true,
+		saveTo: mongo.Streets
 	});
 
 	//Water
@@ -58,12 +65,13 @@ IO.buildpacks.rotterdam.fetch = function(){
 	});
 
 	//execute
-	q.all([BAG, districts, water, grass])
+	Q.all([BAG, districts, streets, water, grass])
 
 		.then(function(){
 
 			//Get AHN height data
-			return IO.batch.AHN(mongo.Buildings);
+			//todo mongo reference wrong..
+			return IO.batch.AHN(mongo.Buildings, 'rotterdam');
 
 		}).then(function(){
 

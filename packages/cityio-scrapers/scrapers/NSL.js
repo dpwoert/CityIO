@@ -4,7 +4,7 @@ IO.scrapers.NSL = function(db, src){
 	console.log('Get NSL data');
 
 	//promise
-	var deferred = q.defer();
+	var deferred = Q.defer();
 	this.promise = deferred.promise;
 
 	var convertToRDC = function(list){

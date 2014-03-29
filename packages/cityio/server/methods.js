@@ -1,29 +1,13 @@
 Meteor.methods({
 
-	buildCityV2: function(city){
+	buildCity: function(city){
 
-		//disable temp
-		return false;
-
-		switch(city){
-
-			//den bosch
-			case 'denBosch':
-			case 'sHertogenBosch':
-			case 's-HertogenBosch':
-				buildpack.denBosch();
-			break;
-
-			//amsterdam
-			case 'amsterdam':
-				buildpack.amsterdam();
-			break;
-
-			//rotterdam
-			case 'rotterdam':
-				buildpack.rotterdam();
-			break;
-
+		if(IO.buildpacks[city]){
+			//found buildpack
+			IO.buildpacks[city].fetch();
+		} else {
+			//didn't found it
+			console.error('Buildpack "'+city+'" isnt found...');
 		}
 
 	},

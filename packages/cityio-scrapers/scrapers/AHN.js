@@ -102,6 +102,8 @@ IO.scrapers.AHN = function(){
 	        var floor = getFloor(png);
 	        console.log('FLOOR: ' + floor + ' m');
 
+			console.log('resolved');
+
 	        //save
 	        deferred.resolve({
 	        	'calculated': height,
@@ -121,8 +123,8 @@ IO.scrapers.AHN = function(){
 		var cachePath = tile.z + '-' + tile.x + '-' + tile.y + '.png';
 		console.log(urlProvider);
 
-		//get file from web
-	   	var getfile = function(){
+			//get file from web
+			var getfile = function(){
 
 			//get from web so prepare connection
 			url = url.parse(urlProvider);
@@ -180,7 +182,7 @@ IO.scrapers.AHN = function(){
 	this.get = function(lat, lon){
 
 		//make promise
-		var deferred = q.defer();
+		var deferred = Q.defer();
 		getHeight([lat, lon],this.maxZoom, deferred);
 		return deferred.promise;
 

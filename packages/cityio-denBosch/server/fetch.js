@@ -19,6 +19,22 @@ IO.buildpacks.denBosch.fetch = function(){
 	var sdk = new IO.scrapers.CitySDK('denBosch');
 	sdk.setPosition(lat, lon, radius);
 
+	//add custom filter to CitySDK
+	sdk.addFilter('soundStreets', function(d){
+		var split = geo.splitRoad(d.geom.coordinates);
+		if(split.length < 2) return false;
+		return {
+			'id': d.cdk_id,
+			'name': d.name,
+			'maxspeed': d.layers.osm.data.maxspeed,
+			'highway': d.layers.osm.data.highway,
+			'points': split,
+			'soundDay': [],
+			'soundNight': [],
+			'type': 'street'
+		};
+	});
+
 	//BAG / Cadadastral data
 	var BAG = sdk.get({
 		layer: 'bag.panden',
@@ -78,7 +94,7 @@ IO.buildpacks.denBosch.fetch = function(){
 		.then(function(){
 
 			//Get AHN height data
-			return IO.batch.AHN(mongo.Buildings);
+			return IO.batch.AHN(mongo.Buildings, 'denBosch');
 
 		}).then(function(){
 

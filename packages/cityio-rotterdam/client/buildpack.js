@@ -69,7 +69,7 @@ IO.buildpacks.rotterdam.action = function(){
 		var surfaces = new IO.elements.Surfaces(IO.scene);
 		surfaces.source('water', data.water);
 		surfaces.source('floor', data.region);
-		// surfaces.source('grass', data.grass);
+		surfaces.source('nature', data.grass);
 		surfaces.addTo(IO.group);
 
 		//preloader
