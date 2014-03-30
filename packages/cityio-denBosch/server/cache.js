@@ -23,7 +23,7 @@ IO.buildpacks.denBosch.cache = function(){
 	//add water
 	data.water = mongo.Regions.find({ city: 'denBosch', type: 'water' }).fetch();
 	data.water = IO.cacheStrip(data.water, ['_id', 'id','name','type','city']);
-	data.water = IO.roundGPS(data.water);
+	//data.water = IO.roundGPS(data.water);
 
 	//add region
 	data.region = mongo.Regions.find({ city: 'denBosch', type: 'admr' }).fetch();
