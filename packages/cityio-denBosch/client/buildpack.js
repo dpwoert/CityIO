@@ -57,7 +57,6 @@ IO.buildpacks.denBosch.action = function(){
 	    IO.cameraControl.switchTo(0);
 
 		// load data
-		var TEST = IO.loadData('denBosch');
 		return IO.loadData('denBosch');
 
 	}).then(function(data){
@@ -75,7 +74,30 @@ IO.buildpacks.denBosch.action = function(){
 		buildings.source(data.buildings);
 		buildings.addTo(IO.group);
 
-		var streets = new IO.elements.Streets(IO.scene);
+		//determine height of streets
+		var streetHeights = function(i, type, data){
+
+			if(!data.sorted){
+				data.sorted = {};
+			}
+
+			if(!data.sorted[type.name]){
+				data.sorted[type.name] = data[type.name].sort(function(a,b){return a.key-b.key});
+			}
+
+			var height = 1;
+			var sound = data.sorted[type.name];
+
+			if(type.day == 1){
+				height = sound[i] ? this.scaleDay(sound[i].db) : 1;
+			} else {
+				height = sound[i] ? this.scaleNight(sound[i].db) : 1;
+			}
+
+			return height;
+		};
+
+		var streets = new IO.elements.Streets(IO.scene, { height: streetHeights});
 		streets.source(data.streets);
 		streets.addTo(IO.group);
 

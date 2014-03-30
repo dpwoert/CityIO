@@ -13,6 +13,10 @@ IO.buildpacks.rotterdam.action = function(){
 		//load shaders
 		var shaders = new IO.ShaderLoader();
 
+		//tubes
+		shaders.add('soundTubeVertex', '/shaders/soundTubeVertex.glsl');
+		shaders.add('soundTubeFragment', '/shaders/soundTubeFragment.glsl');
+
 		//surfaces
 		shaders.add('surfaceVertex', '/shaders/surfaceVertex.glsl');
 		shaders.add('surfaceFragment', '/shaders/surfaceFragment.glsl');
@@ -29,7 +33,8 @@ IO.buildpacks.rotterdam.action = function(){
 		return Meteor.loadScripts([
 
 			'/elements/buildings.js',
-			'/elements/surfaces.js'
+			'/elements/surfaces.js',
+			'/elements/soundStreets.js'
 
 		]);
 
@@ -66,7 +71,30 @@ IO.buildpacks.rotterdam.action = function(){
 		buildings.source(data.buildings);
 		buildings.addTo(IO.group);
 
-		console.log(data);
+		//determine height of bridges
+		var bridgeScale = d3.scale.linear().domain([0, 360]).range([0,40]);
+		var streetHeights = function(i, type, data){
+			var height = 5;
+
+			if(data.bridge && i > 0 && i != data.points.length-1){
+
+				if(!data.bridgeHeight){
+					data.bridgeHeight = bridgeScale(IO.measureDistance(
+						data.points[0][0],
+						data.points[0][1],
+						data.points[data.points.length-1][0],
+						data.points[data.points.length-1][1]
+					));
+
+				height = data.bridgeHeight;
+			}
+
+			return height;
+		};
+
+		var streets = new IO.elements.Streets(IO.scene, { height: streetHeights});
+		streets.source(data.streets);
+		streets.addTo(IO.group);
 
 		var surfaces = new IO.elements.Surfaces(IO.scene);
 		surfaces.source('water', data.water);
@@ -75,7 +103,7 @@ IO.buildpacks.rotterdam.action = function(){
 		surfaces.addTo(IO.group);
 
 		//preloader
-		IO.preloader.load([buildings, surfaces]);
+		IO.preloader.load([buildings, surfaces, streets]);
 		IO.preloader.start();
 
 		//timeline

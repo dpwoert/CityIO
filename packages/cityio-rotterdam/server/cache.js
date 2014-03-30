@@ -9,6 +9,10 @@ IO.buildpacks.rotterdam.cache = function(){
 	data.buildings = data.buildings.slice(0,35000);
 	data.buildings = IO.cacheStrip(data.buildings, ['id','bouwjaar','tileUrl','tilePoint']);
 
+	//add streets
+	data.streets = mongo.Streets.find({ city: 'rotterdam' }).fetch();
+	data.streets = IO.cacheStrip(data.streets, ['_id', 'id','name','maxspeed','highway','city']);
+
 	//add water
 	data.water = mongo.Regions.find({ city: 'rotterdam', type: 'water' }).fetch();
 	data.water = IO.cacheStrip(data.water, ['id','name','type']);
@@ -20,9 +24,6 @@ IO.buildpacks.rotterdam.cache = function(){
 	//add grass
 	data.grass = mongo.Regions.find({ city: 'rotterdam', type: 'grass' }).fetch();
 	data.grass = IO.cacheStrip(data.grass, ['id','name','type']);;
-
-	var test = mongo.Regions.find({ _id: 'GFwM5jTRoriBndrop' }).fetch()
-	console.log(test[0].geom.coordinates);
 
 	return data;
 

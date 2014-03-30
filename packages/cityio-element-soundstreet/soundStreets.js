@@ -1,11 +1,11 @@
-IO.elements.Streets = function(scene){
+IO.elements.Streets = function(scene, settings){
 
 	this.scale = d3.scale.linear().domain([0,1]).range([0,1]);
 
 	//car
 	var car = {
 		"colorStart" : { type: "v4", value: new THREE.Vector4( (252/255), (238/255), (195/255), 1 ) },
-		"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) }, 
+		"colorStop" : { type: "v4", value: new THREE.Vector4( 1 , (192/255) , (1/255), 1 ) },
 		"colorEnd" : { type: "v4", value: new THREE.Vector4( (219/255), (65/255), (44/255), 1 ) },
 		"stopPos" : { type: "f", value: 0.4 }
 	};
@@ -40,7 +40,7 @@ IO.elements.Streets = function(scene){
 	var exponentNight = 21;
 
 	var pointer = 0;
-	
+
 	this.init = function(){
 
 		//create materials
@@ -114,30 +114,20 @@ IO.elements.Streets = function(scene){
 		for( var i = 0 ; i < currentTypes.length ; i ++){
 			type = currentTypes[i];
 
-			//sort sound data
-			var sound = data[type.name].sort(function(a,b){return a.key-b.key});
-
 			var path = [];
 
 			//make 3d path
 			for(var j = 0 ; j < list.length ; j++){
 
 				var point = list[j];
-
-				//get height
-				var height = 1;
-				if(type.day == 1){
-					height = sound[j] ? this.scaleDay(sound[j].db) : 1;
-				} else {
-					height = sound[j] ? this.scaleNight(sound[j].db) : 1;
-				}
+				var height = settings.height.call(this, j, type, data);
 
 				//points
 				var V2 = IO.points.translate2D([ point[1], point[0] ]);
 				var V3 = new THREE.Vector3( V2.x , V2.y , height );
 
 				path.push(V3);
-				
+
 			}
 
 			//make tube
@@ -184,7 +174,7 @@ IO.elements.Streets = function(scene){
 	this.finished = function(){
 
 		for( var i = 0 ; i < this.types.length ; i++ ){
-			
+
            	this.parent.add(this.types[i].mesh);
 
 		}

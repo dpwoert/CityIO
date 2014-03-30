@@ -70,7 +70,6 @@ IO.buildpacks.rotterdam.fetch = function(){
 		.then(function(){
 
 			//Get AHN height data
-			//todo mongo reference wrong..
 			return IO.batch.AHN(mongo.Buildings, 'rotterdam');
 
 		}).then(function(){
