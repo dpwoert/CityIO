@@ -85,6 +85,7 @@ IO.buildpacks.rotterdam.action = function(){
 						data.points[data.points.length-1][0],
 						data.points[data.points.length-1][1]
 					));
+				}
 
 				height = data.bridgeHeight;
 			}
@@ -92,7 +93,7 @@ IO.buildpacks.rotterdam.action = function(){
 			return height;
 		};
 
-		var streets = new IO.elements.Streets(IO.scene, { height: streetHeights});
+		var streets = new IO.elements.Streets(IO.scene, { height: streetHeights });
 		streets.source(data.streets);
 		streets.addTo(IO.group);
 
