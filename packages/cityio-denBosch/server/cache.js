@@ -13,17 +13,17 @@ IO.buildpacks.denBosch.cache = function(){
 		item.fijnstof = item.fijnstof.no2;
 		item.floor = parseFloat(item.floor).toFixed(1);
 		item.calculated = parseFloat(item.calculated).toFixed(1);
-		//item.geom.coordinates[0] = roundGPS(item.geom.coordinates[0]);
 	});
 
 	//add streets
 	data.streets = mongo.Streets.find({ city: 'denBosch' }).fetch();
 	data.streets = IO.cacheStrip(data.streets, ['_id', 'id','name','maxspeed','highway','city']);
+	data.streets = IO.roundGPS(data.streets);
 
 	//add water
 	data.water = mongo.Regions.find({ city: 'denBosch', type: 'water' }).fetch();
 	data.water = IO.cacheStrip(data.water, ['_id', 'id','name','type','city']);
-	//data.water = IO.roundGPS(data.water);
+	data.water = IO.roundGPS(data.water);
 
 	//add region
 	data.region = mongo.Regions.find({ city: 'denBosch', type: 'admr' }).fetch();

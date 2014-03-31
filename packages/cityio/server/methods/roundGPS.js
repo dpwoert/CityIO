@@ -5,40 +5,31 @@ IO.roundGPS = function(input, digits){
 	if(!digits) digits = 6;
 
 	//parse gps
-	var parseGPS = function(list){
+	var parseGPS = function(item){
 
-		//loop throught array with GPS
-		_.each(list, function(item, key){
-
-			item[0] = parseFloat(item[0]).toFixed(digits);
-			item[1] = parseFloat(item[1]).toFixed(digits);
-
-		});
-
-		//return list;
+		item[0] = parseFloat(item[0]).toFixed(digits);
+		item[1] = parseFloat(item[1]).toFixed(digits);
 
 	};
 
-	if(input[0].geom){
+	//recursive search for gps inputs
+	var check = function(input){
 
-		//city SDK gps list
-		_.each(input, function(item){
-			parseGPS(item.geom.coordinates[0]);
-		});
+		if( _.isArray(input) && _.isNumber(input[0]) && _.isNumber(input[1]) ){
+				parseGPS(input);
+		}
+		else if( _.isArray(input) || _.isObject(input) ) {
+			_.each(input, function(list){
+				check(list);
+			});
+		}
 
-	} else if(input[0].points){
+	};
 
-		//street list
-		_.each(input, function(item){
-				parseGPS(item.points);
-		});
+	//run
+	check(input);
 
-	} else {
-		//normal list
-		parseGPS(input);
-	}
-	
-
+	//return
 	return input;
 
 };
