@@ -3,6 +3,8 @@ if(!IO || !IO.buildpacks){
 	return false;
 }
 
+var loaded = false;
+
 Router.map(function () {
 
     this.route('loadCity', {
@@ -16,13 +18,18 @@ Router.map(function () {
             //search
             _.each(IO.buildpacks, function(val){
 
-            	if(val.slug == city){
+            	if( val.slug == city && !loaded ){
 
             		//found and load
+					IO.loaded = true;
             		val.action();
             		found = true;
 
             	}
+
+				if(loaded){
+					console.warn('already loaded something');
+				}
 
 			});
 
@@ -33,12 +40,12 @@ Router.map(function () {
 
     });
 
-    this.route('home', {
+	this.route('home', {
     	path: '/',
-    	action: function(){
+    	onBeforeAction: function(){
     		//do this until layout fix
     		Router.go('/city/den-bosch');
     	}
-  	});
+	});
 
 });
