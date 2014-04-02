@@ -45,7 +45,7 @@ IO.classes.Timeline = function(){
 
 	this.classChange = function(){
 		//todo remove jq shizzle and do this with event emitters/meteor session
-		if(this.target > 0.5){
+		if(this.target < 0.5){
 			$('body').removeClass('night');
 		} else {
 			$('body').addClass('night');
