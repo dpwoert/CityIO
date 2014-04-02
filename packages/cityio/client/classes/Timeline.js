@@ -2,7 +2,7 @@ IO.classes.Timeline = function(){
 
 	//day = 0 | night = 1
 	this.now = 0;
-	this.day = true;
+	this.target = 0;
 
 	this.items = [];
 	this.lights = [];
@@ -23,19 +23,29 @@ IO.classes.Timeline = function(){
 	//switch between day/night
 	this.switch = function(){
 		this.needsUpdate = true;
-		this.day = this.day ? false : true;
+		this.target = (this.now > 0.5) ? 0 : 1;
 		this.classChange();
 	};
 
 	this.switchTo = function(day){
 		this.needsUpdate = true;
 		this.day = day;
+		this.target = day ? 0 : 1;
 		this.classChange();
 	}
 
+	//fine control
+	this.setTime = function(hour, minutes){
+
+		var time = hour + (( minutes * (100/60) ) / 100 );
+		this.target = time/100;
+		this.needsUpdate = true;
+
+	};
+
 	this.classChange = function(){
 		//todo remove jq shizzle and do this with event emitters/meteor session
-		if(this.day){
+		if(this.target > 0.5){
 			$('body').removeClass('night');
 		} else {
 			$('body').addClass('night');
@@ -46,7 +56,7 @@ IO.classes.Timeline = function(){
 
 		var d = (delta * 0.25);
 
-		if(this.day){
+		if(this.now > this.target){
 			this.now -= d;
 		} else {
 			this.now += d;
@@ -67,11 +77,13 @@ IO.classes.Timeline = function(){
 			light.light.intensity = light.scale(this.now);
 		}
 
+		//animate fog
 		var fogColor = this.fog.scale(this.now);
 		this.fog.fog.color.r = fogColor;
 		this.fog.fog.color.g = fogColor;
 		this.fog.fog.color.b = fogColor;
 
+		//animate BG color
 		if(IO.FX){
 			IO.FX.setBackground(this.fog.fog.color);
 		} else {
