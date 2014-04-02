@@ -8,6 +8,9 @@ IO.classes.Timeline = function(){
 	this.lights = [];
 	this.fog = null;
 
+	this.live = false;
+	var sunScale;
+
 	//add to html
 	this.init = function(){
 
@@ -16,6 +19,17 @@ IO.classes.Timeline = function(){
 			.domain([0,1])
 			.range([0,1])
 			.exponent(1.1)
+			.clamp(true);
+
+		// sun scale (when does the sun come up?)
+		var times = SunCalc.getTimes(new Date(), IO.center[0], IO.center[1]);
+		this.sunScale = d3.time.scale()
+			.domain([
+				times.sunrise,
+				times.sunriseEnd,
+				times.sunsetStart,
+				times.sunset])
+			.range([1,0,0,1])
 			.clamp(true);
 
 	}.call(this);
@@ -37,8 +51,10 @@ IO.classes.Timeline = function(){
 	//fine control
 	this.setTime = function(hour, minutes){
 
-		var time = hour + (( minutes * (100/60) ) / 100 );
-		this.target = time/100;
+		var datum = new Date();
+		if(hour) datum.setHours(hour);
+		if(minutes) datum.setMinutes(minutes);
+		this.target = this.sunScale(datum);
 		this.needsUpdate = true;
 
 	};
@@ -55,6 +71,7 @@ IO.classes.Timeline = function(){
 	this.render = function(delta){
 
 		var d = (delta * 0.25);
+		var _now = this.now;
 
 		if(this.now > this.target){
 			this.now -= d;
@@ -96,6 +113,13 @@ IO.classes.Timeline = function(){
 			console.log('timeline animation done');
 		}
 
+
+		if(
+			(_now < this.target && this.now > this.target) ||
+			(_now > this.target && this.now < this.target)
+		){
+			this.needsUpdate = false;
+		}
 	};
 
 	this.add = function(list){
