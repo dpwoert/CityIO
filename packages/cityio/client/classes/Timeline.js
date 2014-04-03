@@ -8,7 +8,6 @@ IO.classes.Timeline = function(){
 	this.lights = [];
 	this.fog = null;
 
-	this.live = false;
 	var sunScale;
 
 	//add to html
@@ -58,6 +57,22 @@ IO.classes.Timeline = function(){
 		this.needsUpdate = true;
 
 	};
+
+	//live
+	this.live = function(){
+
+		var live = function(){
+
+			this.setTime();
+			live();
+
+		}.bind(this);
+
+		//launch and relaunch
+		window.setTimeout(live, 1000*60);
+		live();
+
+	}
 
 	this.classChange = function(){
 		//todo remove jq shizzle and do this with event emitters/meteor session
