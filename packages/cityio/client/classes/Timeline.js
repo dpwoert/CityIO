@@ -64,12 +64,11 @@ IO.classes.Timeline = function(){
 		var live = function(){
 
 			this.setTime();
-			live();
+			window.setTimeout(live, 1000*60);
 
 		}.bind(this);
 
-		//launch and relaunch
-		window.setTimeout(live, 1000*60);
+		//launch
 		live();
 
 	}

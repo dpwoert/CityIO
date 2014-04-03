@@ -3,7 +3,7 @@ IO.elements.Surfaces = function(scene){
 	this.types = {
 		'floor': { 'colorDay': new THREE.Color(0xDDDDDD), 'colorNight': new THREE.Color(0x333333) },
 		'water': { 'colorDay': new THREE.Color(0x81c6f6), 'colorNight': new THREE.Color(0x11485f) },
-		'nature': { 'colorDay': new THREE.Color(0x80c146), 'colorNight': new THREE.Color(0x80c146) },
+		'nature': { 'colorDay': new THREE.Color(0x80c146), 'colorNight': new THREE.Color(0x254F0B) },
 	};
 
 	this.data = [];
