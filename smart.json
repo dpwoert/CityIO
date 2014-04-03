@@ -1,6 +1,7 @@
 {
   "packages": {
     "streams": {},
-    "iron-router": {}
+    "iron-router": {},
+    "fast-render": {}
   }
 }
