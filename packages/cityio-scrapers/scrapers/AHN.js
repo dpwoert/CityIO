@@ -126,45 +126,51 @@ IO.scrapers.AHN = function(){
 			//get file from web
 			var getfile = function(){
 
-			//get from web so prepare connection
-			url = url.parse(urlProvider);
-		    var options = {
-		    	host: url.hostname, port: 80, path: url.pathname,
-		    	headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
-		    };
+				//get from web so prepare connection
+				url = url.parse(urlProvider);
+			    var options = {
+			    	host: url.hostname, port: 80, path: url.pathname,
+			    	headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
+			    };
 
-		    //get from the interwebz
-		    var request = http.get(options, function(res){
-			    var imagedata = '';
-			    res.setEncoding('binary');
-			    console.log('get url ' + urlProvider);
+			    //get from the interwebz
+			    http.get(options, function(res){
+				    var imagedata = '';
+				    res.setEncoding('binary');
+				    console.log('get url ' + urlProvider);
 
-			    //received more data
-			    res.on('data', function(chunk){
-			        imagedata += chunk;
-			    })
+				    //received more data
+				    res.on('data', function(chunk){
+				        imagedata += chunk;
+				    })
 
-			    //image completed
-			    res.on('end', function(){
+				    //image completed
+				    res.on('end', function(){
 
-			    	if(imagedata.indexOf('error')>0){
-			    		console.log('FAILED - error at their host | trying again');
-			    		getHeight(pos, zoom - 1, deferred);
-			    	}
-			    	else {
+				    	if(imagedata.indexOf('error')>0){
+				    		console.log('FAILED - error at their host | trying again');
+				    		getHeight(pos, zoom - 1, deferred);
+				    	}
+				    	else {
 
-				    	//save to cache file
-				        fs.writeFile(cachePath, imagedata, 'binary', function(err){
-				            if (err) console.log('err');
-				            console.log('load from url');
-					        readHeight(tile.point, imagedata, urlProvider, deferred);
-				        });
+					    	//save to cache file
+					        fs.writeFile(cachePath, imagedata, 'binary', function(err){
+					            if (err) console.log('err');
+					            console.log('load from url');
+						        readHeight(tile.point, imagedata, urlProvider, deferred);
+					        });
 
-			    	}
+				    	}
 
-			    })
+				    })
 
-			});
+				}).on('error', function(e) {
+
+					console.log("Got error: " + e.message);
+					console.log("retry");
+					getHeight(pos, zoom, deferred);
+
+				});
 
 	   	};
 
