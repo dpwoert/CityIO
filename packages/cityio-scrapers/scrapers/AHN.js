@@ -166,7 +166,7 @@ IO.scrapers.AHN = function(){
 
 				}).on('error', function(e) {
 
-					console.log("Got error: " + e.message);
+					console.error("Got error: " + e.message);
 					console.log("retry");
 					getHeight(pos, zoom, deferred);
 
