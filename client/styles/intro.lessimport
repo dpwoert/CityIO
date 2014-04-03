@@ -74,7 +74,7 @@
 
 	font-family: 'brandon bold';
 
-	// .transition(all 1s ease);
+	.transition(all 1s ease);
 
 	.bar{
 		position: relative;
@@ -99,7 +99,7 @@
 		text-transform: uppercase;
 
 		.bar{
-			width: 100%;
+			width: 100% !important;
 			background: none;
 		}
 	}
@@ -112,6 +112,8 @@
 			width: 100%;
 			opacity: 0.2;
 			background-image: url(/intro/barberpole.gif);
+
+			.transition(none);
 		}
 	}
 
@@ -180,18 +182,18 @@ a.read-more-github{
 }
 
 //responsive - iphone 5
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) 
-{ 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
+{
 	video{
 		display: none;
 	}
 }
 
 //iphone <5
-@media only screen 
-and (min-device-width : 320px) 
+@media only screen
+and (min-device-width : 320px)
 and (max-device-width : 480px) {
 
 	video{
