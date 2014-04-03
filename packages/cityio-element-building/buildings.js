@@ -34,7 +34,7 @@ IO.elements.Buildings = function(scene, settings){
 			group.material = new THREE.MeshLambertMaterial({
 		    	color: this.colors[i],
 		    	shading: THREE.FlatShading,
-	    	}); 
+	    	});
 
 
 			group.geometry = new THREE.Geometry();
@@ -53,10 +53,16 @@ IO.elements.Buildings = function(scene, settings){
 		var no2 = settings.input(data, this.scaleMin);
 		var groupKey = Math.round(this.scale(no2));
 
+
 		//generate points in 2d space
 		var points = [];
 		for(var i = 0 ; i < building.length ; i++){
 			points.push( IO.points.translate2D([ building[i][0],building[i][1] ]) );
+		}
+
+		//remove duplicates
+		if(points[0][0] == points[points.length-1][0] && points[0][1] == points[points.length-1][1]){
+			points.pop();
 		}
 
 		var shape = new THREE.Shape(points);
@@ -67,6 +73,7 @@ IO.elements.Buildings = function(scene, settings){
 		else { height = data.calculated }
 		height -= data.floor;
 		height *= IO.points.pixelScale; //TODO
+
 
 		if(isNaN(height)) height = 1;
 
@@ -84,10 +91,10 @@ IO.elements.Buildings = function(scene, settings){
 
 			//extrude & make mesh
 			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-			THREE.GeometryUtils.merge(this.groups[groupKey].geometry,geometry);	
+			this.groups[groupKey].geometry.merge( geometry );
 			geometry.dispose();
 
-		} 
+		}
 		else if (data.url){
 			this.addModel(data.url,this.groups[groupKey].geometry);
 		}
@@ -102,7 +109,7 @@ IO.elements.Buildings = function(scene, settings){
 		var loader = new THREE.JSONLoader();
 		loader.load( 'models/' + url , function( geometry ) {
 
-			THREE.GeometryUtils.merge(merge,geometry);				
+			THREE.GeometryUtils.merge(merge,geometry);
 
 		} );
 
@@ -134,13 +141,13 @@ IO.elements.Buildings = function(scene, settings){
 	};
 
 	this.finished = function(){
-	
+
 		for( var i = 0 ; i < this.groups.length ; i++ ){
-			
+
            	this.parent.add(this.groups[i].mesh);
 
 		}
 
 	}
-	
+
 };

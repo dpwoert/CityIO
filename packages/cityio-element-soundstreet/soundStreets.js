@@ -133,7 +133,7 @@ IO.elements.Streets = function(scene, settings){
 			//make tube
 			var path3D = new THREE.SplineCurve3(path);
 			var tube = new THREE.TubeGeometry(path3D, 2, 1.1, 3, false, true);
-			THREE.GeometryUtils.merge(type.geometry,tube);
+			type.geometry.merge(tube);
 			tube.dispose();
 
 		}
