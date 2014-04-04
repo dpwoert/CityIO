@@ -62,7 +62,9 @@ IO.elements.Surfaces = function(scene){
 
 		//translate to 2d
 		for(var i = 0 ; i < list.length ; i++){
-			points.push( IO.points.translate2D([ list[i][0], list[i][1] ]) );
+			var newpoint = IO.points.translate2D([ list[i][0], list[i][1] ]);
+			newpoint = IO.extra.removeDoubles(points, newpoint);
+			points.push( newpoint );
 		}
 
 		//remove duplicates

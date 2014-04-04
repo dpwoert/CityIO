@@ -16,7 +16,6 @@ three
 Q
 cityio-loader
 three-fps-controls
-three-JSON-loader
 cityio
 cityio-detector
 google-analytics
@@ -33,4 +32,3 @@ cityio-scrapers
 proj4
 suncalc
 fast-render
-simplify

@@ -46,18 +46,24 @@ IO.elements.Buildings = function(scene, settings){
 
 	this.add = function(data){
 
+		//check
+		if( !data.geom || !data.geom.coordinates || !data.geom.coordinates[0] ) return false;
+
 		var building = data.geom.coordinates[0];
 
 		//group on pollution
-		// var no2 = data.fijnstof ? data.fijnstof.no2 : this.scaleMin;
 		var no2 = settings.input(data, this.scaleMin);
 		var groupKey = Math.round(this.scale(no2));
 
 
 		//generate points in 2d space
 		var points = [];
+		var newpoint = {};
 		for(var i = 0 ; i < building.length ; i++){
-			points.push( IO.points.translate2D([ building[i][0],building[i][1] ]) );
+
+			newpoint = IO.points.translate2D([ building[i][0],building[i][1] ]);
+			newpoint = IO.extra.removeDoubles(points, newpoint);
+			points.push( newpoint );
 		}
 
 		//remove duplicates
@@ -72,7 +78,7 @@ IO.elements.Buildings = function(scene, settings){
 		if(data.height) { height = data.height; }
 		else { height = data.calculated }
 		height -= data.floor;
-		height *= IO.points.pixelScale; //TODO
+		height *= IO.points.pixelScale;
 
 
 		if(isNaN(height)) height = 1;
