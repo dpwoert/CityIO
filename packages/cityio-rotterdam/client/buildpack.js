@@ -34,7 +34,8 @@ IO.buildpacks.rotterdam.action = function(){
 
 			'/elements/buildings.js',
 			'/elements/surfaces.js',
-			'/elements/soundStreets.js'
+			'/elements/soundStreets.js',
+			'/elements/boats.js',
 
 		]);
 
@@ -115,6 +116,7 @@ IO.buildpacks.rotterdam.action = function(){
 
 	}).then(function(){
 
+		/*
 		//load boat 3d models
 		var deferred = Q.defer();
 
@@ -157,11 +159,21 @@ IO.buildpacks.rotterdam.action = function(){
 
 		return deferred.promise;
 
+		*/
+
+		var boats = new IO.elements.Boats();
+		return boats.load();
+
 	}).then(function(){
 
 		//done
 		console.log('done :-)');
 
+	}).catch(function(e){
+
+		console.error('error loading rotterdam');
+		console.error(e);
+		
 	});
 
 }
