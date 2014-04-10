@@ -51,10 +51,9 @@ IO.elements.Boats = function(scene, settings){
 
 	};
 
-	var self = this;
 	this.workRouter = function(e){
-		self.live(e.data);
-	};
+		this.live(e.data);
+	}.bind(this);
 
 	this.render = function(){
 
