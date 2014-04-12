@@ -113,8 +113,6 @@ IO.buildpacks.rotterdam.action = function(){
 		IO.timeline.add([ surfaces ]);
 		IO.timeline.live();
 
-		console.log(preloader.promise);
-
 		return preloader.promise;
 
 	}).then(function(){

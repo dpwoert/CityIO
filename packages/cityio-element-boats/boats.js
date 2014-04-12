@@ -113,6 +113,7 @@ IO.elements.Boats = function(scene, settings){
 	};
 
 	var changeBoat = function(options){
+		console.log('change');
 		var _to = IO.points.translate2D( options.position );
 		var to = new THREE.Vector3(_to.x,_to.y,-3);
 		var boat = getBoat(options.id);
@@ -131,10 +132,8 @@ IO.elements.Boats = function(scene, settings){
 
 	this.render = function(){
 
-		console.log('render');
 		var current = +new Date();
-		var progress = (this.futureUpdate - this.lastUpdate)/(current - this.lastUpdate);
-		console.log(progress);
+		var progress = (current - this.lastUpdate)/(this.futureUpdate - this.lastUpdate);
 		for( var i = 0 ; i < boatList.length ; i++ ){
 
 			var boat = boatList[i];
@@ -171,8 +170,8 @@ IO.elements.Boats = function(scene, settings){
 		}
 
 		//change boats
-		for( var i = 0; i < api.remove.length ; i++){
-			changeBoat(api.remove[i]);
+		for( var i = 0; i < api.change.length ; i++){
+			changeBoat(api.change[i]);
 		}
 
 	}.bind(this);
