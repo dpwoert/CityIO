@@ -9,9 +9,6 @@ var setScene = function(){
     //translation
     IO.points = new IO.classes.Points(IO.center, IO.zoom);
 
-    //preloader
-    IO.preloader = new IO.classes.Preloader();
-
     //timeline
     IO.timeline = new IO.classes.Timeline();
 

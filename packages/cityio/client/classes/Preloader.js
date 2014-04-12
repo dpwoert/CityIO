@@ -30,9 +30,7 @@ IO.classes.Preloader = function(){
 		console.log('start loading');
 		console.time('loading');
 
-		IO.renderList.push(function(){
-			IO.preloader.loading();
-		});
+		IO.renderList.push(this.loading);
 
 	};
 
@@ -75,7 +73,7 @@ IO.classes.Preloader = function(){
 			this.classes[c] = null;
 		}
 
-	}
+	}.bind(this);
 
 	this.load = function(classes){
 

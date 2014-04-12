@@ -105,61 +105,19 @@ IO.buildpacks.rotterdam.action = function(){
 		surfaces.addTo(IO.group);
 
 		//preloader
-		IO.preloader.load([buildings, surfaces, streets]);
-		IO.preloader.start();
+		var preloader = new IO.classes.Preloader();
+		preloader.load([buildings, surfaces, streets]);
+		preloader.start();
 
 		//timeline
 		IO.timeline.add([ surfaces ]);
 		IO.timeline.live();
 
+		console.log(preloader.promise);
+
 		return preloader.promise;
 
 	}).then(function(){
-
-		/*
-		//load boat 3d models
-		var deferred = Q.defer();
-
-		loader = new THREE.JSONLoader();
-		window.boats = [];
-
-	    loader.load( "/3dmodels/ship2.json", function( geometry ) {
-
-	    	var add_boat = function(pos,rot){
-
-		        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({
-		        	color: 0x333333,
-					shading: THREE.FlatShading
-		        }) );
-
-		        //rotate
-		        IO.group.add(mesh);
-		        mesh.scale.set(4,4,4);
-		        mesh.rotateX(Math.PI/2);
-		        mesh.rotateY(rot);
-
-		        //set initial position as test
-		        var points = IO.points.translate2D( pos );
-		        mesh.position.x = points.x;
-		        mesh.position.y = points.y;
-		        mesh.position.z = -3;
-
-		        window.boats.push(mesh);
-
-	    	}
-
-	    	add_boat([ 4.475384, 51.901984 ], THREE.Math.degToRad(300) );
-	    	add_boat([ 4.484332, 51.90767  ], THREE.Math.degToRad(300) );
-	    	add_boat([ 4.49167, 51.915003 ], THREE.Math.degToRad(120) );
-	    	//add_boat([ 4.484932,51.906426 ], -Math.PI/7);
-
-			deferred.resolve();
-
-	    });
-
-		return deferred.promise;
-
-		*/
 
 		var boats = new IO.elements.Boats();
 		return boats.load();
@@ -173,7 +131,7 @@ IO.buildpacks.rotterdam.action = function(){
 
 		console.error('error loading rotterdam');
 		console.error(e);
-		
+
 	});
 
 }

@@ -131,6 +131,7 @@ IO.elements.Boats = function(scene, settings){
 
 	this.render = function(){
 
+		console.log('render');
 		var current = +new Date();
 		var progress = (this.futureUpdate - this.lastUpdate)/(current - this.lastUpdate);
 		console.log(progress);

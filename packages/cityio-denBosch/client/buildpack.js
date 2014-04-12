@@ -107,13 +107,14 @@ IO.buildpacks.denBosch.action = function(){
 		surfaces.addTo(IO.group);
 
 		//preloader
-		IO.preloader.load([buildings, surfaces, streets]);
-		IO.preloader.start();
+		var preloader = new IO.classes.Preloader();
+		preloader.load([buildings, surfaces, streets]);
+		preloader.start();
 
 		//timeline
 		IO.timeline.add([ surfaces, streets ]);
 
-		return IO.preloader.promise;
+		return preloader.promise;
 
 	}).then(function(){
 
