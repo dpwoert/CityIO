@@ -151,10 +151,15 @@ IO.elements.Boats = function(scene, settings){
 		this.lastUpdate = +new Date();
 		this.futureUpdate = this.lastUpdate + (this.lastUpdate - prevUpdate);
 
-		//render
+		//render?
 		if(!this.rendering){
 			IO.renderList.push(this.render);
 			this.rendering = true;
+		} else {
+			//save previous changes
+			for( var i = 0 ; i < boatList.length ; i++ ){
+				boatList[i].from = boatList[i].to;
+			}
 		}
 
 		console.log(api);
