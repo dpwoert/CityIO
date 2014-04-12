@@ -53,8 +53,11 @@ IO.classes.Timeline = function(){
 		var datum = new Date();
 		if(hour) datum.setHours(hour);
 		if(minutes) datum.setMinutes(minutes);
-		this.target = this.sunScale(datum);
-		this.needsUpdate = true;
+		var target = this.sunScale(datum);
+		if(this.target != target){
+			this.target = this.sunScale(datum);
+			this.needsUpdate = true;
+		}
 
 	};
 
@@ -124,7 +127,6 @@ IO.classes.Timeline = function(){
 		//end?
 		if(this.now == 0 || this.now == 1){
 			this.needsUpdate = false;
-			console.log('timeline animation done');
 		}
 
 
