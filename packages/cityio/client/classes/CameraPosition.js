@@ -1,6 +1,7 @@
 IO.classes.CameraPosition = function(){
 
 	this.objects = {};
+	this.now = {};
 	this.current = {
 		from: null,
 		to: null
@@ -100,11 +101,14 @@ IO.classes.CameraPosition = function(){
 
 	this.animate = function(fromEye, fromTarget, toEye, toTarget){
 
-		//freeze controls
-		//controls.freeze = true;
-
 		//reset animation
 		this.completed = 0;
+
+		//was already animating?
+		if(this.needsUpdate){
+			fromEye = this.now.position;
+			fromTarget = this.now.lookAt;
+		}
 
 		//set start position
 		IO.camera.position = fromEye;
@@ -141,6 +145,10 @@ IO.classes.CameraPosition = function(){
 
 		IO.camera.position = eye;
 		IO.camera.lookAt(target);
+
+		//save
+		this.now.position = eye;
+		this.now.lookAt = target;
 
 		this.updateControls();
 
