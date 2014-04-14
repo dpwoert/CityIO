@@ -78,20 +78,19 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		if ( this.domElement !== document ) {
 
-			//this.domElement.focus();
-			return false;
+			this.domElement.focus();
 
 		}
 
-		// event.preventDefault();
-		// event.stopPropagation();
+		event.preventDefault();
+		event.stopPropagation();
 
 		if ( this.activeLook ) {
 
 			switch ( event.button ) {
 
-				//case 0: this.moveForward = true; break;
-				//case 2: this.moveBackward = true; break;
+				case 0: this.moveForward = true; break;
+				case 2: this.moveBackward = true; break;
 
 			}
 
@@ -103,8 +102,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.onMouseUp = function ( event ) {
 
-		// event.preventDefault();
-		// event.stopPropagation();
+		event.preventDefault();
+		event.stopPropagation();
 
 		if ( this.activeLook ) {
 
@@ -158,10 +157,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			case 82: /*R*/ this.moveUp = true; break;
 			case 70: /*F*/ this.moveDown = true; break;
 
-			case 81: /*Q*/
-                console.log('freeze');
-                this.freeze = !this.freeze;
-            break;
+			case 81: /*Q*/ this.freeze = !this.freeze; break;
 
 		}
 
@@ -259,22 +255,18 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		targetPosition.y = position.y + 100 * Math.cos( this.phi );
 		targetPosition.z = position.z + 100 * Math.sin( this.phi ) * Math.sin( this.theta );
 
-		//targetPosition.applyEuler(DDD.camera.rotation);
-		//targetPosition.applyQuaternion( DDD.camera.quaternion );
-		// targetPosition.applyEuler(DDD.camera.rotation, DDD.camera.eulerOrder);
-
 		this.object.lookAt( targetPosition );
 
 	};
 
 
-	// this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
+	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 
 	this.domElement.addEventListener( 'mousemove', bind( this, this.onMouseMove ), false );
 	this.domElement.addEventListener( 'mousedown', bind( this, this.onMouseDown ), false );
 	this.domElement.addEventListener( 'mouseup', bind( this, this.onMouseUp ), false );
 
-    window.addEventListener( 'keydown', bind( this, this.onKeyDown ), false );
+	window.addEventListener( 'keydown', bind( this, this.onKeyDown ), false );
 	window.addEventListener( 'keyup', bind( this, this.onKeyUp ), false );
 
 	function bind( scope, fn ) {

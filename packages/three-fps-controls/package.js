@@ -9,6 +9,7 @@ Package.on_use(function (api) {
 	api.use('three', 'client');
 
 	//add threejs
+	// api.add_files('FirstPersonControls.js', 'client', {bare: true});
 	api.add_files('FirstPersonControlsCustom.js', 'client', {bare: true});
 
 });

@@ -27,7 +27,7 @@ var setControls = function(){
     IO.controls.freeze = true;
 
     IO.controls.movementSpeed = 100;
-    IO.controls.lookSpeed = 0.125;
+    IO.controls.lookSpeed = 0.05;
     IO.controls.lookVertical = true;
     IO.controls.constrainVertical = true;
     IO.controls.verticalMin = 1.4;

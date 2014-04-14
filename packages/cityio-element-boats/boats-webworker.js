@@ -28,7 +28,7 @@ var list = {
 //update loop [10sec]
 var update = function(speed){
 
-    if(i == 2){
+    if(i == 1){
         testBoat.position = [4.49167, 51.915003];
         list.change = [testBoat];
     }
