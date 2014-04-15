@@ -49,6 +49,9 @@ IO.buildpacks.rotterdam.action = function(){
 		//add camera's
 		IO.cameraControl.add(9, [51.900496, 4.505809], [51.926122, 4.475253], 2500, 'Overview top').hide(); //Overview top
 	    IO.cameraControl.add(0, [51.900496, 4.505809], [51.926122, 4.475253], 500, 'Overview'); //Overview
+	    IO.cameraControl.add(1, [51.903778, 4.459612], [51.911144, 4.47783], 150, 'Euromast');
+	    IO.cameraControl.add(2, [51.905499, 4.494202], [51.911144, 4.47783], 100, 'Kop van Zuid');
+	    IO.cameraControl.add(3, [51.919212, 4.490898], [51.919318, 4.479954], 50, 'Blaak');
 		IO.cameraControl.updateTemplate();
 
 		//switch to first
