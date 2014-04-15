@@ -47,8 +47,9 @@ IO.buildpacks.rotterdam.action = function(){
 		IO.init( [51.91144966468436,4.478473663330078] , 22);
 
 		//add camera's
-		IO.cameraControl.add(9, [51.900496, 4.505809], [51.926122, 4.475253], 2500); //Overview top
-	    IO.cameraControl.add(0, [51.900496, 4.505809], [51.926122, 4.475253], 500); //Overview
+		IO.cameraControl.add(9, [51.900496, 4.505809], [51.926122, 4.475253], 2500, 'Overview top').hide(); //Overview top
+	    IO.cameraControl.add(0, [51.900496, 4.505809], [51.926122, 4.475253], 500, 'Overview'); //Overview
+		IO.cameraControl.updateTemplate();
 
 		//switch to first
 	    IO.cameraControl.switchTo(9);

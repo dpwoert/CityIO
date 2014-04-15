@@ -1,6 +1,6 @@
 IO.classes.CameraPosition = function(){
 
-	this.objects = {};
+	this.objects = [];
 	this.now = {};
 	this.current = {
 		from: null,
@@ -10,18 +10,28 @@ IO.classes.CameraPosition = function(){
 	this.first = true;
 	this.needsUpdate = false;
 
-	this.add = function(id, pos, lookAt, height){
+	this.add = function(id, pos, lookAt, height, name){
 
 		var pixels = IO.points.translate([pos[1], pos[0]]);
 		var pixels2 = IO.points.translate([lookAt[1], lookAt[0]]);
 
 		this.objects[id] = {
 			'id': id,
+			'name': name,
 			'geo': pos,
 			'pos': pixels,
 			'lookAt': pixels2,
-			'height': height
+			'height': height,
+			'menu': true
 		};
+
+		var options = {};
+
+		options.hide = function(){
+			this.objects[id].menu = false;
+		}.bind(this);
+
+		return options;
 	};
 
 	this.addSpot = function(id, pos, show){
@@ -29,14 +39,6 @@ IO.classes.CameraPosition = function(){
 		var pixels = IO.points.translate([pos[0], pos[1]]);
 		var pixels2 = IO.points.translate([pos[0], pos[1]]);
 		pixels[0] += (500 * IO.points.pixelScale);
-
-		/*
-			var geom = new THREE.IcosahedronGeometry(15,0);
-			var mat = new THREE.MeshLambertMaterial({ shading: THREE.FlatShading, color: 0xFF0000 });
-			this.mesh = new THREE.Mesh(geom, mat)
-			this.mesh.position = new THREE.Vector3(pixels2[0],pixels2[1],20);
-			DDD.group.add(this.mesh);
-		*/
 
 		this.objects[id] = {
 			'id': id,
@@ -182,7 +184,19 @@ IO.classes.CameraPosition = function(){
     		IO.controls.freeze = false;
     	});
 
-    }
+    };
+
+	this.updateTemplate = function(){
+
+		var cameras = [];
+
+		_.each(this.objects, function(point){
+			if(point.menu) cameras.push(point);
+		});
+
+		Session.set('cameraPoints', cameras);
+
+	}.bind(this);
 
     this.init = function(){
 

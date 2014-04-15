@@ -23,14 +23,10 @@
 
 		<img class="logo" src="/main/logo.svg" />
 
-		<ul class="cameraPositions">
-			<li rel="0" class="selected">Overview</li>
-			<li rel="1">Z-Willemsvaart</li>
-			<li rel="2">Brugplein</li>
-			<li rel="3">Maaspoort</li>
-			<li rel="4">Wilhelminaplein</li>
-			<li rel="5">Zuidwal</li>
-
+        <ul class="cameraPositions">
+            {{#each cameraPoints}}
+			<li rel="{{this.id}}">{{this.name}}</li>
+            {{/each}}
 		</ul>
 
 		<ul>
