@@ -131,4 +131,5 @@ window.onresize = _.debounce(function(){
 
     //update fx
     IO.FX.resize();
+    
 })
