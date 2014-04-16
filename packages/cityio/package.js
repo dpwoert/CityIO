@@ -38,7 +38,7 @@ Package.on_use(function (api) {
 
 		'server/methods/proj4.min.js',
 		'server/methods/acces.js',
-		'server/methods/cachestrip.js',
+		'server/methods/cacheStrip.js',
 		'server/methods/roundGPS.js',
 
 		'server/classes/geo.js',
