@@ -87,10 +87,14 @@
 	<div id="preloader" class="{{#unless webgl}}no-webgl{{/unless}}">
 
 		<div class="preloader-container {{status}} {{#if button}}button{{/if}}">
-			<div class="bar">
+            {{#if isBuffering}}
+            <div class="buffer-bar"></div>
+			{{else}}
+            <div class="bar">
 				<span class="map">map</span>
 				<span class="demo">demo</span>
 			</div>
+            {{/if}}
 		</div>
 
 		<div class="preloader-copy copy-loading {{status}}">Loading...</div>

@@ -17,11 +17,19 @@ Template.preloader.helpers({
 	'status': function(){
 
 		if(Session.get('buffer')){
-			return 'buffer';
-		} 
+			//return 'buffer';
+		}
 		else if(Session.get('loaded')){
 			return 'loaded';
 		}
+	},
+
+	'isBuffering': function(){
+
+		//todo fix this properly in future
+		console.log('BUFFER:', Session.get('buffer'))
+		return Session.get('buffer');
+
 	}
 
 });
@@ -35,11 +43,11 @@ Template.intro.events({
 
 		//play
 		event.currentTarget.className = 'loaded';
-		
+
 		//load data when video is loaded
 		if(Session.get('webgl')){
 			Session.set("buffer", true);
-		} 
+		}
 
 	},
 
@@ -58,4 +66,3 @@ Template.intro.events({
 Template.intro.hidden = function(){
 	return Session.get("hideIntro");
 };
-
