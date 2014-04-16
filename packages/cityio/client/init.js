@@ -118,3 +118,17 @@ IO.init = function(pos, zoom){
     IO.enabled = true;
 
 };
+
+//resize
+window.onresize = _.debounce(function(){
+
+    $e = $('body .visualization');
+
+    //update normal renderer
+    IO.renderer.setSize( $e.width(), $e.height() );
+    IO.camera.aspect = $e.width() / $e.height();
+    IO.camera.updateProjectionMatrix();
+
+    //update fx
+    IO.FX.resize();
+})
