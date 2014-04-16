@@ -1,34 +1,46 @@
-//navigation
-Template.navigation.rendered = function(){
+//timeline start at day
+Session.set('timeline', true);
+Session.set('cameraPoints', []);
 
-	//postcode
-	var zipInput = this.find('input.code');
-	var zipButton = this.find('input.go');
+//helpers
+Template.navigation.helpers({
 
-	zipButton.onclick = function(){
+	'timeline': function(){
+		return Session.get('timeline');
+	},
 
-		var show = new PostalCode(zipInput);
+	'cameraPoints': function(){
+		return Session.get('cameraPoints');
+	}
+
+});
+
+//events
+Template.navigation.events({
+
+	'click span.day': function(event){
+		IO.timeline.switchTo(true);
+		Session.set('timeline', true);
+	},
+
+	'click span.night': function(){
+		IO.timeline.switchTo(false);
+		Session.set('timeline', false);
+	},
+
+	'click .cameraPositions li': function(evt){
+
+		var $e = $(evt.target);
+		IO.cameraControl.switchTo($e.attr('rel'));
+		$e.parent().find('.selected').removeClass('selected');
+		$e.addClass('selected');
 
 	}
 
-	//day/night
-	var day = this.find('span.day');
-	var night = this.find('span.night');
+});
 
-	day.onclick = function(){
+Template.navigation.rendered = function(){
 
-		DDD.timeline.switchTo(true);
-		day.className = 'day selected';
-		night.className = 'night';
-
-	};
-
-	night.onclick = function(){
-
-		DDD.timeline.switchTo(false);
-		day.className = 'day';
-		night.className = 'night selected';
-
-	};
+	$('.cameraPosition li').eq(0).addClass('selected');
 
 }

@@ -7,7 +7,7 @@ function keepAlive() {
 		Fiber(function(){
 
 			//request and re-do
-        	Meteor.http.get('http://city3d.herokuapp.com');
+        	Meteor.http.get('http://cityio.herokuapp.com');
         	keepAlive();
 
 		}).run();

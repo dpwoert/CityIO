@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "proj4": {
+      "version": "2.1.0",
+      "dependencies": {
+        "mgrs": {
+          "version": "0.0.0"
+        }
+      }
+    }
+  }
+}

@@ -2,25 +2,30 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "npm": {},
-      "smart-collections": {},
-      "external-file-loader": {}
+      "streams": {},
+      "iron-router": {},
+      "fast-render": {}
     },
     "packages": {
-      "npm": {
-        "git": "https://github.com/arunoda/meteor-npm.git",
-        "tag": "v0.2.6",
-        "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
+      "streams": {
+        "git": "https://github.com/arunoda/meteor-streams.git",
+        "tag": "v0.1.17",
+        "commit": "9fcbbc9b7bf542827babc92089c19e730892a22f"
       },
-      "smart-collections": {
-        "git": "https://github.com/arunoda/meteor-smart-collections.git",
-        "tag": "v0.4.0",
-        "commit": "da25a5e88c3b5e3c1cb3bd44fd7fdc3234448526"
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.7.0",
+        "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
       },
-      "external-file-loader": {
-        "git": "https://github.com/davidd8/meteor-external-file-loader.git",
-        "tag": "v0.1.4",
-        "commit": "352694a7cf906b8241161c2fd1435161c1d5409f"
+      "fast-render": {
+        "git": "https://github.com/arunoda/meteor-fast-render.git",
+        "tag": "v0.1.24",
+        "commit": "b1c2273d3a310440abc3f0c181b3861ac0752d05"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.2",
+        "commit": "8bc53798fe5965669ae67c72f91829fcfdceabfd"
       }
     }
   }

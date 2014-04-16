@@ -1,7 +1,7 @@
 {
   "packages": {
-    "npm": {},
-    "smart-collections": {},
-    "external-file-loader": {}
+    "streams": {},
+    "iron-router": {},
+    "fast-render": {}
   }
 }
