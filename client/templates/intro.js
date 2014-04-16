@@ -27,7 +27,6 @@ Template.preloader.helpers({
 	'isBuffering': function(){
 
 		//todo fix this properly in future
-		console.log('BUFFER:', Session.get('buffer'))
 		return Session.get('buffer');
 
 	}
@@ -57,7 +56,7 @@ Template.intro.events({
 	},
 
 	'click .no-webgl .bar': function(){
-		//document.location = 'https://vimeo.com/87603478';
+		document.location = 'https://vimeo.com/87603478';
 	}
 
 })

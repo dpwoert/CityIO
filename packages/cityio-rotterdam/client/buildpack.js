@@ -64,7 +64,6 @@ IO.buildpacks.rotterdam.action = function(){
 	}).then(function(data){
 
 		console.log('data loaded');
-		console.log(data);
 
 		var buildingSettings = {
 			colors: [0xe8e8e8],
