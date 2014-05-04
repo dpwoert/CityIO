@@ -29,11 +29,6 @@ IO.scrapers.AIS = function(db, record){
 
         Meteor.http.get(url, { params: urlOptions } , function(error, result){
 
-            console.log('headers:');
-            console.log(result.data[0]);
-            console.log('results:');
-            if(result.data[1] && result.data[1][0]) console.log(result.data[1][0]);
-
             //http error
             if(error){
                 console.error(error, result);
@@ -54,8 +49,6 @@ IO.scrapers.AIS = function(db, record){
     };
 
     var save = function(data){
-
-        console.log('save rows:' + data.length);
 
         var Fiber = Npm.require('fibers');
         Fiber(function(){
