@@ -6,9 +6,6 @@ IO.liveAPI.boats = function(){
     ).fetch();
 
     var data = mongo.Traffic.find({}).fetch();
-
-    console.log(data);
-
     return data[0].data;
 
 }

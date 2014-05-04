@@ -12,7 +12,7 @@ var loop = function(){
         }
     }).run();
 
-    setTimeout(loop, 1000*60);
+    setTimeout(loop, 1000*60 + 1);
 }
 
 //auto start
