@@ -20,4 +20,7 @@ Package.on_use(function (api) {
 	], 'client', {isAsset: true});
 	api.add_files('addGlobalShaders.js', 'server');
 
+	//make API live handle
+	api.add_files('live.js', 'server');
+
 });

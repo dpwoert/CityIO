@@ -15,6 +15,8 @@ Package.on_use(function (api) {
 	//load server
 	api.add_files([
 
+		'loop.js',
+
 		'scrapers/NSL.js',
 		'scrapers/AHN.js',
 		'scrapers/citySDK.js',
