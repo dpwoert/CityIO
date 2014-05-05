@@ -74,8 +74,6 @@ IO.scrapers.AIS = function(db, record){
         retrieveAPI(latmin, latmax, lonmin, lonmax)
             .then(function(data){
 
-                console.log(data);
-
                 //save
                 save(data);
 
