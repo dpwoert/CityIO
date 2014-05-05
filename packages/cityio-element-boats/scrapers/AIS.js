@@ -25,8 +25,6 @@ IO.scrapers.AIS = function(db, record){
         urlOptions.lonmin = lonmin;
         urlOptions.lonmax = lonmax;
 
-        console.log('retrieve API');
-
         Meteor.http.get(url, { params: urlOptions } , function(error, result){
 
             //http error
