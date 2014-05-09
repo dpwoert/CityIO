@@ -23,7 +23,10 @@ Router.map(function () {
                 responce = {error: 'no data'};
             }
 
-            this.response.writeHead(200, {'Content-Type': 'application/json'});
+            this.response.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            });
             this.response.end(JSON.stringify(responce));
         }
 

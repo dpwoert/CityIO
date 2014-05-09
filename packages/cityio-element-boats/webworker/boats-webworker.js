@@ -69,12 +69,12 @@ var list = {
 //update loop [10sec]
 var update = function(speed){
 
-    load('http://cityio-ais.herokuapps.com/API/boats', function(xhr) {
-        var result = JSON.parse(xhr.responseText);
-
-        //todo check for changes
-
-    });
+    // load('http://cityio-ais.herokuapp.com/API/boats', function(xhr) {
+    //     var result = JSON.parse(xhr.responseText);
+	//
+    //     //todo check for changes
+	//
+    // });
 
     if(i == 1){
         testBoat.position = [4.49167, 51.915003];

@@ -13,10 +13,59 @@ IO.elements.Boats = function(scene, settings){
 	};
 
 	//3d material
-	var material = new THREE.MeshLambertMaterial({
+	var materialOrigin = new THREE.MeshLambertMaterial({
 		color: 0x333333,
 		shading: THREE.FlatShading
 	})
+
+	//3d material
+	var uniforms= {
+		"diffuse": {"type":"c","value":{"r":0.2,"g":0.2,"b":0.2}},
+		"opacity": {"type":"f","value":1},
+		"map": {"type":"t","value":null},
+		"offsetRepeat":{"type":"v4","value":{"x":0,"y":0,"z":1,"w":1}},
+		"lightMap":{"type":"t","value":null},
+		"specularMap":{"type":"t","value":null},
+		"envMap":{"type":"t","value":null},
+		"flipEnvMap":{"type":"f","value":-1},
+		"useRefract":{"type":"i","value":null},
+		"reflectivity":{"type":"f","value":1},
+		"refractionRatio":{"type":"f","value":0.98},
+		"combine":{"type":"i","value":0},
+		"morphTargetInfluences":{"type":"f","value":0},
+		"fogDensity":{"type":"f","value":0.0005},
+		"fogNear":{"type":"f","value":1},
+		"fogFar":{"type":"f","value":2000},
+		"fogColor":{"type":"c","value":{"r":1,"g":1,"b":1}},
+		"ambientLightColor":{"type":"fv","value":[0,0,0]},
+		"directionalLightDirection":{"type":"fv","value":[]},
+		"directionalLightColor":{"type":"fv","value":[]},
+		"hemisphereLightDirection":{"type":"fv","value":[0,1,0]},
+		"hemisphereLightSkyColor":{"type":"fv","value":[0.8,0.8,0.8]},
+		"hemisphereLightGroundColor":{"type":"fv","value":[0.21333333333333335,0.21333333333333335,0.21333333333333335]},
+		"pointLightColor":{"type":"fv","value":[0.2,0.2,0.2]},"pointLightPosition":{"type":"fv","value":[1000,1000,1000]},
+		"pointLightDistance":{"type":"fv1","value":[0]},
+		"spotLightColor":{"type":"fv","value":[]},
+		"spotLightPosition":{"type":"fv","value":[]},
+		"spotLightDirection":{"type":"fv","value":[]},
+		"spotLightDistance":{"type":"fv1","value":[]},
+		"spotLightAngleCos":{"type":"fv1","value":[]},
+		"spotLightExponent":{"type":"fv1","value":[]},
+		"shadowMap":{"type":"tv","value":[]},
+		"shadowMapSize":{"type":"v2v","value":[]},
+		"shadowBias":{"type":"fv1","value":[]},
+		"shadowDarkness":{"type":"fv1","value":[]},
+		"shadowMatrix":{"type":"m4v","value":[]},
+		"ambient":{"type":"c","value":{"r":1,"g":1,"b":1}},
+		"emissive":{"type":"c","value":{"r":0,"g":0,"b":0}},
+		"wrapRGB":{"type":"v3","value":{"x":1,"y":1,"z":1}}
+	};
+	var material = new THREE.ShaderMaterial({
+		uniforms: uniforms,
+		vertexShader : Shaders.boatVertex,
+		fragmentShader: Shaders.boatFragment,
+		fog: true,
+	});
 
 	this.load = function(){
 
@@ -81,6 +130,8 @@ IO.elements.Boats = function(scene, settings){
 		var geom = geoms[options.model];
 		var mesh = new THREE.Mesh(geom, material);
 
+		console.log(mesh);
+
 		//rotate & scale
 		IO.group.add(mesh);
 		mesh.scale.set(4,4,4);
@@ -100,6 +151,8 @@ IO.elements.Boats = function(scene, settings){
 			'rotFrom': options.rotation,
 			'rotTo': options.rotation
 		});
+
+		window.BOAT = mesh;
 
 	};
 

@@ -13,6 +13,10 @@ Package.on_use(function (api) {
 	//models
 	api.add_files('3dmodels/ship2.json', 'client', { isAsset: true });
 
+	//shaders
+	api.add_files('shaders/boatFragment.glsl', 'client', { isAsset: true });
+	api.add_files('shaders/boatVertex.glsl', 'client', { isAsset: true });
+
 	// load front-end
 	api.add_files('boats.js', 'client', { isAsset: true });
 	api.add_files('webworker/boats-webworker.js', 'client', { isAsset: true });

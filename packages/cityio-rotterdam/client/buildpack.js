@@ -21,6 +21,10 @@ IO.buildpacks.rotterdam.action = function(){
 		shaders.add('surfaceVertex', '/shaders/surfaceVertex.glsl');
 		shaders.add('surfaceFragment', '/shaders/surfaceFragment.glsl');
 
+		//boats
+		shaders.add('boatVertex', '/shaders/boatVertex.glsl');
+		shaders.add('boatFragment', '/shaders/boatFragment.glsl');
+
 		//start loading
 		shaders.load();
 		return shaders.promise;
