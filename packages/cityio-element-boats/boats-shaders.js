@@ -12,12 +12,18 @@ IO.elements.Boats = function(scene, settings){
 		ship: '/3dmodels/ship2.json'
 	};
 
-	window.BOATS = boatList;
-
 	//3d material
-	var material = new THREE.MeshLambertMaterial({
-		color: 0x333333,
-		shading: THREE.FlatShading
+	var uniforms = THREE.UniformsUtils.clone(THREE.ShaderLib['lambert']).uniforms;
+	uniforms.timer = { type: "f", value: 0 };
+	uniforms.destination = { type: 'm4', value: new THREE.Matrix4() };
+
+	var material = new THREE.ShaderMaterial({
+		uniforms: uniforms,
+		vertexShader : Shaders.boatVertex,
+		fragmentShader: Shaders.boatFragment,
+		fog: true,
+		lights: true,
+		color: 0x333333
 	});
 
 	this.load = function(){
@@ -81,23 +87,23 @@ IO.elements.Boats = function(scene, settings){
 	var addBoat = function(options){
 
 		var geom = geoms[options.model];
+		var _material = material.clone();
 		var mesh = new THREE.Mesh(geom, material);
-
-		//rotate & scale
-		var scale = options.scale;
-		scale = scale == 0 ? 0.5 : scale;
-		//scale *= 2;
-		mesh.scale.set(scale,scale,scale);
-		mesh.rotateX(Math.PI/2);
-		mesh.rotateY(THREE.Math.degToRad(options.rotation)-(Math.PI/2));
 
 		//set initial position
 		var points = IO.points.translate2D( options.position );
-		var points3d = new THREE.Vector3(points.x,points.y,0);
+		var points3d = new THREE.Vector3(points.x,points.y,-3);
 		mesh.position = points3d;
 
-		//add
+		//rotate & scale
 		IO.group.add(mesh);
+		mesh.scale.set(4,4,4);
+		mesh.rotateX(Math.PI/2);
+		mesh.rotateY(THREE.Math.degToRad(options.rotation));
+
+		//position in 3d world
+		mesh.material.uniforms.destination.value = mesh.matrixWorld;
+
 		boatList.push({
 			'id': options.id,
 			'mesh': mesh,
@@ -106,6 +112,8 @@ IO.elements.Boats = function(scene, settings){
 			'rotFrom': options.rotation,
 			'rotTo': options.rotation
 		});
+
+		window.BOAT = mesh;
 
 	};
 
@@ -119,12 +127,18 @@ IO.elements.Boats = function(scene, settings){
 	};
 
 	var changeBoat = function(options){
+		console.log('change');
 		var _to = IO.points.translate2D( options.position );
 		var to = new THREE.Vector3(_to.x,_to.y,-3);
 		var boat = getBoat(options.id);
 		var from = boat.to;
 		boat.to = to;
 		boat.from = from;
+
+		//animate
+		//IO.group.updateMatrixWorld();
+		//boat.mesh.material.uniforms.destination.value = IO.localToWorld( to.clone() );
+
 	};
 
 	var lerp3d = function(from, to, time){
@@ -135,48 +149,23 @@ IO.elements.Boats = function(scene, settings){
 		);
 	}
 
-	var slerp = function(from, to, time){
-		var rot = from + time * (to - from);
-	}
+	var seconds = 0;
+	this.render = function(delta){
 
-	this.render = function(){
+		seconds += delta;
+		if(seconds > 60) seconds = 0;
 
-		var current = +new Date();
-		var progress = (current - this.lastUpdate)/(this.futureUpdate - this.lastUpdate);
-		for( var i = 0 ; i < boatList.length ; i++ ){
-
-			var boat = boatList[i];
-
-			//don't inerpolate when not needed
-			if(boat.from == boat.to) return false;
-
-			//interpolate
-			boat.mesh.position = lerp3d(boat.from, boat.to, progress);
-			//add rotation
-
-		}
+		material.uniforms.timer.value = seconds/60;
 
 	}.bind(this);
 
 	this.live = function(api){
 
-		//save update time
-		var prevUpdate = this.lastUpdate || +new Date();
-		this.lastUpdate = +new Date();
-		this.futureUpdate = this.lastUpdate + (this.lastUpdate - prevUpdate);
-
-		//render?
+		//start rendering
 		if(!this.rendering){
 			IO.renderList.push(this.render);
 			this.rendering = true;
-		} else {
-			//save previous changes
-			for( var i = 0 ; i < boatList.length ; i++ ){
-				boatList[i].from = boatList[i].to;
-			}
 		}
-
-		console.log(api);
 
 		//add boats
 		for( var i = 0; i < api.add.length ; i++ ){
@@ -190,7 +179,6 @@ IO.elements.Boats = function(scene, settings){
 
 		//change boats
 		for( var i = 0; i < api.change.length ; i++){
-			console.log('change!');
 			changeBoat(api.change[i]);
 		}
 

@@ -22,8 +22,8 @@ IO.buildpacks.rotterdam.action = function(){
 		shaders.add('surfaceFragment', '/shaders/surfaceFragment.glsl');
 
 		//boats
-		shaders.add('boatVertex', '/shaders/boatVertex.glsl');
-		shaders.add('boatFragment', '/shaders/boatFragment.glsl');
+		shaders.add('boatVertex', '/shader/boatVertex.glsl');
+		shaders.add('boatFragment', '/shader/boatFragment.glsl');
 
 		//start loading
 		shaders.load();
@@ -136,7 +136,7 @@ IO.buildpacks.rotterdam.action = function(){
 	}).catch(function(e){
 
 		console.error('error loading rotterdam');
-		console.error(e);
+		console.debug(e.stack);
 
 	});
 

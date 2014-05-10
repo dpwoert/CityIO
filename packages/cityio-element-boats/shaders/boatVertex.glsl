@@ -1,3 +1,6 @@
+uniform float timer;
+uniform mat4 destination;
+
 #define LAMBERT
 varying vec3 vLightFront;
 #ifdef DOUBLE_SIDED
@@ -170,16 +173,24 @@ vec3 transformedNormal = normalMatrix * objectNormal;
 	skinned      += boneMatW * skinVertex * skinWeight.w;
 #endif
 vec4 mvPosition;
+vec4 oldPosition;
+vec4 destPosition;
 #ifdef USE_SKINNING
 	mvPosition = modelViewMatrix * skinned;
 #endif
 #if !defined( USE_SKINNING ) && defined( USE_MORPHTARGETS )
 	mvPosition = modelViewMatrix * vec4( morphed, 1.0 );
 #endif
+
 #if !defined( USE_SKINNING ) && ! defined( USE_MORPHTARGETS )
 	mvPosition = modelViewMatrix * vec4( position, 1.0 );
 #endif
-gl_Position = projectionMatrix * mvPosition;
+// gl_Position = projectionMatrix * mix( vec4(position, 1.0), vec4(destination, 1.0), timer);
+oldPosition = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+destPosition = projectionMatrix * (modelMatrix * viewMatrix) * vec4(position, 1.0);
+gl_Position = destPosition;
+// gl_Position = mix(oldPosition, destPosition, timer);
+// gl_Position = projectionMatrix * mvPosition;
 #ifdef USE_LOGDEPTHBUF
 	gl_Position.z = log2(max(1e-6, gl_Position.w + 1.0)) * logDepthBufFC;
 	#ifdef USE_LOGDEPTHBUF_EXT

@@ -56,7 +56,7 @@ Template.intro.events({
 	},
 
 	'click .no-webgl .bar': function(){
-		document.location = 'https://vimeo.com/87603478';
+		//document.location = 'https://vimeo.com/87603478';
 	}
 
 })

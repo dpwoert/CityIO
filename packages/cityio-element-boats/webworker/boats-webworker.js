@@ -56,35 +56,85 @@ var testBoat = {
     rotation: 300,
 };
 
-var i = 0;
+var testBoat2 = {
+    id: 2,
+    name: 'Pakjesboot 1',
+    model: 'ship',
+    position: [ 4.485426, 51.906379 ],
+    rotation: 300,
+};
 
+var boats = [];
 var list = {
 
-    add: [ testBoat ],
+    add: [],
     remove: [],
     change: []
 
 };
 
+//search boat
+var getBoat = function(id){
+
+	for( var i = 0 ; i < boats.length ; i++ ){
+		if(boats[i].id == id) return boats[i];
+	}
+
+	//not found
+	return false;
+
+}
+
 //update loop [10sec]
 var update = function(speed){
 
-    // load('http://cityio-ais.herokuapp.com/API/boats', function(xhr) {
-    //     var result = JSON.parse(xhr.responseText);
-	//
-    //     //todo check for changes
-	//
-    // });
+    load('http://cityio-ais.herokuapp.com/API/boats', function(xhr) {
+        var result = JSON.parse(xhr.responseText);
 
-    if(i == 1){
-        testBoat.position = [4.49167, 51.915003];
-        list.change = [testBoat];
-    }
+        for( var i = 0 ; i < result.length ; i++ ){
 
-     postMessage(list);
+			var boat;
+			boat = getBoat(result[i].MMSI);
+
+			//not in list
+			if(!boat){
+
+				var rotation = result[i].COG == 360 ? 180 : result[i].COG;
+
+				var boat = {
+					id: result[i].MMSI,
+					name: result[i].NAME,
+					model: 'ship',
+					position: [ result[i].LONGITUDE, result[i].LATITUDE ],
+					rotation: rotation,
+					scale: result[i].DRAUGHT
+				}
+
+				//add to lists
+				boats.push(boat);
+				list.add.push(boat);
+			}
+
+			else {
+
+				//check if changed
+				var newPos = [ result[i].LONGITUDE, result[i].LATITUDE ];
+				if(boat.position[0] != newPos[0] || boat.position[1] != newPos[1]){
+					list.change.push(boat);
+				}
+
+			}
+
+
+		}
+
+		//send back
+		postMessage(list);
+
+    });
+
 
     //reset
-    i++;
     list.change = [];
     list.remove = [];
     list.add = [];
