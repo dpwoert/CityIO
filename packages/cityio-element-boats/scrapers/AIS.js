@@ -51,7 +51,7 @@ IO.scrapers.AIS = function(db, record){
         var Fiber = Npm.require('fibers');
         Fiber(function(){
 
-            console.log('saved AIS row');
+            console.log('saved AIS rows: ' + data.length);
 
             //clear?
             if(!record) db.remove({});
