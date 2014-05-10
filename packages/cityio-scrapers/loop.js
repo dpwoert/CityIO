@@ -2,8 +2,6 @@ IO.scrapers.loop = [];
 
 var loop = function(){
 
-    console.log('loop');
-
     //execute all scrapers
     var Fiber = Npm.require('fibers');
     Fiber(function(){
