@@ -107,7 +107,7 @@ var update = function(speed){
 					model: 'ship',
 					position: [ result[i].LONGITUDE, result[i].LATITUDE ],
 					rotation: rotation,
-					scale: result[i].DRAUGHT
+					scale: result[i].C + result[i].D
 				}
 
 				//add to lists
@@ -119,8 +119,34 @@ var update = function(speed){
 
 				//check if changed
 				var newPos = [ result[i].LONGITUDE, result[i].LATITUDE ];
-				if(boat.position[0] != newPos[0] || boat.position[1] != newPos[1]){
+				if(
+					(boat.position[0] != newPos[0] || boat.position[1] != newPos[1]) &&
+					(result[i].SOG > 0 && result[i].SOG != 102.4)
+				){
 					list.change.push(boat);
+				}
+
+			}
+
+			//check if deleted
+			for( var ii = 0 ; ii < boats.length ; ii++ ){
+
+				var found = false;
+
+				for( var jj = 0 ; jj < result.length ; jj++ ){
+
+					if( boats[ii].id == result[jj].MMSI ){
+						found = true;
+					}
+
+				}
+
+				//not found so delete
+				if(!found){
+
+					list.remove.push(boats[ii]);
+					//boats.splice(i, 1);
+
 				}
 
 			}
@@ -131,7 +157,21 @@ var update = function(speed){
 		//send back
 		postMessage(list);
 
+		//clean list
+		for( var iii = 0 ; iii < list.remove.length ; iii++ ){
+
+			for( var jjj = 0 ; boats.length ; jjj++ ){
+
+				if(boats[jjj].id == list.remove[iii].id){
+					boats.splice(jjj, 1);
+				}
+
+			}
+
+		}
+
     });
+
 
 
     //reset

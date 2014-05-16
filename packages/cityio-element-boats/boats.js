@@ -83,10 +83,16 @@ IO.elements.Boats = function(scene, settings){
 		var geom = geoms[options.model];
 		var mesh = new THREE.Mesh(geom, material);
 
-		//rotate & scale
-		var scale = options.scale;
+		//scale
+		var scale = options.scale * 0.1;
 		scale = scale == 0 ? 0.5 : scale;
 		//scale *= 2;
+
+		//pivot point
+		var rotate = new THREE.Matrix4().makeTranslation( 0, scale, 0 );
+		//mesh.applyMatrix( rotate );
+
+		//rotate & scale
 		mesh.scale.set(scale,scale,scale);
 		mesh.rotateX(Math.PI/2);
 		mesh.rotateY(THREE.Math.degToRad(options.rotation)-(Math.PI/2));
@@ -185,7 +191,7 @@ IO.elements.Boats = function(scene, settings){
 
 		//delete boats
 		for( var i = 0; i < api.remove.length ; i++){
-			removeBoat(api.remove[i]);
+			deleteBoat(api.remove[i]);
 		}
 
 		//change boats
