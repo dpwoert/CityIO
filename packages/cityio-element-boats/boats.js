@@ -186,9 +186,6 @@ IO.elements.Boats = function(scene, settings){
 			//interpolate
 			boat.mesh.position = lerp3d(boat.from, boat.to, progress);
 			//interpolate rotation
-			// var q = new THREE.Quaternion().setFromEuler( new THREE.Euler(Math.PI/2, THREE.Math.degToRad(boat.rotTo)-(Math.PI/2), 0) );
-			// var newQuaternion = new THREE.Quaternion();
-			// THREE.Quaternion.slerp( mesh.quaternion, q, newQuaternion, 0.07 );
 			boat.mesh.quaternion.slerp(boat.q, progress);
 
 		}
