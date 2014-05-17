@@ -89,13 +89,20 @@ IO.elements.Boats = function(scene, settings){
 		//scale *= 2;
 
 		//pivot point
-		var rotate = new THREE.Matrix4().makeTranslation( 0, scale, 0 );
+		// var rotate = new THREE.Matrix4().makeTranslation( 0, scale, 0 );
 		//mesh.applyMatrix( rotate );
 
-		//rotate & scale
+		//scale
 		mesh.scale.set(scale,scale,scale);
-		mesh.rotateX(Math.PI/2);
-		mesh.rotateY(THREE.Math.degToRad(options.rotation)-(Math.PI/2));
+
+		//rotate
+		var rotation = new THREE.Quaternion();
+		rotation.setFromEuler( new THREE.Euler(Math.PI/2, THREE.Math.degToRad(options.rotation)-(Math.PI/2), 0) );
+
+		//legacy
+		mesh.rotation.setFromQuaternion(rotation);
+		//mesh.rotateX(Math.PI/2);
+		//mesh.rotateY(THREE.Math.degToRad(options.rotation)-(Math.PI/2));
 
 		//set initial position
 		var points = IO.points.translate2D( options.position );
@@ -110,7 +117,8 @@ IO.elements.Boats = function(scene, settings){
 			'from': points3d,
 			'to': points3d,
 			'rotFrom': options.rotation,
-			'rotTo': options.rotation
+			'rotTo': options.rotation,
+			'q': rotation
 		});
 
 	};
@@ -125,12 +133,31 @@ IO.elements.Boats = function(scene, settings){
 	};
 
 	var changeBoat = function(options){
+
+		//to
 		var _to = IO.points.translate2D( options.position );
-		var to = new THREE.Vector3(_to.x,_to.y,-3);
+		var to = new THREE.Vector3(_to.x,_to.y,0);
+
+		//get from
 		var boat = getBoat(options.id);
 		var from = boat.to;
+
+		//check
+		if(to.x == from.x && to.y == from.y){
+			return false;
+		}
+
+		//rotation
+		var rotFrom = boat.rotTo;
+		var rotTo = options.rotation;
+
+		//save
 		boat.to = to;
 		boat.from = from;
+		boat.rotTo = rotTo;
+		boat.rotFrom = rotFrom;
+		boat.q = new THREE.Quaternion().setFromEuler( new THREE.Euler(Math.PI/2, THREE.Math.degToRad(boat.rotTo)-(Math.PI/2), 0) );
+
 	};
 
 	var lerp3d = function(from, to, time){
@@ -154,11 +181,15 @@ IO.elements.Boats = function(scene, settings){
 			var boat = boatList[i];
 
 			//don't inerpolate when not needed
-			if(boat.from == boat.to) return false;
+			//if(boat.from == boat.to) return false;
 
 			//interpolate
 			boat.mesh.position = lerp3d(boat.from, boat.to, progress);
-			//add rotation
+			//interpolate rotation
+			// var q = new THREE.Quaternion().setFromEuler( new THREE.Euler(Math.PI/2, THREE.Math.degToRad(boat.rotTo)-(Math.PI/2), 0) );
+			// var newQuaternion = new THREE.Quaternion();
+			// THREE.Quaternion.slerp( mesh.quaternion, q, newQuaternion, 0.07 );
+			boat.mesh.quaternion.slerp(boat.q, progress);
 
 		}
 

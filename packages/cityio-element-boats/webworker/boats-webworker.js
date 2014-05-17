@@ -96,7 +96,7 @@ var update = function(speed){
 			var boat;
 			boat = getBoat(result[i].MMSI);
 
-			//not in list
+			//not in list - add
 			if(!boat){
 
 				var rotation = result[i].COG == 360 ? 180 : result[i].COG;
@@ -123,6 +123,7 @@ var update = function(speed){
 					(boat.position[0] != newPos[0] || boat.position[1] != newPos[1]) &&
 					(result[i].SOG > 0 && result[i].SOG != 102.4)
 				){
+					boat.position = newPos;
 					list.change.push(boat);
 				}
 
