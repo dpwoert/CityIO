@@ -181,7 +181,7 @@ IO.elements.Boats = function(scene, settings){
 			var boat = boatList[i];
 
 			//don't inerpolate when not needed
-			//if(boat.from == boat.to) return false;
+			if(boat.from == boat.to) return false;
 
 			//interpolate
 			boat.mesh.position = lerp3d(boat.from, boat.to, progress);
