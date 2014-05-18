@@ -224,7 +224,6 @@ IO.elements.Boats = function(scene, settings){
 
 		//change boats
 		for( var i = 0; i < api.change.length ; i++){
-			console.log('change!');
 			changeBoat(api.change[i]);
 		}
 

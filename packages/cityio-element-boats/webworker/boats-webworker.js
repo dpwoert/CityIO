@@ -73,6 +73,8 @@ var list = {
 
 };
 
+var toRemove = [];
+
 //search boat
 var getBoat = function(id){
 
@@ -147,6 +149,7 @@ var update = function(speed){
 
 					list.remove.push(boats[ii]);
 					//boats.splice(i, 1);
+					toRemove.push(i);
 
 				}
 
@@ -159,17 +162,10 @@ var update = function(speed){
 		postMessage(list);
 
 		//clean list
-		for( var iii = 0 ; iii < list.remove.length ; iii++ ){
-
-			for( var jjj = 0 ; boats.length ; jjj++ ){
-
-				if(boats[jjj].id == list.remove[iii].id){
-					boats.splice(jjj, 1);
-				}
-
-			}
-
+		for( var iii = 0 ; iii < toRemove.length ; iii++ ){
+			boats.splice(toRemove[iii], 1);
 		}
+		toRemove = [];
 
     });
 
