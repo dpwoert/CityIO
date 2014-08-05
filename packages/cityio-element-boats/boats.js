@@ -1,6 +1,5 @@
 if(!IO || !IO.elements){
 	console.warn('IO element missing');
-	return false;
 }
 
 IO.elements.Boats = function(scene, settings){
@@ -46,9 +45,9 @@ IO.elements.Boats = function(scene, settings){
 		});
 
 		//webworker
-		this.worker = new Worker('/webworker/boats-webworker.js');
-		this.worker.postMessage('start');
-		this.worker.addEventListener('message', this.workRouter);
+		// this.worker = new Worker('/webworker/boats-webworker.js');
+		// this.worker.postMessage('start');
+		// this.worker.addEventListener('message', this.workRouter);
 
 		//all loaded?
 		Q.all(promises).then(function(){

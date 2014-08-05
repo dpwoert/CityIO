@@ -1,6 +1,5 @@
 if(!IO || !IO.elements){
 	console.warn('IO element missing');
-	return false;
 }
 
 IO.elements.Buildings = function(scene, settings){
