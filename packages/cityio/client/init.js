@@ -57,7 +57,7 @@ var setLight = function(){
 
 IO.start3d = function(){
 
-    this.renderList.push(
+    IO.renderList.push(
 
         function(delta){
             if(IO.timeline.needsUpdate) IO.timeline.render( delta );
@@ -117,6 +117,9 @@ IO.init = function(pos, zoom){
     IO.render();
     IO.enabled = true;
 
+    //VR awesomeness?
+    IO.loadVR();
+
 };
 
 //resize
@@ -131,5 +134,5 @@ window.onresize = _.debounce(function(){
 
     //update fx
     IO.FX.resize();
-    
+
 })

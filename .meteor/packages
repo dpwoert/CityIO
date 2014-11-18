@@ -29,6 +29,7 @@ cityio-router
 cityio-rotterdam
 cityio-cache
 cityio-scrapers
+cityio-vr
 proj4
 suncalc
 fast-render
