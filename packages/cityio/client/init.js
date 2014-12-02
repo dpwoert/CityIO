@@ -86,7 +86,8 @@ IO.init = function(pos, zoom){
     console.log('init');
 
 	//camera
-    IO.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
+    IO.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+    // IO.camera = new THREE.PerspectiveCamera( 45 , window.innerWidth / window.innerHeight, 0.1, 7000 );
     IO.camera.position.z = 500;
     IO.camera.position.y = 200;
 
@@ -110,7 +111,9 @@ IO.init = function(pos, zoom){
     IO.cameraControl = new IO.classes.CameraPosition();
 
     //FX
-    IO.FX = new IO.classes.FX();
+    if(!IO.VR){
+        IO.FX = new IO.classes.FX();
+    }
 
     //action
     IO.clock = new THREE.Clock();
@@ -122,8 +125,9 @@ IO.init = function(pos, zoom){
 
 };
 
-//resize
-window.onresize = _.debounce(function(){
+IO.resize = function(){
+
+    if(!IO.renderer || !IO.renderer.setSize) return false;
 
     $e = $('body .visualization');
 
@@ -135,4 +139,7 @@ window.onresize = _.debounce(function(){
     //update fx
     IO.FX.resize();
 
-})
+};
+
+//resize
+window.onresize = _.debounce(IO.resize);
