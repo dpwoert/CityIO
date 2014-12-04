@@ -67,12 +67,15 @@ IO.start3d = function(){
         },
         function(delta){
             IO.controls.update( delta );
-        },
-        function(delta){
-            IO.FX.render( delta );
         }
 
     );
+
+    if(IO.FX){
+        IO.renderList.push(function(delta){
+            IO.FX.render(delta)
+        });
+    }
 
 }
 
@@ -127,7 +130,7 @@ IO.init = function(pos, zoom){
 
 IO.resize = function(){
 
-    if(!IO.renderer || !IO.renderer.setSize) return false;
+    if(!IO.renderer || !IO.renderer.setSize || !IO.FX) return false;
 
     $e = $('body .visualization');
 

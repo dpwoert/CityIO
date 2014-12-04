@@ -9,8 +9,10 @@ IO.loadVR = function(){
 
         console.info('VR Device detected');
 
+        IO.renderer.setClearColor(0xffffff, 1);
+
         //load controls
-        IO.controls = new THREE.VRControls( IO.camera );
+        controls = new THREE.VRControls( IO.camera );
 
         console.log('controls created');
 
@@ -22,26 +24,33 @@ IO.loadVR = function(){
         IO.VREffect = new THREE.VREffect( IO.renderer );
     	IO.VREffect.setSize( width, height );
 
-        IO.renderList = [
+        // IO.VREffect._renderer.setClearColor = 0xFFFFFF;
 
-            function(delta){
-                if(IO.timeline.needsUpdate) IO.timeline.render( delta );
-            },
-            function(delta){
-                if(IO.cameraControl.needsUpdate) IO.cameraControl.render( delta );
-            },
-            function(delta){
-                IO.controls.update( delta );
-            },
-            function(delta){
-                IO.VREffect.render(IO.scene, IO.camera);
-            }
+        IO.start3d = function(){
 
-        ];
+            IO.renderList = [
+
+                function(delta){
+                    if(IO.timeline.needsUpdate) IO.timeline.render( delta );
+                },
+                function(delta){
+                    if(IO.cameraControl.needsUpdate) IO.cameraControl.render( delta );
+                },
+                function(delta){
+                    IO.VREffect.render(IO.scene, IO.camera);
+                },
+                function(delta){
+                    controls.update( delta );
+                }
+
+            ];
+
+        };
 
         document.body.addEventListener( 'dblclick', function() {
             IO.VREffect.setFullScreen( true );
             IO.resize();
+            controls.zeroSensor();
         });
 
         //remove menubar
