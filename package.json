@@ -1,0 +1,46 @@
+{
+    "name": "cityIO",
+    "version": "0.0.1",
+    "description": "Create 3D visualizations of geographic data",
+    "author": "Davey van der woert <davey@dpwoert.com>",
+    "contributors": [
+        { "name": "Jesse van Rheenen" },
+        { "name": "Yannick Diezenberg" }
+    ],
+    "main": "export/cityio.isomorphic.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dpwoert/CityIO/"
+    },
+    "bugs": {
+        "url": "https://github.com/dpwoert/CityIO/issues"
+    },
+    "keywords": [
+        "cityio",
+        "cityio.js",
+        "3D",
+        "webgl",
+        "geo"
+    ],
+    "dependencies": {
+        "underscore": "1.7.0",
+        "three": "0.69.0",
+        "d3": "3.5.2",
+        "topojson": "1.6.18",
+        "q": "1.1.2",
+        "q-xhr": "0.1.1",
+        "proj4": "2.3.3",
+        "png.js": "0.1.1",
+        "query-overpass": "1.0.0"
+    },
+    "devDependencies": {
+        "include-folder": "0.7.0",
+        "folderify": "0.6.0",
+        "gulp": "3.8.1",
+        "connect": "2.14.4",
+        "gulp-browserify": "0.5.0",
+        "gulp-concat": "2.4.2",
+        "gulp-rename": "1.2.0"
+    },
+    "license": "GPL"
+}

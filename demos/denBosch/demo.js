@@ -1,0 +1,114 @@
+var init = function(){
+
+    //get element
+    var element = document.getElementById('canvas');
+    console.log('canvas',element);
+
+    //create projection
+    var projection = new IO.classes.Projection([5.246658, 51.679408], 22);
+
+    //create 3d world
+    // var world = new IO.classes.World(element, projection, ['tiltShift']);
+    var world = new IO.classes.World(element, projection);
+
+    //get map data
+    var buildingsMap = new IO.classes.Map('maps/buildings.topojson','collection');
+    var roadsMap = new IO.classes.Map('maps/streets.topojson','collection');
+    var areasMap = new IO.classes.Map('maps/areas.topojson','collection');
+
+    //create layers
+    var buildings = new IO.classes.Layer3D(world);
+    var roads = new IO.classes.Layer3D(world);
+    var areas = new IO.classes.Layer3D(world);
+
+    //buildings viz
+    buildings
+        .data(buildingsMap)
+        .options({
+            colors: ['#e8e8e8', '#d4bdbd', '#dfa5§a1', '#e87364','#550c2b'],
+            height: function(properties){
+                return properties.height;
+            },
+            groups: function(groups, properties){
+                if(properties.no2 < 35){
+                    return groups[0];
+                }
+                else if(properties.no2 > 35 && properties.no2 < 38.5){
+                    return groups[1];
+                }
+                else if(properties.no2 > 38.5 && properties.no2 < 40.5){
+                    return groups[2];
+                }
+                else if(properties.no2 > 40.5 && properties.no2 < 42.5){
+                    return groups[3];
+                }
+                else if(properties.no2 > 42.5){
+                    return groups[4];
+                }
+                else {
+                    return groups[0];
+                }
+            }
+        })
+        .build(IO.build.buildings);
+
+    //roads viz
+    roads
+        .data(roadsMap)
+        .options({
+            color: '#ff0000'
+        })
+        .build(IO.build.roads);
+
+    //areas (grass, water, neighborhoods)
+    areas
+        .data(areasMap)
+        .options({
+            colors: ['#DDDDDD', '#81c6f6', '#80c146'],
+            night: ['#333333', '#11485f', '#254F0B'],
+            groups: function(groups, properties){
+                console.log(properties);
+                if(properties.natural === "water"){
+                    return groups[1];
+                }
+                else if(properties.natural === "grass"){
+                    return groups[2];
+                } else {
+                    return groups[0];
+                }
+            }
+        })
+        .build(IO.build.areas)
+
+    //load & start
+    world
+        .load([buildings, areas, roads])
+        .then(function(){
+
+            world.start();
+
+            //rotate camera
+        	world.camera
+        		.gotoGeo(5.246658, 51.679408, 300)
+        		.lookAtGeo(5.246658, 51.89408, 100);
+
+        	//start with flying around
+        	world.camera.flyAround({
+                // lat: 5.246658,
+                // lon: 51.679408
+                lat: 5.30299,
+                lon: 51.68965
+        	}, 400, 200);
+
+            // world.stop();
+
+        })
+        .catch(function(e){
+            console.stack(e);
+        });
+
+
+};
+
+//when DOM is ready load CityIO
+document.addEventListener("DOMContentLoaded", init);

@@ -1,0 +1,19 @@
+{
+	"name": "CityIO",
+	"version": "0.0.1",
+	"homepage": "http://www.cityio.nl/",
+	"description": "Create 3D visualizations of geographic data",
+	"main": "export/cityio.client.js",
+	"keywords": [
+		"cityio",
+		"cityio.js",
+		"3D",
+		"webgl",
+        "geo"
+	],
+	"license": "GPL",
+	"ignore": [
+        "demos"
+		"LICENSE"
+	]
+}
