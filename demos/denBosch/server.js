@@ -25,7 +25,7 @@ module.exports = function(){
             .scraper(IO.scrapers.BAG, { 'min': min, 'max': max })
 
             //get height data from AHN (Algemeen Hoogtebestand Nederland)
-            .action(IO.scrapers.AHN)
+            //.action(IO.scrapers.AHN)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
             .action(IO.scrapers.NSL, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
@@ -46,7 +46,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'buildings')
 
             //save
-            .save('demos/denBosch/maps/buildings.topojson');
+            //.save('demos/denBosch/maps/buildings.topojson');
 
         return buildings.end();
 
@@ -111,9 +111,14 @@ module.exports = function(){
             //make whitelist of data to keep
             .action(IO.tools.filter, {
                 geometry: true,
+                // properties: {
+                //     tags: {
+                //         landuse: true,
+                //         boundary: true
+                //     }
+                // }
                 properties: {
-                    natural: true,
-                    landuse: true
+                    tags: true
                 }
             })
 

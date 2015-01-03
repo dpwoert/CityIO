@@ -8,8 +8,11 @@ var init = function(){
     var projection = new IO.classes.Projection([5.246658, 51.679408], 22);
 
     //create 3d world
-    // var world = new IO.classes.World(element, projection, ['tiltShift']);
-    var world = new IO.classes.World(element, projection);
+    var world = new IO.classes.World(element, projection, ['tiltShift']);
+    // var world = new IO.classes.World(element, projection);
+
+    //tilt shift
+    world.FX.setBlur(5, 0.55, 1.4);
 
     //get map data
     var buildingsMap = new IO.classes.Map('maps/buildings.topojson','collection');
@@ -67,11 +70,10 @@ var init = function(){
             colors: ['#DDDDDD', '#81c6f6', '#80c146'],
             night: ['#333333', '#11485f', '#254F0B'],
             groups: function(groups, properties){
-                console.log(properties);
-                if(properties.natural === "water"){
+                if(properties.tags.natural === "water"){
                     return groups[1];
                 }
-                else if(properties.natural === "grass"){
+                else if(properties.tags.landuse === "grass"){
                     return groups[2];
                 } else {
                     return groups[0];
@@ -82,6 +84,7 @@ var init = function(){
 
     //load & start
     world
+        // .load([areas])
         .load([buildings, areas, roads])
         .then(function(){
 
@@ -98,7 +101,7 @@ var init = function(){
                 // lon: 51.679408
                 lat: 5.30299,
                 lon: 51.68965
-        	}, 400, 200);
+        	}, 250, 100);
 
             // world.stop();
 

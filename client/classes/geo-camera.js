@@ -158,8 +158,8 @@ module.exports = function(fov, aspect, near, far, group){
 
 	var generateHoverPlace = function(center, radius, height, speed, elapsedTime){
 		return new THREE.Vector3(
-			center.x + radius * Math.sin( speed * elapsedTime ),
-			center.z + radius * Math.cos( speed * elapsedTime ),
+			center.x + radius * Math.cos( speed * elapsedTime ),
+			center.y + radius * Math.sin( speed * elapsedTime ),
 			height
 		);
 	};

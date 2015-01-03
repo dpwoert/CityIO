@@ -28,14 +28,24 @@ module.exports = function(world){
 	//groups
 	for( var i = 0 ; i < colors.length ; i++ ){
 
-		//create material for group
-		var material = base.clone();
-		material.color = new THREE.Color(colors[i]);
+		var material;
+
+		if(!options.createMaterial){
+
+			//create material for group
+			material = base.clone();
+			material.color = new THREE.Color(colors[i]);
+
+		} else {
+			material = options.createMaterial(colors[i], i);
+			debugger
+		}
 
 		//create geometry for group
 		var geometry = new THREE.Geometry();
 
 		groups.push({
+			'nr': i,
 			'material': material,
 			'geometry': geometry
 		});
@@ -63,28 +73,34 @@ module.exports = function(world){
 	//create building
 	var createBuilding = function(pos, properties){
 
-		var group = groupDetect(groups, properties);
-		var height = options.height(properties);
-		// height = IO.tools.parseHeight(height);
+		try{
 
-		//prevent
-		if(isNaN(height)) height = 1;
+			var group = groupDetect(groups, properties);
+			var height = options.height(properties, group);
+			// height = IO.tools.parseHeight(height);
 
-		//create shape
-		var shape = new THREE.Shape(pos);
-		var extrusionSettings = {
-			amount: height,
-			//bevelSize: 15,
-			bevelEnabled: false,
-			//steps: 0,
-			bevelThickness: 0,
-			steps: 1
-		};
+			//prevent
+			if(isNaN(height)) height = 1;
 
-		//extrude & make mesh
-		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-		group.geometry.merge( geometry );
-		geometry.dispose();
+			//create shape
+			var shape = new THREE.Shape(pos);
+			var extrusionSettings = {
+				amount: height,
+				//bevelSize: 15,
+				bevelEnabled: false,
+				//steps: 0,
+				bevelThickness: 0,
+				steps: 1
+			};
+
+			//extrude & make mesh
+			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
+			group.geometry.merge( geometry );
+			geometry.dispose();
+
+		} catch(e){
+			console.warn(e);
+		}
 
 	};
 

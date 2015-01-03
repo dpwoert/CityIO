@@ -26,7 +26,9 @@ module.exports = function(canvas, minHeight){
 
 	//Setup scene
 	this.scene = new THREE.Scene();
-	this.scene.fog = new THREE.FogExp2( 0xAAAAAA, 0.00075 );
+	this.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.00050 );
+	this.scene.fog.night = new THREE.Color(0x222222);
+    this.scene.fog.day = new THREE.Color(0xFFFFFF);
 
 	//Add rotated world to scene
 	this.scene.add(this.group);
@@ -35,7 +37,7 @@ module.exports = function(canvas, minHeight){
 	// this.group.updateMatrixWorld();
 
 	//create light
-	var hemisphere = new THREE.HemisphereLight(0xffffff, 0xdddddd, 1);
+	var hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
 	this.scene.add(hemisphere);
 
 	// Append to canvas
