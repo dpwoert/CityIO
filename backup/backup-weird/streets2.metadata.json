@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "meteor.streets2", "name" : "_id_" } ] }

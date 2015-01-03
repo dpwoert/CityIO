@@ -1,1 +1,0 @@
-IO.addElement('surfaces','cityio-element-surfaces','surfaces');
