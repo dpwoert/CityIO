@@ -22,6 +22,7 @@ module.exports = {
     'tools': {
 
         'filter': require('./tools/filter.js'),
+        'removeDoubles': require('./tools/remove-doubles.js'),
         'mergeGeoJSON': require('./tools/merge-geojson.js'),
         'topoJSON': require('./tools/topojson.js')
 

@@ -25,10 +25,13 @@ module.exports = function(){
             .scraper(IO.scrapers.BAG, { 'min': min, 'max': max })
 
             //get height data from AHN (Algemeen Hoogtebestand Nederland)
-            //.action(IO.scrapers.AHN)
+            // .action(IO.scrapers.AHN)
+
+            //remove double values from geoJSON
+            .action(IO.tools.removeDoubles)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
-            .action(IO.scrapers.NSL, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
+            // .action(IO.scrapers.NSL, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
 
             //make whitelist of data to keep
             .action(IO.tools.filter, {
@@ -46,7 +49,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'buildings')
 
             //save
-            //.save('demos/denBosch/maps/buildings.topojson');
+            // .save('demos/denBosch/maps/buildings.topojson');
 
         return buildings.end();
 
@@ -100,13 +103,19 @@ module.exports = function(){
                 query: '[out:json][timeout:25];(' +
                 'way["natural"="water"]({{bbox}});' +
                 'relation["natural"="water"]({{bbox}});' +
-                'node["landuse"="grass"]({{bbox}});' +
-                'way["landuse"="grass"]({{bbox}});' +
-                'relation["landuse"="grass"]({{bbox}});' +
+                // 'node["landuse"="grass"]({{bbox}});' +
+                // 'way["landuse"="grass"]({{bbox}});' +
+                // 'relation["landuse"="grass"]({{bbox}});' +
+                'node["leisure"="park"]({{bbox}});' +
+                'way["leisure"="park"]({{bbox}});' +
+                'relation["leisure"="park"]({{bbox}});' +
                 'way["admin_level"="11"]({{bbox}});'+
                 ');out body;>;out skel qt;',
                 bbox: [min, max]
             })
+
+            //remove double values from geoJSON
+            .action(IO.tools.removeDoubles)
 
             //make whitelist of data to keep
             .action(IO.tools.filter, {

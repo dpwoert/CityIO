@@ -7,10 +7,11 @@ module.exports = function(url, options){
 
     var defaults = {
         'service': 'WFS',
-        'version': '2.0.0',
+        'version': '1.0.0',
         'request': 'GetFeature',
         'outputformat': 'json',
-        'srsName': 'EPSG:4326'
+        'srsName': 'EPSG:4326',
+        // 'startindex': 100,
     }
 
     var paging = function(){
@@ -45,7 +46,16 @@ module.exports = function(url, options){
 
                 //convert to JSON
                 if(data instanceof Object === false){
-                    data = JSON.parse(data);
+
+                    //catch WFS errors
+                    try{
+                        data = JSON.parse(data);
+                    }
+                    catch(e){
+                        console.error(e);
+                        console.error('Response:', data);
+                    }
+
                 }
 
                 defer.resolve(data);

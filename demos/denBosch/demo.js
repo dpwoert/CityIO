@@ -2,7 +2,6 @@ var init = function(){
 
     //get element
     var element = document.getElementById('canvas');
-    console.log('canvas',element);
 
     //create projection
     var projection = new IO.classes.Projection([5.246658, 51.679408], 22);
@@ -73,7 +72,8 @@ var init = function(){
                 if(properties.tags.natural === "water"){
                     return groups[1];
                 }
-                else if(properties.tags.landuse === "grass"){
+                // else if(properties.tags.landuse === "grass"){
+                else if(properties.tags.leasure === "park"){
                     return groups[2];
                 } else {
                     return groups[0];
