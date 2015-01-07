@@ -9,6 +9,11 @@ var Geo = function(lat, lon, srs){
 
     this.distanceTo = function(geo){
 
+        //prevent
+        if(!(geo.lat instanceof Number && geo.lon instanceof Number)){
+            console.error('destination object not valid');
+        }
+
         //http://stackoverflow.com/questions/639695/how-to-convert-latitude-or-longitude-to-meters
         var R = 6378.137; // Radius of earth in KM
         var dLat = (geo.lat - this.lat) * Math.PI / 180;
@@ -20,6 +25,13 @@ var Geo = function(lat, lon, srs){
         var d = R * c;
         return d * 1000; // meters
 
+    };
+
+    //linear interpolate to position (alpha between 0,1)
+    this.lerp = function(destination, alpha){
+        var lat = this.lat * (1 - alpha) + destination.lat * alpha;
+		var lon = this.lon * (1 - alpha) + destination.lon * alpha;
+		return new Geo(lat, lon);
     };
 
     this.convert = function(srs){

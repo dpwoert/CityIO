@@ -23,6 +23,7 @@ module.exports = {
 
         'filter': require('./tools/filter.js'),
         'removeDoubles': require('./tools/remove-doubles.js'),
+        'splitPath': require('./tools/split-path.js'),
         'mergeGeoJSON': require('./tools/merge-geojson.js'),
         'topoJSON': require('./tools/topojson.js')
 

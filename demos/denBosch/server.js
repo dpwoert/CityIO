@@ -83,6 +83,9 @@ module.exports = function(){
                 }
             })
 
+            //split paths to ensure points are at an interval
+            .action(IO.tools.splitPath, 20)
+
             //convert to topojson to save bits & bytes
             .action(IO.tools.topoJSON, 'streets')
 

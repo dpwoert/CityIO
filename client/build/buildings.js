@@ -38,7 +38,6 @@ module.exports = function(world){
 
 		} else {
 			material = options.createMaterial(colors[i], i);
-			debugger
 		}
 
 		//create geometry for group
