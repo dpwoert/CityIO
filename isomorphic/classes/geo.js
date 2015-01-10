@@ -9,11 +9,6 @@ var Geo = function(lat, lon, srs){
 
     this.distanceTo = function(geo){
 
-        //prevent
-        if(!(geo.lat instanceof Number && geo.lon instanceof Number)){
-            console.error('destination object not valid');
-        }
-
         //http://stackoverflow.com/questions/639695/how-to-convert-latitude-or-longitude-to-meters
         var R = 6378.137; // Radius of earth in KM
         var dLat = (geo.lat - this.lat) * Math.PI / 180;
@@ -46,6 +41,15 @@ var Geo = function(lat, lon, srs){
 
         return this;
     };
+
+    this.round = function(decimal){
+        if(!decimal){
+            this.lat = Math.round(this.lat);
+            this.lon = Math.round(this.lon);
+        } else {
+            //todo
+        }
+    }
 
     this.clone = function(){
         return new Geo(this.lat, this.lon);

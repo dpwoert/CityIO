@@ -58,6 +58,7 @@ module.exports = function(url, options){
 
                 }
 
+
                 defer.resolve(data);
 
             }).on('error', function(e) {

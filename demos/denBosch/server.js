@@ -16,6 +16,9 @@ module.exports = function(){
     //map for areas
     var areas = new IO.classes.Map();
 
+    //scrapers not part of standard cityIO library
+    var soundData = require('./soundData.js');
+
     //fetch buildings
     var fetch = function(){
 
@@ -84,7 +87,10 @@ module.exports = function(){
             })
 
             //split paths to ensure points are at an interval
-            .action(IO.tools.splitPath, 20)
+            // .action(IO.tools.splitPath, 20)
+
+            //day value of sound
+            .action(soundData)
 
             //convert to topojson to save bits & bytes
             .action(IO.tools.topoJSON, 'streets')
