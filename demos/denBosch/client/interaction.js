@@ -1,0 +1,5 @@
+interaction = function(world){
+
+    //todo
+
+};

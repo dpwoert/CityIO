@@ -60,18 +60,12 @@ var init = function(){
         .options({
             color: '#ff0000',
             height: function(properties, index){
-                return 0;
+                return Math.pow( (properties.day[index] - 50), 1.3);
             }
         })
         .build(IO.build.roads);
-
-    //roads viz - night
-    // roads
-    //     .data(roadsMap)
-    //     .options({
-    //         color: '#ff0000'
-    //     })
-    //     .build(IO.build.roads);
+        // .build(roads.day.js)
+        // .build(roads.night.js);
 
     //areas (grass, water, neighborhoods)
     areas

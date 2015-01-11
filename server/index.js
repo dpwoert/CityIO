@@ -13,11 +13,14 @@ module.exports = {
 
     'scrapers': {
 
+        //Open Street Maps
         'OSM': require('./scrapers/osm.js'),
+        //Web Feature Service
         'WFS': require('./scrapers/wfs.js'),
+        //Basis administratie Gemeente from Kadaster (NL)
         'BAG': require('./scrapers/bag.js'),
-        'AHN': require('./scrapers/ahn.js'),
-        'NSL': require('./scrapers/nsl.js')
+        //Algemeent Hoogtebestand Nederland (height data for NL)
+        'AHN': require('./scrapers/ahn.js')
 
     },
 

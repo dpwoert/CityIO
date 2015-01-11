@@ -25,6 +25,7 @@ module.exports = function(){
     var soundData = require('./soundData.js');
     var polutionData = require('./polutionData.js');
 
+    /*
     //fetch buildings
     var fetch = function(){
 
@@ -67,6 +68,8 @@ module.exports = function(){
     //fetch streets
     .then(function(){
 
+    */
+
         streets
 
             //get data from Open Street Maps
@@ -104,9 +107,11 @@ module.exports = function(){
             //save
             .save('demos/denBosch/maps/streets.topojson');
 
-        return streets.end();
+        // return streets.end();
 
-    })
+    // })
+
+    streets.end()
 
     //fetch areas
     .then(function(){
