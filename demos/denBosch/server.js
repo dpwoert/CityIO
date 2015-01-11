@@ -23,6 +23,7 @@ module.exports = function(){
 
     //scrapers not part of standard cityIO library
     var soundData = require('./soundData.js');
+    var polutionData = require('./polutionData.js');
 
     //fetch buildings
     var fetch = function(){
@@ -39,7 +40,7 @@ module.exports = function(){
             .action(IO.tools.removeDoubles)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
-            // .action(IO.scrapers.NSL, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
+            // .action(polutionData, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
 
             //make whitelist of data to keep
             .action(IO.tools.filter, {

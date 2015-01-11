@@ -27,6 +27,6 @@ gulp.task('demos/denBosch/update', function() {
     require('./demos/denBosch/createScript.js')();
 });
 
-gulp.task('watch', ['client'], function() {
+gulp.task('watch', ['demos/denBosch/update'], function() {
     gulp.watch(['client/**/*.js','server/**/*.js','isomorphic/**/*.js'], ['demos/denBosch/update']);
 });

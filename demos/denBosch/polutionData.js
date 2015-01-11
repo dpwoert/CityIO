@@ -1,10 +1,5 @@
+var IO = require('../../index.js');
 var fs = require('fs');
-
-var Geo = require('../../isomorphic/classes/geo.js');
-var Feature = require('../../isomorphic/classes/feature.js');
-var srs = require('../../isomorphic/tools/srs.js');
-
-//TODO remove this, not part of standard API!
 
 module.exports = function(finish, data, options){
 
@@ -25,10 +20,10 @@ module.exports = function(finish, data, options){
 
         //convert
         var pos = feature.geomet_wkt.replace('POINT(','').replace(')','');
-		pos = pos.split(' ');
+        pos = pos.split(' ');
 
         //create Geo point
-        var geo = new Geo(pos[0], pos[1], srs.RDC);
+        var geo = new IO.classes.Geo(pos[0], pos[1], IO.srs.RDC);
         geo.convert('EPSG:4326');
 
         //add data
@@ -42,7 +37,7 @@ module.exports = function(finish, data, options){
     var checkFeature = function(feature){
 
         //get center
-        var _feature = new Feature().parse(feature);
+        var _feature = new IO.classes.Feature().parse(feature);
         var closest = _feature.getClosest(list);
 
         //save data

@@ -1,1 +1,0 @@
-window.IO = require('./client');
