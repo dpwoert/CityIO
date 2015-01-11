@@ -27,7 +27,7 @@ var init = function(){
     buildings
         .data(buildingsMap)
         .options({
-            colors: ['#e8e8e8', '#d4bdbd', '#dfa5§a1', '#e87364','#550c2b'],
+            colors: ['#f9f9f9', '#e8e8e8', '#dbdbdb', '#dfa5a1', '#e87364'],
             height: function(properties){
                 return properties.height;
             },
@@ -54,13 +54,24 @@ var init = function(){
         })
         .build(IO.build.buildings);
 
-    //roads viz
+    //roads viz - day
     roads
         .data(roadsMap)
         .options({
-            color: '#ff0000'
+            color: '#ff0000',
+            height: function(properties, index){
+                return 0;
+            }
         })
         .build(IO.build.roads);
+
+    //roads viz - night
+    // roads
+    //     .data(roadsMap)
+    //     .options({
+    //         color: '#ff0000'
+    //     })
+    //     .build(IO.build.roads);
 
     //areas (grass, water, neighborhoods)
     areas
@@ -97,13 +108,9 @@ var init = function(){
 
         	//start with flying around
         	world.camera.flyAround({
-                // lat: 5.246658,
-                // lon: 51.679408
                 lat: 5.30299,
                 lon: 51.68965
         	}, 250, 100);
-
-            // world.stop();
 
         })
         .catch(function(e){

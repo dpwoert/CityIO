@@ -67,7 +67,7 @@ module.exports = function(){
             .scraper(IO.scrapers.OSM, {
                 query: '[out:json][timeout:25];('+
                 'way["railway"="rail"]({{bbox}});'+
-                'node["highway"]({{bbox}});'+
+                // 'node["highway"]({{bbox}});'+
                 'way["highway"]({{bbox}});'+
                 'relation["highway"]({{bbox}});'+
                 ');out body;>;out skel qt;',
@@ -87,7 +87,7 @@ module.exports = function(){
             })
 
             //split paths to ensure points are at an interval
-            // .action(IO.tools.splitPath, 20)
+            .action(IO.tools.splitPath, 20)
 
             //day value of sound
             .action(soundData)
@@ -149,6 +149,19 @@ module.exports = function(){
         return streets.end();
 
     })
+
+    //build script
+    // .then(function(){
+    //
+    //     var build = new IO.classes.Build();
+    //     return build
+    //         .add('build.buildings')
+    //         .add('build.areas')
+    //         .add('build.roads')
+    //         .add('FXlib.tiltShift')
+    //         .export('demos/denBosch/city-io.js');
+    //
+    // })
 
     //done
     .then(function(){

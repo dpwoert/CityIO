@@ -50,6 +50,8 @@ module.exports = {
         'FXAA': require('./tools/fx/fxaa.js'),
         'tiltShift': require('./tools/fx/tilt-shift.js')
 
-    }
+    },
+
+    shaders: {}
 
 };

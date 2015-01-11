@@ -1,4 +1,3 @@
 .DS_Store
 tmp/
 node_modules/
-demos/denBosch/maps/*.topojson

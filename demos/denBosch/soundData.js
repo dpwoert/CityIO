@@ -105,7 +105,7 @@ module.exports = function(finish, data, options){
     var logProcess = function(){
         done++;
         var progress = Math.round((done/promises.length) * 100);
-        if(progress % 5 === 0){
+        if(done % 100 === 0){
             console.log('fetching sound data: ' + progress + '% | ' + done + ' / ' + promises.length);
         }
     };

@@ -18,21 +18,34 @@ module.exports = function(world){
 	options.radiusSegments = options.radiusSegments || 3;
 	options.quality = options.quality || 1;
 	options.opacity = options.opacity || 1;
+	options.height = options.height || 0;
 
 	//create geometry
 	var geometry = new THREE.Geometry();
-	
+
 	//add to scene when done
 	var finalise = function(){
 
-		//create material settings
-		var materialSettings = {};
-		materialSettings.color = options.color;
+		//standard material
+		if(!options.material){
 
-		//transparency?
-		if(options.opacity < 1){
-			materialSettings.opacity = options.opacity;
-			materialSettings.transparent = true;
+			//create material settings
+			var material;
+			var materialSettings = {};
+			materialSettings.color = options.color;
+
+			//transparency?
+			if(options.opacity < 1){
+				materialSettings.opacity = options.opacity;
+				materialSettings.transparent = true;
+			}
+
+			material = new THREE.MeshLambertMaterial(materialSettings);
+
+		}
+		//custom material
+		else {
+			material = options.material;
 		}
 
 		var buffer = new THREE.BufferGeometry();
@@ -40,9 +53,7 @@ module.exports = function(world){
 		geometry.dispose();
 
 		//create mesh
-		var material = new THREE.MeshLambertMaterial(materialSettings);
 		mesh = new THREE.Mesh( buffer, material );
-		// mesh.position.z = IO.tools.parseHeight(z);
 
 		//add to scene
 		world.group.add(mesh);
@@ -70,7 +81,7 @@ module.exports = function(world){
 
 		this.render.push(function(){
 
-			createTube( this.object.get3D(world.projection) );
+			createTube( this.object.get3D(world.projection, options.height) );
 
 			//end?
 			if(this.current >= roads.length - 1){

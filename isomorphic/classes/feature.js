@@ -216,15 +216,22 @@ var Feature = function(data){
         return this;
     };
 
-    this.get3D = function(projection){
+    this.get3D = function(projection, height){
 
         var points = [];
         var _list = this.getFlatArray();
+        height = height || 0;
 
         //convert to 3d
-        debugger
         for( var i = 0 ; i < _list.length ; i++ ){
-            points.push( _list[i].to3D(projection) );
+
+            //get height per point when an function
+            var _height = height;
+            if(height instanceof Function){
+                _height = height(this.properties, i, _list);
+            }
+
+            points.push( _list[i].to3D(projection, _height) );
         }
 
         //return new points
