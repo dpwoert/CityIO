@@ -1083,6 +1083,11 @@ module.exports = function(world){
 
 	};
 
+	this.clearCache = function(){
+		data.destroy();
+		map.destroy();
+	};
+
 	this.action = function(name, properties){
 
 		var response;
@@ -1166,6 +1171,17 @@ module.exports = function(){
 
     };
 
+    var finish = function(){
+
+        //clear cached data
+        for( var i = 0 ; i < list.length ; i++ ){
+            list[i].clearCache();
+        };
+
+        //reset list
+        list = [];
+    };
+
     this.render = function(defer){
 
         var self = this;
@@ -1208,6 +1224,7 @@ module.exports = function(){
 
                     //finished?
                     if(rendered === objects){
+                        finish();
                         self.state('loaded');
                         defer.resolve();
                     }
@@ -1401,6 +1418,10 @@ module.exports = function(url, params){
 
         }
 
+    };
+
+    this.destroy = function(){
+        rawData = undefined;
     };
 
 }
@@ -2803,6 +2824,23 @@ module.exports = function(){
         return list;
     };
 
+    this.each = function(fn){
+        for( var i = 0 ; i < list.length ; i++ ){
+            fn(list[i], i);
+        }
+    };
+
+    this.destroy = function(){
+
+        //destroy all features
+        this.each(function(f){
+            f.destroy();
+        });
+
+        //clear reference
+        list = [];
+    };
+
 }
 
 },{"./feature.js":38}],38:[function(require,module,exports){
@@ -3057,6 +3095,12 @@ var Feature = function(data){
         json.geometry = {};
         json.geometry.type = this.type;
         json.geometry.coordinates = this.exportArray();
+    };
+
+    this.destroy = function(){
+        list = [];
+        this.properties = {};
+        this.type = '';
     };
 
 };

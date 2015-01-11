@@ -25,4 +25,21 @@ module.exports = function(){
         return list;
     };
 
+    this.each = function(fn){
+        for( var i = 0 ; i < list.length ; i++ ){
+            fn(list[i], i);
+        }
+    };
+
+    this.destroy = function(){
+
+        //destroy all features
+        this.each(function(f){
+            f.destroy();
+        });
+
+        //clear reference
+        list = [];
+    };
+
 }

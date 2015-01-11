@@ -251,6 +251,12 @@ var Feature = function(data){
         json.geometry.coordinates = this.exportArray();
     };
 
+    this.destroy = function(){
+        list = [];
+        this.properties = {};
+        this.type = '';
+    };
+
 };
 
 module.exports = Feature;

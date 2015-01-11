@@ -161,4 +161,8 @@ module.exports = function(url, params){
 
     };
 
+    this.destroy = function(){
+        rawData = undefined;
+    };
+
 }

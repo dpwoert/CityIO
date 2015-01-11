@@ -124,6 +124,11 @@ module.exports = function(world){
 
 	};
 
+	this.clearCache = function(){
+		data.destroy();
+		map.destroy();
+	};
+
 	this.action = function(name, properties){
 
 		var response;

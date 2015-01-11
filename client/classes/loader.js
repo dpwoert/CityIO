@@ -49,6 +49,17 @@ module.exports = function(){
 
     };
 
+    var finish = function(){
+
+        //clear cached data
+        for( var i = 0 ; i < list.length ; i++ ){
+            list[i].clearCache();
+        };
+
+        //reset list
+        list = [];
+    };
+
     this.render = function(defer){
 
         var self = this;
@@ -91,6 +102,7 @@ module.exports = function(){
 
                     //finished?
                     if(rendered === objects){
+                        finish();
                         self.state('loaded');
                         defer.resolve();
                     }
