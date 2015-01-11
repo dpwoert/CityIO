@@ -3,28 +3,7 @@ var concat = require('gulp-concat');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 
-// gulp.task('client', function() {
-//   return gulp.src('client/**/*,server/**/*')
-//     .pipe(concat('cityio.isomorphic.js'))
-//     .pipe(gulp.dest('export'))
-//     .pipe(notify({ message: 'Builded isomorphic version of CityIO' }));
-// });
-
-gulp.task('client', function() {
-
-    console.log('starting client build');
-
-    return gulp.src('client.export.js', { read: false })
-        .pipe(browserify({
-            // transform: ['folderify'],
-            insertGlobals: true,
-            debug: true
-        }))
-        .pipe(rename('cityio.client.js'))
-        .pipe(gulp.dest('./export'));
-});
-
-gulp.task('demo/denBosch', function() {
+gulp.task('demos/denBosch', function() {
 
     var connect = require('connect');
     var app = connect()
@@ -40,10 +19,14 @@ gulp.task('demo/denBosch', function() {
 
 });
 
-gulp.task('demo/denBosch/import', function() {
+gulp.task('demos/denBosch/import', function() {
     require('./demos/denBosch/server.js')();
 });
 
+gulp.task('demos/denBosch/update', function() {
+    require('./demos/denBosch/createScript.js')();
+});
+
 gulp.task('watch', ['client'], function() {
-    gulp.watch(['client/**/*.js','server/**/*.js','isomorphic/**/*.js'], ['client']);
+    gulp.watch(['client/**/*.js','server/**/*.js','isomorphic/**/*.js'], ['demos/denBosch/update']);
 });

@@ -40,6 +40,7 @@ module.exports = function(image, options){
 	    	//error?
 	        if(err){
 	        	console.log(err);
+                defer.reject(err);
 	        	return false;
 	        }
 

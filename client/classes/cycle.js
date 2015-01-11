@@ -4,4 +4,8 @@ window.exports = function(){
         //todo
     };
 
+    this.addFunction = function(fn){
+        // fn(time)
+    };
+
 };

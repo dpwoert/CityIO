@@ -1,19 +1,37 @@
 var browserify = require('browserify');
 var q = require('q');
+var fs = require('fs');
+var mapping = require('../../client/mapping.js');
 
 module.exports = function(){
 
     var list = [];
 
     var load = function(){
+        var file = 'var IO = require("./client/index.js"); \n';
+        // file += 'module.exports=function(){ \n';
         list.forEach(function(req){
 
-            IO[req.type][req.name] = require(req.file);
+            //todo parse keyname
+            file += 'IO.' + [req.name] + ' = require("./client/' + req.url + '"); \n';
 
         });
+        file += 'window.IO = IO;';
+        // file += '};';
+        return file;
     };
 
-    this.add = function(name){
+    this.add = function(name, url){
+
+        if(!url){
+            url = mapping(name);
+        }
+
+        //add to list
+        list.push({
+            'name': name,
+            'url': url
+        });
 
         //chainable
         return this;
@@ -25,25 +43,30 @@ module.exports = function(){
         var defer = q.defer();
 
         //defaults
+        options = options || {};
         options.minify = options.minify || true;
         options.debug = options.debug || false;
         // options.exportLibs = options.exportLibs || false;
 
         //create temp file?
         var tmpName = 'buildscript.'+ Date.now() +'.js';
-        var tmp = JSON.parse(list) + load.toString();
+        var tmp = load();
         fs.writeFileSync(tmpName, tmp);
 
         //build
         browserify()
-            .require('../../client/', {expose: 'IO'})
-            .add(list);
-            .bundle()
-            .pipe(function(content){
+            .add('./' + tmpName)
+            .bundle(function(err, content){
 
-                fs.writeFileSync(filename, content);
                 fs.unlinkSync(tmpName);
-                defer.resolve(content);
+                if(err){
+                    console.error('error: ', err);
+                    defer.reject(err);
+                }
+                else {
+                    fs.writeFileSync(filename, content);
+                    defer.resolve(content);
+                }
 
             });
 

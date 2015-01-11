@@ -4,8 +4,13 @@ module.exports = function(){
 
     console.log('start fetching data for Den Bosch demo');
 
-    var min = new IO.classes.Geo(5.246658, 51.679408);
-    var max = new IO.classes.Geo(5.351028, 51.727281);
+    //grande
+    // var min = new IO.classes.Geo(5.246658, 51.679408);
+    // var max = new IO.classes.Geo(5.351028, 51.727281);
+
+    //petit
+    var min = new IO.classes.Geo(5.28805, 51.68441);
+    var max = new IO.classes.Geo(5.31689, 51.69814);
 
     //map for buildings (panden)
     var buildings = new IO.classes.Map();
@@ -159,7 +164,7 @@ module.exports = function(){
     //         .add('build.areas')
     //         .add('build.roads')
     //         .add('FXlib.tiltShift')
-    //         .export('demos/denBosch/city-io.js');
+    //         .export('demos/denBosch/cityio.js');
     //
     // })
 

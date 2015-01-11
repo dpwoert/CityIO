@@ -2,26 +2,10 @@ module.exports = function(req){
 
     switch(req){
 
-        case 'build.areas': return {
-            file: 'build/areas.js',
-            shaders: [],
-            type: 'build'
-        };
-
-        case 'build.buildings': return {
-            file: 'build/buildings.js',
-            type: 'build'
-        };
-
-        case 'build.roads': return {
-            file: 'build/roads.js',
-            type: 'build'
-        };
-
-        case 'FXlib.tiltShift': return {
-            file: 'tools/fx/tilt-shift.js',
-            type: 'FXlib'
-        };
+        case 'build.areas': return 'build/areas.js';
+        case 'build.buildings': return 'build/buildings.js';
+        case 'build.roads': return 'build/roads.js';
+        case 'FXlib.tiltShift': return 'tools/fx/tilt-shift.js';
 
     }
 

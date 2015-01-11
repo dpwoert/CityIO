@@ -49,6 +49,7 @@ module.exports = function(finish, data, options){
 
             }).on('error', function(e) {
               console.log("Error: " + e.message);
+              defer.reject(false);
             });
 
         });

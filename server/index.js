@@ -6,7 +6,8 @@ module.exports = {
         'Map': require('./classes/map.js'),
         'Geo': require('../isomorphic/classes/geo.js'),
         'Feature': require('../isomorphic/classes/feature.js'),
-        'ImageReader': require('./classes/image-reader.js')
+        'ImageReader': require('./classes/image-reader.js'),
+        'Build': require('./classes/build.js')
 
     },
 
