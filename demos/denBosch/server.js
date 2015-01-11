@@ -157,7 +157,7 @@ module.exports = function(){
             //save
             .save('demos/denBosch/maps/areas.topojson');
 
-        return streets.end();
+        return areas.end();
 
     })
 

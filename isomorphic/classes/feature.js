@@ -88,7 +88,6 @@ var Feature = function(data){
 
         //add all to new list
         this.each(function(pos){
-            debugger
             _list.push(pos);
         });
 

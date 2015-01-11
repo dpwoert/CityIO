@@ -4,8 +4,8 @@ IO.build.buildings = require("./client/build/buildings.js");
 IO.build.areas = require("./client/build/areas.js"); 
 IO.build.roads = require("./client/build/roads.js"); 
 IO.FXlib.tiltShift = require("./client/tools/fx/tilt-shift.js"); 
-window.IO = IO;
-},{"./client/build/areas.js":2,"./client/build/buildings.js":3,"./client/build/roads.js":4,"./client/index.js":17,"./client/tools/fx/tilt-shift.js":33}],2:[function(require,module,exports){
+window.IO = IO;window.THREE = require("three");
+},{"./client/build/areas.js":2,"./client/build/buildings.js":3,"./client/build/roads.js":4,"./client/index.js":17,"./client/tools/fx/tilt-shift.js":33,"three":112}],2:[function(require,module,exports){
 var THREE = require('three');
 
 //shaders
@@ -2896,7 +2896,6 @@ var Feature = function(data){
 
         //add all to new list
         this.each(function(pos){
-            debugger
             _list.push(pos);
         });
 

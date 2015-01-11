@@ -17,6 +17,7 @@ module.exports = function(){
 
         });
         file += 'window.IO = IO;';
+        file += 'window.THREE = require("three");';
         // file += '};';
         return file;
     };
