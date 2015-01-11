@@ -2,7 +2,7 @@ var IO = require('../../index.js');
 
 module.exports = function(){
 
-    console.log('start fetching data for Den Bosch demo');
+    console.log('start fetching data for Den Bosch demo. warning!: can take hours...');
 
     //grande
     // var min = new IO.classes.Geo(5.246658, 51.679408);
