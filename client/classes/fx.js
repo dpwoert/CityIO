@@ -4,6 +4,9 @@ var RenderPass = require('../lib/render-pass.js');
 
 module.exports = function(renderer, scene, camera, world){
 
+	//active when not using VR
+	this.active = true;
+
 	// this.dpr = window.devicePixelRatio || 1;
 	this.dpr = 2;
 

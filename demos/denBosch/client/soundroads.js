@@ -118,6 +118,8 @@ IO.build.soundRoads = function(world){
             scale = scale < 0 ? 0 : scale;
         }
 
+        //todo fix day uniform
+
         uniforms.currentTime.value = time;
         uniforms.day.value = scale;
 

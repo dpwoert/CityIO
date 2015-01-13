@@ -592,7 +592,7 @@ module.exports = function(world, time){
         fog.color.copy(fogColor);
 
         //animate BG color
-		if(IO.FX){
+		if(world.FX.active){
 			world.FX.setBackground(fogColor);
 		} else {
 			world.renderer.setClearColor(fogColor, 1);
@@ -610,7 +610,7 @@ module.exports = function(world, time){
             var intensity = (light.day - light.night) * time;
             intensity = light.day - intensity;
             light.object.intensity = intensity;
-            
+
         }
 
     }.bind(this);
@@ -644,6 +644,9 @@ var EffectComposer = require('../lib/effect-composer.js');
 var RenderPass = require('../lib/render-pass.js');
 
 module.exports = function(renderer, scene, camera, world){
+
+	//active when not using VR
+	this.active = true;
 
 	// this.dpr = window.devicePixelRatio || 1;
 	this.dpr = 2;
