@@ -37,8 +37,8 @@ module.exports = function(canvas, minHeight){
 	// this.group.updateMatrixWorld();
 
 	//create light
-	var hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
-	this.scene.add(hemisphere);
+	this.hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
+	this.scene.add(this.hemisphere);
 
 	// Append to canvas
 	canvas.appendChild( this.renderer.domElement );

@@ -25,8 +25,8 @@ var init = function(){
     var areas = new IO.classes.Layer3D(world);
 
     //cycle between day & night
-    console.log(IO.classes.Cycle);
     var cycle = new IO.classes.Cycle(world);
+    cycle.addLight(world.hemisphere, 0.8, 0.2);
 
     //buildings viz
     buildings

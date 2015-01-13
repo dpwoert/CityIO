@@ -45,7 +45,14 @@ module.exports = function(world, time){
         }
 
         //lights
-        //todo
+        for( var i = 0 ; i < lights.length ; i++ ){
+
+            var light = lights[i];
+            var intensity = (light.day - light.night) * time;
+            intensity = light.day - intensity;
+            light.object.intensity = intensity;
+            
+        }
 
     }.bind(this);
 
@@ -55,7 +62,7 @@ module.exports = function(world, time){
     };
 
     this.addLight = function(light, day, night){
-        lights.push({ 'light': light, 'day': day, 'night': night });
+        lights.push({ 'object': light, 'day': day, 'night': night });
     };
 
     this.addFunction = function(fn){
