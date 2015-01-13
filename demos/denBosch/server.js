@@ -162,17 +162,18 @@ module.exports = function(){
     })
 
     //build script
-    // .then(function(){
-    //
-    //     var build = new IO.classes.Build();
-    //     return build
-    //         .add('build.buildings')
-    //         .add('build.areas')
-    //         .add('build.roads')
-    //         .add('FXlib.tiltShift')
-    //         .export('demos/denBosch/cityio.js');
-    //
-    // })
+    .then(function(){
+
+        var build = new IO.classes.Build();
+        return build
+            .add('classes.Cycle')
+            .add('build.buildings')
+            .add('build.areas')
+            .add('build.roads')
+            .add('FXlib.tiltShift')
+            .export('demos/denBosch/cityio.js');
+
+    })
 
     //done
     .then(function(){

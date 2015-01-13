@@ -9,6 +9,7 @@ var init = function(){
     //create 3d world
     var world = new IO.classes.World(element, projection, ['tiltShift']);
     // var world = new IO.classes.World(element, projection);
+    window.world = world;
 
     //tilt shift
     world.FX.setBlur(5, 0.55, 1.4);
@@ -22,6 +23,10 @@ var init = function(){
     var buildings = new IO.classes.Layer3D(world);
     var roads = new IO.classes.Layer3D(world);
     var areas = new IO.classes.Layer3D(world);
+
+    //cycle between day & night
+    console.log(IO.classes.Cycle);
+    var cycle = new IO.classes.Cycle(world);
 
     //buildings viz
     buildings

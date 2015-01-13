@@ -51,7 +51,7 @@ module.exports = function(world){
     this.options.createMaterial = function(color, i){
 
         //get night color
-        var colorNight = self.options.night[i];
+        var colorNight = self.options.night[i] || 0x000000;
 
         //uniforms
     	var uniforms = {
@@ -64,6 +64,11 @@ module.exports = function(world){
     		"fogDay" : { type: "c", value: world.scene.fog.day },
     		"fogDensity" : { type: "f", value: world.scene.fog.density },
     	};
+
+        //cycle between day & night
+        if(world.cycle){
+            world.cycle.addObject(uniforms.currentTime, 'value');
+        }
 
     	//material
     	return new THREE.ShaderMaterial({

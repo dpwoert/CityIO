@@ -4,6 +4,8 @@ IO.build.soundRoads = function(world){
     var rangeMax = 30;
     // var rangeMax = Math.pow(75, 1.3);
 
+    var day = this.options.type === 'day';
+
     //create shader
     var shader = {
         uniforms: {
@@ -24,11 +26,17 @@ IO.build.soundRoads = function(world){
 		},
         vertex: [
             'varying float z;',
+            'uniform float maxHeight;',
+            'uniform float currentTime;',
+            'uniform float day;',
 
             'void main(void) {',
-                'gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
+
+            	'vec3 pos = position;',
+            	'pos.z = pos.z * day;',
+                'gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);',
                 'z = position.z;',
-            '}',
+            '}'
         ].join("\n"),
         fragment: [
             'uniform float minHeight;',
@@ -96,6 +104,23 @@ IO.build.soundRoads = function(world){
         vertexShader: shader.vertex,
         fragmentShader: shader.fragment,
         fog: true
+    });
+
+    //cycle
+    world.cycle.addFunction(function(time){
+
+        var scale = time;
+        if(day){
+            scale = scale * 2;
+            scale = scale > 1 ? 1 : scale;
+        } else {
+            scale = (scale - 0.5) * 2;
+            scale = scale < 0 ? 0 : scale;
+        }
+
+        uniforms.currentTime.value = time;
+        uniforms.day.value = scale;
+
     });
 
     return IO.build.roads.call(this, world);
