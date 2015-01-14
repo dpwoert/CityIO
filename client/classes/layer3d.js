@@ -26,8 +26,8 @@ module.exports = function(world){
 	//set options
 	this.options = function(_options){
 
-		//save
-		options = _options;
+		//save or merge
+		options = IO.tools.extend(options, _options, true);
 
 		//chainable
 		return this;
@@ -49,50 +49,25 @@ module.exports = function(world){
 	};
 
 	//build mesh with correct buildscript
-	this.build = function(build, customZ){
+	this.build = function(build, _options){
 
 		loaded.promise.done(function(){
 
-			var _z = customZ || z;
-
 			//convert data to 3D when not already converted
 			if(!data){
-
-				console.log('converting');
-
-				// //when an array load multiple maps
-				// if(map instanceof Array){
-				//
-				// 	data = [];
-				//
-				// 	//merge multiple road maps into one
-				// 	for( var i = 0 ; i < mapData.length ; i++ ){
-				//
-				// 		data = _data.concat( map[i].getData() );
-				//
-				// 	}
-				//
-				// 	//get bounding box of first map
-				// 	//bbox = mapData[0].getBoundingBox();
-				//
-				// } else {
-				//
-				// 	//single map
-				// 	data = map.convert3D(world.projection, _z);
-				// 	// bbox = mapData.getBoundingBox();
-				//
-				// }
 
 				data = map.getData();
 
 			}
 
+			//merge options with global options
+			_options = IO.tools.extend(options, _options, true);
+
 			var meta = {
 				'data': data,
 				'render': render,
 				'boundingbox': bbox,
-				'options': options,
-				'z': _z
+				'options': _options,
 			};
 
 			//start build script

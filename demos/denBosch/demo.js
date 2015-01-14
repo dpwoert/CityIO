@@ -68,7 +68,8 @@ var init = function(){
                 return Math.pow( (properties.day[index] - 50), 1.3);
             }
         })
-        .build(IO.build.soundRoads);
+        .build(IO.build.soundRoads, {time: 'day'})
+        .build(IO.build.soundRoads, {time: 'night'});
 
     //areas (grass, water, neighborhoods)
     areas

@@ -26,6 +26,8 @@ module.exports = {
 
     'tools': {
 
+        'srs': require('../isomorphic/tools/srs.js'),
+        'extend': require('../isomorphic/tools/extend.js'),
         'actionExtend': require('./tools/action-extend.js'),
         'createThree': require('./tools/create-three.js'),
         'destroyGroup': require('./tools/destroy-group.js'),

@@ -7,7 +7,6 @@ module.exports = function(world){
 	//set variables
 	var options = this.options;
 	var data = this.data;
-	var z = this.z;
 
 	//defaults
 	options.color = options.color || '#FFFFFF';

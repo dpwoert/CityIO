@@ -4,7 +4,7 @@ IO.build.soundRoads = function(world){
     var rangeMax = 30;
     // var rangeMax = Math.pow(75, 1.3);
 
-    var day = this.options.type === 'day';
+    var day = this.options.time === 'day';
 
     //create shader
     var shader = {
