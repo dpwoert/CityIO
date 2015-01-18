@@ -49,6 +49,10 @@ var Geo = function(lat, lon, srs){
         } else {
             //todo
         }
+    };
+
+    this.equals = function(geo){
+        return this.lat === geo.lat && this.lon === geo.lon;
     }
 
     this.clone = function(){

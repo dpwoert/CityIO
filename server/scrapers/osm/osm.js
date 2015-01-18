@@ -3,13 +3,21 @@
 var overpass = require('query-overpass');
 var q = require('q');
 
+var presets = require('./presets.js');
+
 module.exports = function(options){
 
-    if(!options || !options.query){
-        console.error('no query given for OSM scraper');
+    var defer = q.defer();
+
+    //presets
+    if(options.preset){
+        options.query = presets(options.preset);
     }
 
-    var defer = q.defer();
+    //need query
+    if(!options.query){
+        console.error('no query given for OSM scraper');
+    }
 
     //BBOX?
     if(options.bbox){

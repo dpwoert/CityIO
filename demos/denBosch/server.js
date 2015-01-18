@@ -9,8 +9,8 @@ module.exports = function(){
     // var max = new IO.classes.Geo(5.351028, 51.727281);
 
     //petit
-    var min = new IO.classes.Geo(5.28805, 51.68441);
-    var max = new IO.classes.Geo(5.31689, 51.69814);
+    var min = new IO.classes.Geo(5.29715, 51.68454);
+    var max = new IO.classes.Geo(5.31157, 51.69401);
 
     //map for buildings (panden)
     var buildings = new IO.classes.Map();
@@ -25,23 +25,26 @@ module.exports = function(){
     var soundData = require('./soundData.js');
     var polutionData = require('./polutionData.js');
 
-    /*
     //fetch buildings
     var fetch = function(){
 
         buildings
 
             //get data from Kadaster (Basis Administratie Gemeentes)
-            .scraper(IO.scrapers.BAG, { 'min': min, 'max': max })
+            // .scraper(IO.scrapers.BAG, { 'min': min, 'max': max })
+            .scraper(IO.scrapers.OSM, {
+                preset: 'buildings',
+                bbox: [min,max]
+            })
 
             //get height data from AHN (Algemeen Hoogtebestand Nederland)
-            // .action(IO.scrapers.AHN)
+            .action(IO.scrapers.AHN)
 
             //remove double values from geoJSON
             .action(IO.tools.removeDoubles)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
-            // .action(polutionData, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
+            .action(polutionData, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
 
             //make whitelist of data to keep
             .action(IO.tools.filter, {
@@ -59,7 +62,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'buildings')
 
             //save
-            // .save('demos/denBosch/maps/buildings.topojson');
+            .save('demos/denBosch/maps/buildings.topojson');
 
         return buildings.end();
 
@@ -68,18 +71,11 @@ module.exports = function(){
     //fetch streets
     .then(function(){
 
-    */
-
         streets
 
             //get data from Open Street Maps
             .scraper(IO.scrapers.OSM, {
-                query: '[out:json][timeout:25];('+
-                'way["railway"="rail"]({{bbox}});'+
-                // 'node["highway"]({{bbox}});'+
-                'way["highway"]({{bbox}});'+
-                'relation["highway"]({{bbox}});'+
-                ');out body;>;out skel qt;',
+                preset: ['rails','roads'],
                 bbox: [min,max]
             })
 
@@ -107,11 +103,9 @@ module.exports = function(){
             //save
             .save('demos/denBosch/maps/streets.topojson');
 
-        // return streets.end();
+        return streets.end();
 
-    // })
-
-    streets.end()
+    })
 
     //fetch areas
     .then(function(){
@@ -120,17 +114,7 @@ module.exports = function(){
 
             //get data from Open Street Maps
             .scraper(IO.scrapers.OSM, {
-                query: '[out:json][timeout:25];(' +
-                'way["natural"="water"]({{bbox}});' +
-                'relation["natural"="water"]({{bbox}});' +
-                // 'node["landuse"="grass"]({{bbox}});' +
-                // 'way["landuse"="grass"]({{bbox}});' +
-                // 'relation["landuse"="grass"]({{bbox}});' +
-                'node["leisure"="park"]({{bbox}});' +
-                'way["leisure"="park"]({{bbox}});' +
-                'relation["leisure"="park"]({{bbox}});' +
-                'way["admin_level"="11"]({{bbox}});'+
-                ');out body;>;out skel qt;',
+                preset: ['grass','water','neighbourhoods'],
                 bbox: [min, max]
             })
 
