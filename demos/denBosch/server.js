@@ -9,7 +9,7 @@ module.exports = function(){
     // var max = new IO.classes.Geo(5.351028, 51.727281);
 
     //petit
-    var min = new IO.classes.Geo(5.29715, 51.68454);
+    var min = new IO.classes.Geo(5.30000, 51.69000);
     var max = new IO.classes.Geo(5.31157, 51.69401);
 
     //map for buildings (panden)
@@ -41,7 +41,7 @@ module.exports = function(){
             .action(IO.scrapers.AHN)
 
             //remove double values from geoJSON
-            .action(IO.tools.removeDoubles)
+            // .action(IO.tools.removeDoubles)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
             .action(polutionData, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })

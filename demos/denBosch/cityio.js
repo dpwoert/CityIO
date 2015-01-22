@@ -564,7 +564,7 @@ module.exports = function(world, time){
     //animation properties
     this.duration = 1000;
     time = time || 0;
-    var start;
+    var start, from;
 
     //shortcut to fog
     var fog = world.scene.fog;
@@ -576,17 +576,24 @@ module.exports = function(world, time){
     var update = function(delta){
 
         //calculate time [TODO]
-        time = +Date.now() - start;
-        time = time / this.duration;
+        progress = +Date.now() - start;
+        progress = progress / this.duration;
+
+        console.log(progress);
 
         //prevent over reaching & finish
-        if(time > 1){
-            time = 1;
+        if(progress > 1){
+            progress = 1;
             world.render.remove(currentProcess);
         }
 
+        //destination
+        var delta = time - from;
+        var _time = from + (delta*progress);
+        // console.log('time', _time);
+
         //update fog
-        var fogColor = fog.day.lerp(fog.night, time);
+        var fogColor = fog.day.lerp(fog.night, _time);
         fog.color.copy(fogColor);
 
         //animate BG color
@@ -598,14 +605,14 @@ module.exports = function(world, time){
 
         //update functions in list
         for( var i = 0 ; i < list.length ; i++ ){
-            list[i](time, fogColor);
+            list[i](_time, fogColor);
         }
 
         //lights
         for( var i = 0 ; i < lights.length ; i++ ){
 
             var light = lights[i];
-            var intensity = (light.day - light.night) * time;
+            var intensity = (light.day - light.night) * _time;
             intensity = light.day - intensity;
             light.object.intensity = intensity;
 
@@ -613,9 +620,18 @@ module.exports = function(world, time){
 
     }.bind(this);
 
-    this.setTime = function(time){
+    this.setTime = function(_time){
+
+        //don't animate when time doesn't change
+        if(_time === time){
+            return false;
+        }
+
         currentProcess = world.render.add(update);
         start = +Date.now();
+
+        from = time;
+        time = _time;
     };
 
     this.addLight = function(light, day, night){
