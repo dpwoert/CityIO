@@ -22,8 +22,8 @@ module.exports = function(){
     var areas = new IO.classes.Map();
 
     //scrapers not part of standard cityIO library
-    var soundData = require('./soundData.js');
-    var polutionData = require('./polutionData.js');
+    var soundData = require('./server/soundData.js');
+    var polutionData = require('./server/polutionData.js');
 
     //fetch buildings
     var fetch = function(){
@@ -148,14 +148,9 @@ module.exports = function(){
     //build script
     .then(function(){
 
-        var build = new IO.classes.Build();
-        return build
-            .add('classes.Cycle')
-            .add('build.buildings')
-            .add('build.areas')
-            .add('build.roads')
-            .add('FXlib.tiltShift')
-            .export('demos/denBosch/cityio.js');
+        //create cityio script file
+        var createScript = require('./server/create-script.js');
+        createScript();
 
     })
 

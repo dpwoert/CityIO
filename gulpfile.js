@@ -24,7 +24,7 @@ gulp.task('demos/denBosch/import', function() {
 });
 
 gulp.task('demos/denBosch/update', function() {
-    require('./demos/denBosch/createScript.js')();
+    require('./demos/denBosch/server/create-script.js')();
 });
 
 gulp.task('watch', ['demos/denBosch/update'], function() {

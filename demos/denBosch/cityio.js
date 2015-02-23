@@ -592,6 +592,10 @@ module.exports = function(world, time){
         var _time = from + (delta*progress);
         // console.log('time', _time);
 
+        //prevent
+        if(_time > 1) time = 1;
+        if(_time < 0) time = 0;
+
         //update fog
         var fogColor = fog.day.lerp(fog.night, _time);
         fog.color.copy(fogColor);
