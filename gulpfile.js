@@ -20,7 +20,7 @@ gulp.task('demos/denBosch', function() {
 });
 
 gulp.task('demos/denBosch/import', function() {
-    require('./demos/denBosch/server.js')();
+    require('./demos/denBosch/build.js')();
 });
 
 gulp.task('demos/denBosch/update', function() {

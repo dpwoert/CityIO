@@ -22,8 +22,8 @@ module.exports = function(){
     var areas = new IO.classes.Map();
 
     //scrapers not part of standard cityIO library
-    var soundData = require('./server/soundData.js');
-    var polutionData = require('./server/polutionData.js');
+    var soundData = require('./build/soundData.js');
+    var polutionData = require('./build/polutionData.js');
 
     //fetch buildings
     var fetch = function(){
@@ -44,7 +44,7 @@ module.exports = function(){
             // .action(IO.tools.removeDoubles)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
-            .action(polutionData, { file: 'demos/denBosch/data/NSL-2011-denBosch.json' })
+            .action(polutionData, { file: './assets/data/NSL-2011-denBosch.json' })
 
             //make whitelist of data to keep
             .action(IO.tools.filter, {
@@ -62,7 +62,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'buildings')
 
             //save
-            .save('demos/denBosch/maps/buildings.topojson');
+            .save('./maps/buildings.topojson');
 
         return buildings.end();
 
@@ -101,7 +101,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'streets')
 
             //save
-            .save('demos/denBosch/maps/streets.topojson');
+            .save('./maps/streets.topojson');
 
         return streets.end();
 
@@ -139,7 +139,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'areas')
 
             //save
-            .save('demos/denBosch/maps/areas.topojson');
+            .save('./maps/areas.topojson');
 
         return areas.end();
 
@@ -149,7 +149,7 @@ module.exports = function(){
     .then(function(){
 
         //create cityio script file
-        var createScript = require('./server/create-script.js');
+        var createScript = require('./build/create-script.js');
         createScript();
 
     })
