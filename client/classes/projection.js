@@ -1,5 +1,5 @@
 var THREE = require('three');
-var d3 = require('d3');
+var d3 = require('d3-geo-mercator');
 
 module.exports = function(center, zoom){
 

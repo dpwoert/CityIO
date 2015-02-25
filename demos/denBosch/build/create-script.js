@@ -1,4 +1,4 @@
-var IO = require('../../index.js');
+var IO = require('../../../index.js');
 
 module.exports = function(){
 
