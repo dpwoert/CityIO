@@ -5,12 +5,12 @@ module.exports = function(){
     console.log('start fetching data for Den Bosch demo. warning!: can take hours...');
 
     //grande
-    // var min = new IO.classes.Geo(5.246658, 51.679408);
-    // var max = new IO.classes.Geo(5.351028, 51.727281);
+    var min = new IO.classes.Geo(5.246658, 51.679408);
+    var max = new IO.classes.Geo(5.351028, 51.727281);
 
     //petit
-    var min = new IO.classes.Geo(5.30000, 51.69000);
-    var max = new IO.classes.Geo(5.31157, 51.69401);
+    // var min = new IO.classes.Geo(5.30000, 51.69000);
+    // var max = new IO.classes.Geo(5.31157, 51.69401);
 
     //map for buildings (panden)
     var buildings = new IO.classes.Map();
@@ -44,7 +44,7 @@ module.exports = function(){
             // .action(IO.tools.removeDoubles)
 
             //get polution data from NSL (Nationaal Samenwerkingsverband Luchtkwaliteit)
-            .action(polutionData, { file: './assets/data/NSL-2011-denBosch.json' })
+            .action(polutionData, { file: 'demos/denBosch/assets/data/NSL-2011-denBosch.json' })
 
             //make whitelist of data to keep
             .action(IO.tools.filter, {
@@ -62,7 +62,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'buildings')
 
             //save
-            .save('./maps/buildings.topojson');
+            .save('demos/denBosch/maps/buildings.topojson');
 
         return buildings.end();
 
@@ -101,7 +101,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'streets')
 
             //save
-            .save('./maps/streets.topojson');
+            .save('demos/denBosch/maps/streets.topojson');
 
         return streets.end();
 
@@ -139,7 +139,7 @@ module.exports = function(){
             .action(IO.tools.topoJSON, 'areas')
 
             //save
-            .save('./maps/areas.topojson');
+            .save('demos/denBosch/maps/areas.topojson');
 
         return areas.end();
 

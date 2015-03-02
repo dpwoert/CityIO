@@ -182,12 +182,15 @@ module.exports = function(finish, data, options){
 	   	};
 
 	   	//check if in cache
-	   	fs.readFile(cachePath, "binary", function(err, file) {
-	    	if(err) {
+		fs.exists('tmp/' + cachePath, function(exists) {
+
+	    	if(!exists) {
 	    		getfile();
 	    	} else {
+				var file = fs.readFileSync('tmp/' + cachePath);
 	    		readHeight(tile.point, file, urlProvider, deferred);
 	    	}
+
 	    });
 
 	};
@@ -200,18 +203,32 @@ module.exports = function(finish, data, options){
     var done = 0;
 
     //add height data to feature
-    data.features.forEach(function(child){
+    data.features.forEach(function(child, i){
 
         //get center
         var feature = new Feature().parse(child);
         var center = feature.getCenter();
+
+		//get last promise (when available)
+		var lastPromise = promiseList[promiseList.length - 1];
 
         //create promise
         var deferred = q.defer();
         promiseList.push(deferred.promise);
 
         //get height
-        getHeight(center, 14, deferred);
+		if(lastPromise){
+
+			//create promise chain to not stress CPU
+			lastPromise
+				.then(function(){
+					getHeight(this.center, 14, this.deferred);
+				}.bind({ 'center': center, 'deferred': deferred }));
+
+		} else {
+			//no promise yet
+			getHeight(center, 14, deferred);
+		}
 
         //save
         deferred.promise.then(function(height){
@@ -222,7 +239,7 @@ module.exports = function(finish, data, options){
 
             //log progress
             var progress = (done/data.features.length) * 100;
-            if(progress % 5 == 0){
+            if(Math.round(progress) % 1 == 0){
                 console.log('AHN fetching: ' + Math.round(progress) + '% | ' + done + '/' + data.features.length);
             }
 
