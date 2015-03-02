@@ -15,6 +15,8 @@ module.exports = function(finish, data, options){
     var source = fs.readFileSync(options.file);
     source = JSON.parse(source);
 
+    console.log('start reading polution data from NSL')
+
     //convert list
     source.forEach(function(feature){
 
