@@ -152,7 +152,7 @@ module.exports = function(world){
 
 		groups.forEach(function(group){
 
-			var buffer = new THREE.BufferGeometry();
+			// var buffer = new THREE.BufferGeometry();
 			// buffer.fromGeometry(group.geometry);
 			// geometry.dispose();
 
@@ -168,39 +168,45 @@ module.exports = function(world){
 	//create building
 	var createBuilding = function(pos, properties){
 
-		try{
+		var group = groupDetect(groups, properties);
+		var height = options.height(properties, group);
+		// height = IO.tools.parseHeight(height);
 
-			var group = groupDetect(groups, properties);
-			var height = options.height(properties, group);
-			// height = IO.tools.parseHeight(height);
+		//must have an height
+		if(isNaN(height)) height = 1;
 
-			//prevent
-			if(isNaN(height)) height = 1;
-
-			//create shape
-			var shape = new THREE.Shape(pos);
-			var extrusionSettings = {
-				amount: height,
-				//bevelSize: 15,
-				bevelEnabled: false,
-				//steps: 0,
-				bevelThickness: 0,
-				steps: 1
-			};
-
-			//extrude & make mesh
-			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-			group.geometry.merge( geometry );
-			geometry.dispose();
-
-		} catch(e){
-			console.warn(e);
+		//prevent
+		if(pos.length < 1){
+			return false;
 		}
+
+		//create shape
+		var shape = new THREE.Shape(pos);
+		var extrusionSettings = {
+			amount: height,
+			//bevelSize: 15,
+			bevelEnabled: false,
+			//steps: 0,
+			bevelThickness: 0,
+			steps: 1
+		};
+
+		//prevent
+		if(shape.actions.length === 0){
+			return false;
+		}
+
+		//extrude & make mesh
+		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
+		group.geometry.merge( geometry );
+		geometry.dispose();
+		shape = undefined;
+		pos = undefined;
 
 	};
 
 	//add all buildings from list
-	var buildings = data.get();
+	var buildings = data.get().splice(0,15000);
 	for( var i = 0 ; i < buildings.length ; i++ ){
 
 		this.render.push(function(){
@@ -290,7 +296,8 @@ module.exports = function(world){
 
 		geometry.merge(tube);
 		tube.dispose();
-		path3D = null;
+		path3D = undefined;
+		data = undefined;
 
 	};
 
@@ -301,6 +308,7 @@ module.exports = function(world){
 		this.render.push(function(){
 
 			createTube( this.object.get3D(world.projection, options.height) );
+			this.object = undefined;
 
 			//end?
 			if(this.current >= roads.length - 1){
@@ -1163,6 +1171,7 @@ module.exports = function(world){
 
 		for(var i = start ; i < end ; i++){
 			render[i]();
+			render[i] = undefined;
 		}
 
 	};
@@ -1170,6 +1179,7 @@ module.exports = function(world){
 	this.clearCache = function(){
 		data.destroy();
 		map.destroy();
+		render = undefined;
 	};
 
 	this.action = function(name, properties){
@@ -1297,7 +1307,11 @@ module.exports = function(){
                     }
 
                     //do rendering
-                    list[this.current].render(this.start, end);
+                    try{
+                        list[this.current].render(this.start, end);
+                    } catch(e){
+                        console.log('err', e);
+                    }
 
                     //determine progress
                     rendered += end - this.start;

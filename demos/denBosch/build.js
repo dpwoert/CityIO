@@ -5,8 +5,12 @@ module.exports = function(){
     console.log('start fetching data for Den Bosch demo. warning!: can take hours...');
 
     //grande
-    var min = new IO.classes.Geo(5.246658, 51.679408);
-    var max = new IO.classes.Geo(5.351028, 51.727281);
+    // var min = new IO.classes.Geo(5.246658, 51.679408);
+    // var max = new IO.classes.Geo(5.351028, 51.727281);
+
+    //medium
+    var min = new IO.classes.Geo(5.28222, 51.68144);
+    var max = new IO.classes.Geo(5.32891, 51.72081);
 
     //petit
     // var min = new IO.classes.Geo(5.30000, 51.69000);

@@ -95,6 +95,7 @@ module.exports = function(world){
 
 		for(var i = start ; i < end ; i++){
 			render[i]();
+			render[i] = undefined;
 		}
 
 	};
@@ -102,6 +103,7 @@ module.exports = function(world){
 	this.clearCache = function(){
 		data.destroy();
 		map.destroy();
+		render = undefined;
 	};
 
 	this.action = function(name, properties){

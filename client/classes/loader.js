@@ -91,7 +91,11 @@ module.exports = function(){
                     }
 
                     //do rendering
-                    list[this.current].render(this.start, end);
+                    try{
+                        list[this.current].render(this.start, end);
+                    } catch(e){
+                        console.log('err', e);
+                    }
 
                     //determine progress
                     rendered += end - this.start;

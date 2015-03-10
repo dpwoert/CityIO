@@ -55,7 +55,7 @@ module.exports = function(world){
 
 		groups.forEach(function(group){
 
-			var buffer = new THREE.BufferGeometry();
+			// var buffer = new THREE.BufferGeometry();
 			// buffer.fromGeometry(group.geometry);
 			// geometry.dispose();
 
@@ -71,39 +71,45 @@ module.exports = function(world){
 	//create building
 	var createBuilding = function(pos, properties){
 
-		try{
+		var group = groupDetect(groups, properties);
+		var height = options.height(properties, group);
+		// height = IO.tools.parseHeight(height);
 
-			var group = groupDetect(groups, properties);
-			var height = options.height(properties, group);
-			// height = IO.tools.parseHeight(height);
+		//must have an height
+		if(isNaN(height)) height = 1;
 
-			//prevent
-			if(isNaN(height)) height = 1;
-
-			//create shape
-			var shape = new THREE.Shape(pos);
-			var extrusionSettings = {
-				amount: height,
-				//bevelSize: 15,
-				bevelEnabled: false,
-				//steps: 0,
-				bevelThickness: 0,
-				steps: 1
-			};
-
-			//extrude & make mesh
-			var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
-			group.geometry.merge( geometry );
-			geometry.dispose();
-
-		} catch(e){
-			console.warn(e);
+		//prevent
+		if(pos.length < 1){
+			return false;
 		}
+
+		//create shape
+		var shape = new THREE.Shape(pos);
+		var extrusionSettings = {
+			amount: height,
+			//bevelSize: 15,
+			bevelEnabled: false,
+			//steps: 0,
+			bevelThickness: 0,
+			steps: 1
+		};
+
+		//prevent
+		if(shape.actions.length === 0){
+			return false;
+		}
+
+		//extrude & make mesh
+		var geometry = new THREE.ExtrudeGeometry( shape, extrusionSettings );
+		group.geometry.merge( geometry );
+		geometry.dispose();
+		shape = undefined;
+		pos = undefined;
 
 	};
 
 	//add all buildings from list
-	var buildings = data.get();
+	var buildings = data.get().splice(0,15000);
 	for( var i = 0 ; i < buildings.length ; i++ ){
 
 		this.render.push(function(){

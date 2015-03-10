@@ -64,6 +64,7 @@ var init = function(){
         .data(roadsMap)
         .options({
             color: '#ff0000',
+            maxSegments: 10,
             height: function(properties, index){
                 return Math.pow( (properties.day[index] - 50), 1.3);
             }
@@ -94,6 +95,7 @@ var init = function(){
     //load & start
     world
         // .load([areas])
+        // .load([areas, roads])
         .load([buildings, areas, roads])
         .then(function(){
 
@@ -108,7 +110,11 @@ var init = function(){
         	world.camera.flyAround({
                 lat: 5.30299,
                 lon: 51.68965
-        	}, 250, 100);
+        	}, 500, 300);
+        	// world.camera.flyAround({
+            //     lat: 5.30299,
+            //     lon: 51.68965
+        	// }, 250, 100);
 
         })
         .catch(function(e){

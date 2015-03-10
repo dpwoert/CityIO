@@ -119,9 +119,7 @@ module.exports = function(url){
 
     this.topoJSON = function(key){
     	if (data.type && data.type === 'Topology') {
-            console.log('topo before');
     		data = topojson.feature(data, data.objects);
-            console.log('converted');
     		// data = topojson.feature(data, data.objects[key]);
     		type = 'geoJSON';
     	}

@@ -70,7 +70,8 @@ module.exports = function(world){
 
 		geometry.merge(tube);
 		tube.dispose();
-		path3D = null;
+		path3D = undefined;
+		data = undefined;
 
 	};
 
@@ -81,6 +82,7 @@ module.exports = function(world){
 		this.render.push(function(){
 
 			createTube( this.object.get3D(world.projection, options.height) );
+			this.object = undefined;
 
 			//end?
 			if(this.current >= roads.length - 1){
