@@ -674,8 +674,7 @@ module.exports = function(renderer, scene, camera, world){
 	//active when not using VR
 	this.active = true;
 
-	// this.dpr = window.devicePixelRatio || 1;
-	this.dpr = 2;
+	this.dpr = window.devicePixelRatio || 1;
 
 	//Create Shader Passes
 	this.composer = new EffectComposer(renderer);
