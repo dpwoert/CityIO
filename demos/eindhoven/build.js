@@ -32,7 +32,7 @@ module.exports = function(){
 
         //get data from twitter
         .scraper(IO.scrapers.twitter, {
-            q: 'carnaval',
+            q: 'eindhoven',
             // geocode: boundingBox,
             oauth: require('./build/twitter-credentials.js'),
             maxRequest: 1000

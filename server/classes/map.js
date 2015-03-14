@@ -84,6 +84,11 @@ module.exports = function(){
 
         this.end().then(function(){
 
+            //collection?
+            if(data.export){
+                data = data.export();
+            }
+
             //save to file
             fs.writeFileSync(filename, JSON.stringify(data));
             console.log('successfully saved to ' + filename);
