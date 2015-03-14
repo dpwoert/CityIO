@@ -32,9 +32,14 @@ module.exports = function(canvas, minHeight){
 
 	//Add rotated world to scene
 	this.scene.add(this.group);
+	this.group.rotateX(-Math.PI/2);
 	// this.group.rotateX(Math.PI/2);
 	// this.group.rotateZ(-Math.PI/2);
-	// this.group.updateMatrixWorld();
+
+	// this.group.rotation.z = 90 * Math.PI/180;
+	// this.group.rotation.x = -90 * Math.PI/180;
+	this.group.updateMatrixWorld();
+
 
 	//create light
 	this.hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);

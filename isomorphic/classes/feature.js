@@ -230,6 +230,9 @@ var Feature = function(data){
                 _height = height(this.properties, i, _list);
             }
 
+            //parse height
+            //TODO
+
             points.push( _list[i].to3D(projection, _height) );
         }
 

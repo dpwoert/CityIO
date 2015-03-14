@@ -18,7 +18,7 @@ module.exports = function(center, zoom){
 
 	this.translate3D = function(lat, lon){
 		var coords = projection([lat, lon]);
-		return new THREE.Vector2(coords[0], coords[1]);
+		return new THREE.Vector2(-coords[0], coords[1]);
 	};
 
 	this.reverse = function(vec3){

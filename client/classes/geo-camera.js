@@ -12,7 +12,7 @@ module.exports = function(fov, aspect, near, far, group){
 	camera.needsUpdate = false;
 
 	//change z and y axis
-	camera.up = new THREE.Vector3( 0, 0, 1 );
+	// camera.up = new THREE.Vector3( 0, -1, -1 );
 
 	var convert = function(pos){
 
@@ -159,8 +159,8 @@ module.exports = function(fov, aspect, near, far, group){
 	var generateHoverPlace = function(center, radius, height, speed, elapsedTime){
 		return new THREE.Vector3(
 			center.x + radius * Math.cos( speed * elapsedTime ),
-			center.y + radius * Math.sin( speed * elapsedTime ),
-			height
+			height,
+			center.z + radius * Math.sin( speed * elapsedTime )
 		);
 	};
 
