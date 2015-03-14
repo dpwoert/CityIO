@@ -10,14 +10,22 @@ module.exports = function(){
             this.add(collection.features[i]);
         }
 
+        //chainable
         return this;
 
     }
 
     this.add = function(feature){
-        var feature = new Feature().parse(feature);
+
+        //import when just JSON data
+        if(!feature.parse){
+            feature = new Feature().parse(feature);
+        }
+
+        //add to list
         list.push(feature);
 
+        //chainable
         return this;
     };
 
@@ -25,11 +33,28 @@ module.exports = function(){
         return list;
     };
 
+    this.toJSON = function(){
+        var json = {};
+        json.type = "FeatureCollection";
+        json.features = [];
+
+        //add feature data
+        this.each(function(feature){
+            json.features.push( feature.export() );
+        });
+
+        return json;
+    };
+
     this.each = function(fn){
         for( var i = 0 ; i < list.length ; i++ ){
             fn(list[i], i);
         }
     };
+
+    this.count = function(){
+        return list.length;
+    }
 
     this.destroy = function(){
 

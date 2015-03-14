@@ -13,7 +13,6 @@ module.exports = {
         'World': require('./classes/world.js'),
         'RenderManager': require('./classes/render-manager.js'),
         'Projection': require('./classes/projection.js'),
-        'BoundingBox': require('./classes/boundingbox.js'),
         'Map': require('./classes/map.js'),
         'Loader': require('./classes/loader.js'),
         'Layer3D': require('./classes/layer3d.js'),

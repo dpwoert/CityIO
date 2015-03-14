@@ -16,6 +16,8 @@ module.exports = {
 
         //Open Street Maps
         'OSM': require('./scrapers/osm/osm.js'),
+        //Twitter
+        'twitter': require('./scrapers/twitter.js'),
         //Web Feature Service
         'WFS': require('./scrapers/wfs.js'),
         //Basis administratie Gemeente from Kadaster (NL)

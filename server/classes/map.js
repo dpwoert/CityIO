@@ -14,6 +14,10 @@ module.exports = function(){
     //action that creates it's own promise
     this.scraper = function(scraper, options){
 
+        if(!scraper){
+            throw new Error('scraper not found');
+        }
+
         //get data
         var action = scraper(options, data);
 
@@ -92,6 +96,11 @@ module.exports = function(){
 
         //get last
         var last = actions.length - 1;
+
+        //prevent errors
+        if(last < 0){
+            last = 0;
+        }
 
         //get promise
         return actions[last].promise;

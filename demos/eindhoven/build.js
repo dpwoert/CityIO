@@ -9,6 +9,10 @@ module.exports = function(){
     // var max = new IO.classes.Geo(5.500889, 51.456440);
     var min = new IO.classes.Geo(5.46337, 51.42827);
     var max = new IO.classes.Geo(5.48689, 51.44646);
+    var boundingBox = new IO.classes.BoundingBox(min, max);
+
+    //map for activity (via Twitter)
+    var activity = new IO.classes.Map();
 
     //map for buildings (panden)
     var buildings = new IO.classes.Map();
@@ -22,8 +26,30 @@ module.exports = function(){
     //tools not part of standard cityIO library
     //todo twitter to canvas
 
-    //fetch buildings
     var fetch = function(){
+
+        activity
+
+        //get data from twitter
+        .scraper(IO.scrapers.twitter, {
+            q: 'carnaval',
+            // geocode: boundingBox,
+            oauth: require('./build/twitter-credentials.js'),
+            maxRequest: 1000
+        })
+
+        //convert to topojson to save bits & bytes
+        // .action(IO.tools.topoJSON, 'twitter')
+
+        //save
+        .save('demos/eindhoven/maps/twitter.geojson');
+
+        return activity.end();
+
+    }()
+
+    //fetch buildings
+    .then(function(){
 
         buildings
 
@@ -57,7 +83,7 @@ module.exports = function(){
 
         return buildings.end();
 
-    }()
+    })
 
     //fetch streets
     .then(function(){

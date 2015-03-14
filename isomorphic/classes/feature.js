@@ -252,6 +252,8 @@ var Feature = function(data){
         json.geometry = {};
         json.geometry.type = this.type;
         json.geometry.coordinates = this.exportArray();
+
+        return json;
     };
 
     this.destroy = function(){
