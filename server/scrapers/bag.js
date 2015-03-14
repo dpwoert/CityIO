@@ -8,7 +8,7 @@ module.exports = function(options){
     var options = options || {};
 
     //defaults - max of PDOK services is 15000 objects
-    options.count = options.count || 500;
+    options.count = options.count || 15000;
     // options.count = options.count || 15000;
     options.type = options.type || 'pand';
 

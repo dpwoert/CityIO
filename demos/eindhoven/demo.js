@@ -35,26 +35,6 @@ var init = function(){
         colors: ['#f9f9f9', '#e8e8e8', '#dbdbdb', '#dfa5a1', '#e87364'],
         height: function(properties){
             return properties.height;
-        },
-        groups: function(groups, properties){
-            if(properties.no2 < 35){
-                return groups[0];
-            }
-            else if(properties.no2 > 35 && properties.no2 < 38.5){
-                return groups[1];
-            }
-            else if(properties.no2 > 38.5 && properties.no2 < 40.5){
-                return groups[2];
-            }
-            else if(properties.no2 > 40.5 && properties.no2 < 42.5){
-                return groups[3];
-            }
-            else if(properties.no2 > 42.5){
-                return groups[4];
-            }
-            else {
-                return groups[0];
-            }
         }
     })
     .build(IO.build.buildings);
@@ -63,14 +43,11 @@ var init = function(){
     roads
     .data(roadsMap)
     .options({
-        color: '#ff0000',
+        color: '#44465a',
         maxSegments: 10,
-        height: function(properties, index){
-            return Math.pow( (properties.day[index] - 50), 1.3);
-        }
+        height: 5
     })
-    .build(IO.build.soundRoads, {time: 'day'})
-    .build(IO.build.soundRoads, {time: 'night'});
+    .build(IO.build.roads)
 
     //areas (grass, water, neighborhoods)
     areas
@@ -101,14 +78,14 @@ var init = function(){
 
         //rotate camera
         world.camera
-        .gotoGeo(5.246658, 51.679408, 300)
-        .lookAtGeo(5.246658, 51.89408, 100);
+            .gotoGeo(5.47582, 51.44646, 200)
+            .lookAtGeo(5.47496, 50, 100);
 
         //start with flying around
         world.camera.flyAround({
-            lat: 5.482683,
-            lon: 51.437763
-        }, 500, 300);
+            lat: 5.480644,
+            lon: 51.443066
+        }, 400, 200);
 
     })
     .catch(function(e){

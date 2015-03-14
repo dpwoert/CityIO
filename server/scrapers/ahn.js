@@ -126,58 +126,58 @@ module.exports = function(finish, data, options){
 		var urlProvider = 'http://ahn.geodan.nl/ahn/viewer3/cgi-bin/tilecache/tilecache.py/1.0.0/iahn2/'+tile.z+'/'+tile.x+'/'+tile.y+'.png';
 		var cachePath = 'tmp.' + tile.z + '-' + tile.x + '-' + tile.y + '.png';
 
-			//get file from web
-			var getfile = function(){
+		//get file from web
+		var getfile = function(){
 
-				//get from web so prepare connection
-				url = url.parse(urlProvider);
-			    var options = {
-			    	host: url.hostname, port: 80, path: url.pathname,
-			    	// headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
-			    };
+			//get from web so prepare connection
+			url = url.parse(urlProvider);
+		    var options = {
+		    	host: url.hostname, port: 80, path: url.pathname,
+		    	// headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
+		    };
 
-			    //get from the interwebz
-			    http.get(options, function(res){
-				    var imagedata = '';
-				    res.setEncoding('binary');
-				    // console.log('get url ' + urlProvider);
+		    //get from the interwebz
+		    http.get(options, function(res){
+			    var imagedata = '';
+			    res.setEncoding('binary');
+			    // console.log('get url ' + urlProvider);
 
-				    //received more data
-				    res.on('data', function(chunk){
-				        imagedata += chunk;
-				    })
+			    //received more data
+			    res.on('data', function(chunk){
+			        imagedata += chunk;
+			    })
 
-				    //image completed
-				    res.on('end', function(){
+			    //image completed
+			    res.on('end', function(){
 
-				    	if(imagedata.indexOf('error')>0){
-				    		console.log('FAILED - error at their host | trying again');
-				    		getHeight(pos, zoom - 1, deferred);
-				    	}
-				    	else {
+			    	if(imagedata.indexOf('error')>0){
+			    		console.log('FAILED - error at their host | trying again | url: ' + url.href );
+			    		//getHeight(pos, zoom - 1, deferred);
+			    	}
+			    	else {
 
-                            //create temp. dir when needed
-                            if(!fs.existsSync('tmp')){
-                                fs.mkdirSync('tmp', 0766);
-                            }
+                        //create temp. dir when needed
+                        if(!fs.existsSync('tmp')){
+                            fs.mkdirSync('tmp', 0766);
+                        }
 
-					    	//save to cache file
-					        fs.writeFile('tmp/' + cachePath, imagedata, 'binary', function(err){
-					            if (err) console.log('err');
-						        readHeight(tile.point, imagedata, urlProvider, deferred);
-					        });
+				    	//save to cache file
+				        fs.writeFile('tmp/' + cachePath, imagedata, 'binary', function(err){
+				            if (err) console.log('err');
+					        readHeight(tile.point, imagedata, urlProvider, deferred);
+				        });
 
-				    	}
+			    	}
 
-				    })
+			    })
 
-				}).on('error', function(e) {
+			}).on('error', function(e) {
 
-					console.error("Got error: " + e.message);
-					console.log("retry");
-					getHeight(pos, zoom, deferred);
+				console.error("Got error: " + e.message);
+				console.log("retry");
+				getHeight(pos, zoom, deferred);
 
-				});
+			});
 
 	   	};
 
@@ -208,6 +208,12 @@ module.exports = function(finish, data, options){
         //get center
         var feature = new Feature().parse(child);
         var center = feature.getCenter();
+
+		//prevent retrieving data when position is non existing
+		if(isNaN(center.lat) || isNaN(center.lon)){
+			console.log('invalid center', feature);
+			return false;
+		}
 
 		//get last promise (when available)
 		var lastPromise = promiseList[promiseList.length - 1];

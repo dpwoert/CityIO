@@ -5,8 +5,10 @@ module.exports = function(){
     console.log('start fetching data for Eindhoven demo.');
 
     //bbox
-    var min = new IO.classes.Geo(5.451107, 51.423698);
-    var max = new IO.classes.Geo(5.500889, 51.456440);
+    // var min = new IO.classes.Geo(5.451107, 51.423698);
+    // var max = new IO.classes.Geo(5.500889, 51.456440);
+    var min = new IO.classes.Geo(5.46337, 51.42827);
+    var max = new IO.classes.Geo(5.48689, 51.44646);
 
     //map for buildings (panden)
     var buildings = new IO.classes.Map();
@@ -26,11 +28,11 @@ module.exports = function(){
         buildings
 
         //get data from Kadaster (Basis Administratie Gemeentes)
-        // .scraper(IO.scrapers.BAG, { 'min': min, 'max': max })
-        .scraper(IO.scrapers.OSM, {
-            preset: 'buildings',
-            bbox: [min,max]
-        })
+        .scraper(IO.scrapers.BAG, { 'min': min, 'max': max })
+        // .scraper(IO.scrapers.OSM, {
+        //     preset: 'buildings',
+        //     bbox: [min,max]
+        // })
 
         //get height data from AHN (Algemeen Hoogtebestand Nederland)
         .action(IO.scrapers.AHN)
