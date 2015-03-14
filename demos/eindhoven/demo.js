@@ -43,9 +43,9 @@ var init = function(){
     roads
     .data(roadsMap)
     .options({
-        color: '#44465a',
+        color: '#9395a7',
         maxSegments: 10,
-        height: 5
+        height: 0.1
     })
     .build(IO.build.roads)
 
@@ -59,8 +59,8 @@ var init = function(){
             if(properties.tags.natural === "water"){
                 return groups[1];
             }
-            // else if(properties.tags.landuse === "grass"){
-            else if(properties.tags.leasure === "park"){
+            else if(properties.tags.landuse === "grass"){
+            // else if(properties.tags.leasure === "park"){
                 return groups[2];
             } else {
                 return groups[0];
@@ -85,7 +85,7 @@ var init = function(){
         world.camera.flyAround({
             lat: 5.480644,
             lon: 51.443066
-        }, 400, 200);
+        }, 700, 300);
 
     })
     .catch(function(e){

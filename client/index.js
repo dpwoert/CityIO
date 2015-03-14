@@ -7,13 +7,14 @@ module.exports = {
         'Geo': require('../isomorphic/classes/geo.js'),
         'Feature': require('../isomorphic/classes/geo.js'),
         'Collection': require('../isomorphic/classes/collection.js'),
+        'BoundingBox': require('../isomorphic/classes/bounding-box.js'),
 
         //client only
         'World': require('./classes/world.js'),
         'RenderManager': require('./classes/render-manager.js'),
         'Projection': require('./classes/projection.js'),
         'BoundingBox': require('./classes/boundingbox.js'),
-        'Map': require('./classes/map2.js'),
+        'Map': require('./classes/map.js'),
         'Loader': require('./classes/loader.js'),
         'Layer3D': require('./classes/layer3d.js'),
         'FX': require('./classes/fx.js'),
