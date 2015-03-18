@@ -18,6 +18,11 @@ module.exports = function(options){
     var nrRequest = 0;
     delete options.maxRequest;
 
+    //check if oauth is given to prevent errors
+    if(!options.oauth){
+        throw new Error('oauth not provided, this is needed to connect to API. See: https://apps.twitter.com/');
+    }
+
     //oauth key
     var oauth = options.oauth;
     delete options.oauth;
