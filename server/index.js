@@ -7,7 +7,8 @@ module.exports = {
         'Geo': require('../isomorphic/classes/geo.js'),
         'Feature': require('../isomorphic/classes/feature.js'),
         'BoundingBox': require('../isomorphic/classes/bounding-box.js'),
-        'Projection': require('./isomorphic/classes/projection.js'),
+        'Collection': require('../isomorphic/classes/collection.js'),
+        'Projection': require('../isomorphic/classes/projection.js'),
         'ImageReader': require('./classes/image-reader.js'),
         'Build': require('./classes/build.js')
 
