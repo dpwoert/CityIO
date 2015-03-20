@@ -4,7 +4,8 @@ var init = function(){
     var element = document.getElementById('canvas');
 
     //create projection
-    var projection = new IO.classes.Projection([5.482683, 51.437763], 22);
+    var center = new IO.classes.Geo(5.482683, 51.437763);
+    var projection = new IO.classes.Projection(center, 22);
 
     //create 3d world
     var world = new IO.classes.World(element, projection, ['tiltShift']);
