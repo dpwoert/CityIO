@@ -23,7 +23,7 @@ module.exports = function(finish, data, options){
     options.delta = options.delta || 60 //seconds
     options.filename = options.filename || 'canvas';
     options.clearData = options.clearData || true;
-    options.color = options.color || '#ff0000';
+    options.color = options.color || [255,0,0];
     options.opacity = options.opacity || 0.2;
     options.radius = options.radius || 10;
 
@@ -79,6 +79,7 @@ module.exports = function(finish, data, options){
         //save
         var buffer = canvas.toBuffer();
         fs.writeFileSync(filename + '.png', buffer);
+        // throw new Error('one file please');
         // fs.writeFile(filename + '.png', buffer, function(err){
         //
         //     console.log('saved image:', filename);
