@@ -56,6 +56,8 @@ module.exports = function(){
         //save data on resolve
         current.defer.promise.then(function(r){
             data = r;
+        }).catch(function(err){
+            throw new Error(err);
         });
 
         //wait on other promise?
