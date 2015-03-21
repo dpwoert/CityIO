@@ -53,6 +53,12 @@ var Feature = function(data){
 
     };
 
+    this.createPoint = function(point, properties){
+        list.push(point);
+        this.type = 'Point';
+        this.properties = properties || [];
+    };
+
     this.each = function(callback){
 
         if(callback instanceof Function === false){

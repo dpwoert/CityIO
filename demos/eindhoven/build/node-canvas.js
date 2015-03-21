@@ -19,9 +19,9 @@ module.exports = function(finish, data, options){
     //defaults
     options.width = options.width || 1024;
     options.height = options.height || 1024;
-    options.zoom = options.zoom || 22;
+    options.zoom = options.zoom || 21; //TODO http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
     options.delta = options.delta || 60 //seconds
-    options.filename = options.filename || 'canvas';
+    options.filename = options.filename || 'canvas-';
     options.clearData = options.clearData || true;
     options.color = options.color || [255,0,0];
     options.opacity = options.opacity || 0.2;
@@ -57,13 +57,18 @@ module.exports = function(finish, data, options){
         var ctx = canvas.getContext('2d');
         ctx.patternQuality = 'best';
 
+        //convert from 960×500 area to own area
+        //see: https://github.com/mbostock/d3/wiki/Geo-Projections
+        var offsetX = (options.width - 960) / 2;
+        var offsetY = (options.height - 500) / 2;
+
         //add points
         for( var i = 0 ; i < data.length ; i++ ){
 
             //get position
             var pos = projection.translate( data[i].getCenter() );
-            var x = pos[0];
-            var y = pos[1];
+            var x = pos[0] + offsetX;
+            var y = pos[1] + offsetY;
 
             //clear circle
             ctx.beginPath();
@@ -78,16 +83,9 @@ module.exports = function(finish, data, options){
 
         //save
         var buffer = canvas.toBuffer();
-        fs.writeFileSync(filename + '.png', buffer);
-        // throw new Error('one file please');
-        // fs.writeFile(filename + '.png', buffer, function(err){
-        //
-        //     console.log('saved image:', filename);
-        //     defer.resolve();
-        //
-        // });
-
-        defer.resolve();
+        fs.writeFile(filename + '.png', buffer, function(err){
+            defer.resolve(filename + '.png');
+        });
 
         return defer;
 
@@ -103,12 +101,13 @@ module.exports = function(finish, data, options){
 
     //create projection
     var center = options.boundingBox.getCenter();
-    var projection = new IO.classes.Projection(options.boundingBox.nw, options.zoom);
+    // var projection = new IO.classes.Projection(options.boundingBox.nw, options.zoom);
+    var projection = new IO.classes.Projection(options.boundingBox.getCenter(), options.zoom);
 
     //trigger image saving
-    var delta = options.delta * 1000 * 60 * 60 * 60;
+    var delta = options.delta * 1000 * 60 * 60 * 60 * 11;
     var totalTime = +options.to - +options.from;
-    for( var i = +options.to ; i += delta ; i <  +options.to ){
+    for( var i = +options.from ; i < +options.to ; i += delta ){
 
         //get data
         var _data = filterTime(i, i+delta);
@@ -118,8 +117,12 @@ module.exports = function(finish, data, options){
 
     }
 
-    //when all images are created, create movie
+    //when all images are created, create movie & save boundingbox (just to be sure)
     q.all(promises).then(function(){
+
+        //save boundingbox
+        // var nw = projection.reverse([0,0]);
+        // var se = projection.reverse([options.width,options.height]);
 
         createVideo();
         finish.resolve(data);

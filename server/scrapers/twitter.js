@@ -1,5 +1,6 @@
 var Collection = require('../../isomorphic/classes/collection.js');
 var Feature = require('../../isomorphic/classes/feature.js');
+var Geo = require('../../isomorphic/classes/geo.js');
 
 var request = require('request');
 var querystring = require('querystring');
@@ -84,8 +85,9 @@ module.exports = function(options){
                     if(status.coordinates){
 
                         //create feature and add to collection
-                        var feature = new Feature().parse({ geometry: status.coordinates });
-                        feature.properties = status;
+                        var point = new Geo().fromArray(status.coordinates.coordinates);
+                        var feature = new Feature();
+                        feature.createPoint(point, status);
                         collection.add(feature);
 
                     }

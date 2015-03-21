@@ -11,6 +11,10 @@ module.exports = function(){
     var max = new IO.classes.Geo(5.48689, 51.44646);
     var boundingBox = new IO.classes.BoundingBox(min, max);
 
+    //dates
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
     //map for activity (via Twitter)
     var activity = new IO.classes.Map();
 
@@ -24,7 +28,7 @@ module.exports = function(){
     var areas = new IO.classes.Map();
 
     //tools not part of standard cityIO library
-    //todo twitter to canvas
+    var canvasMovie = require('./build/node-canvas.js');
 
     var fetch = function(){
 
@@ -35,11 +39,15 @@ module.exports = function(){
             q: 'eindhoven',
             // geocode: boundingBox,
             oauth: require('./build/twitter-credentials.js'),
-            maxRequest: 1000
+            maxRequest: 300,
+            zoom: 1
         })
 
-        //convert to topojson to save bits & bytes
-        // .action(IO.tools.topoJSON, 'twitter')
+        .action(canvasMovie, {
+            'boundingBox': boundingBox,
+            'from': yesterday,
+            'to': new Date()
+        })
 
         //save
         .save('demos/eindhoven/maps/twitter.geojson');
@@ -60,8 +68,14 @@ module.exports = function(){
         //     bbox: [min,max]
         // })
 
+        // .action(canvasMovie, {
+        //     'boundingBox': boundingBox,
+        //     'from': yesterday,
+        //     'to': new Date()
+        // })
+
         //get height data from AHN (Algemeen Hoogtebestand Nederland)
-        .action(IO.scrapers.AHN)
+        // .action(IO.scrapers.AHN)
 
         //make whitelist of data to keep
         .action(IO.tools.filter, {
@@ -79,7 +93,7 @@ module.exports = function(){
         .action(IO.tools.topoJSON, 'buildings')
 
         //save
-        .save('demos/eindhoven/maps/buildings.topojson');
+        // .save('demos/eindhoven/maps/buildings.topojson');
 
         return buildings.end();
 
