@@ -16,11 +16,11 @@ module.exports = function(fov, aspect, near, far, group){
 
 	var convert = function(pos){
 
-		return pos;
+		// return pos;
 
 		// group.updateMatrixWorld();
 		var converted = group.localToWorld(pos);
-		converted.y *= -1;
+		// converted.y *= -1;
 		return converted;
 
 	};
