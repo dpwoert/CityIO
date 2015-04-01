@@ -1,6 +1,7 @@
 // see for creating OSM query http://overpass-turbo.eu/
 
-var overpass = require('query-overpass');
+var osmtogeojson = require('osmtogeojson');
+var request = require('request');
 var q = require('q');
 
 var presets = require('./presets.js');
@@ -28,17 +29,20 @@ module.exports = function(options){
     }
 
     //get query
-    overpass(options.query, function(error, data){
+    //based on implementation: https://github.com/perliedman/query-overpass/
+    request.post(options.overpassUrl || 'http://overpass-api.de/api/interpreter', function (error, response, body) {
+        var geojson;
 
-        //check for errors
-        if(error){
-            console.error('error with OSM request:', error);
+        if (!error && response.statusCode === 200) {
+            geojson = osmtogeojson(JSON.parse(body));
+            defer.resolve(geojson);
+        } else {
+            console.error('Error during request to OSM server', error, response)
+            defer.reject(error, response);
         }
 
-        //done
-        console.log('got OSM data');
-        defer.resolve(data);
-
+    }).form({
+        data: options.query
     });
 
     return defer.promise;
