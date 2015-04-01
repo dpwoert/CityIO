@@ -6,6 +6,41 @@ var Geo = function(lat, lon, srs){
     this.lat = lat;
     this.lon = lon;
     this.srs = srs || 'EPSG:4326';
+    this.height = 0; //meters
+
+    this.setHeight = function(height, unit){
+
+        //convert when needed - always needs to be meters
+        switch(unit){
+
+            case 'feet':
+            case 'ft':
+                height *= 0.32808399;
+            break
+
+            case 'miles':
+            case 'mi':
+                height *= 0.1609344;
+            break
+
+            case 'km':
+            case 'kilometers':
+                height *= 0.001;
+            break;
+
+        }
+
+        //save
+        this.height = height;
+
+        //chainable
+        return this;
+    };
+
+    this.getHeight = function(pixelScale){
+        pixelScale = pixelScale || 1;
+        return pixelScale * this.height;
+    };
 
     this.distanceTo = function(geo){
 
@@ -77,7 +112,7 @@ var Geo = function(lat, lon, srs){
 
     this.to3D = function(projection, z){
         z = z || 0;
-        var coords = projection.translate3D(this.lat, this.lon);
+        var coords = projection.translate3D(this);
         return new THREE.Vector3(coords.x, coords.y, z);
     };
 

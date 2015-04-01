@@ -16,11 +16,7 @@ module.exports = function(fov, aspect, near, far, group){
 
 	var convert = function(pos){
 
-		// return pos;
-
-		// group.updateMatrixWorld();
 		var converted = group.localToWorld(pos);
-		// converted.y *= -1;
 		return converted;
 
 	};
@@ -34,29 +30,29 @@ module.exports = function(fov, aspect, near, far, group){
 		return camera;
 	};
 
-	camera.gotoGeo = function(lat, lon, height){
+	camera.gotoGeo = function(point){
 
 		//get position from projection
-		var newPos = projection.translate3D(lat, lon);
-		var newPos3 = convert( new THREE.Vector3(newPos.x, newPos.y, height) );
+		var newPos = projection.translate3D(point);
+		newPos = convert( newPos );
+
+		camera.position.copy(newPos);
 
 		//save
-		camera.position.copy(newPos3);
-
-		//save
-		current = newPos3.clone();
+		current = newPos.clone();
 
 		//chainable
 		return camera;
 	};
 
-	camera.lookAtGeo = function(lat, lon, height){
+	camera.lookAtGeo = function(point){
 
 		//get position from projection
-		var newPos = projection.translate3D(lat, lon);
-		var lookAt = convert( new THREE.Vector3(newPos.x, newPos.y, height) );
+		var newPos = projection.translate3D(point);
+		var lookAt = convert( newPos );
 
 		camera.lookAt( lookAt );
+		console.log(lookAt);
 
 		//save
 		currentLook = lookAt.clone();
@@ -69,13 +65,10 @@ module.exports = function(fov, aspect, near, far, group){
 	camera.interpolateTo = function(center, dest, distance, extrapolate){
 
 		var _center;
-		_center = projection.translate3D(center.lat, center.lon);
-		_center = new THREE.Vector3(_center.x, _center.y, center.height);
+		_center = projection.translate3D(center);
 
 		var _dest;
-		_dest = projection.translate3D(dest.lat, dest.lon);
-		_dest = new THREE.Vector3(_dest.x, _dest.y, center.height);
-
+		_dest = projection.translate3D(dest);
 
 		var line = new THREE.Line3(_center, _dest);
 		var totalDistance = line.distance();
@@ -93,7 +86,7 @@ module.exports = function(fov, aspect, near, far, group){
 			newPoint = line.at(1-relDistance);
 		}
 
-		camera.animateTo(convert(newPoint), dest);
+		camera.animateTo(newPoint, dest);
 
 	};
 
@@ -105,21 +98,21 @@ module.exports = function(fov, aspect, near, far, group){
 		if(to instanceof THREE.Vector3 === false){
 
 			//generate to
-			_to = projection.translate3D(to.lat, to.lon);
-			_to = convert( new THREE.Vector3(_to.x, _to.y, to.height) );
+			_to = projection.translate3D(to);
+			_to = convert( _to );
 
 		} else {
 
 			//to already given
-			_to = to;
+			_to = to.clone();
 
 		}
 
 		if(lookTo instanceof THREE.Vector3 === false){
 
 			//generate look to
-			_lookTo = projection.translate3D(lookTo.lat, lookTo.lon);
-			_lookTo = convert( new THREE.Vector3(_lookTo.x, _lookTo.y, lookTo.height) );
+			_lookTo = projection.translate3D(lookTo);
+			_lookTo = convert( _lookTo );
 
 		} else {
 
@@ -156,40 +149,38 @@ module.exports = function(fov, aspect, near, far, group){
 		return camera;
 	};
 
-	var generateHoverPlace = function(center, radius, height, speed, elapsedTime){
+	var generateHoverPlace = function(center, radius, speed, elapsedTime){
 		return new THREE.Vector3(
 			center.x + radius * Math.cos( speed * elapsedTime ),
-			height,
+			center.y,
 			center.z + radius * Math.sin( speed * elapsedTime )
 		);
 	};
 
-	camera.flyAround = function(center, radius, height, speed, fromCallback){
+	camera.flyAround = function(center, radius, speed, fromCallback){
 
 		//settings
 		radius = radius || 500;
-		height = height || 250;
 		speed = speed || 0.10;
 
 		var _center, _look;
 		if(center instanceof THREE.Vector3){
 
-			_center = convert( center.clone() );
+			_center = center.clone();
 			// center = convert(center.clone());
 			_look = _center.clone();
 
 		} else {
 
 			//get center point
-			center.height = center.height || -50;
-			var point = projection.translate3D(center.lat, center.lon);
-			_center = convert( new THREE.Vector3(point.x, point.y, center.height) );
+			var point = projection.translate3D(center);
+			_center = convert( point);
 			_look = _center.clone();
 
 		}
 
 		//generate start point
-		var startPoint = generateHoverPlace(_center, radius, height, speed, 0);
+		var startPoint = generateHoverPlace(_center, radius, speed, 0);
 
 		//move to place?
 		if(!fromCallback){
@@ -197,7 +188,7 @@ module.exports = function(fov, aspect, near, far, group){
 			camera.animateTo(startPoint, _look, 1000, function(){
 
 				//when on correct position start animating
-				camera.flyAround(center, radius, height, speed, true);
+				camera.flyAround(center, radius, speed, true);
 
 			});
 
@@ -211,8 +202,7 @@ module.exports = function(fov, aspect, near, far, group){
 				'count': 0,
 				'speed': speed,
 				'radius': radius,
-				'center': _center,
-				'height': height
+				'center': _center
 			};
 
 			currentLook = animation.center.clone();
@@ -244,7 +234,7 @@ module.exports = function(fov, aspect, near, far, group){
 			animation.count += 0.02;
 			// var elapsedTime = +Date.now() - animation.start;
 
-			var newPos = generateHoverPlace(animation.center, animation.radius, animation.height, animation.speed, animation.count);
+			var newPos = generateHoverPlace(animation.center, animation.radius, animation.speed, animation.count);
 			camera.position.copy(newPos);
 			camera.lookAt( animation.center );
 

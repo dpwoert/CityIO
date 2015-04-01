@@ -126,10 +126,11 @@ module.exports = function(url, params){
             //check for junk
             if(coordinate[0] !== 0 && coordinate[1] !== 0){
 
-                var v2 = projection.translate3D(coordinate[0], coordinate[1]);
+                var point = new Geo(coordinate[0], coordinate[1]).setHeight(z);
+                var v3 = projection.translate3D(point);
 
                 // Push positions
-                path.push(new THREE.Vector3( v2.x, v2.y, getHeight(z) ));
+                path.push(v3);
 
             }
 
