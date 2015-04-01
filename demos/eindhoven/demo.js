@@ -77,16 +77,17 @@ var init = function(){
 
         world.start();
 
+        var goTo = new IO.classes.Geo(5.49410, 51.43201).setHeight(200);
+        var lookAt = new IO.classes.Geo(5.47496, 50).setHeight(100);
+        var flyPoint = new IO.classes.Geo(5.480644, 51.443066).setHeight(300);
+
         //rotate camera
         world.camera
-            .gotoGeo(5.47582, 51.44646, 200)
-            .lookAtGeo(5.47496, 50, 100);
+            .gotoGeo(goTo)
+            .lookAtGeo(lookAt);
 
         //start with flying around
-        world.camera.flyAround({
-            lat: 5.480644,
-            lon: 51.443066
-        }, 700, 300);
+        world.camera.flyAround(flyPoint, 700);
 
     })
     .catch(function(e){

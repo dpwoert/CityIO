@@ -102,20 +102,17 @@ var init = function(){
 
             world.start();
 
+            var goTo = new IO.classes.Geo(5.246658, 51.679408).setHeight(300);
+            var lookAt = new IO.classes.Geo(5.246658, 51.89408).setHeight(100);
+            var flyAround = new IO.classes.Geo(5.30299, 51.68965).setHeight(300);
+
             //rotate camera
         	world.camera
-        		.gotoGeo(5.246658, 51.679408, 300)
-        		.lookAtGeo(5.246658, 51.89408, 100);
+        		.gotoGeo(goTo)
+        		.lookAtGeo(lookAt);
 
         	//start with flying around
-        	world.camera.flyAround({
-                lat: 5.30299,
-                lon: 51.68965
-        	}, 500, 300);
-        	// world.camera.flyAround({
-            //     lat: 5.30299,
-            //     lon: 51.68965
-        	// }, 250, 100);
+        	world.camera.flyAround(flyAround, 500);
 
         })
         .catch(function(e){

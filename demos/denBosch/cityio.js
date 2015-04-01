@@ -6,7 +6,7 @@ IO.build.areas = require("./client/build/areas.js");
 IO.build.roads = require("./client/build/roads.js"); 
 IO.FXlib.tiltShift = require("./client/tools/fx/tilt-shift.js"); 
 window.IO = IO;window.THREE = require("three");
-},{"./client/build/areas.js":2,"./client/build/buildings.js":3,"./client/build/roads.js":4,"./client/classes/cycle.js":8,"./client/index.js":18,"./client/tools/fx/tilt-shift.js":34,"three":115}],2:[function(require,module,exports){
+},{"./client/build/areas.js":2,"./client/build/buildings.js":3,"./client/build/roads.js":4,"./client/classes/cycle.js":7,"./client/index.js":16,"./client/tools/fx/tilt-shift.js":32,"three":115}],2:[function(require,module,exports){
 var THREE = require('three');
 
 //shaders
@@ -495,28 +495,6 @@ module.exports = function(world){
 };
 
 },{"three":115}],6:[function(require,module,exports){
-module.exports = function(min, max, projection){
-
-    this.getGeo = function(){
-
-    };
-
-    this.get2D = function(){
-
-    };
-
-    this.get3D = function(){
-
-    };
-
-    this.inBox = function(lat, lon){
-
-    };
-
-
-}
-
-},{}],7:[function(require,module,exports){
 var THREE = require('three');
 
 module.exports = function(world){
@@ -562,7 +540,7 @@ module.exports = function(world){
 
 };
 
-},{"three":115}],8:[function(require,module,exports){
+},{"three":115}],7:[function(require,module,exports){
 module.exports = function(world, time){
 
     var currentProcess;
@@ -664,7 +642,7 @@ module.exports = function(world, time){
 
 };
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var THREE = require('three');
 var EffectComposer = require('../lib/effect-composer.js');
 var RenderPass = require('../lib/render-pass.js');
@@ -751,7 +729,7 @@ module.exports = function(renderer, scene, camera, world){
 
 };
 
-},{"../lib/effect-composer.js":20,"../lib/render-pass.js":25,"three":115}],10:[function(require,module,exports){
+},{"../lib/effect-composer.js":18,"../lib/render-pass.js":23,"three":115}],9:[function(require,module,exports){
 var THREE = require('three');
 
 module.exports = function(fov, aspect, near, far, group){
@@ -766,15 +744,11 @@ module.exports = function(fov, aspect, near, far, group){
 	camera.needsUpdate = false;
 
 	//change z and y axis
-	camera.up = new THREE.Vector3( 0, 0, 1 );
+	// camera.up = new THREE.Vector3( 0, -1, -1 );
 
 	var convert = function(pos){
 
-		return pos;
-
-		// group.updateMatrixWorld();
 		var converted = group.localToWorld(pos);
-		converted.y *= -1;
 		return converted;
 
 	};
@@ -788,29 +762,29 @@ module.exports = function(fov, aspect, near, far, group){
 		return camera;
 	};
 
-	camera.gotoGeo = function(lat, lon, height){
+	camera.gotoGeo = function(point){
 
 		//get position from projection
-		var newPos = projection.translate3D(lat, lon);
-		var newPos3 = convert( new THREE.Vector3(newPos.x, newPos.y, height) );
+		var newPos = projection.translate3D(point);
+		newPos = convert( newPos );
+
+		camera.position.copy(newPos);
 
 		//save
-		camera.position.copy(newPos3);
-
-		//save
-		current = newPos3.clone();
+		current = newPos.clone();
 
 		//chainable
 		return camera;
 	};
 
-	camera.lookAtGeo = function(lat, lon, height){
+	camera.lookAtGeo = function(point){
 
 		//get position from projection
-		var newPos = projection.translate3D(lat, lon);
-		var lookAt = convert( new THREE.Vector3(newPos.x, newPos.y, height) );
+		var newPos = projection.translate3D(point);
+		var lookAt = convert( newPos );
 
 		camera.lookAt( lookAt );
+		console.log(lookAt);
 
 		//save
 		currentLook = lookAt.clone();
@@ -823,13 +797,10 @@ module.exports = function(fov, aspect, near, far, group){
 	camera.interpolateTo = function(center, dest, distance, extrapolate){
 
 		var _center;
-		_center = projection.translate3D(center.lat, center.lon);
-		_center = new THREE.Vector3(_center.x, _center.y, center.height);
+		_center = projection.translate3D(center);
 
 		var _dest;
-		_dest = projection.translate3D(dest.lat, dest.lon);
-		_dest = new THREE.Vector3(_dest.x, _dest.y, center.height);
-
+		_dest = projection.translate3D(dest);
 
 		var line = new THREE.Line3(_center, _dest);
 		var totalDistance = line.distance();
@@ -847,7 +818,7 @@ module.exports = function(fov, aspect, near, far, group){
 			newPoint = line.at(1-relDistance);
 		}
 
-		camera.animateTo(convert(newPoint), dest);
+		camera.animateTo(newPoint, dest);
 
 	};
 
@@ -859,21 +830,21 @@ module.exports = function(fov, aspect, near, far, group){
 		if(to instanceof THREE.Vector3 === false){
 
 			//generate to
-			_to = projection.translate3D(to.lat, to.lon);
-			_to = convert( new THREE.Vector3(_to.x, _to.y, to.height) );
+			_to = projection.translate3D(to);
+			_to = convert( _to );
 
 		} else {
 
 			//to already given
-			_to = to;
+			_to = to.clone();
 
 		}
 
 		if(lookTo instanceof THREE.Vector3 === false){
 
 			//generate look to
-			_lookTo = projection.translate3D(lookTo.lat, lookTo.lon);
-			_lookTo = convert( new THREE.Vector3(_lookTo.x, _lookTo.y, lookTo.height) );
+			_lookTo = projection.translate3D(lookTo);
+			_lookTo = convert( _lookTo );
 
 		} else {
 
@@ -910,40 +881,38 @@ module.exports = function(fov, aspect, near, far, group){
 		return camera;
 	};
 
-	var generateHoverPlace = function(center, radius, height, speed, elapsedTime){
+	var generateHoverPlace = function(center, radius, speed, elapsedTime){
 		return new THREE.Vector3(
 			center.x + radius * Math.cos( speed * elapsedTime ),
-			center.y + radius * Math.sin( speed * elapsedTime ),
-			height
+			center.y,
+			center.z + radius * Math.sin( speed * elapsedTime )
 		);
 	};
 
-	camera.flyAround = function(center, radius, height, speed, fromCallback){
+	camera.flyAround = function(center, radius, speed, fromCallback){
 
 		//settings
 		radius = radius || 500;
-		height = height || 250;
 		speed = speed || 0.10;
 
 		var _center, _look;
 		if(center instanceof THREE.Vector3){
 
-			_center = convert( center.clone() );
+			_center = center.clone();
 			// center = convert(center.clone());
 			_look = _center.clone();
 
 		} else {
 
 			//get center point
-			center.height = center.height || -50;
-			var point = projection.translate3D(center.lat, center.lon);
-			_center = convert( new THREE.Vector3(point.x, point.y, center.height) );
+			var point = projection.translate3D(center);
+			_center = convert( point);
 			_look = _center.clone();
 
 		}
 
 		//generate start point
-		var startPoint = generateHoverPlace(_center, radius, height, speed, 0);
+		var startPoint = generateHoverPlace(_center, radius, speed, 0);
 
 		//move to place?
 		if(!fromCallback){
@@ -951,7 +920,7 @@ module.exports = function(fov, aspect, near, far, group){
 			camera.animateTo(startPoint, _look, 1000, function(){
 
 				//when on correct position start animating
-				camera.flyAround(center, radius, height, speed, true);
+				camera.flyAround(center, radius, speed, true);
 
 			});
 
@@ -965,8 +934,7 @@ module.exports = function(fov, aspect, near, far, group){
 				'count': 0,
 				'speed': speed,
 				'radius': radius,
-				'center': _center,
-				'height': height
+				'center': _center
 			};
 
 			currentLook = animation.center.clone();
@@ -998,7 +966,7 @@ module.exports = function(fov, aspect, near, far, group){
 			animation.count += 0.02;
 			// var elapsedTime = +Date.now() - animation.start;
 
-			var newPos = generateHoverPlace(animation.center, animation.radius, animation.height, animation.speed, animation.count);
+			var newPos = generateHoverPlace(animation.center, animation.radius, animation.speed, animation.count);
 			camera.position.copy(newPos);
 			camera.lookAt( animation.center );
 
@@ -1072,7 +1040,7 @@ module.exports = function(fov, aspect, near, far, group){
 
 };
 
-},{"three":115}],11:[function(require,module,exports){
+},{"three":115}],10:[function(require,module,exports){
 var q = require('q');
 
 module.exports = function(world){
@@ -1212,7 +1180,7 @@ module.exports = function(world){
 
 };
 
-},{"q":114}],12:[function(require,module,exports){
+},{"q":114}],11:[function(require,module,exports){
 module.exports = function(){
 
     //defer object needed in promises
@@ -1353,7 +1321,7 @@ module.exports = function(){
 
 };
 
-},{"q":114}],13:[function(require,module,exports){
+},{"q":114}],12:[function(require,module,exports){
 var THREE = require('three');
 var q = require('q-xhr')(window.XMLHttpRequest, require('q'))
 var topojson = require('topojson');
@@ -1482,10 +1450,11 @@ module.exports = function(url, params){
             //check for junk
             if(coordinate[0] !== 0 && coordinate[1] !== 0){
 
-                var v2 = projection.translate3D(coordinate[0], coordinate[1]);
+                var point = new Geo(coordinate[0], coordinate[1]).setHeight(z);
+                var v3 = projection.translate3D(point);
 
                 // Push positions
-                path.push(new THREE.Vector3( v2.x, v2.y, getHeight(z) ));
+                path.push(v3);
 
             }
 
@@ -1523,7 +1492,7 @@ module.exports = function(url, params){
 
 }
 
-},{"q":114,"q-xhr":113,"three":115,"topojson":116}],14:[function(require,module,exports){
+},{"q":114,"q-xhr":113,"three":115,"topojson":116}],13:[function(require,module,exports){
 module.exports = function(world){
 
 	//init
@@ -1589,43 +1558,7 @@ module.exports = function(world){
 
 };
 
-},{}],15:[function(require,module,exports){
-var THREE = require('three');
-var d3 = require('d3-geo-mercator');
-
-module.exports = function(center, zoom){
-
-    //todo switch between projections [globe - map]
-
-	zoom = zoom || 20;
-
-	//create d3 projection
-	var projection = d3.geo.mercator()
-			.scale(Math.pow(2,zoom))
-			.center(center);
-
-	this.translate = function(lat, lon){
-		return projection([lat, lon]);
-	};
-
-	this.translate3D = function(lat, lon){
-		var coords = projection([lat, lon]);
-		return new THREE.Vector2(coords[0], coords[1]);
-	};
-
-	this.reverse = function(vec3){
-
-		//reverse through projection
-		return projection.invert([vec3.x,vec3.y]);
-
-	};
-
-	//make public, maybe needed
-	this.d3 = projection;
-
-};
-
-},{"d3-geo-mercator":44,"three":115}],16:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var THREE = require('three');
 
 module.exports = function(){
@@ -1700,7 +1633,7 @@ module.exports = function(){
 
 };
 
-},{"three":115}],17:[function(require,module,exports){
+},{"three":115}],15:[function(require,module,exports){
 module.exports = function(canvas, projection, FXlist){
 
 	var pause = true;
@@ -1824,7 +1757,7 @@ module.exports = function(canvas, projection, FXlist){
 
 };
 
-},{}],18:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 //read all folders
 module.exports = {
 
@@ -1834,13 +1767,13 @@ module.exports = {
         'Geo': require('../isomorphic/classes/geo.js'),
         'Feature': require('../isomorphic/classes/geo.js'),
         'Collection': require('../isomorphic/classes/collection.js'),
+        'BoundingBox': require('../isomorphic/classes/bounding-box.js'),
+        'Projection': require('../isomorphic/classes/projection.js'),
 
         //client only
         'World': require('./classes/world.js'),
         'RenderManager': require('./classes/render-manager.js'),
-        'Projection': require('./classes/projection.js'),
-        'BoundingBox': require('./classes/boundingbox.js'),
-        'Map': require('./classes/map2.js'),
+        'Map': require('./classes/map.js'),
         'Loader': require('./classes/loader.js'),
         'Layer3D': require('./classes/layer3d.js'),
         'FX': require('./classes/fx.js'),
@@ -1885,7 +1818,7 @@ module.exports = {
 
 };
 
-},{"../isomorphic/classes/collection.js":38,"../isomorphic/classes/geo.js":40,"../isomorphic/tools/extend.js":41,"../isomorphic/tools/srs.js":42,"./build/areas.js":2,"./build/buildings.js":3,"./build/roads.js":4,"./classes/animation.js":5,"./classes/boundingbox.js":6,"./classes/compass.js":7,"./classes/fx.js":9,"./classes/geo-camera.js":10,"./classes/layer3d.js":11,"./classes/loader.js":12,"./classes/map2.js":13,"./classes/mouse.js":14,"./classes/projection.js":15,"./classes/render-manager.js":16,"./classes/world.js":17,"./tools/action-extend.js":28,"./tools/create-three.js":29,"./tools/destroy-group.js":30,"./tools/fx/copy-shader.js":31,"./tools/fx/film-grain.js":32,"./tools/fx/fxaa.js":33,"./tools/fx/tilt-shift.js":34,"./tools/lerp-3d.js":35,"./tools/merge-maps.js":36,"./tools/parse-height.js":37}],19:[function(require,module,exports){
+},{"../isomorphic/classes/bounding-box.js":36,"../isomorphic/classes/collection.js":37,"../isomorphic/classes/geo.js":39,"../isomorphic/classes/projection.js":40,"../isomorphic/tools/extend.js":41,"../isomorphic/tools/srs.js":42,"./build/areas.js":2,"./build/buildings.js":3,"./build/roads.js":4,"./classes/animation.js":5,"./classes/compass.js":6,"./classes/fx.js":8,"./classes/geo-camera.js":9,"./classes/layer3d.js":10,"./classes/loader.js":11,"./classes/map.js":12,"./classes/mouse.js":13,"./classes/render-manager.js":14,"./classes/world.js":15,"./tools/action-extend.js":26,"./tools/create-three.js":27,"./tools/destroy-group.js":28,"./tools/fx/copy-shader.js":29,"./tools/fx/film-grain.js":30,"./tools/fx/fxaa.js":31,"./tools/fx/tilt-shift.js":32,"./tools/lerp-3d.js":33,"./tools/merge-maps.js":34,"./tools/parse-height.js":35}],17:[function(require,module,exports){
 var THREE = require('three');
 
 module.exports = {
@@ -1929,7 +1862,7 @@ module.exports = {
 
 };
 
-},{"three":115}],20:[function(require,module,exports){
+},{"three":115}],18:[function(require,module,exports){
 /**
  * @author alteredq / http://alteredqualia.com/
  */
@@ -2073,7 +2006,7 @@ EffectComposer.prototype = {
 
 module.exports = EffectComposer;
 
-},{"./copy-shader.js":19,"./shader-pass.js":26,"three":115}],21:[function(require,module,exports){
+},{"./copy-shader.js":17,"./shader-pass.js":24,"three":115}],19:[function(require,module,exports){
 /**
  * @author alteredq / http://alteredqualia.com/
  */
@@ -2141,7 +2074,7 @@ FilmPass.prototype = {
 
 module.exports = FilmPass;
 
-},{"./film-shader.js":22,"three":115}],22:[function(require,module,exports){
+},{"./film-shader.js":20,"three":115}],20:[function(require,module,exports){
 module.exports = {
 
 	uniforms: {
@@ -2225,7 +2158,7 @@ module.exports = {
 
 };
 
-},{}],23:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var THREE = require('three');
 
 module.exports = {
@@ -2319,7 +2252,7 @@ module.exports = {
 
 };
 
-},{"three":115}],24:[function(require,module,exports){
+},{"three":115}],22:[function(require,module,exports){
 /**
  * @author alteredq / http://alteredqualia.com/
  *
@@ -2390,7 +2323,7 @@ module.exports = {
 
 };
 
-},{}],25:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var THREE = require('three');
 
 var RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
@@ -2443,7 +2376,7 @@ RenderPass.prototype = {
 
 module.exports = RenderPass;
 
-},{"three":115}],26:[function(require,module,exports){
+},{"three":115}],24:[function(require,module,exports){
 /**
  * @author alteredq / http://alteredqualia.com/
  */
@@ -2507,7 +2440,7 @@ ShaderPass.prototype = {
 
 module.exports = ShaderPass;
 
-},{"three":115}],27:[function(require,module,exports){
+},{"three":115}],25:[function(require,module,exports){
 /**
  * @author alteredq / http://alteredqualia.com/
  *
@@ -2578,7 +2511,7 @@ module.exports = {
 
 };
 
-},{}],28:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 module.exports = function(source, props) {
 
 	var res = source;
@@ -2616,7 +2549,7 @@ module.exports = function(source, props) {
 
 };
 
-},{}],29:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 var THREE = require('three');
 
 module.exports = function(canvas, minHeight){
@@ -2651,9 +2584,14 @@ module.exports = function(canvas, minHeight){
 
 	//Add rotated world to scene
 	this.scene.add(this.group);
+	this.group.rotateX(-Math.PI/2);
 	// this.group.rotateX(Math.PI/2);
 	// this.group.rotateZ(-Math.PI/2);
-	// this.group.updateMatrixWorld();
+
+	// this.group.rotation.z = 90 * Math.PI/180;
+	// this.group.rotation.x = -90 * Math.PI/180;
+	this.group.updateMatrixWorld();
+
 
 	//create light
 	this.hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
@@ -2664,7 +2602,7 @@ module.exports = function(canvas, minHeight){
 
 };
 
-},{"three":115}],30:[function(require,module,exports){
+},{"three":115}],28:[function(require,module,exports){
 module.exports = function(group, scene){
 
 	//no children in group
@@ -2714,7 +2652,7 @@ module.exports = function(group, scene){
 
 };
 
-},{}],31:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 var CopyShader = require('../../lib/copy-shader.js');
 var ShaderPass = require('../../lib/shader-pass.js');
 
@@ -2733,7 +2671,7 @@ module.exports = function(){
 
 };
 
-},{"../../lib/copy-shader.js":19,"../../lib/shader-pass.js":26}],32:[function(require,module,exports){
+},{"../../lib/copy-shader.js":17,"../../lib/shader-pass.js":24}],30:[function(require,module,exports){
 var FilmPass = require('../../lib/film-pass.js')
 
 module.exports = function(){
@@ -2750,7 +2688,7 @@ module.exports = function(){
 
 };
 
-},{"../../lib/film-pass.js":21}],33:[function(require,module,exports){
+},{"../../lib/film-pass.js":19}],31:[function(require,module,exports){
 var ShaderPass = require('../../lib/shader-pass.js');
 var FXAAShader = require('../../lib/fxaa.js');
 
@@ -2771,7 +2709,7 @@ module.exports = function(){
 
 };
 
-},{"../../lib/fxaa.js":23,"../../lib/shader-pass.js":26}],34:[function(require,module,exports){
+},{"../../lib/fxaa.js":21,"../../lib/shader-pass.js":24}],32:[function(require,module,exports){
 var ShaderPass = require('../../lib/shader-pass.js');
 var HorizontalTiltShiftShader = require('../../lib/horizontal-tilt-shift-shader.js');
 var VerticalTiltShiftShader = require('../../lib/vertical-tilt-shift-shader.js');
@@ -2847,7 +2785,7 @@ module.exports = function(scene, camera, renderer, world){
 
 };
 
-},{"../../lib/horizontal-tilt-shift-shader.js":24,"../../lib/shader-pass.js":26,"../../lib/vertical-tilt-shift-shader.js":27}],35:[function(require,module,exports){
+},{"../../lib/horizontal-tilt-shift-shader.js":22,"../../lib/shader-pass.js":24,"../../lib/vertical-tilt-shift-shader.js":25}],33:[function(require,module,exports){
 var THREE = require('three');
 
 //add easing - from http://gizma.com/easing/#cub3
@@ -2879,7 +2817,7 @@ module.exports = function(from, to, completed){
 
 };
 
-},{"three":115}],36:[function(require,module,exports){
+},{"three":115}],34:[function(require,module,exports){
 module.exports = function(main, mapList){
 
 	for( var i = 0 ; i < mapList.length ; i++ ){
@@ -2890,12 +2828,44 @@ module.exports = function(main, mapList){
 
 };
 
-},{}],37:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = function(height){
 	return -height;
 };
 
-},{}],38:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
+var Geo = require('./geo.js');
+
+module.exports = function(point1, point2){
+
+    //creat points
+    this.ne = point1.clone();
+    this.nw = new Geo(point1.lat, point2.lon);
+    this.sw = point2.clone();
+    this.se = new Geo(point1.lat, point2.lon);
+
+    this.getArray = function(){
+        return [point1, point2];
+    };
+
+    this.inBox = function(point){
+        //todo
+    };
+
+    this.getCenter = function(){
+        return point1.lerp(point2, 0.5);
+    };
+
+    this.getRadius = function(){
+        return {
+            'center': this.getCenter(),
+            'radius': point1.distanceTo(point2)
+        };
+    };
+
+};
+
+},{"./geo.js":39}],37:[function(require,module,exports){
 var Feature = require('./feature.js');
 
 module.exports = function(){
@@ -2908,14 +2878,22 @@ module.exports = function(){
             this.add(collection.features[i]);
         }
 
+        //chainable
         return this;
 
     }
 
     this.add = function(feature){
-        var feature = new Feature().parse(feature);
+
+        //import when just JSON data
+        if(!feature.parse){
+            feature = new Feature().parse(feature);
+        }
+
+        //add to list
         list.push(feature);
 
+        //chainable
         return this;
     };
 
@@ -2923,11 +2901,28 @@ module.exports = function(){
         return list;
     };
 
+    this.toJSON = function(){
+        var json = {};
+        json.type = "FeatureCollection";
+        json.features = [];
+
+        //add feature data
+        this.each(function(feature){
+            json.features.push( feature.export() );
+        });
+
+        return json;
+    };
+
     this.each = function(fn){
         for( var i = 0 ; i < list.length ; i++ ){
             fn(list[i], i);
         }
     };
+
+    this.count = function(){
+        return list.length;
+    }
 
     this.destroy = function(){
 
@@ -2942,7 +2937,7 @@ module.exports = function(){
 
 }
 
-},{"./feature.js":39}],39:[function(require,module,exports){
+},{"./feature.js":38}],38:[function(require,module,exports){
 var Geo = require('./geo.js');
 
 var Feature = function(data){
@@ -2996,6 +2991,12 @@ var Feature = function(data){
         //chainable
         return this;
 
+    };
+
+    this.createPoint = function(point, properties){
+        list.push(point);
+        this.type = 'Point';
+        this.properties = properties || [];
     };
 
     this.each = function(callback){
@@ -3175,6 +3176,9 @@ var Feature = function(data){
                 _height = height(this.properties, i, _list);
             }
 
+            //parse height
+            //TODO
+
             points.push( _list[i].to3D(projection, _height) );
         }
 
@@ -3194,6 +3198,8 @@ var Feature = function(data){
         json.geometry = {};
         json.geometry.type = this.type;
         json.geometry.coordinates = this.exportArray();
+
+        return json;
     };
 
     this.destroy = function(){
@@ -3206,7 +3212,7 @@ var Feature = function(data){
 
 module.exports = Feature;
 
-},{"./geo.js":40}],40:[function(require,module,exports){
+},{"./geo.js":39}],39:[function(require,module,exports){
 var proj4 = require('proj4');
 var THREE = require('three');
 
@@ -3215,6 +3221,41 @@ var Geo = function(lat, lon, srs){
     this.lat = lat;
     this.lon = lon;
     this.srs = srs || 'EPSG:4326';
+    this.height = 0; //meters
+
+    this.setHeight = function(height, unit){
+
+        //convert when needed - always needs to be meters
+        switch(unit){
+
+            case 'feet':
+            case 'ft':
+                height *= 0.32808399;
+            break
+
+            case 'miles':
+            case 'mi':
+                height *= 0.1609344;
+            break
+
+            case 'km':
+            case 'kilometers':
+                height *= 0.001;
+            break;
+
+        }
+
+        //save
+        this.height = height;
+
+        //chainable
+        return this;
+    };
+
+    this.getHeight = function(pixelScale){
+        pixelScale = pixelScale || 1;
+        return pixelScale * this.height;
+    };
 
     this.distanceTo = function(geo){
 
@@ -3286,7 +3327,7 @@ var Geo = function(lat, lon, srs){
 
     this.to3D = function(projection, z){
         z = z || 0;
-        var coords = projection.translate3D(this.lat, this.lon);
+        var coords = projection.translate3D(this);
         return new THREE.Vector3(coords.x, coords.y, z);
     };
 
@@ -3294,7 +3335,65 @@ var Geo = function(lat, lon, srs){
 
 module.exports = Geo;
 
-},{"proj4":80,"three":115}],41:[function(require,module,exports){
+},{"proj4":80,"three":115}],40:[function(require,module,exports){
+var THREE = require('three');
+var d3 = require('d3-geo-mercator');
+
+module.exports = function(center, zoom){
+
+    //todo switch between projections [globe - map]
+	zoom = zoom || 20;
+
+	//create d3 projection
+	var projection = d3.geo.mercator()
+			.scale(Math.pow(2,zoom))
+			.center( center.toArray() );
+
+	this.translate = function(point){
+		return projection([point.lat, point.lon]);
+	};
+
+	//todo should be refactored
+	this.translate2D = function(point){
+		var coords = projection([point.lat, point.lon]);
+		return new THREE.Vector2(-coords[0], coords[1]);
+	};
+
+	this.translate3D = function(point){
+		var coords = projection([point.lat, point.lon]);
+		return new THREE.Vector3(-coords[0], coords[1], point.getHeight(this.pixelScale) );
+	};
+
+	this.reverse = function(vec3){
+
+		//reverse through projection
+		return projection.invert([vec3.x,vec3.y]);
+
+	};
+
+	//get pixel scale
+	var pixelScale = function(){
+
+		var offset = center.clone();
+		var pos1 = this.translate(center);
+		var pos2 = this.translate(offset);
+
+		//distance in meters
+		var meters = center.distanceTo(offset);
+		var pixels = Math.sqrt( Math.pow(pos2[0]-pos1[0],2) + Math.pow(pos2[1]-pos1[1],2) );
+
+		//ratios
+		this.pixelScale = meters / pixels;
+		this.meterScale = pixels / meters;
+
+	}.call(this);
+
+	//make public, maybe needed
+	this.d3 = projection;
+
+};
+
+},{"d3-geo-mercator":44,"three":115}],41:[function(require,module,exports){
 // extend one object with another object's property's (default is deep extend)
 // this works with circular references and is faster than other deep extend methods
 // http://jsperf.com/comparing-custom-deep-extend-to-jquery-deep-extend/2
