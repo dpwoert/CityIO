@@ -19,6 +19,7 @@ Math.easeInOutCubic = function (t, b, c, d) {
 	return c/2*(t*t*t + 2) + b;
 };
 
+//depricated!
 module.exports = function(from, to, completed){
 
 	return new THREE.Vector3(

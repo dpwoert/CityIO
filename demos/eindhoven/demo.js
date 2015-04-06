@@ -94,6 +94,21 @@ var init = function(){
         console.stack(e);
     });
 
+    document.addEventListener('keydown', function(e){
+
+        if(e.keyCode === 13){
+
+            var points = [
+                [new IO.classes.Geo(5.46406, 51.43169).setHeight(800), new IO.classes.Geo(5.48878, 51.44795).setHeight(100)],
+                [new IO.classes.Geo(5.49839, 51.43854).setHeight(100), new IO.classes.Geo(5.48878, 51.44795).setHeight(100)],
+                [new IO.classes.Geo(5.47161, 51.45651).setHeight(400), new IO.classes.Geo(5.48517, 51.42784).setHeight(200)]
+            ];
+
+            world.camera.animateTo(points, 20000);
+
+        }
+
+    });
 
 };
 

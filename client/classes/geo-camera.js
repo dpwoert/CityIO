@@ -11,9 +11,7 @@ module.exports = function(fov, aspect, near, far, group){
 	var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 	camera.needsUpdate = false;
 
-	//change z and y axis
-	// camera.up = new THREE.Vector3( 0, -1, -1 );
-
+	//make public
 	var convert = function(pos){
 
 		var converted = group.localToWorld(pos);
@@ -52,7 +50,6 @@ module.exports = function(fov, aspect, near, far, group){
 		var lookAt = convert( newPos );
 
 		camera.lookAt( lookAt );
-		console.log(lookAt);
 
 		//save
 		currentLook = lookAt.clone();
@@ -90,50 +87,86 @@ module.exports = function(fov, aspect, near, far, group){
 
 	};
 
-	camera.animateTo = function(to, lookTo, time, callback){
+	var processPoint = function(point){
 
-		var _to, _lookTo;
-		time = time || 2000;
+		if( point instanceof THREE.Vector3 ){
 
-		if(to instanceof THREE.Vector3 === false){
+			return point;
+
+		} else {
 
 			//generate to
-			_to = projection.translate3D(to);
-			_to = convert( _to );
-
-		} else {
-
-			//to already given
-			_to = to.clone();
+			_to = projection.translate3D(point);
+			return convert( _to );
 
 		}
 
-		if(lookTo instanceof THREE.Vector3 === false){
+	};
 
-			//generate look to
-			_lookTo = projection.translate3D(lookTo);
-			_lookTo = convert( _lookTo );
+	var createSpline = function(points){
 
-		} else {
+		var path;
 
-			// look to already given
-			_lookTo = lookTo.clone();
+		//position: create linear path when only 2 points
+		if( points.length === 2 ){
+
+			path = new THREE.Path();
+			path.fromPoints([ points[0], points[1] ]);
 
 		}
+
+		//position: create spline
+		else {
+
+			path = new THREE.SplineCurve3(points);
+
+		}
+
+		return path;
+
+	}
+
+	camera.animateTo = function(points, duration, callback){
+
+		var position = [];
+		var look = [];
+		duration = duration || 2000;
+
+		//add current position of camera to beginning of path
+		position.push( current.clone() );
+		look.push( currentLook.clone() );
+
+		//points must be array of multiple arrays
+		if( points[0] && points[0] instanceof Array === false ){
+			var _point = points;
+			points = [_point];
+		}
+
+		//progress all point given
+		for( var i = 0 ; i < points.length ; i++ ){
+
+			var point = points[i];
+			position.push( processPoint(point[0]) );
+			look.push( processPoint(point[1]) );
+
+		}
+
+		//create paths
+		var path = new THREE.SplineCurve3(position);
+		var pathLook = new THREE.SplineCurve3(look);
 
 		//save animation object for rendering
 		animation = {
 
 			'type': 'fly',
 
-			'from': current.clone(),
-			'lookFrom': currentLook.clone(),
-
-			'to': _to,
-			'lookTo': _lookTo,
+			'position': path,
+			'look': pathLook,
 
 			'timeFrom': +Date.now(),
-			'timeTo': +Date.now() + time
+			'timeTo': +Date.now() + duration,
+
+			'ease': Math.easeInOutCubic || options.ease
 
 		};
 
@@ -141,6 +174,8 @@ module.exports = function(fov, aspect, near, far, group){
 		if(callback){
 			animation.callback = callback;
 		}
+
+		console.log(animation);
 
 		//trigger rendering
 		camera.needsUpdate = true;
@@ -185,7 +220,7 @@ module.exports = function(fov, aspect, near, far, group){
 		//move to place?
 		if(!fromCallback){
 
-			camera.animateTo(startPoint, _look, 1000, function(){
+			camera.animateTo([startPoint, _look], 1000, function(){
 
 				//when on correct position start animating
 				camera.flyAround(center, radius, speed, true);
@@ -266,17 +301,19 @@ module.exports = function(fov, aspect, near, far, group){
 				}
 
 				//lerp and ease
-				var pos = IO.tools.lerp3(animation.from, animation.to, progress);
-				var look = IO.tools.lerp3(animation.lookFrom, animation.lookTo, progress);
+				debugger
+				var eased = animation.ease(progress, 0, 1, 1);
+				var position = animation.position.getPointAt(eased);
+				var look = animation.look.getPointAt(eased);
 
 				//do updating
-				camera.position.x = pos.x;
-				camera.position.y = pos.y;
-				camera.position.z = pos.z;
+				camera.position.copy(position);
 				camera.lookAt(look);
 
+				console.log(position);
+
 				//save current pos
-				current = pos.clone();
+				current = position.clone();
 				currentLook = look.clone();
 
 			} else {
