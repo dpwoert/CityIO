@@ -102,9 +102,9 @@ var init = function(){
 
             world.start();
 
-            var goTo = new IO.classes.Geo(5.246658, 51.679408).setHeight(300);
-            var lookAt = new IO.classes.Geo(5.246658, 51.89408).setHeight(100);
-            var flyAround = new IO.classes.Geo(5.30299, 51.68965).setHeight(300);
+            var goTo = new IO.classes.Geo(5.246658, 51.679408).setAltitude(300);
+            var lookAt = new IO.classes.Geo(5.246658, 51.89408).setAltitude(100);
+            var flyAround = new IO.classes.Geo(5.30299, 51.68965).setAltitude(300);
 
             //rotate camera
         	world.camera

@@ -23,7 +23,7 @@ module.exports = function(center, zoom){
 
 	this.translate3D = function(point){
 		var coords = projection([point.lat, point.lon]);
-		return new THREE.Vector3(-coords[0], coords[1], point.getHeight(this.pixelScale) );
+		return new THREE.Vector3(-coords[0], coords[1], point.getAltitude(this.pixelScale) );
 	};
 
 	this.reverse = function(vec3){

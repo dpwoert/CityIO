@@ -126,7 +126,7 @@ module.exports = function(url, params){
             //check for junk
             if(coordinate[0] !== 0 && coordinate[1] !== 0){
 
-                var point = new Geo(coordinate[0], coordinate[1]).setHeight(z);
+                var point = new Geo(coordinate[0], coordinate[1]).setAltitude(z);
                 var v3 = projection.translate3D(point);
 
                 // Push positions

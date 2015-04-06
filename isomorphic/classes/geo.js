@@ -8,7 +8,7 @@ var Geo = function(lat, lon, srs){
     this.srs = srs || 'EPSG:4326';
     this.height = 0; //meters
 
-    this.setHeight = function(height, unit){
+    this.setAltitude = function(height, unit){
 
         //convert when needed - always needs to be meters
         switch(unit){
@@ -37,7 +37,7 @@ var Geo = function(lat, lon, srs){
         return this;
     };
 
-    this.getHeight = function(pixelScale){
+    this.getAltitude = function(pixelScale){
         pixelScale = pixelScale || 1;
         return pixelScale * this.height;
     };

@@ -1487,7 +1487,7 @@ module.exports = function(url, params){
             //check for junk
             if(coordinate[0] !== 0 && coordinate[1] !== 0){
 
-                var point = new Geo(coordinate[0], coordinate[1]).setHeight(z);
+                var point = new Geo(coordinate[0], coordinate[1]).setAltitude(z);
                 var v3 = projection.translate3D(point);
 
                 // Push positions
@@ -3262,7 +3262,7 @@ var Geo = function(lat, lon, srs){
     this.srs = srs || 'EPSG:4326';
     this.height = 0; //meters
 
-    this.setHeight = function(height, unit){
+    this.setAltitude = function(height, unit){
 
         //convert when needed - always needs to be meters
         switch(unit){
@@ -3291,7 +3291,7 @@ var Geo = function(lat, lon, srs){
         return this;
     };
 
-    this.getHeight = function(pixelScale){
+    this.getAltitude = function(pixelScale){
         pixelScale = pixelScale || 1;
         return pixelScale * this.height;
     };
@@ -3400,7 +3400,7 @@ module.exports = function(center, zoom){
 
 	this.translate3D = function(point){
 		var coords = projection([point.lat, point.lon]);
-		return new THREE.Vector3(-coords[0], coords[1], point.getHeight(this.pixelScale) );
+		return new THREE.Vector3(-coords[0], coords[1], point.getAltitude(this.pixelScale) );
 	};
 
 	this.reverse = function(vec3){

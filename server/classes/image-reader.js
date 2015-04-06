@@ -52,11 +52,11 @@ module.exports = function(image, options){
 
                     //determine stepsize
         	        var stepSizeX = Math.floor(png.getWidth()/options.stepSize);
-        			var stepSizeY = Math.floor(png.getHeight()/options.stepSize);
+        			var stepSizeY = Math.floor(png.getAltitude()/options.stepSize);
 
                     var total = 0;
         	        for( var x = 0; x < png.getWidth() ; x+= stepSizeX ){
-        	        	for ( var y = 0; y < png.getHeight() ; y+= stepSizeY ){
+        	        	for ( var y = 0; y < png.getAltitude() ; y+= stepSizeY ){
         	        		var pixel = png.getPixel(x,y);
         	        		var value = translate(pixel);
                             values.push(value);
