@@ -24,7 +24,7 @@
     ],
     "dependencies": {
         "underscore": "1.7.0",
-        "three": "0.69.0",
+        "three": "0.70.0",
         "d3-geo-mercator": "0.0.0",
         "topojson": "1.6.18",
         "q": "1.1.2",
