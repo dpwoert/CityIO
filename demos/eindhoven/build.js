@@ -37,7 +37,7 @@ module.exports = function(){
         //get data from twitter
         .scraper(IO.scrapers.twitter, {
             q: 'eindhoven',
-            // geocode: boundingBox,
+            geocode: boundingBox,
             oauth: require('./build/twitter-credentials.js'),
             maxRequest: 300,
             zoom: 1
@@ -68,14 +68,8 @@ module.exports = function(){
         //     bbox: [min,max]
         // })
 
-        // .action(canvasMovie, {
-        //     'boundingBox': boundingBox,
-        //     'from': yesterday,
-        //     'to': new Date()
-        // })
-
         //get height data from AHN (Algemeen Hoogtebestand Nederland)
-        // .action(IO.scrapers.AHN)
+        .action(IO.scrapers.AHN)
 
         //make whitelist of data to keep
         .action(IO.tools.filter, {
@@ -93,7 +87,7 @@ module.exports = function(){
         .action(IO.tools.topoJSON, 'buildings')
 
         //save
-        // .save('demos/eindhoven/maps/buildings.topojson');
+        .save('demos/eindhoven/maps/buildings.topojson');
 
         return buildings.end();
 

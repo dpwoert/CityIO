@@ -27,4 +27,10 @@ module.exports = function(point1, point2){
         };
     };
 
+    this.getTiles = function(amount){
+
+        //todo create nr of tiles represented as boundingboxes within this boundingbox
+
+    };
+
 };

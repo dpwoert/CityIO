@@ -31,6 +31,7 @@ module.exports = {
 
     'tools': {
 
+        'earcut': require('./tools/earcut.js'),
         'filter': require('./tools/filter.js'),
         'map': require('./tools/map.js'),
         'removeDoubles': require('./tools/remove-doubles.js'),

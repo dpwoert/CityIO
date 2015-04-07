@@ -28,6 +28,8 @@ module.exports = function(){
             } else {
                 data = r;
             }
+        }, function(err){
+            throw new Error(err);
         });
 
         //save promise
@@ -56,7 +58,7 @@ module.exports = function(){
         //save data on resolve
         current.defer.promise.then(function(r){
             data = r;
-        }).catch(function(err){
+        }, function(err){
             throw new Error(err);
         });
 
