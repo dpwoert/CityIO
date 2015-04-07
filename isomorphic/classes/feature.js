@@ -1,4 +1,5 @@
 var Geo = require('./geo.js');
+var BoundingBox = require('./bounding-box.js');
 
 var Feature = function(data){
 
@@ -54,9 +55,23 @@ var Feature = function(data){
     };
 
     this.createPoint = function(point, properties){
-        list.push(point);
-        this.type = 'Point';
-        this.properties = properties || [];
+        this.parse({
+            geometry: {
+                type: 'Point',
+                coordinates: point
+            },
+            properties: properties || []
+        });
+    };
+
+    this.createPolygon = function(points, properties){
+        this.parse({
+            geometry: {
+                type: 'Polygon',
+                coordinates: points
+            },
+            properties: properties || []
+        });
     };
 
     this.each = function(callback){
@@ -111,7 +126,7 @@ var Feature = function(data){
         //get original geometry array back
         list.forEach(function(pos){
 
-            var multi = pos[0] instanceof Array;
+            var multi = pos instanceof Array;
 
             if(!multi){
                 _list.push( pos.toArray() );
@@ -132,17 +147,61 @@ var Feature = function(data){
 
     };
 
-    this.getCenter = function(){
+    this.getBounds = function(){
 
         var _list = this.getFlatArray();
+
+        //get min and max point from list
         var x = _list.map(function(a){ return a.lat });
         var y = _list.map(function(a){ return a.lon });
         var minX = Math.min.apply(null, x);
         var maxX = Math.max.apply(null, x);
         var minY = Math.min.apply(null, y);
         var maxY = Math.max.apply(null, y);
-        // return [(minX + maxX)/2, (minY + maxY)/2];
-        return new Geo((minX + maxX)/2, (minY + maxY)/2);
+
+        var min = new Geo(minX, minY);
+        var max = new Geo(maxX, maxY);
+
+        return new BoundingBox(min, max);
+
+    };
+
+    this.getCenter = function(){
+
+        var xSum = 0, ySum = 0, len = 0;
+
+        //get aritmic mean of all vertices of polygon
+        this.each(function(point) {
+            xSum += point.lat;
+            ySum += point.lon;
+            len++;
+        }, true);
+
+        return new Geo(xSum / len, ySum / len);
+
+    };
+
+    this.pointInside = function(point){
+
+        // ray-casting algorithm based on
+        // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+        // https://github.com/substack/point-in-polygon/
+
+        var allPoints = this.getFlatArray();
+
+        var x = point.lat, y = point.lat;
+
+        var inside = false;
+        for (var i = 0, j = allPoints.length - 1; i < allPoints.length; j = i++) {
+            var xi = allPoints[i].lat, yi = allPoints[i].lon;
+            var xj = allPoints[j].lat, yj = allPoints[j].lon;
+
+            var intersect = ((yi > y) != (yj > y))
+                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+        }
+
+        return inside;
 
     };
 

@@ -7,6 +7,7 @@ var PNGReader = require('png.js');
 var Geo = require('../../isomorphic/classes/geo.js');
 var Feature = require('../../isomorphic/classes/feature.js');
 var srs = require('../../isomorphic/tools/srs.js');
+var earcut = require('../tools/earcut.js');
 
 module.exports = function(finish, data, options){
 
@@ -152,7 +153,7 @@ module.exports = function(finish, data, options){
 
 			    	if(imagedata.indexOf('error')>0){
 			    		console.log('FAILED - error at their host | trying again | url: ' + url.href );
-			    		//getHeight(pos, zoom - 1, deferred);
+			    		getHeight(pos, zoom - 1, deferred);
 			    	}
 			    	else {
 
@@ -164,6 +165,7 @@ module.exports = function(finish, data, options){
 				    	//save to cache file
 				        fs.writeFile('tmp/' + cachePath, imagedata, 'binary', function(err){
 				            if (err) console.log('err');
+
 					        readHeight(tile.point, imagedata, urlProvider, deferred);
 				        });
 
@@ -195,6 +197,31 @@ module.exports = function(finish, data, options){
 
 	};
 
+	var getAverageHeights = function(collection, defer){
+
+		//list for promises of height
+		var promises = [];
+
+		collection.each(function(feature){
+
+			//create promise
+			var _defer = q.defer();
+			promises.push(_defer.promise);
+
+			//get height in center of triangle
+			var center = feature.getCenter();
+			getHeight(center, 14, _defer);
+
+		});
+
+		//wait for all heights to be gotten from server
+		q
+			.all(promises)
+			.then(function(r){
+				defer.resolve(r);
+			});
+	}
+
     //show log
     console.log('Load AHN scraper for ' + data.features.length + ' objects');
 
@@ -207,13 +234,7 @@ module.exports = function(finish, data, options){
 
         //get center
         var feature = new Feature().parse(child);
-        var center = feature.getCenter();
-
-		//prevent retrieving data when position is non existing
-		if(isNaN(center.lat) || isNaN(center.lon)){
-			console.log('invalid center', feature);
-			return false;
-		}
+		var triangulate = earcut(feature);
 
 		//get last promise (when available)
 		var lastPromise = promiseList[promiseList.length - 1];
@@ -228,19 +249,25 @@ module.exports = function(finish, data, options){
 			//create promise chain to not stress CPU
 			lastPromise
 				.then(function(){
-					getHeight(this.center, 14, this.deferred);
-				}.bind({ 'center': center, 'deferred': deferred }));
+					getAverageHeights(this.triangulate, this.deferred);
+				}.bind({ 'triangulate': triangulate, 'deferred': deferred }));
 
 		} else {
+
 			//no promise yet
-			getHeight(center, 14, deferred);
+			getAverageHeights(triangulate, deferred);
+
 		}
 
         //save
-        deferred.promise.then(function(height){
+        deferred.promise.then(function(heights){
 
-            child.properties.height = height.calculated;
-            child.properties.floor = height.floor;
+			//get max height found within object
+			var _heights = heights.map(function(a){ return a.calculated });
+	        var maxHeight = Math.max.apply(null, _heights);
+
+            child.properties.height = maxHeight;
+            child.properties.floor = heights[0].floor;
             done++;
 
             //log progress
