@@ -6,32 +6,32 @@ var Geo = function(lat, lon, srs){
     this.lat = lat;
     this.lon = lon;
     this.srs = srs || 'EPSG:4326';
-    this.height = 0; //meters
+    this.altitude = 0; //meters
 
-    this.setAltitude = function(height, unit){
+    this.setAltitude = function(altitude, unit){
 
         //convert when needed - always needs to be meters
         switch(unit){
 
             case 'feet':
             case 'ft':
-                height *= 0.32808399;
+                altitude *= 0.32808399;
             break
 
             case 'miles':
             case 'mi':
-                height *= 0.1609344;
+                altitude *= 0.1609344;
             break
 
             case 'km':
             case 'kilometers':
-                height *= 0.001;
+                altitude *= 0.001;
             break;
 
         }
 
         //save
-        this.height = height;
+        this.altitude = altitude;
 
         //chainable
         return this;
@@ -39,7 +39,7 @@ var Geo = function(lat, lon, srs){
 
     this.getAltitude = function(pixelScale){
         pixelScale = pixelScale || 1;
-        return pixelScale * this.height;
+        return pixelScale * this.altitude;
     };
 
     this.distanceTo = function(geo){
@@ -91,7 +91,13 @@ var Geo = function(lat, lon, srs){
     }
 
     this.clone = function(){
-        return new Geo(this.lat, this.lon);
+        var point = new Geo(this.lat, this.lon, this.srs);
+
+        //also clone altitude
+        point.altitude = this.altitude;
+
+        return point;
+
     };
 
     this.copy = function(geo){
