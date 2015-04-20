@@ -7,7 +7,7 @@
         { "name": "Jesse van Rheenen" },
         { "name": "Yannick Diezenberg" }
     ],
-    "main": "export/cityio.isomorphic.js",
+    "main": "index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/dpwoert/CityIO/"
