@@ -37,6 +37,8 @@ module.exports = function(center, zoom){
 	var pixelScale = function(){
 
 		var offset = center.clone();
+		offset.lat += 0.1;
+		offset.lon += 0.1;
 		var pos1 = this.translate(center);
 		var pos2 = this.translate(offset);
 
