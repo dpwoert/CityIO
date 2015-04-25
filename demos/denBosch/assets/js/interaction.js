@@ -1,5 +1,0 @@
-interaction = function(world){
-
-    //todo
-
-};
