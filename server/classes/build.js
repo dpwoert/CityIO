@@ -50,13 +50,13 @@ module.exports = function(){
         // options.exportLibs = options.exportLibs || false;
 
         //create temp file?
-        var tmpName = 'buildscript.'+ Date.now() +'.js';
+        var tmpName = __dirname + '/../../buildscript.'+ Date.now() +'.js';
         var tmp = load();
         fs.writeFileSync(tmpName, tmp);
 
         //build
         browserify()
-            .add('./' + tmpName)
+            .add(tmpName)
             .bundle(function(err, content){
 
                 fs.unlinkSync(tmpName);
