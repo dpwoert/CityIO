@@ -2,6 +2,7 @@ module.exports = function(req){
 
     switch(req){
 
+        case 'classes.VR': return 'classes/vr.js';
         case 'classes.Cycle': return 'classes/cycle.js';
         case 'classes.CameraPath': return 'classes/camera-path.js';
         case 'build.areas': return 'build/areas.js';

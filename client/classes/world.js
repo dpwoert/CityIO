@@ -37,8 +37,8 @@ module.exports = function(canvas, projection, FXlist){
 	this.render = new IO.classes.RenderManager();
 
 	//add to the list of renderable function
-	this.render.add(this.camera.render, this.camera.pause);
-	this.render.add(this.FX.render);
+	this.render.add('controls', this.camera.render);
+	this.render.add('fx', this.FX.render);
 	// this.render.add(this.renderer.render);
 
 	//add preloader
