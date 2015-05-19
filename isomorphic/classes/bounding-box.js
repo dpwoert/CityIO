@@ -2,6 +2,9 @@ var Geo = require('./geo.js');
 
 module.exports = function(point1, point2){
 
+    point1 = new Geo() || point1;
+    point2 = new Geo() || point2;
+
     //creat points
     this.ne = point1.clone();
     this.nw = new Geo(point1.lat, point2.lon);
@@ -13,11 +16,13 @@ module.exports = function(point1, point2){
     };
 
     this.inBox = function(point){
-        //todo
+        return
+            point.lat > this.ne.lat && point.lat < this.nw.lat &&
+            point.lon > this.sw.lon && point.lon < this.nw.lon;
     };
 
     this.getCenter = function(){
-        return point1.lerp(point2, 0.5);
+        return this.ne.lerp(this.sw, 0.5);
     };
 
     this.getRadius = function(){
@@ -25,6 +30,12 @@ module.exports = function(point1, point2){
             'center': this.getCenter(),
             'radius': point1.distanceTo(point2)
         };
+    };
+
+    this.fromRadius = function(point, radius){
+
+        //todo
+
     };
 
     this.getTiles = function(amount){

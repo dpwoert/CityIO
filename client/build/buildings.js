@@ -109,7 +109,8 @@ module.exports = function(world){
 	};
 
 	//add all buildings from list
-	var buildings = data.get().splice(0,15000);
+	// var buildings = data.get().splice(0,15000);
+	var buildings = data.get();
 	for( var i = 0 ; i < buildings.length ; i++ ){
 
 		this.render.push(function(){

@@ -301,7 +301,6 @@ module.exports = function(fov, aspect, near, far, group){
 				}
 
 				//lerp and ease
-				debugger
 				var eased = animation.ease(progress, 0, 1, 1);
 				var position = animation.position.getPointAt(eased);
 				var look = animation.look.getPointAt(eased);
@@ -309,8 +308,6 @@ module.exports = function(fov, aspect, near, far, group){
 				//do updating
 				camera.position.copy(position);
 				camera.lookAt(look);
-
-				console.log(position);
 
 				//save current pos
 				current = position.clone();

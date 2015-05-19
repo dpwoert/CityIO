@@ -68,7 +68,7 @@ var Geo = function(lat, lon, srs){
 
         //convert to another SRS when needed
         if(srs != this.srs){
-            var coord = proj4(this.srs, srs, [this.lat, this.lon]);
+            var coord = proj4(this.srs, srs, this.toArray());
             this.lat = coord[0];
             this.lon = coord[1];
             this.srs = srs;
@@ -87,7 +87,11 @@ var Geo = function(lat, lon, srs){
     };
 
     this.equals = function(geo){
-        return this.lat === geo.lat && this.lon === geo.lon;
+        return
+            this.lat === geo.lat &&
+            this.lon === geo.lon &&
+            this.srs === geo.srs && 
+            this.altitude === geo.altitude;
     }
 
     this.clone = function(){
@@ -103,6 +107,9 @@ var Geo = function(lat, lon, srs){
     this.copy = function(geo){
         this.lat = geo.lat;
         this.lon = geo.lon;
+        this.srs = geo.srs;
+
+        return this;
     };
 
     this.fromArray = function(pos){
