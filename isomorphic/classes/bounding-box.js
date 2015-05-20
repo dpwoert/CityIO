@@ -22,7 +22,7 @@ module.exports = function(point1, point2){
     };
 
     this.getCenter = function(){
-        return this.ne.lerp(this.sw, 0.5);
+        return this.ne.interpolate(this.sw, 0.5);
     };
 
     this.getRadius = function(){
@@ -34,7 +34,10 @@ module.exports = function(point1, point2){
 
     this.fromRadius = function(point, radius){
 
-        //todo
+        // http://williams.best.vwh.net/avform.htm#LL
+        // lat =asin(sin(lat1)*cos(d)+cos(lat1)*sin(d)*cos(tc))
+        // dlon=atan2(sin(tc)*sin(d)*cos(lat1),cos(d)-sin(lat1)*sin(lat))
+        // lon=mod( lon1-dlon +pi,2*pi )-pi
 
     };
 

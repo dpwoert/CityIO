@@ -57,10 +57,38 @@ var Geo = function(lat, lon, srs){
 
     };
 
-    //linear interpolate to position (alpha between 0,1)
-    this.lerp = function(destination, alpha){
-        var lat = this.lat * (1 - alpha) + destination.lat * alpha;
-		var lon = this.lon * (1 - alpha) + destination.lon * alpha;
+    this.getRadians = function(){
+
+        var point = this.clone();
+        point.convert('EPSG:4326');
+
+        return {
+            lat: (point.lat * (Math.PI / 180)),
+            lon: (point.lon * (Math.PI / 180))
+        };
+
+    }
+
+    //interpolate to position (alpha between 0,1)
+    this.interpolate = function(destination, alpha){
+
+        var start = this.getRadians();
+        var end = destination.getRadians();
+
+        //http://williams.best.vwh.net/avform.htm#Intermediate
+        var d = Math.acos(Math.sin(start.lat)*Math.sin(end.lat)+Math.cos(start.lat)*Math.cos(end.lat)*Math.cos(start.lon-end.lon))
+        var A = Math.sin( (1-alpha) * d ) / Math.sin(d);
+        var B = Math.sin( alpha * d ) / Math.sin(d);
+        var x = A * Math.cos( start.lat ) * Math.cos( start.lon ) + B * Math.cos( end.lat ) * Math.cos( end.lon );
+        var y = A * Math.cos( start.lat ) * Math.sin( start.lon ) + B * Math.cos( end.lat ) * Math.sin( end.lon );
+        var z = A * Math.sin( start.lat ) + B * Math.sin( end.lat );
+
+        var lat = Math.atan2( z, Math.sqrt( Math.pow(x,2)+Math.pow(y,2) ) );
+        var lon = Math.atan2( y, x );
+
+        lat = (180.0 * (lat / Math.PI))
+        lon = (180.0 * (lon / Math.PI))
+
 		return new Geo(lat, lon);
     };
 
