@@ -16,12 +16,12 @@ var Geo = function(lat, lon, srs){
             case 'feet':
             case 'ft':
                 altitude *= 0.32808399;
-            break
+            break;
 
             case 'miles':
             case 'mi':
                 altitude *= 0.1609344;
-            break
+            break;
 
             case 'km':
             case 'kilometers':
@@ -78,19 +78,16 @@ var Geo = function(lat, lon, srs){
     };
 
     this.round = function(decimal){
-        if(!decimal){
-            this.lat = Math.round(this.lat);
-            this.lon = Math.round(this.lon);
-        } else {
-            //todo
-        }
+        decimal = decimal || 3;
+        this.lat = parseFloat(this.lat).toFixed(decimal);
+        this.lon = parseFloat(this.lon).toFixed(decimal);
     };
 
     this.equals = function(geo){
         return
             this.lat === geo.lat &&
             this.lon === geo.lon &&
-            this.srs === geo.srs && 
+            this.srs === geo.srs &&
             this.altitude === geo.altitude;
     }
 
