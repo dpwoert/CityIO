@@ -35,6 +35,7 @@ module.exports = function(point1, point2){
     this.fromRadius = function(point, radius){
 
         // http://williams.best.vwh.net/avform.htm#LL
+        // var tc = point.getCourse();
         // lat =asin(sin(lat1)*cos(d)+cos(lat1)*sin(d)*cos(tc))
         // dlon=atan2(sin(tc)*sin(d)*cos(lat1),cos(d)-sin(lat1)*sin(lat))
         // lon=mod( lon1-dlon +pi,2*pi )-pi

@@ -42,7 +42,7 @@ var Geo = function(lat, lon, srs){
         return pixelScale * this.altitude;
     };
 
-    this.distanceTo = function(geo){
+    this.distanceTo = function(geo, unit){
 
         //http://stackoverflow.com/questions/639695/how-to-convert-latitude-or-longitude-to-meters
         var R = 6378.137; // Radius of earth in KM
@@ -53,8 +53,31 @@ var Geo = function(lat, lon, srs){
         Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
-        return d * 1000; // meters
 
+        switch(unit){
+
+            //nautical miles
+            case 'nm':
+            case 'nmi':
+                return d * 0.539956803;
+
+            //km
+            case 'km':
+                return d;
+
+            //meters
+            case 'm':
+            default:
+                return d*1000;
+
+        }
+
+        // return d * 1000; // meters
+
+    };
+
+    this.inRadius = function(radius, point){
+        return this.distanceTo(point) < radius;
     };
 
     this.getRadians = function(){
@@ -67,7 +90,23 @@ var Geo = function(lat, lon, srs){
             lon: (point.lon * (Math.PI / 180))
         };
 
-    }
+    };
+
+    this.getCourse = function(destination){
+
+        var d = this.distanceTo(destination, 'nm');
+
+        if ( Math.sin( destination.lon - this.lon ) < 0 ){
+
+            return Math.acos((Math.sin(destination.lat)-Math.sin(this.lat)*Math.cos(d))/(Math.sin(d)*Math.cos(this.lat)));
+
+        } else{
+
+            return 2*Math.PI-Math.acos((Math.sin(destination.lat)-Math.sin(this.lat)*Math.cos(d))/(Math.sin(d)*Math.cos(this.lat)));
+
+        }
+
+    };
 
     //interpolate to position (alpha between 0,1)
     this.interpolate = function(destination, alpha){
@@ -76,7 +115,8 @@ var Geo = function(lat, lon, srs){
         var end = destination.getRadians();
 
         //http://williams.best.vwh.net/avform.htm#Intermediate
-        var d = Math.acos(Math.sin(start.lat)*Math.sin(end.lat)+Math.cos(start.lat)*Math.cos(end.lat)*Math.cos(start.lon-end.lon))
+        // var d = Math.acos(Math.sin(start.lat)*Math.sin(end.lat)+Math.cos(start.lat)*Math.cos(end.lat)*Math.cos(start.lon-end.lon))
+        var d = this.distanceTo(destination, 'nm');
         var A = Math.sin( (1-alpha) * d ) / Math.sin(d);
         var B = Math.sin( alpha * d ) / Math.sin(d);
         var x = A * Math.cos( start.lat ) * Math.cos( start.lon ) + B * Math.cos( end.lat ) * Math.cos( end.lon );
