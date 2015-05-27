@@ -109,7 +109,6 @@ module.exports = function(world){
 	};
 
 	//add all buildings from list
-	// var buildings = data.get().splice(0,15000);
 	var buildings = data.get();
 	for( var i = 0 ; i < buildings.length ; i++ ){
 
@@ -117,9 +116,16 @@ module.exports = function(world){
 
 			createBuilding( this.object.get3D(world.projection), this.object.properties );
 
+			//clear from memory
+			this.object.destroy();
+			this.object = undefined;
+
 			//end?
 			if(this.current >= buildings.length - 1){
 				finalise();
+
+				//clear from memory
+				data.destroy();
 			}
 
 		}.bind({ object: buildings[i], current: i }));

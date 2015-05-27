@@ -82,11 +82,17 @@ module.exports = function(world){
 		this.render.push(function(){
 
 			createTube( this.object.get3D(world.projection, options.height) );
+
+			//clear from memory
+			this.object.destroy();
 			this.object = undefined;
 
 			//end?
 			if(this.current >= roads.length - 1){
 				finalise();
+
+				//clear from memory
+				data.destroy();
 			}
 
 		}.bind({ object: roads[i], current: i }));
