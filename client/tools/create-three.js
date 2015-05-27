@@ -1,17 +1,9 @@
 var THREE = require('three');
 
-module.exports = function(canvas, minHeight){
+module.exports = function(canvas){
 
-	var width = window.innerWidth;
-	var height = window.innerHeight;
-
-	if(width < 1024){
-		width = 1024;
-	}
-
-	if(minHeight){
-		height = minHeight;
-	}
+	var width = canvas.parentNode.offsetWidth;
+	var height = canvas.parentNode.offsetHeight;
 
 	this.renderer = new THREE.WebGLRenderer( { antialias: true } );
 	this.renderer.setClearColor( 0xFFFFFF, 1 );
