@@ -1,5 +1,6 @@
 var THREE = require('three');
-var q = require('q-xhr')(window.XMLHttpRequest, require('q'))
+var q = require('q');
+var request = require('../tools/request.js');
 var topojson = require('topojson');
 
 module.exports = function(url, params){
@@ -46,48 +47,44 @@ module.exports = function(url, params){
         //request data from server
         else {
 
-            q.xhr
-                .get(url)
-                .then(function(data){
+            request(url, function(data){
 
-                    //convert to JSON
-                    data = JSON.parse(data.data);
+                //convert to JSON
+                data = JSON.parse(data.data);
 
-                    console.log('ext', ext);
+                console.log('ext', ext);
 
-                    //get type and possibly convert
-                    switch(ext.toLowerCase()){
+                //get type and possibly convert
+                switch(ext.toLowerCase()){
 
-                        case 'topojson':
+                    case 'topojson':
 
-                            var key = params || filename;
-                            data = convertTopo(data, key);
-                            console.log('converted to topo');
+                        var key = params || filename;
+                        data = convertTopo(data, key);
+                        console.log('converted to topo');
 
-                        case 'geojson':
-                            type = 'geoJSON';
-                        break;
+                    case 'geojson':
+                        type = 'geoJSON';
+                    break;
 
-                        default:
-                            type = 'json';
-                        break;
+                    default:
+                        type = 'json';
+                    break;
 
-                    }
+                }
 
-                    console.log(type);
+                console.log(type);
 
-                    //save in object
-                    rawData = data;
+                //save in object
+                rawData = data;
 
-                    //resolve (chainable)
-                    defer.resolve(self);
+                //resolve (chainable)
+                defer.resolve(self);
 
-                    //load change
-                    isLoaded = true;
+                //load change
+                isLoaded = true;
 
-                },function(){
-                    console.error('error retrieving map data');
-                });
+            });
 
             return defer.promise;
 

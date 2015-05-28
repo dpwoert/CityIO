@@ -35,6 +35,7 @@ module.exports = {
         'lerp3': require('./tools/lerp-3d.js'),
         'mergeMaps': require('./tools/merge-maps.js'),
         'parseHeight': require('./tools/parse-height.js'),
+        'request': require('./tools/request.js'),
 
     },
 
