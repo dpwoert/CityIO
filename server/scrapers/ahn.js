@@ -1,7 +1,6 @@
-var q = require('q');
 var fs = require('fs');
-var http = require('http');
-var url = require('url');
+var q = require('q');
+var request = require('request');
 var PNGReader = require('png.js');
 
 var Geo = require('../../isomorphic/classes/geo.js');
@@ -124,62 +123,34 @@ module.exports = function(finish, data, options){
 
 		//get tile
 		var tile = getTile(pos, zoom);
-		var urlProvider = 'http://ahn.geodan.nl/ahn/viewer3/cgi-bin/tilecache/tilecache.py/1.0.0/iahn2/'+tile.z+'/'+tile.x+'/'+tile.y+'.png';
+		var urlProvider = 'http://geodata.nationaalgeoregister.nl/tiles/service/wmts/ahn2?service=wmts&request=getTile&version=1.0.0&layer=ahn2_05m_non&tilematrixset=EPSG:28992&tilematrix=EPSG:28992:'+tile.z+'&tilerow='+tile.x+'&tilecol='+tile.y+'&format=image/png';
+		// var urlProvider = 'http://ahn.geodan.nl/ahn/viewer3/cgi-bin/tilecache/tilecache.py/1.0.0/iahn2/'+tile.z+'/'+tile.x+'/'+tile.y+'.png';
 		var cachePath = 'tmp.' + tile.z + '-' + tile.x + '-' + tile.y + '.png';
+
 
 		//get file from web
 		var getfile = function(){
 
-			//get from web so prepare connection
-			url = url.parse(urlProvider);
-		    var options = {
-		    	host: url.hostname, port: 80, path: url.pathname,
-		    	// headers: { "connection": "keep-alive", "Referer": "http://ahn.geodan.nl/ahn/"}
-		    };
+			request
+				.get({
+					url: urlProvider,
+					encoding: null
+				})
+				.pipe(fs.createWriteStream('tmp/' + cachePath))
+				.on('error', function(error){
 
-		    //get from the interwebz
-		    http.get(options, function(res){
-			    var imagedata = '';
-			    res.setEncoding('binary');
-			    // console.log('get url ' + urlProvider);
+					console.error("Got error: " + error.message);
+					console.log('Url: ', urlProvider)
+					console.log("Retry");
+					getHeight(pos, zoom, deferred);
 
-			    //received more data
-			    res.on('data', function(chunk){
-			        imagedata += chunk;
-			    })
+				})
+				.on('finish', function(image){
 
-			    //image completed
-			    res.on('end', function(){
+					var file = fs.readFileSync('tmp/' + cachePath);
+					readHeight(tile.point, file, urlProvider, deferred);
 
-			    	if(imagedata.indexOf('error')>0){
-			    		console.log('FAILED - error at their host | trying again | url: ' + url.href );
-			    		getHeight(pos, zoom - 1, deferred);
-			    	}
-			    	else {
-
-                        //create temp. dir when needed
-                        if(!fs.existsSync('tmp')){
-                            fs.mkdirSync('tmp', 0766);
-                        }
-
-				    	//save to cache file
-				        fs.writeFile('tmp/' + cachePath, imagedata, 'binary', function(err){
-				            if (err) console.log('err');
-
-					        readHeight(tile.point, imagedata, urlProvider, deferred);
-				        });
-
-			    	}
-
-			    })
-
-			}).on('error', function(e) {
-
-				console.error("Got error: " + e.message);
-				console.log("retry");
-				getHeight(pos, zoom, deferred);
-
-			});
+				});
 
 	   	};
 
@@ -228,6 +199,11 @@ module.exports = function(finish, data, options){
     //queue
     var promiseList = [];
     var done = 0;
+
+	//create temp. dir when needed
+	if(!fs.existsSync('tmp')){
+		fs.mkdirSync('tmp', 0766);
+	}
 
     //add height data to feature
     data.features.forEach(function(child, i){
