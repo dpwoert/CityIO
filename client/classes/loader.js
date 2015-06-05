@@ -1,4 +1,4 @@
-module.exports = function(){
+module.exports = function(world){
 
     //defer object needed in promises
     var self = this;
@@ -34,7 +34,8 @@ module.exports = function(){
         }
 
         //show we're now downloading
-        this.state('downloading');
+        world.events.dispatchEvent({ type: 'preloader', state: 'downloading' });
+        this.state = 'downloading';
 
         //create grouped promise
         var loadPromise = q.all(loadList);
@@ -65,7 +66,8 @@ module.exports = function(){
         var self = this;
 
         //we're now rendering
-        this.state('rendering');
+        world.events.dispatchEvent({ type: 'preloader', state: 'rendering' });
+        this.state = 'rendering';
 
         //determine how many objects to render
         for( var i = 0 ; i < list.length ; i++ ){
@@ -102,12 +104,13 @@ module.exports = function(){
                     var progress = rendered / objects;
 
                     //update hook
-                    self.update(progress);
+                    world.events.dispatchEvent({ type: 'preloader-update', progress: progress });
 
                     //finished?
                     if(rendered === objects){
                         finish();
-                        self.state('loaded');
+                        world.events.dispatchEvent({ type: 'preloader', state: 'loaded' });
+                        self.state = 'loaded';
                         defer.resolve();
                     }
 
@@ -122,18 +125,8 @@ module.exports = function(){
 
     };
 
-    this.update = function(progress){
-
-        console.log('loaded: ' + Math.round(progress * 100) + '%');
-
-    };
-
-    //hook for changes of state [idle, downloading, rendering, done]
-    this.state = function(state){
-        console.log('state', state );
-    };
-
     //set initial state to idle
-    this.state('idle');
+    world.events.dispatchEvent({ type: 'preloader', state: 'idle' });
+    this.state = 'idle';
 
 };
