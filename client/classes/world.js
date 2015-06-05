@@ -45,7 +45,7 @@ module.exports = function(canvas, projection, FXlist){
 	// this.render.add(this.renderer.render);
 
 	//add preloader
-	this.preloader = new IO.classes.Loader();
+	this.preloader = new IO.classes.Loader(world);
 
 	world.events.dispatchEvent({ type: 'created' });
 
