@@ -9,7 +9,9 @@ module.exports = function(group, scene){
 
 		var object = group.children[i];
 
-		scene.remove(object);
+		if(scene){
+			scene.remove(object);
+		}
 		group.remove(object);
 
 		if (object.geometry) {
